@@ -34,6 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Rainbow.Data\Rainbow.Data.csproj" />
     <ProjectReference Include="..\Rainbow.Platform.Controllers\Rainbow.Platform.Controllers.csproj" />
+    <ProjectReference Include="..\Rainbow.Schemas\Rainbow.Schemas.csproj" />
     <ProjectReference Include="..\Rainbow.Services\Rainbow.Services.csproj" />
   </ItemGroup>
 

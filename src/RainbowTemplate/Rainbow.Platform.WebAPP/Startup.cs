@@ -1,4 +1,4 @@
-using System.Buffers;
+﻿using System.Buffers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Rainbow.Schemas;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Rainbow.Platform.WebAPP
@@ -45,6 +46,8 @@ namespace Rainbow.Platform.WebAPP
                 options.OutputFormatters.Insert(0, jsonOutputFormatter);
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddGraphQL();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -73,6 +76,8 @@ namespace Rainbow.Platform.WebAPP
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseGraphQL();
 
             app.UseMvc(routes =>
             {
