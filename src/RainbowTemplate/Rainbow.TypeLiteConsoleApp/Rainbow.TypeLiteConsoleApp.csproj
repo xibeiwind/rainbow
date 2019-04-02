@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;EnableIdentity</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rainbow.Platform.Controllers\Rainbow.Platform.Controllers.csproj" />
+    <ProjectReference Include="..\Rainbow.ViewModels\Rainbow.ViewModels.csproj" />
+    <ProjectReference Include="..\TypeLite.Standard\TypeLite.Standard.csproj" />
+  </ItemGroup>
+
+</Project>

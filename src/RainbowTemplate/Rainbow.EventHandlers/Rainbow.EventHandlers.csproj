@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Yunyong.Core" Version="1.0.7" />
+    <PackageReference Include="Yunyong.EventBus" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rainbow.Common\Rainbow.Common.csproj" />
+    <ProjectReference Include="..\Rainbow.Events\Rainbow.Events.csproj" />
+    <ProjectReference Include="..\Rainbow.Models\Rainbow.Models.csproj" />
+  </ItemGroup>
+
+</Project>

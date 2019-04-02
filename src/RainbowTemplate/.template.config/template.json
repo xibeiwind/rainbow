@@ -1,0 +1,38 @@
+﻿{
+  "author": "Alex Chen",
+  "classifications": [
+    "Web/MVC"
+  ],
+  "name": "Rainbow",
+  "identity": "RainbowTemplate",
+  "shortName": "rainbow",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "Rainbow",
+  "preferNameDirectory": true,
+  "symbols": {
+    "EnableSwagger": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "EnableIdentity": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true"
+    }
+  },
+
+  "exclude": [
+    "**/[Bb]in/**",
+    "**/[Oo]bj/**",
+    ".template.config/**/*",
+    "**/*.filelist",
+    "**/*.user",
+    "**/*.lock.json",
+    "**/ClientApp/node_modules/**/*",
+    ".vs/**/*"
+  ]
+}

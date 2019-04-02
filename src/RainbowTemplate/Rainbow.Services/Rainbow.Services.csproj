@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Yunyong.DataExchange" Version="1.3.1" />
+    <PackageReference Include="Yunyong.SqlUtils" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rainbow.Services.Abstractions\Rainbow.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\Rainbow.Events\Rainbow.Events.csproj" />
+    <ProjectReference Include="..\Rainbow.Models\Rainbow.Models.csproj" />
+  </ItemGroup>
+
+</Project>

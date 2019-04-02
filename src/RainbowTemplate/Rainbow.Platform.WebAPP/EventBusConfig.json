@@ -1,0 +1,11 @@
+{
+  "EventBusConfig": {
+    "HostName": "localhost",
+    "VirtualHost": "/Rainbow",
+    "UserName": "flash",
+    "Password": "thunder",
+    "PrefetchCount": 1,
+    "RetryCount": 5,
+    "Prefix": "Rainbow"
+  }
+}
