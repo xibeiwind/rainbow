@@ -1,1 +1,1 @@
-dotnet new -i /RainbowTemplate
+dotnet new -i RainbowTemplate
