@@ -9,7 +9,8 @@ namespace Rainbow.ViewModels.Users
 {
     public class RegisterUserVM : CreateVM
     {
-
+        public string Phone { get; set; }
+        public string Name { get; set; }
     }
 
     public class LoginVM
