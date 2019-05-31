@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rainbow.ViewModels.Utils
 {
-    public class SendSmsResultVM
+    /// <summary>
+    ///     短信验证结果反馈
+    /// </summary>
+    [Display(Name = "短信验证结果反馈")]
+    public class VerifyingSmsCodeResultVM
     {
         /// <summary>
         ///     成功失败
@@ -15,14 +16,15 @@ namespace Rainbow.ViewModels.Utils
         public bool State { get; set; }
 
         /// <summary>
+        ///     Token
+        /// </summary>
+        [Display(Name = "Token")]
+        public Guid Token { get; set; }
+
+        /// <summary>
         ///     提示信息
         /// </summary>
         [Display(Name = "提示信息")]
         public string Message { get; set; }
-        /// <summary>
-        ///     验证码
-        /// </summary>
-        [Display(Name = "验证码")]
-        public string SmsCode { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Rainbow.ViewModels.Users;
 using Yunyong.Core;
 
-namespace Rainbow.Services.Abstractions
+namespace Rainbow.Services.Abstractions.Users
 {
     public interface IUserAccountService
     {
@@ -14,11 +14,6 @@ namespace Rainbow.Services.Abstractions
         [Display(Name = "用户注册")]
         Task<AsyncTaskTResult<UserVM>> RegisterAsync(RegisterUserVM vm);
 
-        /// <summary>
-        ///     用户登录验证
-        /// </summary>
-        [Display(Name = "用户登录验证")]
-        Task<LoginResultVM> LoginAsync(LoginVM vm);
         /// <summary>
         ///     手机号码短信登录
         /// </summary>
@@ -31,17 +26,9 @@ namespace Rainbow.Services.Abstractions
         Task<AsyncTaskResult> SendLoginSmsAsync(SendLoginSmsVM vm);
 
         /// <summary>
-        ///     忘记密码发送短信验证
-        /// </summary>
-        [Display(Name = "忘记密码发送短信验证")]
-        Task<AsyncTaskResult> ForgetPasswordAsync(ForgetPasswordVM vm);
-
-        /// <summary>
         ///     获取用户信息
         /// </summary>
         [Display(Name = "获取用户信息")]
         Task<UserVM> GetUserAsync(Guid userId);
-
-        Task<AsyncTaskTResult<string>> GetUserAvatarUrlAsync(Guid userId);
     }
 }

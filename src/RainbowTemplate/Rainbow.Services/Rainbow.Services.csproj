@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Rainbow.Models\Rainbow.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Users\" />
-  </ItemGroup>
-
 </Project>

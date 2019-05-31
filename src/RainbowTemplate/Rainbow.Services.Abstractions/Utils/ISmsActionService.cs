@@ -11,13 +11,5 @@ namespace Rainbow.Services.Abstractions.Utils
     public interface ISmsActionService
     {
         Task<SendSmsResultVM> SendSms(string phone, TplType tplType);
-
-
-    }
-
-    public interface ISmsQueryService
-    {
-        Task<VerifyingSmsCodeResultVM> VerifyingSmsCode(VerifyingSmsCodeRequestVM vm); // string phone, string code, TplType codeType);
-
     }
 }

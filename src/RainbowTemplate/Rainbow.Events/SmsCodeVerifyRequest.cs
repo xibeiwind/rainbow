@@ -7,10 +7,10 @@ using Yunyong.EventBus;
 
 namespace Rainbow.Events
 {
-    public class SendSmsCodeRequest : EventRequest
+    public class SmsCodeVerifyRequest : EventRequest
     {
         public string Phone { get; set; }
-        public TplType Type { get; set; }
-        public string Code { get; set; }
+        public TplType CodeType { get; set; }
+        public string SmsCode { get; set; }
     }
 }

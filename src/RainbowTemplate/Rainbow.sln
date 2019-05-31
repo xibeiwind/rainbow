@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Identity.WebAPI", "Rainbow.Identity.WebAPI\Rainbow.Identity.WebAPI.csproj", "{C9E70C75-B025-428F-88E7-05A6AA3B3FDE}"
 EndProject
@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeLite.Standard", "TypeLi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.TypeLiteConsoleApp", "Rainbow.TypeLiteConsoleApp\Rainbow.TypeLiteConsoleApp.csproj", "{2CC90343-9124-449D-AF48-096F1B4B21EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.Schemas", "Rainbow.Schemas\Rainbow.Schemas.csproj", "{C9433434-2021-4108-970C-4E62AC85DB91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Schemas", "Rainbow.Schemas\Rainbow.Schemas.csproj", "{C9433434-2021-4108-970C-4E62AC85DB91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{819CD9D1-E6C2-462D-BE57-2B461EB876DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -219,6 +221,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C9E70C75-B025-428F-88E7-05A6AA3B3FDE} = {D85130B4-8AC8-4DAC-83E3-E3BBDC7DCE61}
+		{FAFBB341-8695-45D5-9851-4AD34EF7108B} = {819CD9D1-E6C2-462D-BE57-2B461EB876DF}
+		{23A56DFE-82FE-4896-84B5-7B26D4C06E0F} = {819CD9D1-E6C2-462D-BE57-2B461EB876DF}
 		{74F1FA6F-1132-48F3-B478-877689620985} = {D85130B4-8AC8-4DAC-83E3-E3BBDC7DCE61}
 		{4449634E-42FF-4E06-A55E-2A4FBD29369E} = {D85130B4-8AC8-4DAC-83E3-E3BBDC7DCE61}
 		{EC7AF649-A651-452F-9A9B-BFB4D38FBD86} = {4FC89F8C-97B2-4AC5-B5B5-DFA7AF889282}

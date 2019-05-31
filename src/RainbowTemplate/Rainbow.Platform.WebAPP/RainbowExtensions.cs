@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Common;
 using Rainbow.Services;
 using Rainbow.Services.Abstractions;
+using Rainbow.Services.Abstractions.Users;
+using Rainbow.Services.Users;
 using Yunyong.Core;
 using Yunyong.EventBus;
 using Yunyong.EventBus.EasyNetQ;
