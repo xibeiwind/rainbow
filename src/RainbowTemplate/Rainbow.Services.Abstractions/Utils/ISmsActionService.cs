@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Rainbow.Common.Enums;
 using Rainbow.ViewModels.Utils;
 
-namespace Rainbow.Services.Abstractions.Utils
+namespace Rainbow.Services.Utils
 {
     public interface ISmsActionService
     {

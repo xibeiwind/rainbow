@@ -292,6 +292,13 @@
     semver "5.5.1"
     semver-intersect "1.4.0"
 
+"@sweetalert2/ngx-sweetalert2@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@sweetalert2/ngx-sweetalert2/-/ngx-sweetalert2-5.1.0.tgz#3e4b259064ca3dcc8cf54edc8cd8bcdf36fb72a4"
+  integrity sha512-2SYaYLkFocAnCpaDLd0b+BZeuFy1Nvkn4ctIVRy08neWiC01zSOoKbi+PT/VXplQEoPyb6EldcJmgaIUhTsCiQ==
+  dependencies:
+    tslib "^1.9.0"
+
 "@swimlane/ngx-datatable@^14.0.0":
   version "14.0.0"
   resolved "http://registry.npm.taobao.org/@swimlane/ngx-datatable/download/@swimlane/ngx-datatable-14.0.0.tgz#6227625e2ce2e9143735d4deeb3ab34b88745c26"
@@ -5841,6 +5848,11 @@ supports-color@^5.1.0, supports-color@^5.3.0, supports-color@^5.4.0, supports-co
   resolved "http://registry.npm.taobao.org/supports-color/download/supports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
   dependencies:
     has-flag "^3.0.0"
+
+sweetalert2@^8.15.1:
+  version "8.15.2"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-8.15.2.tgz#8ac8796b83b121e36351e7bc02bdc495d13ec46e"
+  integrity sha512-Dmc8Mu+HqHBbTeY2XcMI3WGiBJFwweYPIguIaOhE8cEKAef3FGmx/3Eq5IU/2kxGIAKAxFq1iEmyMfJeGkwAAg==
 
 symbol-observable@1.2.0:
   version "1.2.0"

@@ -11,14 +11,14 @@ export class HeaderInnerComponent implements OnInit {
   msgData: Yunyong.Core.PagingList<Rainbow.ViewModels.Messages.MessageVM>;
   user: Rainbow.ViewModels.Users.UserVM;
 
-  constructor(private msgService: MessageService, private accountSevice:AccountService) { }
+  constructor(private msgService: MessageService, private accountSevice: AccountService) { }
 
   ngOnInit() {
-    this.msgService.QueryAsync({ PageSize: 5, PageIndex: 1 }).subscribe(res => {
+    this.msgService.QueryAsync({ PageSize: 5, PageIndex: 1, OrderBys: [] }).subscribe(res => {
       this.msgData = res;
     });
 
-    this.accountSevice.GetUserAsync().subscribe(res=>{
+    this.accountSevice.GetUserAsync().subscribe(res => {
       this.user = res;
     });
   }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Rainbow.ViewModels.Users;
 using Yunyong.Core;
 
-namespace Rainbow.Services.Abstractions.Users
+namespace Rainbow.Services.Users
 {
     public interface IUserAccountService
     {

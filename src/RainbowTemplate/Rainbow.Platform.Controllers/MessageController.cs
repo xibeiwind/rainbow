@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Rainbow.Services.Abstractions;
+using Rainbow.Services;
 using Rainbow.ViewModels.Messages;
 using Yunyong.Core;
 using Controller = Yunyong.Mvc.Controller;
@@ -28,7 +28,7 @@ namespace Rainbow.Platform.Controllers
 
         [Route("Query")]
         [HttpGet]
-        [ProducesResponseType(typeof(PagingList<MessageVM>), 200)]
+        [ProducesDefaultResponseType(typeof(PagingList<MessageVM>))]
         public async Task<PagingList<MessageVM>> QueryAsync([FromQuery] MessageQueryOption option)
         {
             return await Service.QueryAsync(option);
@@ -36,7 +36,7 @@ namespace Rainbow.Platform.Controllers
 
         [Route("Get/{msgId}")]
         [HttpGet]
-        [ProducesResponseType(typeof(MessageVM), 200)]
+        [ProducesDefaultResponseType(typeof(MessageVM))]
         public async Task<MessageVM> GetAsync(Guid msgId)
         {
             return await Service.GetAsync(msgId);
@@ -44,7 +44,7 @@ namespace Rainbow.Platform.Controllers
 
         [HttpPut]
         [Route("Readed/{msgId}")]
-        [ProducesResponseType(typeof(AsyncTaskResult), 200)]
+        [ProducesDefaultResponseType(typeof(AsyncTaskResult))]
         public async Task<AsyncTaskResult> ReadedAsync(Guid msgId)
         {
             return await Service.ReadedAsync(msgId);

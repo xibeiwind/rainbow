@@ -15,17 +15,19 @@ namespace Rainbow.Platform.WebAPP
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration,IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.RegisterServices(Configuration);
+            services.RegisterServices(Configuration,Environment);
 
 #if (EnableSwagger)
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "Rainbow API", Version = "v1" }); });

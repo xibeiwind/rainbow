@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using $RootNamespace$.Common;
+using $RootNamespace$.Common.Enums;
+using $RootNamespace$.Models;
+using Yunyong.Core;
+using Yunyong.EventBus;
+using Yunyong.DataExchange;
+
+using $RootNamespace$.ViewModels.$FolderName$;
+
+namespace $RootNamespace$.Services.$FolderName$
+{
+    public class $Model$QueryService : ServiceBase, I$Model$QueryService
+    {
+        public $Model$QueryService(ConnectionSettings connectionSettings, IConnectionFactory connectionFactory, ILoggerFactory loggerFactory, IEventBus eventBus)
+            : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
+        {
+        }
+
+$ActionMethods$
+
+	}
+}

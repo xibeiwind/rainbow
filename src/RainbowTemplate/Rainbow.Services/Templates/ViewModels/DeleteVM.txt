@@ -1,0 +1,14 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Yunyong.Core.ViewModels;
+
+namespace $RootNamespace$.ViewModels.$FolderName$
+{
+	/// <summary>
+    ///     $DisplayName$
+    /// </summary>
+    [Display(Name = "$DisplayName$")]
+    public class $Name$ : DeleteVM
+    {
+    }
+}

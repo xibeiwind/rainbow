@@ -1,0 +1,34 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+using $RootNamespace$.Services.$FolderName$;
+using Controller = Yunyong.Mvc.Controller;
+using $RootNamespace$.ViewModels.$FolderName$;
+using Yunyong.Core;
+
+namespace $RootNamespace$.Platform.Controllers
+{
+	/// <summary>
+    ///     $DisplayName$
+    /// </summary>
+    [Display(Name = "$DisplayName$")]
+    [ApiController]
+    [Route("api/[controller]")]
+
+    public class $Model$Controller: Controller
+	{
+
+        public $Model$Controller(I$Model$ActionService actionService, I$Model$QueryService queryService)
+        {
+            ActionService = actionService;
+            QueryService = queryService;
+        }
+
+        private I$Model$ActionService ActionService { get; }
+        private I$Model$QueryService QueryService { get; }
+
+$ActionMethods$
+	}
+}

@@ -2,8 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Rainbow.Services.Abstractions;
-using Rainbow.Services.Abstractions.Users;
+using Rainbow.Services.Users;
 using Rainbow.ViewModels.Users;
 using Yunyong.Core;
 using Controller = Yunyong.Mvc.Controller;
@@ -35,7 +34,7 @@ namespace Rainbow.Platform.Controllers
         [HttpPost]
         [Route("Register")]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(AsyncTaskResult), 200)]
+        [ProducesDefaultResponseType(typeof(AsyncTaskResult))]
         public async Task<AsyncTaskResult> RegisterAsync([FromBody] RegisterUserVM vm)
         {
             return await Service.RegisterAsync(vm);
@@ -48,7 +47,7 @@ namespace Rainbow.Platform.Controllers
         [HttpGet]
         [Route("UserInfo")]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(UserVM), 200)]
+        [ProducesDefaultResponseType(typeof(UserVM))]
         public async Task<UserVM> GetUserAsync()
         {
             return await Service.GetUserAsync(this.GetUserId());

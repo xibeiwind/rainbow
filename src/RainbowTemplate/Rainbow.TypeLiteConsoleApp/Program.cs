@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-
+using Rainbow.Common;
 #if (EnableIdentity)
 using Rainbow.Platform.Controllers;
 using Rainbow.ViewModels.Users;
@@ -33,11 +33,9 @@ namespace Rainbow.TypeLiteConsoleApp
             //GenerateTypeScriptContracts(typeof(UserVM).Assembly, $@"{Path.Combine(args[0], $@"Rainbow.Platform.WebAPP\ClientApp\src\app")}", types.ToArray());
             //GenerateAngularTypeScriptServices(typeof(AccountController).Assembly, $@"{Path.Combine(args[0], $@"Rainbow.Platform.WebAPP\ClientApp\src\app")}\services");
 
-#if (EnableIdentity)
             GenerateTypeScriptContracts(typeof(UserVM).Assembly, $@"{Path.Combine(args[0], $@"Rainbow.Platform.WebAPP\ClientApp\src\app")}", types.ToArray());
             GenerateAngularTypeScriptServices(typeof(AccountController).Assembly, $@"{Path.Combine(args[0], $@"Rainbow.Platform.WebAPP\ClientApp\src\app")}\services");
-            
-#endif
+
 
         }
 
@@ -436,7 +434,7 @@ namespace Rainbow.TypeLiteConsoleApp
 
             //var assembly = Assembly.LoadFrom(assemblyFile);
 
-            var models = assembly.GetTypes().Where(a => a.IsClass && !a.IsAbstract && a.IsSubclassOf(typeof(Controller)));
+            var models = assembly.GetTypes().Where(a => a.IsClass && !a.IsAbstract && a.IsSubclassOf(typeof(Controller)) && a.GetCustomAttribute<SkipTSAttribute>() == null);
 
             foreach (var model in models)
             {
@@ -613,7 +611,7 @@ export class {serviceName} {{
 
         private static string GetReturnTypeString(MethodInfo method)
         {
-            var respTypeAttr = method.GetCustomAttribute<ProducesResponseTypeAttribute>();
+            var respTypeAttr = method.GetCustomAttribute<ProducesDefaultResponseTypeAttribute>();
             if (respTypeAttr != null)
             {
                 return GetTypeString(respTypeAttr.Type);

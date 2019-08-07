@@ -2,14 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule, } from 'angular-admin-lte';
-import { ModalModule, } from 'ngx-bootstrap';
+import { ModalModule, BsDropdownModule } from 'ngx-bootstrap';
 import { LoadingPageModule, MaterialBarModule } from 'angular-loading-page';
+import { ToastrModule } from 'ngx-toastr';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { adminLteConf } from './admin-lte.conf';
 import { ServiceModule } from './services/service.module';
+import { ModelModule } from './model/model.module';
 
 @NgModule({
   declarations: [
@@ -18,13 +21,17 @@ import { ServiceModule } from './services/service.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     CoreModule,
     LayoutModule.forRoot(adminLteConf),
     ModalModule.forRoot(),
+    ToastrModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    SweetAlert2Module.forRoot(),
     LoadingPageModule,
     MaterialBarModule,
     ServiceModule,
+    ModelModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

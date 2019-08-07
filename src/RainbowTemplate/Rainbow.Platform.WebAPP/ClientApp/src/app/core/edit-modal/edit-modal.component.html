@@ -1,3 +1,21 @@
-<p>
-  edit-modal works!
-</p>
+<ng-template #editTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="editModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="editForm" (ngSubmit)="editSubmit()">
+    <div class="modal-body">
+      <div class="form-group" *ngFor="let field of fields">
+        <label [for]="field.Name">{{field.DisplayName}}</label>
+        <input type="text" class="form-control" [placeholder]="field.DisplayName" [formControlName]="field.Name"
+          required>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="editModalRef.hide()">关闭</button>
+      <button type="submit" class="btn btn-danger" [disabled]="!editForm.valid||!editForm.dirty">提交</button>
+    </div>
+  </form>
+</ng-template>

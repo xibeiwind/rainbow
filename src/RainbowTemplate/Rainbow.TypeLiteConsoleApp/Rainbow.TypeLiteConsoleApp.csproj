@@ -11,9 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="TypeLite.Standard" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Rainbow.Platform.Controllers\Rainbow.Platform.Controllers.csproj" />
     <ProjectReference Include="..\Rainbow.ViewModels\Rainbow.ViewModels.csproj" />
-    <ProjectReference Include="..\TypeLite.Standard\TypeLite.Standard.csproj" />
   </ItemGroup>
 
 </Project>

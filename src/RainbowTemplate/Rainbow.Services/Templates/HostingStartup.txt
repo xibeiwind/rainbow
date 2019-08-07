@@ -1,0 +1,25 @@
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using $RootNamespace$.Platform.WebAPP;
+using $RootNamespace$.Services.$FolderName$;
+
+[assembly: HostingStartup(typeof($Model$Startup))]
+namespace $RootNamespace$.Platform.WebAPP
+{
+	/// <summary>
+    ///     $DisplayName$
+    /// </summary>
+    [Display(Name = "$DisplayName$")]
+    public class $Model$Startup : IHostingStartup
+    {
+        public void Configure(IWebHostBuilder builder)
+        {
+            builder.ConfigureServices((services) =>
+            {
+                services.AddScoped<I$Model$ActionService, $Model$ActionService>();
+                services.AddScoped<I$Model$QueryService, $Model$QueryService>();
+            });
+        }
+    }
+}

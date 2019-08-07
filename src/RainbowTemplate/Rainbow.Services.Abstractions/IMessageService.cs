@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Rainbow.ViewModels.Messages;
 using Yunyong.Core;
 
-namespace Rainbow.Services.Abstractions
+namespace Rainbow.Services
 {
     public interface IMessageService
     {

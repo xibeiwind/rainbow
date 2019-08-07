@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Rainbow.Services.Abstractions
+﻿namespace Rainbow.Services
 {
     public interface ITaskService
     {

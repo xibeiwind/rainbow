@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SiteService } from './site.service';
 import { AccountService } from './AccountService';
 import { MessageService } from './MessageService';
+import { ModelService } from './ModelService';
 
 @NgModule({
   declarations: [],
@@ -13,6 +14,7 @@ import { MessageService } from './MessageService';
     SiteService,
     AccountService,
     MessageService,
+    ModelService,
   ],
 })
 export class ServiceModule { }

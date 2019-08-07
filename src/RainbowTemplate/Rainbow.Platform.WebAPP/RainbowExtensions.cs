@@ -1,11 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Common;
+using Rainbow.Data;
 using Rainbow.Services;
-using Rainbow.Services.Abstractions;
-using Rainbow.Services.Abstractions.Users;
 using Rainbow.Services.Users;
 using Yunyong.Core;
 using Yunyong.EventBus;
@@ -17,8 +19,14 @@ namespace Rainbow.Platform.WebAPP
     public static class RainbowExtensions
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services,
-            IConfiguration configuration)
+            IConfiguration configuration, IHostingEnvironment environment)
         {
+            services.AddDbContext<RainbowDbContext>(opts => { opts.UseMySql(configuration.GetConnectionString("RainbowDB")); });
+
+            services.AddSingleton<IEntityRegisterService, RainbowEntityRegisterService>();
+
+            services.AddSingleton(new ProjectSettings("SpiritBulldozer", new DirectoryInfo(environment.ContentRootPath).Parent.FullName));
+
             services.RegisterEasyNetQ(configuration.GetSection("EventBusConfig").Get<EventBusConfig>());
             services.AddHttpContextAccessor();
             services.AddSingleton(new ConnectionSettings(configuration.GetConnectionString("RainbowDB")));

@@ -6,6 +6,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Templates\ActionService.txt" />
+    <None Remove="Templates\Controller.txt" />
+    <None Remove="Templates\HostingStartup.txt" />
+    <None Remove="Templates\IActionService.txt" />
+    <None Remove="Templates\IQueryService.txt" />
+    <None Remove="Templates\QueryService.txt" />
+    <None Remove="Templates\ViewModels\CreateVM.txt" />
+    <None Remove="Templates\ViewModels\DeleteVM.txt" />
+    <None Remove="Templates\ViewModels\DisplayVM.txt" />
+    <None Remove="Templates\ViewModels\QueryVM.txt" />
+    <None Remove="Templates\ViewModels\UpdateVM.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\ActionService.txt" />
+    <EmbeddedResource Include="Templates\Controller.txt" />
+    <EmbeddedResource Include="Templates\HostingStartup.txt" />
+    <EmbeddedResource Include="Templates\IActionService.txt" />
+    <EmbeddedResource Include="Templates\IQueryService.txt" />
+    <EmbeddedResource Include="Templates\QueryService.txt" />
+    <EmbeddedResource Include="Templates\ViewModels\CreateVM.txt" />
+    <EmbeddedResource Include="Templates\ViewModels\DeleteVM.txt" />
+    <EmbeddedResource Include="Templates\ViewModels\DisplayVM.txt" />
+    <EmbeddedResource Include="Templates\ViewModels\QueryVM.txt" />
+    <EmbeddedResource Include="Templates\ViewModels\UpdateVM.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Yunyong.Cache" Version="1.0.0" />
     <PackageReference Include="Yunyong.DataExchange" Version="1.3.1" />
     <PackageReference Include="Yunyong.SqlUtils" Version="1.0.0" />

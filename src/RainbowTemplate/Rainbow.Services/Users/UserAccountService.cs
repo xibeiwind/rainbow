@@ -8,7 +8,6 @@ using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.Events;
 using Rainbow.Models;
-using Rainbow.Services.Abstractions.Users;
 using Rainbow.ViewModels.Users;
 using Yunyong.Core;
 using Yunyong.DataExchange;

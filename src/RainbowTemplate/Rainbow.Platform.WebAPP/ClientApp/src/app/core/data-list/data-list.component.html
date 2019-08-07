@@ -1,0 +1,100 @@
+<swal #deleteSwal title="删除?" type="question" [showCancelButton]="true" [focusCancel]="true" (confirm)="deleteItem()">
+</swal>
+<app-create-modal #createModal [title]="createTitle" [fields]="createFields" (onsubmit)="createItem($event)">
+</app-create-modal>
+<app-edit-modal #editModal [title]="editTitle" [fields]="editFields" (onsubmit)="updteItem($event)"></app-edit-modal>
+
+<!-- <div class="row">
+  <div class="col">
+  </div>
+</div> -->
+
+<div class="box box-primary direct-chat direct-chat-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+      {{modelDisplayName}}列表
+    </h3>
+
+    <div class="box-tools pull-right">
+      <!-- <span data-toggle="tooltip" title="3 New Messages" class="badge bg-light-blue">3</span>
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+      </button>
+      <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts"
+        data-widget="chat-pane-toggle">
+        <i class="fa fa-comments"></i></button>
+      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+      <div class="btn-group btn-group-sm">
+        <button type="button" class="btn btn-primary" (click)="createModal.openCreateModal()">新建</button>
+
+        <button type="button" class="btn btn-info" (click)="refreshList()">
+          <i class="fa fa-retweet"></i>
+          <!-- 刷新 -->
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table no-margin table-hover table-striped data-list">
+        <thead>
+          <tr>
+            <th width="30">#</th>
+            <th *ngIf="enableSelect" width="50">
+              <input type="checkbox" value="">
+            </th>
+            <th *ngFor="let field of fields">
+              {{field.DisplayName}}
+            </th>
+            <th width="100">
+              <span class="pull-right">
+                操作
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items;let i = index">
+            <td>
+              {{i+1}}
+            </td>
+            <td *ngIf="enableSelect">
+              <input type="checkbox" [(ngModel)]="selectIdObj[item.Id]" value="{{item.Id}}">
+            </td>
+            <td *ngFor="let field of fields" [title]="item[field.Name]" class="data-cell">
+              {{item[field.Name]}}
+            </td>
+            <td>
+              <div class="btn-group btn-group-xs pull-right">
+
+                <button type="button" class="btn btn-warning" *ngIf="canEdit" (click)="openEditModal(item)">
+                  <i class="fa fa-edit" aria-hidden="true"></i>
+                </button>
+
+                <button type="button" class="btn btn-danger" *ngIf="canDelete" (click)="showDeleteSwal(item)">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer">
+    <!-- <form action="#" method="post">
+      <div class="input-group">
+        <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-primary btn-flat">Send</button>
+        </span>
+      </div>
+    </form> -->
+  </div>
+  <!-- /.box-footer-->
+</div>
