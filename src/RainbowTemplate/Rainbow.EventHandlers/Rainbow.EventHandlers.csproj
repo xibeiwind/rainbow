@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Yunyong.Cache" Version="1.0.0" />
-    <PackageReference Include="Yunyong.Core" Version="1.0.7" />
+    <PackageReference Include="Yunyong.Core" Version="1.0.9" />
     <PackageReference Include="Yunyong.EventBus" Version="1.0.1" />
   </ItemGroup>
 
