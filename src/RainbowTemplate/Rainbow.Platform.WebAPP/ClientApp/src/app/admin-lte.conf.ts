@@ -15,6 +15,7 @@ export const adminLteConf = {
       pullRights: [{ text: 'New', classes: 'label pull-right bg-green' }]
     },
     { label: 'Model', route: 'model', iconClasses: 'fa fa-list' },
+    { label: 'FieldType', route: 'data-field-type', iconClasses: 'fa fa-list' },
     { label: '登录', iconClasses: 'fa fa-login', route: 'auth' }
   ]
 };

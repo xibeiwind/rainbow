@@ -15,6 +15,60 @@ namespace Rainbow.Services
     {
         public ViewModelDisplayQueryService()
         {
+            string FieldType(PropertyInfo property)
+            {
+                string GetFieldType(Type type)
+                {
+                    if (type.IsEnum)
+                    {
+                        return type.Name;
+                    }
+
+                    var dic = new Dictionary<string, List<Type>>()
+                    {
+                        {
+                            "text", new List<Type>()
+                            {
+                                typeof(string), typeof(Guid)
+                            }
+                        },
+                        {
+                            "number", new List<Type>()
+                            {
+                                typeof(int),
+                                typeof(double),
+                                typeof(float),
+                                typeof(decimal),
+                                typeof(byte)
+                            }
+
+                        },
+                        {
+                            "checkbox",
+                            new List<Type>()
+                            {
+                                typeof(bool),
+                            }
+                        }
+                    };
+                    KeyValuePair<string, List<Type>>? tmp = dic.FirstOrDefault(a => a.Value.Contains(type));
+
+                    return tmp?.Key ?? "text";
+                }
+                if (!property.PropertyType.IsClass)
+                {
+                    return GetFieldType(property.PropertyType);
+                }
+                else if (property.PropertyType.IsSubclassOf(typeof(Nullable<>)))
+                {
+                    return GetFieldType(property.PropertyType.GetGenericArguments().FirstOrDefault());
+                }
+                else
+                {
+                    return "text";
+                }
+            }
+
             ModelTypeDic = Assembly.Load("Rainbow.Models").GetTypes()
                 .Where(a => a.IsSubclassOf(typeof(Entity)) && !a.IsAbstract)
                 .ToDictionary(b => b.Name);
@@ -35,16 +89,48 @@ namespace Rainbow.Services
                     {
                         var propName = b.Name;
                         var propDisplayName = b.GetCustomAttribute<DisplayAttribute>()?.Name ?? propName;
+                        var lookup = b.GetCustomAttribute<LookupAttribute>();
+
                         return new FieldDisplayVM
                         {
                             Name = propName,
-                            DisplayName = propDisplayName
+                            DisplayName = propDisplayName,
+                            FieldType = FieldType(b),
+                            IsEnum = b.PropertyType.IsEnum,
+                            DataType = GetDataType(b),
+                            Lookup = lookup != null
+                                ? new LookupSettingVM()
+                                {
+                                    VMType = lookup.Type.Name,
+                                    DisplayField = lookup.DisplayField,
+                                    ValueField = lookup.ValueField,
+                                }
+                                : null,
+                            IsNullable = b.PropertyType.IsSubclassOf(typeof(Nullable<>))
+                                         || b.PropertyType.IsClass
                         };
                     }).ToList()
                 };
             });
 
             ViewModelDisplayDic = items.ToDictionary(a => a.Name);
+        }
+
+        private DataType GetDataType(PropertyInfo property)
+        {
+            var attr = property.GetCustomAttribute<DataTypeAttribute>();
+            if (attr != null)
+            {
+                return attr.DataType;
+            }
+            if (property.PropertyType.IsSubclassOf(typeof(Nullable<>)))
+            {
+                var type = property.PropertyType.GetGenericArguments().FirstOrDefault();
+
+
+            }
+
+            return DataType.Text;
         }
 
         private Dictionary<string, Type> ModelTypeDic { get; }

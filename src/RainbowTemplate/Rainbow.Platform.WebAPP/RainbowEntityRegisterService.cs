@@ -19,22 +19,22 @@ namespace Rainbow.Platform.WebAPP
 
         public void RegisterEntities(ModelBuilder builder)
         {
-            //var types = typeof(Model).Assembly.GetTypes()
-            //    .Where(a => a.IsClass && a.IsPublic && !a.IsAbstract && a.IsSubclassOf(typeof(Entity)))
-            //    .ToList();
+            var types = Assembly.Load("Rainbow.Models").GetTypes()
+                .Where(a => a.IsClass && a.IsPublic && !a.IsAbstract && a.IsSubclassOf(typeof(Entity)))
+                .ToList();
 
-            //foreach (var type in types)
-            //{
-            //    try
-            //    {
-            //        builder.Entity(type).ToTable(type.GetCustomAttribute<TableAttribute>().Name);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Logger?.LogError(e, $"[{type.Name}]\t{e.Message}");
-            //        throw;
-            //    }
-            //}
+            foreach (var type in types)
+            {
+                try
+                {
+                    builder.Entity(type).ToTable(type.GetCustomAttribute<TableAttribute>().Name);
+                }
+                catch (Exception e)
+                {
+                    Logger?.LogError(e, $"[{type.Name}]\t{e.Message}");
+                    throw;
+                }
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Rainbow.Services.Models;
 using Rainbow.ViewModels.Models;
+using Yunyong.Core;
 using Controller = Yunyong.Mvc.Controller;
 
 namespace Rainbow.Platform.Controllers
@@ -28,9 +29,9 @@ namespace Rainbow.Platform.Controllers
         [HttpPost]
         [Route("CreateUpdate")]
         [ProducesDefaultResponseType(typeof(bool))]
-        public Task CreateUpdateFiles(CreateModelSuitApplyVM vm)
+        public async Task<AsyncTaskTResult<bool>> CreateUpdateFiles(CreateModelSuitApplyVM vm)
         {
-            return ActionService.CreateUpdateFiles(vm);
+            return await ActionService.CreateUpdateFiles(vm);
         }
 
         [HttpGet]
@@ -39,6 +40,14 @@ namespace Rainbow.Platform.Controllers
         public IEnumerable<ModelTypeVM> GetModelTypes()
         {
             return QueryService.GetModelTypes();
+        }
+
+        [HttpPost]
+        [Route("RegenerateTsCode")]
+        [ProducesDefaultResponseType(typeof(AsyncTaskTResult<bool>))]
+        public async Task<AsyncTaskTResult<bool>> RegenerateTsCode()
+        {
+            return await ActionService.RegenerateTsCode();
         }
     }
 }

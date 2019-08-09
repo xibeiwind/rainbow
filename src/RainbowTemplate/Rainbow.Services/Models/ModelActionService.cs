@@ -29,7 +29,7 @@ namespace Rainbow.Services.Models
 
         public ProjectSettings Settings { get; }
 
-        public async Task CreateUpdateFiles(CreateModelSuitApplyVM vm)
+        public async Task<AsyncTaskTResult<bool>> CreateUpdateFiles(CreateModelSuitApplyVM vm)
         {
             Type modelType = GetModelType(vm.ModelFullName);
 
@@ -469,7 +469,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     process.Close();
                 }
                 {
-                    var cmd = $"ng g c {vm.ModelName} --module {vm.ModelName} --routing --force";
+                    var cmd = $"ng g c {vm.ModelName} --force";
                     Console.WriteLine(pathRoot);
                     Console.WriteLine(cmd);
 
@@ -498,9 +498,28 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 }
             }
 
-            void UpdateTsServices()
+
+            CreateViewModels();
+            if (vm.GenerateService)
             {
-                var pathRoot = Path.Combine(Settings.PlatformWebRoot, @"ClientApp\src\app");
+                CreateServiceInterfaces();
+                CreateServices();
+                CreateHostingStartup();
+            }
+
+            if (vm.GenerateController) CreateControllers();
+
+            if (vm.GenerateNgModuleComponent) CreateNgModuleComponent();
+            if (vm.UpdateTsServices)
+            {
+                await RegenerateTsCode();
+            }
+
+            return AsyncTaskResult.Success(true);
+        }
+            public async Task<AsyncTaskTResult<bool>> RegenerateTsCode()
+            {
+                var pathRoot = Path.Combine(Settings.SolutionRoot, @"Rainbow.TypeLiteConsoleApp");
 
                 var cmd = $"run {Settings.SolutionRoot}";
                 var process = new Process
@@ -525,24 +544,9 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 process.BeginErrorReadLine();
                 process.WaitForExit();
                 process.Close();
-            }
 
-            CreateViewModels();
-            if (vm.GenerateService)
-            {
-                CreateServiceInterfaces();
-                CreateServices();
-                CreateHostingStartup();
+                return AsyncTaskResult.Success(true);
             }
-
-            if (vm.GenerateController) CreateControllers();
-
-            if (vm.GenerateNgModuleComponent) CreateNgModuleComponent();
-            if (vm.UpdateTsServices)
-            {
-                UpdateTsServices();
-            }
-        }
 
         private string GetVMDeleteTemplate()
         {
@@ -594,45 +598,6 @@ using {Settings.SolutionNamespace}.Common.Enums;
             var resName = $"Rainbow.Services.Templates.ViewModels.{type}VM.txt";
             var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(resName));
             return reader.ReadToEnd();
-        }
-    }
-
-    public class ModelQueryService : IModelQueryService
-    {
-        public IEnumerable<ModelTypeVM> GetModelTypes()
-        {
-            
-
-            var types
-                = Assembly.Load($"Rainbow.Models").GetTypes().Where(a => !a.IsAbstract && a.IsSubclassOf(typeof(Entity)));
-
-            foreach (var type in types) yield return GetModelTypeVM(type);
-        }
-
-        private ModelTypeVM GetModelTypeVM(Type type)
-        {
-            return new ModelTypeVM
-            {
-                Name = type.Name,
-                FullName = type.FullName,
-                Asssembly = type.Assembly.FullName,
-                DisplayName = type.GetCustomAttribute<DisplayAttribute>()?.Name ?? type.Name,
-                Fields = GetModelTypeFields(type).ToList()
-            };
-            //throw new NotImplementedException();
-        }
-
-        private IEnumerable<FieldVM> GetModelTypeFields(Type type)
-        {
-            var items = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
-
-            foreach (var item in items)
-                yield return new FieldVM
-                {
-                    Name = item.Name,
-                    DisplayName = item.GetCustomAttribute<DisplayAttribute>()?.Name ?? item.Name,
-                    Type = item.PropertyType.Name
-                };
         }
     }
 }

@@ -3,6 +3,7 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 import { EditModalComponent } from '../edit-modal/edit-modal.component';
 import { CreateModalComponent } from '../create-modal/create-modal.component';
+import { EnumDisplayService } from '../../services/EnumDisplayService';
 
 @Component({
   selector: 'app-data-list',
@@ -11,8 +12,29 @@ import { CreateModalComponent } from '../create-modal/create-modal.component';
 })
 export class DataListComponent implements OnInit {
 
+  private _fields: Rainbow.ViewModels.FieldDisplayVM[];
+
   @Input()
-  fields: Rainbow.ViewModels.FieldDisplayVM[];
+  get fields(): Rainbow.ViewModels.FieldDisplayVM[] {
+    return this._fields;
+  }
+
+  set fields(data: Rainbow.ViewModels.FieldDisplayVM[]) {
+    this._fields = data;
+    data.forEach(field => {
+      if (field.IsEnum) {
+        this.enumService.GetEnumDisplay(field.FieldType).subscribe(res => {
+          this.enumObj[field.Name] = {};
+          res.Data.Fields.forEach(f => {
+            this.enumObj[field.Name][f.Value] = f;
+          });
+        });
+      }
+    });
+  }
+
+  @Input()
+  canCreate: boolean;
   @Input()
   canEdit: boolean;
   @Input()
@@ -23,6 +45,8 @@ export class DataListComponent implements OnInit {
 
   @Input()
   enableSelect: boolean;
+  @Input()
+  currentItem: any;
   private selectIdObj: any = {};
 
   @Input()
@@ -46,13 +70,13 @@ export class DataListComponent implements OnInit {
   deleteSwal: SwalComponent;
   editFields: Rainbow.ViewModels.FieldDisplayVM[];
   private deleteItemId: string;
-  createTitle: string = `创建${this.modelDisplayName}`;
-  editTitle: string = `更新${this.modelDisplayName}`;
+  get createTitle(): string { return `创建${this.modelDisplayName}`; }
+  get editTitle(): string { return `更新${this.modelDisplayName}`; }
   createFields: Rainbow.ViewModels.FieldDisplayVM[];
+  enumObj = {};
 
 
-
-  constructor() { }
+  constructor(private enumService: EnumDisplayService) { }
 
   ngOnInit() {
   }
@@ -66,7 +90,7 @@ export class DataListComponent implements OnInit {
   }
 
   openEditModal(item: any) {
-    this.editTitle = `更新${this.modelDisplayName}`;
+    // this.editTitle = `更新${this.modelDisplayName}`;
 
     this.editModal.openEditModal(item);
   }

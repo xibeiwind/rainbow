@@ -16,15 +16,9 @@
     </h3>
 
     <div class="box-tools pull-right">
-      <!-- <span data-toggle="tooltip" title="3 New Messages" class="badge bg-light-blue">3</span>
-      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-      </button>
-      <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts"
-        data-widget="chat-pane-toggle">
-        <i class="fa fa-comments"></i></button>
-      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
       <div class="btn-group btn-group-sm">
-        <button type="button" class="btn btn-primary" (click)="createModal.openCreateModal()">新建</button>
+        <button type="button" class="btn btn-primary" *ngIf="canCreate"
+          (click)="createModal.openCreateModal()">新建</button>
 
         <button type="button" class="btn btn-info" (click)="refreshList()">
           <i class="fa fa-retweet"></i>
@@ -56,7 +50,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of items;let i = index">
+          <tr *ngFor="let item of items;let i = index" (click)="currentItem = item">
             <td>
               {{i+1}}
             </td>
@@ -64,7 +58,17 @@
               <input type="checkbox" [(ngModel)]="selectIdObj[item.Id]" value="{{item.Id}}">
             </td>
             <td *ngFor="let field of fields" [title]="item[field.Name]" class="data-cell">
-              {{item[field.Name]}}
+
+              <ng-container *ngIf="field.IsEnum; else elseTemplate">
+                <span>
+                  {{enumObj[field.Name][item[field.Name]].DisplayName}}
+                </span>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <span>
+                  {{item[field.Name]}}
+                </span>
+              </ng-template>
             </td>
             <td>
               <div class="btn-group btn-group-xs pull-right">

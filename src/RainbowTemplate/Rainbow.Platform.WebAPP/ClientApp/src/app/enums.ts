@@ -17,6 +17,27 @@ namespace Rainbow.Common.Enums {
 		Misc = 128
 	}
 }
+namespace System.ComponentModel.DataAnnotations {
+	export const enum DataType {
+		Custom = 0,
+		DateTime = 1,
+		Date = 2,
+		Time = 3,
+		Duration = 4,
+		PhoneNumber = 5,
+		Currency = 6,
+		Text = 7,
+		Html = 8,
+		MultilineText = 9,
+		EmailAddress = 10,
+		Password = 11,
+		Url = 12,
+		ImageUrl = 13,
+		CreditCard = 14,
+		PostalCode = 15,
+		Upload = 16
+	}
+}
 namespace Yunyong.Core {
 	export const enum AsyncTaskStatus {
 		Success = 0,

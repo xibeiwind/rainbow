@@ -5,9 +5,39 @@ declare namespace Rainbow.ViewModels {
 	interface DisplayQueryVM {
 		Name: string;
 	}
-	interface FieldDisplayVM {
+	interface EnumDisplayVM {
+		DisplayName: string;
+		Fields: Rainbow.ViewModels.EnumFieldDisplayVM[];
+		FullName: string;
+		Name: string;
+	}
+	interface EnumFieldDisplayVM {
 		DisplayName: string;
 		Name: string;
+		Value: number;
+	}
+	interface FieldDisplayVM {
+		DataType: System.ComponentModel.DataAnnotations.DataType;
+		DisplayName: string;
+		FieldType: string;
+		IsEnum: boolean;
+		IsNullable: boolean;
+		Lookup: Rainbow.ViewModels.LookupSettingVM;
+		Name: string;
+	}
+	interface LookupQueryVM {
+		FieldName: string;
+		Filter: string;
+		VMName: string;
+	}
+	interface LookupResultVM extends Yunyong.Core.ViewModels.VMBase {
+		Name: any;
+		Value: any;
+	}
+	interface LookupSettingVM {
+		DisplayField: string;
+		ValueField: string;
+		VMType: string;
 	}
 	interface ModelDisplaySuitVM {
 		DisplayName: string;
@@ -20,6 +50,29 @@ declare namespace Rainbow.ViewModels {
 		ModelName: string;
 		Name: string;
 		Type: Rainbow.Common.Enums.VMType;
+	}
+}
+declare namespace Rainbow.ViewModels.DataFieldTypes {
+	interface CreateDataFieldTypeVM extends Yunyong.Core.ViewModels.CreateVM {
+		FieldTypeDisplay: string;
+		FieldTypeEdit: string;
+		Type: System.ComponentModel.DataAnnotations.DataType;
+	}
+	interface DataFieldTypeVM extends Yunyong.Core.ViewModels.VMBase {
+		FieldTypeDisplay: string;
+		FieldTypeEdit: string;
+		Type: System.ComponentModel.DataAnnotations.DataType;
+	}
+	interface DeleteDataFieldTypeVM extends Yunyong.Core.ViewModels.DeleteVM {
+	}
+	interface QueryDataFieldTypeVM extends Yunyong.Core.PagingQueryOption {
+		FieldTypeDisplay: string;
+		FieldTypeEdit: string;
+		Type: System.ComponentModel.DataAnnotations.DataType;
+	}
+	interface UpdateDataFieldTypeVM extends Yunyong.Core.ViewModels.UpdateVM {
+		FieldTypeDisplay: string;
+		FieldTypeEdit: string;
 	}
 }
 declare namespace Rainbow.ViewModels.Messages {
@@ -82,6 +135,13 @@ declare namespace Rainbow.ViewModels.Tasks {
 	}
 }
 declare namespace Rainbow.ViewModels.Users {
+	interface CreateUserVM extends Yunyong.Core.ViewModels.CreateVM {
+		IsActive: boolean;
+		Name: string;
+		Phone: string;
+	}
+	interface DeleteUserVM extends Yunyong.Core.ViewModels.DeleteVM {
+	}
 	interface LoginResultVM {
 		IsSuccess: boolean;
 		Message: string;
@@ -89,6 +149,11 @@ declare namespace Rainbow.ViewModels.Users {
 	}
 	interface LoginVM {
 		Password: string;
+		Phone: string;
+	}
+	interface QueryUserVM extends Yunyong.Core.PagingQueryOption {
+		IsActive: boolean;
+		Name: string;
 		Phone: string;
 	}
 	interface RegisterUserVM extends Yunyong.Core.ViewModels.CreateVM {
@@ -102,8 +167,14 @@ declare namespace Rainbow.ViewModels.Users {
 		Phone: string;
 		SmsCode: string;
 	}
-	interface UserVM extends Yunyong.Core.ViewModels.VMBase {
+	interface UpdateUserVM extends Yunyong.Core.ViewModels.UpdateVM {
+		IsActive: boolean;
 		Name: string;
+	}
+	interface UserVM extends Yunyong.Core.ViewModels.VMBase {
+		IsActive: boolean;
+		Name: string;
+		Phone: string;
 	}
 }
 declare namespace Rainbow.ViewModels.Utils {
@@ -146,6 +217,8 @@ declare namespace Rainbow.ViewModels.Utils {
 		Token: string;
 	}
 }
+declare namespace System.ComponentModel.DataAnnotations {
+}
 declare namespace Yunyong.Core {
 	interface AsyncTaskResult {
 		ErrorMessage: string;
@@ -175,6 +248,10 @@ declare namespace Yunyong.Core {
 }
 declare namespace Yunyong.Core.ViewModels {
 	interface CreateVM {
+	}
+	interface DeleteVM extends Yunyong.Core.ViewModels.VMBase {
+	}
+	interface UpdateVM extends Yunyong.Core.ViewModels.VMBase {
 	}
 	interface VMBase {
 		Id: string;

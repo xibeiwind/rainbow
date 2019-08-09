@@ -25,7 +25,7 @@ namespace Rainbow.Platform.WebAPP
 
             services.AddSingleton<IEntityRegisterService, RainbowEntityRegisterService>();
 
-            services.AddSingleton(new ProjectSettings("SpiritBulldozer", new DirectoryInfo(environment.ContentRootPath).Parent.FullName));
+            services.AddSingleton(new ProjectSettings("Rainbow", new DirectoryInfo(environment.ContentRootPath).Parent.FullName));
 
             services.RegisterEasyNetQ(configuration.GetSection("EventBusConfig").Get<EventBusConfig>());
             services.AddHttpContextAccessor();
@@ -37,6 +37,8 @@ namespace Rainbow.Platform.WebAPP
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<INotifyService, NotifyService>();
             services.AddScoped<ITaskService, TaskService>();
+
+            services.AddScoped<IViewModelDisplayQueryService, ViewModelDisplayQueryService>();
 
 #if (EnableIdentity)
 
@@ -56,8 +58,8 @@ namespace Rainbow.Platform.WebAPP
 #if (EnableIdentity)
                 
 #endif
-                //var dbContext = GetService<RainbowDbContext>();
-                //dbContext.Database.EnsureCreated();
+                var dbContext = GetService<RainbowDbContext>();
+                dbContext.Database.EnsureCreated();
             }
 
             return app;

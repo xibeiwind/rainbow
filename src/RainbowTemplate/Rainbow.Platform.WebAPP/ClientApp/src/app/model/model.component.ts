@@ -123,4 +123,10 @@ export class ModelComponent implements OnInit {
     });
   }
 
+  regenerateTsCode() {
+    this.service.RegenerateTsCode().subscribe(res => {
+      this.toastr.success('代码刷新完毕！');
+    });
+  }
+
 }

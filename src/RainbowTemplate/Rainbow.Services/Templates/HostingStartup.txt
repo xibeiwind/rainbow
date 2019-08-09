@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using $RootNamespace$.Platform.WebAPP;
+using $RootNamespace$.Platform.WebAPP.HostingStartups;
 using $RootNamespace$.Services.$FolderName$;
 
 [assembly: HostingStartup(typeof($Model$Startup))]
-namespace $RootNamespace$.Platform.WebAPP
+namespace $RootNamespace$.Platform.WebAPP.HostingStartups
 {
 	/// <summary>
     ///     $DisplayName$

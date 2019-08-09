@@ -13,6 +13,7 @@ import { CoreModule } from './core/core.module';
 import { adminLteConf } from './admin-lte.conf';
 import { ServiceModule } from './services/service.module';
 import { ModelModule } from './model/model.module';
+import { DataFieldTypeModule } from './data-field-type/data-field-type.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ModelModule } from './model/model.module';
     MaterialBarModule,
     ServiceModule,
     ModelModule,
+    DataFieldTypeModule,
     AppRoutingModule,
   ],
   providers: [],

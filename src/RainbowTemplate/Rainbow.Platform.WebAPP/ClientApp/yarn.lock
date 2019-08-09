@@ -548,9 +548,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/amdefine/download/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-angular-admin-lte@^1.2.7:
-  version "1.2.7"
-  resolved "http://registry.npm.taobao.org/angular-admin-lte/download/angular-admin-lte-1.2.7.tgz#3ba7ba19a3514134c298770aa4373c0b62c5ad89"
+angular-admin-lte@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/angular-admin-lte/-/angular-admin-lte-2.0.1.tgz#ee52895d53be8427c6b44dc101fc9822ced4c9f3"
+  integrity sha512-RrxCF1rBz+MqIdcNWodjTqy6BErmlUSEOksTWrZAN6b742sZBNtp/FdW1vdzMrH2sycDwozqjx6jpnEt0K96sw==
   dependencies:
     admin-lte-css "^2.4.3"
     bootstrap-css-only "^3.3.7"

@@ -9,8 +9,16 @@
     <div class="modal-body">
       <div class="form-group" *ngFor="let field of fields">
         <label [for]="field.Name">{{field.DisplayName}}</label>
-        <input type="text" class="form-control" [placeholder]="field.DisplayName" [formControlName]="field.Name"
-          required>
+        <select *ngIf="field.IsEnum" [formControlName]="field.Name" class=form-control>
+          <option *ngFor="let option of enumObj[field.Name]" [value]="option.Value">
+            {{option.DisplayName}} <small>{{option.Name}}</small>
+          </option>
+        </select>
+        <textarea *ngIf="getInputControlType(field) === 'textarea'"></textarea>
+        <input *ngIf="getInputControlType(field)=== 'input'" [type]="getInputType(field)" class="form-control"
+        [placeholder]="field.DisplayName" [formControlName]="field.Name" required>
+
+
       </div>
     </div>
     <div class="modal-footer">
