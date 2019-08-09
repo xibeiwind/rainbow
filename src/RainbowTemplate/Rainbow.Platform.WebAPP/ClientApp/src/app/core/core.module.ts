@@ -10,6 +10,7 @@ import { CreateModalComponent } from './create-modal/create-modal.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DataListComponent } from './data-list/data-list.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
