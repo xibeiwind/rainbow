@@ -13,6 +13,7 @@ namespace Rainbow.ViewModels.DataFieldTypes
     ///     查询DataFieldType
     /// </summary>
     [Display(Name = "查询DataFieldType")]
+    [BindModel("DataFieldType", VMType.Query)]
     public class QueryDataFieldTypeVM : PagingQueryOption
     {
 		

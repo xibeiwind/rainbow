@@ -12,6 +12,7 @@ namespace Rainbow.ViewModels.DataFieldTypes
     ///     显示DataFieldType
     /// </summary>
     [Display(Name = "显示DataFieldType")]
+    [BindModel("DataFieldType", VMType.Display)]
     public class DataFieldTypeVM : VMBase
     {
 		

@@ -12,6 +12,7 @@ namespace Rainbow.ViewModels.DataFieldTypes
     ///     更新DataFieldType
     /// </summary>
     [Display(Name = "更新DataFieldType")]
+    [BindModel("DataFieldType", VMType.Update)]
     public class UpdateDataFieldTypeVM : UpdateVM
     {
 		

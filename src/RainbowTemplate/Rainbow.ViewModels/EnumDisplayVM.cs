@@ -14,13 +14,4 @@ namespace Rainbow.ViewModels
         public IEnumerable<EnumFieldDisplayVM> Fields { get; set; }
 
     }
-
-    public class EnumFieldDisplayVM
-    {
-        public string Name { get; set; }
-        public string DisplayName { get; set; }
-        public int Value { get; set; }
-    }
-
-
 }

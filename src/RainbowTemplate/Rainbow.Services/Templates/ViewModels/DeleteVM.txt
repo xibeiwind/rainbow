@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Yunyong.Core.ViewModels;
+using $RootNamespace$.Common;
+using $RootNamespace$.Common.Enums;
+
 
 namespace $RootNamespace$.ViewModels.$FolderName$
 {
@@ -8,6 +11,7 @@ namespace $RootNamespace$.ViewModels.$FolderName$
     ///     $DisplayName$
     /// </summary>
     [Display(Name = "$DisplayName$")]
+	[BindModel("$ModelName$", VMType.Delete)]
     public class $Name$ : DeleteVM
     {
     }

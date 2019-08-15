@@ -43,39 +43,38 @@
         <button type="button" class="btn btn-danger" (click)="createNewVM('Display')">展示</button>
         <button type="button" class="btn btn-info" (click)="createNewVM('Query')">查询</button>
       </div>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" [(ngModel)]="enableDelete" value="true">
-          允许删除
-        </label>
+      <div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="enableDelete" value="true">
+            允许删除
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="generateService" value="true">
+            生成Service
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="generateController" value="true">
+            生成Controller
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="generateNgModuleComponent" value="true">
+            生成Angular Module和Component
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="updateTsServcie" value="true">
+            更新生成AngularService
+          </label>
+        </div>
       </div>
-
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" [(ngModel)]="generateService" value="true">
-          生成Service
-        </label>
-      </div>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" [(ngModel)]="generateController" value="true">
-          生成Controller
-        </label>
-      </div>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" [(ngModel)]="generateNgModuleComponent" value="true">
-          生成Angular Module和Component
-        </label>
-      </div>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" [(ngModel)]="updateTsServcie" value="true">
-          更新生成AngularService
-        </label>
-      </div>
-
-
 
       <div class="table-responsive" *ngIf="currentModel">
 

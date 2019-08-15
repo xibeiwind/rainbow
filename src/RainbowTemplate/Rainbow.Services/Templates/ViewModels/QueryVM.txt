@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using Yunyong.Core;
 using Yunyong.Core.ViewModels;
+using $RootNamespace$.Common;
+using $RootNamespace$.Common.Enums;
 $UsingNamespace$
 
 namespace $RootNamespace$.ViewModels.$FolderName$
@@ -10,6 +12,7 @@ namespace $RootNamespace$.ViewModels.$FolderName$
     ///     $DisplayName$
     /// </summary>
     [Display(Name = "$DisplayName$")]
+	[BindModel("$ModelName$", VMType.Query)]
     public class $Name$ : PagingQueryOption
     {
 		$ProperyList$

@@ -28,5 +28,13 @@ namespace Rainbow.Platform.Controllers
         {
             return await QueryService.GetVMDisplay(vm.Name);
         }
+
+        [HttpGet]
+        [Route("ModelVMDisplays")]
+        [ProducesDefaultResponseType(typeof(AsyncTaskTResult<ModelDisplaySuitVM>))]
+        public async Task<AsyncTaskTResult<ModelDisplaySuitVM>> GetModelVMDisplays([FromQuery]DisplayQueryVM vm)
+        {
+            return await QueryService.GetModelVMDisplays(vm.Name);
+        }
     }
 }

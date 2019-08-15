@@ -47,7 +47,8 @@ namespace Rainbow.Services.Models
                     template = template.Replace("$RootNamespace$", Settings.SolutionNamespace)
                         .Replace("$FolderName$", vm.FolderName)
                         .Replace("$Name$", item.Name)
-                        .Replace("$DisplayName$", item.DisplayName);
+                        .Replace("$DisplayName$", item.DisplayName)
+                        .Replace("$ModelName$", vm.ModelName);
 
                     if (item.Fields.Any())
                     {
@@ -60,10 +61,7 @@ namespace Rainbow.Services.Models
                         template = template.Replace("$ProperyList$", "");
                     }
 
-                    template = template.Replace("$UsingNamespace$", $@"
-using {Settings.SolutionNamespace}.Common;
-using {Settings.SolutionNamespace}.Common.Enums;
-");
+                    template = template.Replace("$UsingNamespace$", $@"");
 
                     File.WriteAllText(Path.Combine(path, $"{item.Name}.cs"), template, Encoding.UTF8);
                 }

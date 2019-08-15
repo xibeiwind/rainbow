@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModelService } from '../services/ModelService';
 import { ToastrService } from 'ngx-toastr';
+import { ViewModelDisplayService } from '../services/ViewModelDisplayService';
 
 @Component({
   selector: 'app-model',
@@ -23,8 +24,11 @@ export class ModelComponent implements OnInit {
     { name: '显示', value: Rainbow.Common.Enums.VMType.Display },
     { name: '查询', value: Rainbow.Common.Enums.VMType.Query },
   ];
+  currentDisplayViewModels: Rainbow.ViewModels.ViewModelDisplayVM[];
 
-  constructor(private service: ModelService, private toastr: ToastrService) { }
+  constructor(private service: ModelService,
+    private displayService: ViewModelDisplayService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.service.GetModelTypes().subscribe(res => {
@@ -38,7 +42,48 @@ export class ModelComponent implements OnInit {
       this.folderName = `${model.Name}s`;
       this.createVMs = [];
       this.enableDelete = false;
+
+      this.displayService.GetModelVMDisplays({ Name: model.Name }).subscribe(res => {
+        this.currentDisplayViewModels = res.Data.ViewModels;
+        res.Data.ViewModels.filter(a => a.Type !== Rainbow.Common.Enums.VMType.Delete).forEach(item => {
+          let vm: Rainbow.ViewModels.Models.CreateViewModelApplyVM = {
+            Type: item.Type,
+            DisplayName: this.getDisplayName(item),
+            Name: item.Name,
+            ActionName: this.getActionName(item),
+            Fields: item.Fields.map(f => f.Name),
+          };
+          vm['field'] = {};
+          item.Fields.forEach(f => {
+            vm['field'][f.Name] = true;
+          });
+          this.changeVmType(vm);
+
+          this.createVMs.push(vm);
+        });
+      });
     }
+  }
+  getDisplayName(item: Rainbow.ViewModels.ViewModelDisplayVM): string {
+    return item.DisplayName;
+  }
+  getActionName(item: Rainbow.ViewModels.ViewModelDisplayVM): string {
+    switch (item.Type) {
+      case Rainbow.Common.Enums.VMType.Create:
+        return 'Create';
+      case Rainbow.Common.Enums.VMType.Update:
+        return 'Update';
+      case Rainbow.Common.Enums.VMType.Delete:
+        return 'Delete';
+      case Rainbow.Common.Enums.VMType.Display:
+        return '';
+      case Rainbow.Common.Enums.VMType.Query:
+        return 'Query';
+
+      default:
+        return '';
+    }
+
   }
 
   createNewVM(typeStr: string = 'Create') {

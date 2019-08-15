@@ -9,35 +9,32 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Rainbow.Common;
-#if (EnableIdentity)
-using Rainbow.Platform.Controllers;
-using Rainbow.ViewModels.Users;
-#endif
-
 using TypeLite;
 using Yunyong.Core;
+//#if (EnableIdentity)
+//using Rainbow.Platform.Controllers;
+//#endif
 
 namespace Rainbow.TypeLiteConsoleApp
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-
             var types = new List<Type>
             {
                 typeof(AsyncTaskResult),
                 typeof(AsyncTaskTResult<>),
                 typeof(PagingList<>)
-            }; //typeof(OrderState).Assembly.GetTypes().Where(a => a.IsEnum).ToList();
+            };
 
             //GenerateTypeScriptContracts(typeof(UserVM).Assembly, $@"{Path.Combine(args[0], $@"Rainbow.Platform.WebAPP\ClientApp\src\app")}", types.ToArray());
             //GenerateAngularTypeScriptServices(typeof(AccountController).Assembly, $@"{Path.Combine(args[0], $@"Rainbow.Platform.WebAPP\ClientApp\src\app")}\services");
 
-            GenerateTypeScriptContracts(typeof(UserVM).Assembly, $@"{Path.Combine(args[0], $@"Rainbow.Platform.WebAPP\ClientApp\src\app")}", types.ToArray());
-            GenerateAngularTypeScriptServices(typeof(AccountController).Assembly, $@"{Path.Combine(args[0], $@"Rainbow.Platform.WebAPP\ClientApp\src\app")}\services");
-
-
+            GenerateTypeScriptContracts(Assembly.Load("Rainbow.ViewModels"),
+                $@"{Path.Combine(args[0], @"Rainbow.Platform.WebAPP\ClientApp\src\app")}", types.ToArray());
+            GenerateAngularTypeScriptServices(Assembly.Load("Rainbow.Platform.Controllers"),
+                $@"{Path.Combine(args[0], @"Rainbow.Platform.WebAPP\ClientApp\src\app")}\services");
         }
 
         private static void GenerateTypeScriptContracts(Assembly assembly, string outputPath, params Type[] extTypes)
@@ -51,20 +48,11 @@ namespace Rainbow.TypeLiteConsoleApp
 
             generator.ModelBuilder.Add<DataType>();
 
-            foreach (var model in models)
-            {
-                generator.ModelBuilder.Add(model);
-            }
+            foreach (var model in models) generator.ModelBuilder.Add(model);
 
-            foreach (var extType in extTypes)
-            {
-                generator.ModelBuilder.Add(extType);
-            }
+            foreach (var extType in extTypes) generator.ModelBuilder.Add(extType);
 
-            if (!Directory.Exists(outputPath))
-            {
-                Directory.CreateDirectory(outputPath);
-            }
+            if (!Directory.Exists(outputPath)) Directory.CreateDirectory(outputPath);
 
 
             //Generate enums
@@ -85,20 +73,11 @@ namespace Rainbow.TypeLiteConsoleApp
                 //.WithFormatter(new TsSimpleMemberTypeFormatter())
                 .WithConvertor<Guid>(c => "string");
 
-            foreach (var model in models)
-            {
-                generator.ModelBuilder.Add(model);
-            }
+            foreach (var model in models) generator.ModelBuilder.Add(model);
 
-            foreach (var extType in extTypes)
-            {
-                generator.ModelBuilder.Add(extType);
-            }
+            foreach (var extType in extTypes) generator.ModelBuilder.Add(extType);
 
-            if (!Directory.Exists(outputPath))
-            {
-                Directory.CreateDirectory(outputPath);
-            }
+            if (!Directory.Exists(outputPath)) Directory.CreateDirectory(outputPath);
 
             //Generate enums
             var tsEnumDefinitions = generator.Generate(TsGeneratorOutput.Enums);
@@ -110,14 +89,12 @@ namespace Rainbow.TypeLiteConsoleApp
 
         private static void GenerateTypeScriptServices(Assembly assembly, string outputPath)
         {
-            if (!Directory.Exists(outputPath))
-            {
-                Directory.CreateDirectory(outputPath);
-            }
+            if (!Directory.Exists(outputPath)) Directory.CreateDirectory(outputPath);
 
             //var assembly = Assembly.LoadFrom(assemblyFile);
             // If you want a subset of classes from this assembly, filter them here
-            var models = assembly.GetTypes().Where(a => a.IsClass && !a.IsAbstract && a.IsSubclassOf(typeof(Controller))).ToList();
+            var models = assembly.GetTypes()
+                .Where(a => a.IsClass && !a.IsAbstract && a.IsSubclassOf(typeof(Controller))).ToList();
 
             foreach (var model in models)
             {
@@ -127,9 +104,12 @@ namespace Rainbow.TypeLiteConsoleApp
                 var serviceName = Regex.Match(model.Name, "(.*)Controller").Groups[1].Value + "Service";
 
                 Console.WriteLine(serviceName);
-                var urlBase = attr != null ? attr.Template.Replace("[controller]", Regex.Match(model.Name, "(.*)Controller").Groups[1].Value) : serviceName;
+                var urlBase = attr != null
+                    ? attr.Template.Replace("[controller]", Regex.Match(model.Name, "(.*)Controller").Groups[1].Value)
+                    : serviceName;
 
-                var actions = model.GetMethods(BindingFlags.Public | BindingFlags.Default | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+                var actions = model.GetMethods(BindingFlags.Public | BindingFlags.Default | BindingFlags.Instance |
+                                               BindingFlags.DeclaredOnly);
                 Console.WriteLine(actions.Length);
 
                 var list = new List<RainbowAction>();
@@ -144,9 +124,7 @@ namespace Rainbow.TypeLiteConsoleApp
                         var methodName = routeAttr.Template.Replace("/", "");
 
                         if (Regex.IsMatch(methodName, "{"))
-                        {
                             methodName = Regex.Match(methodName, @"(.*){").Groups[1].Value;
-                        }
 
                         //Console.WriteLine(methodName);
 
@@ -175,31 +153,19 @@ namespace Rainbow.TypeLiteConsoleApp
 
                         {
                             var a = methodInfo.GetCustomAttribute<HttpGetAttribute>();
-                            if (a != null)
-                            {
-                                AppendAction("get");
-                            }
+                            if (a != null) AppendAction("get");
                         }
                         {
                             var a = methodInfo.GetCustomAttribute<HttpPostAttribute>();
-                            if (a != null)
-                            {
-                                AppendAction("post");
-                            }
+                            if (a != null) AppendAction("post");
                         }
                         {
                             var a = methodInfo.GetCustomAttribute<HttpPutAttribute>();
-                            if (a != null)
-                            {
-                                AppendAction("put");
-                            }
+                            if (a != null) AppendAction("put");
                         }
                         {
                             var a = methodInfo.GetCustomAttribute<HttpDeleteAttribute>();
-                            if (a != null)
-                            {
-                                AppendAction("delete");
-                            }
+                            if (a != null) AppendAction("delete");
                         }
                     }
                 }
@@ -215,7 +181,6 @@ namespace Rainbow.TypeLiteConsoleApp
         constructor(private directives: any){{}}
 ");
                 foreach (var action in list)
-                {
                     //            if (action.IsBaseType && (action.Method == "get" || action.Method == "delete"))
                     //            {
                     //                strBuilder.AppendLine($@"
@@ -234,20 +199,15 @@ namespace Rainbow.TypeLiteConsoleApp
                     if (action.IsBaseType && (action.Method == "get" || action.Method == "delete"))
                     {
                         if (string.IsNullOrWhiteSpace(action.ArgParamsStr))
-                        {
                             strBuilder.AppendLine($@"
     public async {action.Name}({action.ArgParamsStr}): Promise<{action.ReturnStr}> {{
         return await this.directives.{action.Method}Async(`{action.Url}`) as {action.ReturnStr};
     }}");
-                        }
                         else
-                        {
                             strBuilder.AppendLine($@"
     public async {action.Name}({action.ArgParamsStr}): Promise<{action.ReturnStr}> {{
         return await this.directives.{action.Method}Async(`{action.Url}`) as {action.ReturnStr};
     }}");
-                        }
-
                     }
                     else if (action.Method == "get")
                     {
@@ -267,13 +227,12 @@ namespace Rainbow.TypeLiteConsoleApp
                     {
                         strBuilder.AppendLine($@"
     public async {action.Name}({action.ArgParamsStr}): Promise<{action.ReturnStr}> {{
-        return await this.directives.{action.Method}Async(`${action.Url}`, {action.ArgsStr??"{}"}) as {action.ReturnStr};
+        return await this.directives.{action.Method}Async(`${action.Url}`, {action.ArgsStr ?? "{}"}) as {action.ReturnStr};
     }}");
                     }
-                }
 
-                strBuilder.AppendLine($@"
-    }}
+                strBuilder.AppendLine(@"
+    }
 ");
                 File.WriteAllText(Path.Combine(outputPath, $"{serviceName}.ts"), strBuilder.ToString());
             }
@@ -281,14 +240,13 @@ namespace Rainbow.TypeLiteConsoleApp
 
         private static void GenerateAngularTypeScriptServices(Assembly assembly, string outputPath)
         {
-            if (!Directory.Exists(outputPath))
-            {
-                Directory.CreateDirectory(outputPath);
-            }
+            if (!Directory.Exists(outputPath)) Directory.CreateDirectory(outputPath);
 
             //var assembly = Assembly.LoadFrom(assemblyFile);
 
-            var models = assembly.GetTypes().Where(a => a.IsClass && !a.IsAbstract && a.IsSubclassOf(typeof(Controller)) && a.GetCustomAttribute<SkipTSAttribute>() == null);
+            var models = assembly.GetTypes().Where(a =>
+                a.IsClass && !a.IsAbstract && a.IsSubclassOf(typeof(Controller)) &&
+                a.GetCustomAttribute<SkipTSAttribute>() == null);
 
             foreach (var model in models)
             {
@@ -298,9 +256,12 @@ namespace Rainbow.TypeLiteConsoleApp
                 var serviceName = Regex.Match(model.Name, "(.*)Controller").Groups[1].Value + "Service";
 
                 Console.WriteLine(serviceName);
-                var urlBase = attr != null ? attr.Template.Replace("[controller]", Regex.Match(model.Name, "(.*)Controller").Groups[1].Value) : serviceName;
+                var urlBase = attr != null
+                    ? attr.Template.Replace("[controller]", Regex.Match(model.Name, "(.*)Controller").Groups[1].Value)
+                    : serviceName;
 
-                var actions = model.GetMethods(BindingFlags.Public | BindingFlags.Default | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+                var actions = model.GetMethods(BindingFlags.Public | BindingFlags.Default | BindingFlags.Instance |
+                                               BindingFlags.DeclaredOnly);
                 Console.WriteLine(actions.Length);
 
                 var list = new List<RainbowAction>();
@@ -316,9 +277,7 @@ namespace Rainbow.TypeLiteConsoleApp
                         var methodName = methodInfo.Name; //routeAttr.Template.Replace("/", "");
 
                         if (Regex.IsMatch(methodName, "{"))
-                        {
                             methodName = Regex.Match(methodName, @"(.*){").Groups[1].Value;
-                        }
 
                         //Console.WriteLine(methodName);
 
@@ -347,31 +306,19 @@ namespace Rainbow.TypeLiteConsoleApp
 
                         {
                             var a = methodInfo.GetCustomAttribute<HttpGetAttribute>();
-                            if (a != null)
-                            {
-                                AppendAction("get");
-                            }
+                            if (a != null) AppendAction("get");
                         }
                         {
                             var a = methodInfo.GetCustomAttribute<HttpPostAttribute>();
-                            if (a != null)
-                            {
-                                AppendAction("post");
-                            }
+                            if (a != null) AppendAction("post");
                         }
                         {
                             var a = methodInfo.GetCustomAttribute<HttpPutAttribute>();
-                            if (a != null)
-                            {
-                                AppendAction("put");
-                            }
+                            if (a != null) AppendAction("put");
                         }
                         {
                             var a = methodInfo.GetCustomAttribute<HttpDeleteAttribute>();
-                            if (a != null)
-                            {
-                                AppendAction("delete");
-                            }
+                            if (a != null) AppendAction("delete");
                         }
                     }
                 }
@@ -389,7 +336,6 @@ import {{ stringify }} from 'querystring';
 export class {serviceName} {{
   constructor(private http: HttpClient,@Inject('BASE_URL') private baseUrl: string){{ }}");
                 foreach (var action in list)
-                {
                     if (action.Name == "UpLoadPictureFile")
                     {
                         strBuilder.AppendLine(@"
@@ -438,9 +384,7 @@ export class {serviceName} {{
       (`${{this.baseUrl}}{action.Url}?${{stringify({action.ArgsStr})}}`);
   }}");
                             }
-
                         }
-
                     }
                     else if (action.Method == "get")
                     {
@@ -466,13 +410,12 @@ export class {serviceName} {{
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {{
     return this.http.{action.Method}<{action.ReturnStr}>
-      (`${{this.baseUrl}}{action.Url}`, {(string.IsNullOrEmpty( action.ArgsStr)?"{}" : action.ArgsStr)});
+      (`${{this.baseUrl}}{action.Url}`, {(string.IsNullOrEmpty(action.ArgsStr) ? "{}" : action.ArgsStr)});
   }}");
                     }
-                }
 
-                strBuilder.AppendLine($@"
-}}
+                strBuilder.AppendLine(@"
+}
 ");
                 File.WriteAllText(Path.Combine(outputPath, $"{serviceName}.ts"), strBuilder.ToString());
             }
@@ -480,17 +423,15 @@ export class {serviceName} {{
 
             void GenerateServiceModule(IEnumerable<Type> serviceTypes)
             {
-
-
-                var serviceModuleTemplate = $@"
-import {{ NgModule }} from '@angular/core';
-import {{ CommonModule }} from '@angular/common';
-import {{ SiteService }} from './site.service';
+                var serviceModuleTemplate = @"
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SiteService } from './site.service';
 
 $ImportServices$
 
 
-@NgModule({{
+@NgModule({
   declarations: [],
   imports: [
     CommonModule
@@ -499,8 +440,8 @@ $ImportServices$
     SiteService,
 $ProviderServices$
   ],
-}})
-export class ServiceModule {{ }}
+})
+export class ServiceModule { }
 ";
                 var importServices = string.Join("\r\n", serviceTypes.Select(a =>
                 {
@@ -522,17 +463,12 @@ export class ServiceModule {{ }}
             }
 
             GenerateServiceModule(models);
-
-
         }
 
         private static string GetReturnTypeString(MethodInfo method)
         {
             var respTypeAttr = method.GetCustomAttribute<ProducesDefaultResponseTypeAttribute>();
-            if (respTypeAttr != null)
-            {
-                return GetTypeString(respTypeAttr.Type);
-            }
+            if (respTypeAttr != null) return GetTypeString(respTypeAttr.Type);
 
 
             return "any";
@@ -543,20 +479,15 @@ export class ServiceModule {{ }}
             if (type.IsGenericType)
             {
                 if (type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-                {
                     return $@"{
                         string.Join(", ",
                             type.GenericTypeArguments.Select(a => a.FullName))}[]";
-                }
-
 
 
                 if (type.GetGenericTypeDefinition() == typeof(List<>))
-                {
                     return $@"{
                         string.Join(", ",
                             type.GenericTypeArguments.Select(a => GetTypeString(a)))}[]";
-                }
 
 
                 var t = type.GetGenericTypeDefinition();
@@ -575,10 +506,7 @@ export class ServiceModule {{ }}
                 //return type.GetGenericTypeDefinition().FullName;
             }
 
-            if (type == typeof(Guid))
-            {
-                return "String";
-            }
+            if (type == typeof(Guid)) return "String";
 
             {
                 var types = new[]
@@ -588,20 +516,11 @@ export class ServiceModule {{ }}
                     typeof(double),
                     typeof(decimal)
                 };
-                if (types.Contains(type))
-                {
-                    return "Number";
-                }
+                if (types.Contains(type)) return "Number";
             }
-            if (type == typeof(string))
-            {
-                return "String";
-            }
+            if (type == typeof(string)) return "String";
 
-            if (type == typeof(bool))
-            {
-                return "Boolean";
-            }
+            if (type == typeof(bool)) return "Boolean";
 
             return type.FullName;
         }
@@ -637,20 +556,15 @@ export class ServiceModule {{ }}
             };
 
             var args = method.GetParameters();
-            if (args.Length != 1)
-            {
-                return false;
-            }
+            if (args.Length != 1) return false;
 
             if (baseTypes.Contains(args[0].ParameterType) ||
-                args[0].ParameterType.IsGenericType && baseTypes.Contains(args[0].ParameterType.GetGenericTypeDefinition())
+                args[0].ParameterType.IsGenericType &&
+                baseTypes.Contains(args[0].ParameterType.GetGenericTypeDefinition())
             ) // baseTypes.Contains(args[0].ParameterType.GetGenericTypeDefinition()))
-            {
                 return false;
-            }
 
             return true;
         }
-
     }
 }

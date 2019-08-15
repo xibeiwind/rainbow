@@ -14,5 +14,11 @@ export class ViewModelDisplayService {
       (`${this.baseUrl}api/ViewModelDisplay/VMDisplay?${stringify(vm)}`);
   }
 
+  public GetModelVMDisplays(vm: Rainbow.ViewModels.DisplayQueryVM)
+    : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ModelDisplaySuitVM>> {
+    return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ModelDisplaySuitVM>>
+      (`${this.baseUrl}api/ViewModelDisplay/ModelVMDisplays?${stringify(vm)}`);
+  }
+
 }
 

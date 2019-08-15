@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Yunyong.Core.ViewModels;
+using $RootNamespace$.Common;
+using $RootNamespace$.Common.Enums;
 $UsingNamespace$
 
 namespace $RootNamespace$.ViewModels.$FolderName$
@@ -9,6 +11,7 @@ namespace $RootNamespace$.ViewModels.$FolderName$
     ///     $DisplayName$
     /// </summary>
     [Display(Name = "$DisplayName$")]
+	[BindModel("$ModelName$", VMType.Update)]
     public class $Name$ : UpdateVM
     {
 		$ProperyList$

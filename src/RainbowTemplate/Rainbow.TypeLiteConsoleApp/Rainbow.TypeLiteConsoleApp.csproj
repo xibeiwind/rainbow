@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="TypeLite.Standard" Version="1.0.0" />
+    <PackageReference Include="Yunyong.Core" Version="1.0.9" />
   </ItemGroup>
 
   <ItemGroup>
