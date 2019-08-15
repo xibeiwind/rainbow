@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Yunyong.Core.ViewModels;
-
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 
@@ -12,7 +11,7 @@ namespace Rainbow.ViewModels.DataFieldTypes
     ///     显示DataFieldType
     /// </summary>
     [Display(Name = "显示DataFieldType")]
-    [BindModel("DataFieldType", VMType.Display)]
+	[BindModel("DataFieldType", VMType.Display)]
     public class DataFieldTypeVM : VMBase
     {
 		

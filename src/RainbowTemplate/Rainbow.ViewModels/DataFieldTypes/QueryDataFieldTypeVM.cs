@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using Yunyong.Core;
 using Yunyong.Core.ViewModels;
-
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 
@@ -13,7 +12,7 @@ namespace Rainbow.ViewModels.DataFieldTypes
     ///     查询DataFieldType
     /// </summary>
     [Display(Name = "查询DataFieldType")]
-    [BindModel("DataFieldType", VMType.Query)]
+	[BindModel("DataFieldType", VMType.Query)]
     public class QueryDataFieldTypeVM : PagingQueryOption
     {
 		
