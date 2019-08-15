@@ -15,6 +15,6 @@ namespace $RootNamespace$.ViewModels.$FolderName$
 	[BindModel("$ModelName$", VMType.Query)]
     public class $Name$ : PagingQueryOption
     {
-		$ProperyList$
+		$PropertyList$
     }
 }

@@ -54,11 +54,11 @@ namespace Rainbow.Services.Models
                     {
                         var propList = item.Fields.Select(a => modelType.GetProperty(a)).ToList();
 
-                        template = template.Replace("$ProperyList$", string.Join("", GetVMFieldStrings(propList)));
+                        template = template.Replace("$PropertyList$", string.Join("", GetVMFieldStrings(propList)));
                     }
                     else
                     {
-                        template = template.Replace("$ProperyList$", "");
+                        template = template.Replace("$PropertyList$", "");
                     }
 
                     template = template.Replace("$UsingNamespace$", $@"");
@@ -72,7 +72,8 @@ namespace Rainbow.Services.Models
                     template = template.Replace("$RootNamespace$", Settings.SolutionNamespace)
                         .Replace("$FolderName$", vm.FolderName)
                         .Replace("$Name$", $"Delete{vm.ModelName}VM")
-                        .Replace("$DisplayName$", $"删除{vm.ModelName}");
+                        .Replace("$DisplayName$", $"删除{vm.ModelName}")
+                        .Replace("$ModelName$", vm.ModelName);
 
                     template = template.Replace("$UsingNamespace$", $@"
 using {Settings.SolutionNamespace}.Common;
