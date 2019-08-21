@@ -19,6 +19,7 @@ namespace Rainbow.Services.Users
         /// </summary>
         [Display(Name = "手机号码短信登录")]
         Task<LoginResultVM> SmsLoginAsync(SmsLoginVM vm);
+
         /// <summary>
         ///     发送登录短信
         /// </summary>
@@ -30,5 +31,7 @@ namespace Rainbow.Services.Users
         /// </summary>
         [Display(Name = "获取用户信息")]
         Task<UserVM> GetUserAsync(Guid userId);
+
+        Task<LoginResultVM> PasswordLoginWithToken(LoginVM vm);
     }
 }

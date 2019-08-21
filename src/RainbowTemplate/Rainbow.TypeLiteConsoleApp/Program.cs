@@ -331,17 +331,18 @@ import {{ Injectable, Inject }} from '@angular/core';
 import {{ HttpClient }} from '@angular/common/http';
 import {{ Observable }} from 'rxjs';
 import {{ stringify }} from 'querystring';
+import {{ getHttpOptions }} from './httpOptions';
 
 @Injectable()
 export class {serviceName} {{
-  constructor(private http: HttpClient,@Inject('BASE_URL') private baseUrl: string){{ }}");
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){{ }}");
                 foreach (var action in list)
                     if (action.Name == "UpLoadPictureFile")
                     {
                         strBuilder.AppendLine(@"
   public UpLoadPictureFile(data: FormData)
     : Observable<Rainbow.ViewModels.Utils.PictureFileVM> {
-    return this.http.post<Rainbow.ViewModels.Utils.PictureFileVM>(`${this.baseUrl}api/ImageUpload/UpLoadPictureFile`, data);
+    return this.http.post<Rainbow.ViewModels.Utils.PictureFileVM>(`${this.baseUrl}api/ImageUpload/UpLoadPictureFile`, data, getHttpOptions());
   }");
                     }
                     else if (action.Name == "Logout")
@@ -350,7 +351,7 @@ export class {serviceName} {{
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {{
     return this.http.{action.Method}<{action.ReturnStr}>
-      (`${{this.baseUrl}}{action.Url}`,{{}});
+      (`${{this.baseUrl}}{action.Url}`,{{}}, getHttpOptions());
   }}");
                     }
                     else if (action.IsBaseType && (action.Method == "get" || action.Method == "delete"))
@@ -361,7 +362,7 @@ export class {serviceName} {{
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {{
     return this.http.{action.Method}<{action.ReturnStr}>
-      (`${{this.baseUrl}}{action.Url}`);
+      (`${{this.baseUrl}}{action.Url}`, getHttpOptions());
   }}");
                         }
                         else
@@ -372,7 +373,7 @@ export class {serviceName} {{
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {{
     return this.http.{action.Method}<{action.ReturnStr}>
-      (`${{this.baseUrl}}{action.Url}`);
+      (`${{this.baseUrl}}{action.Url}`, getHttpOptions());
   }}");
                             }
                             else
@@ -381,7 +382,7 @@ export class {serviceName} {{
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {{
     return this.http.{action.Method}<{action.ReturnStr}>
-      (`${{this.baseUrl}}{action.Url}?${{stringify({action.ArgsStr})}}`);
+      (`${{this.baseUrl}}{action.Url}?${{stringify({action.ArgsStr})}}`, getHttpOptions());
   }}");
                             }
                         }
@@ -392,7 +393,7 @@ export class {serviceName} {{
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {{
     return this.http.{action.Method}<{action.ReturnStr}>
-      (`${{this.baseUrl}}{action.Url}?${{stringify({action.ArgsStr})}}`);
+      (`${{this.baseUrl}}{action.Url}?${{stringify({action.ArgsStr})}}`, getHttpOptions());
   }}");
                     }
                     else if (action.Method == "delete")
@@ -401,7 +402,7 @@ export class {serviceName} {{
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {{
     return this.http.{action.Method}<{action.ReturnStr}>
-      (`${{this.baseUrl}}{action.Url}?${{stringify({action.ArgsStr})}}`);
+      (`${{this.baseUrl}}{action.Url}?${{stringify({action.ArgsStr})}}`, getHttpOptions());
   }}");
                     }
                     else
@@ -410,7 +411,7 @@ export class {serviceName} {{
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {{
     return this.http.{action.Method}<{action.ReturnStr}>
-      (`${{this.baseUrl}}{action.Url}`, {(string.IsNullOrEmpty(action.ArgsStr) ? "{}" : action.ArgsStr)});
+      (`${{this.baseUrl}}{action.Url}`, {(string.IsNullOrEmpty(action.ArgsStr) ? "{}" : action.ArgsStr)}, getHttpOptions());
   }}");
                     }
 

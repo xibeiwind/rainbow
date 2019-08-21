@@ -61,7 +61,7 @@ namespace Rainbow.Services.Models
                         template = template.Replace("$PropertyList$", "");
                     }
 
-                    template = template.Replace("$UsingNamespace$", $@"");
+                    template = template.Replace("$UsingNamespace$", @"");
 
                     File.WriteAllText(Path.Combine(path, $"{item.Name}.cs"), template, Encoding.UTF8);
                 }
@@ -453,7 +453,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                             RedirectStandardInput = true,
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,
-                            CreateNoWindow = true,
+                            CreateNoWindow = true
                         }
                     };
                     process.OutputDataReceived += (sender, args) => { Console.WriteLine(args.Data); };
@@ -481,7 +481,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                             RedirectStandardInput = true,
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,
-                            CreateNoWindow = true,
+                            CreateNoWindow = true
                         }
                     };
                     process.OutputDataReceived += (sender, args) => { Console.WriteLine(args.Data); };
@@ -509,43 +509,41 @@ using {Settings.SolutionNamespace}.Common.Enums;
             if (vm.GenerateController) CreateControllers();
 
             if (vm.GenerateNgModuleComponent) CreateNgModuleComponent();
-            if (vm.UpdateTsServices)
-            {
-                await RegenerateTsCode();
-            }
+            if (vm.UpdateTsServices) await RegenerateTsCode();
 
             return AsyncTaskResult.Success(true);
         }
-            public async Task<AsyncTaskTResult<bool>> RegenerateTsCode()
+
+        public async Task<AsyncTaskTResult<bool>> RegenerateTsCode()
+        {
+            var pathRoot = Path.Combine(Settings.SolutionRoot, @"Rainbow.TypeLiteConsoleApp");
+
+            var cmd = $"run {Settings.SolutionRoot}";
+            var process = new Process
             {
-                var pathRoot = Path.Combine(Settings.SolutionRoot, @"Rainbow.TypeLiteConsoleApp");
-
-                var cmd = $"run {Settings.SolutionRoot}";
-                var process = new Process
+                StartInfo = new ProcessStartInfo
                 {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = "dotnet.exe",
-                        Arguments = cmd,
-                        WorkingDirectory = pathRoot,
-                        RedirectStandardInput = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        CreateNoWindow = true,
-                    }
-                };
+                    FileName = "dotnet.exe",
+                    Arguments = cmd,
+                    WorkingDirectory = pathRoot,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                }
+            };
 
-                process.OutputDataReceived += (sender, args) => { Console.WriteLine(args.Data); };
-                process.ErrorDataReceived += (sender, args) => { Console.Error.WriteLine(args.Data); };
+            process.OutputDataReceived += (sender, args) => { Console.WriteLine(args.Data); };
+            process.ErrorDataReceived += (sender, args) => { Console.Error.WriteLine(args.Data); };
 
-                process.Start();
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-                process.WaitForExit();
-                process.Close();
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            process.WaitForExit();
+            process.Close();
 
-                return AsyncTaskResult.Success(true);
-            }
+            return AsyncTaskResult.Success(true);
+        }
 
         private string GetVMDeleteTemplate()
         {
@@ -589,7 +587,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
         private Type GetModelType(string modelName)
         {
-            return typeof(User).Assembly.GetType(modelName);
+            return typeof(UserInfo).Assembly.GetType(modelName);
         }
 
         private string GetVMTemplate(VMType type)

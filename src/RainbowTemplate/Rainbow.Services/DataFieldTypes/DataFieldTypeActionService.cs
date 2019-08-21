@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Rainbow.Common;
-using Rainbow.Common.Enums;
 using Rainbow.Models;
-using Yunyong.Core;
-using Yunyong.EventBus;
-using Yunyong.DataExchange;
-
-
 using Rainbow.ViewModels.DataFieldTypes;
+using Yunyong.Core;
+using Yunyong.DataExchange;
+using Yunyong.EventBus;
 
 namespace Rainbow.Services.DataFieldTypes
 {
     public class DataFieldTypeActionService : ServiceBase, IDataFieldTypeActionService
     {
-        public DataFieldTypeActionService(ConnectionSettings connectionSettings, IConnectionFactory connectionFactory, ILoggerFactory loggerFactory, IEventBus eventBus)
+        public DataFieldTypeActionService(ConnectionSettings connectionSettings, IConnectionFactory connectionFactory,
+            ILoggerFactory loggerFactory, IEventBus eventBus)
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
         {
         }
@@ -29,21 +23,22 @@ namespace Rainbow.Services.DataFieldTypes
         /// <summary>
         ///     创建DataFieldType
         /// </summary>
-        [Display(Name="创建DataFieldType")]
+        [Display(Name = "创建DataFieldType")]
         public async Task<AsyncTaskTResult<Guid>> CreateAsync(CreateDataFieldTypeVM vm)
         {
             using (var conn = GetConnection())
             {
-                var entity = EntityFactory.Create<DataFieldType,CreateDataFieldTypeVM>(vm);
+                var entity = EntityFactory.Create<DataFieldType, CreateDataFieldTypeVM>(vm);
                 // todo:
                 await conn.CreateAsync(entity);
                 return AsyncTaskResult.Success(entity.Id);
             }
         }
+
         /// <summary>
         ///     更新DataFieldType
         /// </summary>
-        [Display(Name="更新DataFieldType")]
+        [Display(Name = "更新DataFieldType")]
         public async Task<AsyncTaskTResult<Guid>> UpdateAsync(UpdateDataFieldTypeVM vm)
         {
             using (var conn = GetConnection())
@@ -57,7 +52,7 @@ namespace Rainbow.Services.DataFieldTypes
         /// <summary>
         ///     删除DataFieldType
         /// </summary>
-        [Display(Name="删除DataFieldType")]
+        [Display(Name = "删除DataFieldType")]
         public async Task<AsyncTaskResult> DeleteAsync(DeleteDataFieldTypeVM vm)
         {
             using (var conn = GetConnection())
@@ -66,7 +61,5 @@ namespace Rainbow.Services.DataFieldTypes
                 return AsyncTaskResult.Success();
             }
         }
-
-
-	}
+    }
 }

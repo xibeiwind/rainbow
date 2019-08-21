@@ -1,10 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Users
 {
-	/// <summary>
+    /// <summary>
     ///     删除User
     /// </summary>
     [Display(Name = "删除User")]

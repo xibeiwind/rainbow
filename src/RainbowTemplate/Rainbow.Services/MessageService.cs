@@ -49,7 +49,6 @@ namespace Rainbow.Services
             var rand = new Random();
 
             for (var i = 0; i < count; i++)
-            {
                 yield return new MessageVM
                 {
                     Id = GuidUtil.NewSequentialId(),
@@ -61,7 +60,6 @@ namespace Rainbow.Services
                     Title = $"测试发送消息{rand.Next(100, 999)}",
                     Summary = $"测试内容{rand.Next(1000, 9999)}"
                 };
-            }
         }
     }
 }

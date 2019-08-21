@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Rainbow.ViewModels.Utils
 {
@@ -19,6 +15,7 @@ namespace Rainbow.ViewModels.Utils
         /// </summary>
         [Display(Name = "提示信息")]
         public string Message { get; set; }
+
         /// <summary>
         ///     验证码
         /// </summary>

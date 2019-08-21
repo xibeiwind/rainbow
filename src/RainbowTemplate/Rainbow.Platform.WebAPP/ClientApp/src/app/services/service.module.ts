@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SiteService } from './site.service';
 
 import { AccountService } from './AccountService';
+import { CustomerServiceAccountService } from './CustomerServiceAccountService';
 import { DataFieldTypeService } from './DataFieldTypeService';
 import { EnumDisplayService } from './EnumDisplayService';
 import { LookupQueryService } from './LookupQueryService';
@@ -21,6 +22,7 @@ import { ViewModelDisplayService } from './ViewModelDisplayService';
   providers: [
     SiteService,
     AccountService,
+    CustomerServiceAccountService,
     DataFieldTypeService,
     EnumDisplayService,
     LookupQueryService,

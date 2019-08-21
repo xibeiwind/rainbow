@@ -19,21 +19,18 @@ namespace Rainbow.Services
             {
                 string GetFieldType(Type type)
                 {
-                    if (type.IsEnum)
-                    {
-                        return type.Name;
-                    }
+                    if (type.IsEnum) return type.Name;
 
-                    var dic = new Dictionary<string, List<Type>>()
+                    var dic = new Dictionary<string, List<Type>>
                     {
                         {
-                            "text", new List<Type>()
+                            "text", new List<Type>
                             {
                                 typeof(string), typeof(Guid)
                             }
                         },
                         {
-                            "number", new List<Type>()
+                            "number", new List<Type>
                             {
                                 typeof(int),
                                 typeof(double),
@@ -41,13 +38,12 @@ namespace Rainbow.Services
                                 typeof(decimal),
                                 typeof(byte)
                             }
-
                         },
                         {
                             "checkbox",
-                            new List<Type>()
+                            new List<Type>
                             {
-                                typeof(bool),
+                                typeof(bool)
                             }
                         }
                     };
@@ -55,18 +51,12 @@ namespace Rainbow.Services
 
                     return tmp?.Key ?? "text";
                 }
+
                 if (!property.PropertyType.IsClass)
-                {
                     return GetFieldType(property.PropertyType);
-                }
-                else if (property.PropertyType.IsSubclassOf(typeof(Nullable<>)))
-                {
+                if (property.PropertyType.IsSubclassOf(typeof(Nullable<>)))
                     return GetFieldType(property.PropertyType.GetGenericArguments().FirstOrDefault());
-                }
-                else
-                {
-                    return "text";
-                }
+                return "text";
             }
 
             ModelTypeDic = Assembly.Load("Rainbow.Models").GetTypes()
@@ -99,11 +89,11 @@ namespace Rainbow.Services
                             IsEnum = b.PropertyType.IsEnum,
                             DataType = GetDataType(b),
                             Lookup = lookup != null
-                                ? new LookupSettingVM()
+                                ? new LookupSettingVM
                                 {
                                     VMType = lookup.Type.Name,
                                     DisplayField = lookup.DisplayField,
-                                    ValueField = lookup.ValueField,
+                                    ValueField = lookup.ValueField
                                 }
                                 : null,
                             IsNullable = b.PropertyType.IsSubclassOf(typeof(Nullable<>))
@@ -114,23 +104,6 @@ namespace Rainbow.Services
             });
 
             ViewModelDisplayDic = items.ToDictionary(a => a.Name);
-        }
-
-        private DataType GetDataType(PropertyInfo property)
-        {
-            var attr = property.GetCustomAttribute<DataTypeAttribute>();
-            if (attr != null)
-            {
-                return attr.DataType;
-            }
-            if (property.PropertyType.IsSubclassOf(typeof(Nullable<>)))
-            {
-                var type = property.PropertyType.GetGenericArguments().FirstOrDefault();
-
-
-            }
-
-            return DataType.Text;
         }
 
         private Dictionary<string, Type> ModelTypeDic { get; }
@@ -164,6 +137,18 @@ namespace Rainbow.Services
             }
 
             return AsyncTaskResult.Failed<ModelDisplaySuitVM>($"Model:[{modelName}] 未找到");
+        }
+
+        private DataType GetDataType(PropertyInfo property)
+        {
+            var attr = property.GetCustomAttribute<DataTypeAttribute>();
+            if (attr != null) return attr.DataType;
+            if (property.PropertyType.IsSubclassOf(typeof(Nullable<>)))
+            {
+                var type = property.PropertyType.GetGenericArguments().FirstOrDefault();
+            }
+
+            return DataType.Text;
         }
     }
 }

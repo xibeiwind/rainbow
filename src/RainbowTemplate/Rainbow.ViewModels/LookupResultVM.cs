@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels
@@ -19,6 +14,7 @@ namespace Rainbow.ViewModels
         /// </summary>
         [Display(Name = "显示文本")]
         public object Name { get; set; }
+
         /// <summary>
         ///     值
         /// </summary>

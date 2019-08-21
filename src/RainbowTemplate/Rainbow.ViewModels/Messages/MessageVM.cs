@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Messages
 {
-    public class MessageVM:VMBase
+    public class MessageVM : VMBase
     {
         public string Title { get; set; }
         public string Summary { get; set; }
@@ -16,6 +12,5 @@ namespace Rainbow.ViewModels.Messages
         public Guid SendToId { get; set; }
         public string SendFrom { get; set; }
         public string SendTo { get; set; }
-
     }
 }

@@ -1,37 +1,30 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Yunyong.Core.ViewModels;
-
-using Rainbow.Common;
-using Rainbow.Common.Enums;
-
 
 namespace Rainbow.ViewModels.Users
 {
-	/// <summary>
+    /// <summary>
     ///     显示User
     /// </summary>
     [Display(Name = "显示User")]
     public class UserVM : VMBase
     {
-		
         /// <summary>
         ///     Phone
         /// </summary>
         [Display(Name = "Phone")]
-        public String Phone { get; set; }
+        public string Phone { get; set; }
 
         /// <summary>
         ///     Name
         /// </summary>
         [Display(Name = "Name")]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         ///     IsActive
         /// </summary>
         [Display(Name = "IsActive")]
-        public Boolean IsActive { get; set; }
-
+        public bool IsActive { get; set; }
     }
 }

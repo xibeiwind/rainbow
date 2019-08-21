@@ -1,31 +1,27 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Yunyong.Core.ViewModels;
+﻿using System.ComponentModel.DataAnnotations;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
-
+using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.DataFieldTypes
 {
-	/// <summary>
+    /// <summary>
     ///     更新DataFieldType
     /// </summary>
     [Display(Name = "更新DataFieldType")]
-	[BindModel("DataFieldType", VMType.Update)]
+    [BindModel("DataFieldType", VMType.Update)]
     public class UpdateDataFieldTypeVM : UpdateVM
     {
-		
         /// <summary>
         ///     显示类型
         /// </summary>
         [Display(Name = "显示类型")]
-        public String FieldTypeDisplay { get; set; }
+        public string FieldTypeDisplay { get; set; }
 
         /// <summary>
         ///     编辑类型
         /// </summary>
         [Display(Name = "编辑类型")]
-        public String FieldTypeEdit { get; set; }
-
+        public string FieldTypeEdit { get; set; }
     }
 }

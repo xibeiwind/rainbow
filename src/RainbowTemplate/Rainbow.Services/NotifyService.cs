@@ -44,14 +44,12 @@ namespace Rainbow.Services
             var rand = new Random();
 
             for (var i = 0; i < count; i++)
-            {
                 yield return new NotifyVM
                 {
                     Id = GuidUtil.NewSequentialId(),
                     Title = $"通知消息{rand.Next(100, 999)}",
                     Type = NotifyType.Metting
                 };
-            }
         }
     }
 }

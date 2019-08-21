@@ -140,6 +140,11 @@ declare namespace Rainbow.ViewModels.Users {
 		Name: string;
 		Phone: string;
 	}
+	interface CustomerServiceVM extends Yunyong.Core.ViewModels.VMBase {
+		Name: string;
+		Phone: string;
+		Roles: string[];
+	}
 	interface DeleteUserVM extends Yunyong.Core.ViewModels.DeleteVM {
 	}
 	interface LoginResultVM {

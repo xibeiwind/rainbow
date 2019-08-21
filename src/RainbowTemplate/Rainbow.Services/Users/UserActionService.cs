@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Rainbow.Common;
-using Rainbow.Common.Enums;
 using Rainbow.Models;
-using Yunyong.Core;
-using Yunyong.EventBus;
-using Yunyong.DataExchange;
-
-
 using Rainbow.ViewModels.Users;
+using Yunyong.Core;
+using Yunyong.DataExchange;
+using Yunyong.EventBus;
 
 namespace Rainbow.Services.Users
 {
     public class UserActionService : ServiceBase, IUserActionService
     {
-        public UserActionService(ConnectionSettings connectionSettings, IConnectionFactory connectionFactory, ILoggerFactory loggerFactory, IEventBus eventBus)
+        public UserActionService(ConnectionSettings connectionSettings, IConnectionFactory connectionFactory,
+            ILoggerFactory loggerFactory, IEventBus eventBus)
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
         {
         }
@@ -29,27 +23,28 @@ namespace Rainbow.Services.Users
         /// <summary>
         ///     创建User
         /// </summary>
-        [Display(Name="创建User")]
+        [Display(Name = "创建User")]
         public async Task<AsyncTaskTResult<Guid>> CreateAsync(CreateUserVM vm)
         {
             using (var conn = GetConnection())
             {
-                var entity = EntityFactory.Create<User,CreateUserVM>(vm);
+                var entity = EntityFactory.Create<UserInfo, CreateUserVM>(vm);
                 // todo:
                 await conn.CreateAsync(entity);
                 return AsyncTaskResult.Success(entity.Id);
             }
         }
+
         /// <summary>
         ///     更新User
         /// </summary>
-        [Display(Name="更新User")]
+        [Display(Name = "更新User")]
         public async Task<AsyncTaskTResult<Guid>> UpdateAsync(UpdateUserVM vm)
         {
             using (var conn = GetConnection())
             {
                 // todo:
-                await conn.UpdateAsync<User>(a => a.Id == vm.Id, vm);
+                await conn.UpdateAsync<UserInfo>(a => a.Id == vm.Id, vm);
                 return AsyncTaskResult.Success(vm.Id);
             }
         }
@@ -57,16 +52,14 @@ namespace Rainbow.Services.Users
         /// <summary>
         ///     删除User
         /// </summary>
-        [Display(Name="删除User")]
+        [Display(Name = "删除User")]
         public async Task<AsyncTaskResult> DeleteAsync(DeleteUserVM vm)
         {
             using (var conn = GetConnection())
             {
-                await conn.DeleteAsync<User>(a => a.Id == vm.Id);
+                await conn.DeleteAsync<UserInfo>(a => a.Id == vm.Id);
                 return AsyncTaskResult.Success();
             }
         }
-
-
-	}
+    }
 }

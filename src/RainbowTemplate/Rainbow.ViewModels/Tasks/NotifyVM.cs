@@ -3,7 +3,7 @@ using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Tasks
 {
-    public class NotifyVM:VMBase
+    public class NotifyVM : VMBase
     {
         public NotifyType Type { get; set; }
         public string Title { get; set; }

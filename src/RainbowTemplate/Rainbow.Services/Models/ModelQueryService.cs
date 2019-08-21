@@ -12,10 +12,9 @@ namespace Rainbow.Services.Models
     {
         public IEnumerable<ModelTypeVM> GetModelTypes()
         {
-            
-
             var types
-                = Assembly.Load($"Rainbow.Models").GetTypes().Where(a => !a.IsAbstract && a.IsSubclassOf(typeof(Entity)));
+                = Assembly.Load("Rainbow.Models").GetTypes()
+                    .Where(a => !a.IsAbstract && a.IsSubclassOf(typeof(Entity)));
 
             foreach (var type in types) yield return GetModelTypeVM(type);
         }

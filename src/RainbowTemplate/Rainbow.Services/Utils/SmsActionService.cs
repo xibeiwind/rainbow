@@ -38,22 +38,21 @@ namespace Rainbow.Services.Utils
         private ICacheService<PhoneSmsVM> PhoneSmsCacheService { get; }
         private ICacheService<VerifySmsSuccessVM> VerifySmsCacheService { get; }
         private ICacheService<VerfyCodeNumLimitVM> VerifyCodeNumLimitService { get; }
-        private Random Random { get; } = new Random((int)DateTime.Now.Ticks);
+        private Random Random { get; } = new Random((int) DateTime.Now.Ticks);
 
         public async Task<SendSmsResultVM> SendSms(string phone, TplType tplType)
         {
             using (var conn = GetConnection())
             {
-                var user = await conn.FirstOrDefaultAsync<User>(a => a.Phone == phone);
-                if (user?.IsActive!=true)
-                {
+                var user = await conn.FirstOrDefaultAsync<UserInfo>(a => a.Phone == phone);
+                if (user?.IsActive != true)
                     return new SendSmsResultVM
                     {
                         State = false,
                         Message = "账号不存在或未激活，不能登陆！"
                     };
-                }
             }
+
             var response = EventBus.Request<SendSmsCodeRequest, SendSmsCodeResponse>(new SendSmsCodeRequest
             {
                 Phone = phone,
@@ -73,6 +72,7 @@ namespace Rainbow.Services.Utils
                 Message = response?.ResultDesc
             };
         }
+
         private string GetRandomCode()
         {
             return Random.Next(100000, 999999).ToString();

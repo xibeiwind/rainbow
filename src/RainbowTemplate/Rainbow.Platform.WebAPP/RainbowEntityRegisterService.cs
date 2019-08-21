@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Rainbow.Models;
 using Yunyong.Core;
 
 namespace Rainbow.Platform.WebAPP
@@ -20,8 +21,11 @@ namespace Rainbow.Platform.WebAPP
         public void RegisterEntities(ModelBuilder builder)
         {
             var types = Assembly.Load("Rainbow.Models").GetTypes()
-                .Where(a => a.IsClass && a.IsPublic && !a.IsAbstract && a.IsSubclassOf(typeof(Entity)))
+                .Where(a => a.IsClass && a.IsPublic && !a.IsAbstract 
+                            && a.GetCustomAttribute<NotMappedAttribute>() == null
+                            && a.IsSubclassOf(typeof(Entity)))
                 .ToList();
+            //types.Add(typeof(UserRole));
 
             foreach (var type in types)
             {
@@ -35,6 +39,8 @@ namespace Rainbow.Platform.WebAPP
                     throw;
                 }
             }
+
+            builder.Entity<UserRole>().ToTable(nameof(UserRole)).HasKey(a => new {a.UserId, a.RoleId});
         }
     }
 }

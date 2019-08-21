@@ -1,9 +1,11 @@
-﻿namespace Rainbow.ViewModels.Users
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Rainbow.ViewModels.Users
 {
     public class LoginVM
     {
         public string Phone { get; set; }
-        public string Password { get; set; }
 
+        [DataType(DataType.Password)] public string Password { get; set; }
     }
 }

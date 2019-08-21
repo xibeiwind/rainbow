@@ -40,6 +40,16 @@ namespace Rainbow.Platform.Controllers
             return await Service.RegisterAsync(vm);
         }
 
+        [HttpPost]
+        [Route("Login")]
+        [AllowAnonymous]
+        [ProducesDefaultResponseType(typeof(LoginResultVM))]
+        public async Task<IActionResult> Login(LoginVM vm)
+        {
+            LoginResultVM result = await Service.PasswordLoginWithToken(vm);
+            return Ok();
+        }
+
 
         /// <summary>
         ///     获取用户信息
@@ -52,6 +62,6 @@ namespace Rainbow.Platform.Controllers
         {
             return await Service.GetUserAsync(this.GetUserId());
         }
-    
+
     }
 }

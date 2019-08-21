@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Users
@@ -14,6 +10,7 @@ namespace Rainbow.ViewModels.Users
         /// </summary>
         [Display(Name = "电话")]
         public string Phone { get; set; }
+
         /// <summary>
         ///     名称
         /// </summary>

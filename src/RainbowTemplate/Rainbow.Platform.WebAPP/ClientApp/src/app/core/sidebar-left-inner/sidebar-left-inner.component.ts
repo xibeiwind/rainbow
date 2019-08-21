@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../services/AccountService';
+import { CustomerServiceAccountService } from '../../services/CustomerServiceAccountService';
 
 @Component({
   selector: 'app-sidebar-left-inner',
@@ -7,13 +8,13 @@ import { AccountService } from '../../services/AccountService';
   styleUrls: ['./sidebar-left-inner.component.scss']
 })
 export class SidebarLeftInnerComponent implements OnInit {
-  user: Rainbow.ViewModels.Users.UserVM;
+  user: Rainbow.ViewModels.Users.CustomerServiceVM;
 
-  constructor(private service:AccountService) { }
+  constructor(private service: CustomerServiceAccountService) { }
 
   ngOnInit() {
-    this.service.GetUserAsync().subscribe(res=>{
-      this.user = res;
+    this.service.GetCustomerService().subscribe(res => {
+      this.user = res.Data;
     });
   }
 

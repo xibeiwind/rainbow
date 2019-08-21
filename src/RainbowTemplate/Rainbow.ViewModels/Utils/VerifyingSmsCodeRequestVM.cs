@@ -14,6 +14,7 @@ namespace Rainbow.ViewModels.Utils
         /// </summary>
         [Display(Name = "手机号码")]
         public string Phone { get; set; }
+
         /// <summary>
         ///     短信验证码
         /// </summary>
@@ -21,6 +22,7 @@ namespace Rainbow.ViewModels.Utils
         [Required]
         [StringLength(6, MinimumLength = 4)]
         public string Code { get; set; }
+
         /// <summary>
         ///     短信类型
         /// </summary>
