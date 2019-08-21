@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Rainbow.Authorize;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.Data;
@@ -50,7 +51,6 @@ namespace Rainbow.Platform.WebAPP
             services.AddScoped<IViewModelDisplayQueryService, ViewModelDisplayQueryService>();
 
 
-#if (EnableIdentity)
 
             services.AddScoped<IRoleService, RoleService>();
 
@@ -61,19 +61,6 @@ namespace Rainbow.Platform.WebAPP
             services.AddSingleton<IIdentityService, IdentityService>();
             services.AddScoped<ICustomerServiceManageService, CustomerServiceManageService>();
 
-            services.AddTransient<IClaimsTransformation, RainbowClaimsTransformation>();
-            services.AddAuthentication(options =>
-                {
-                    //认证middleware配置
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(options =>
-                {
-                    options.SecurityTokenValidators.Clear();
-                    options.SecurityTokenValidators.Add(new RainbowSecurityTokenValidator());
-                });
-#endif
             return services;
         }
 
@@ -90,15 +77,11 @@ namespace Rainbow.Platform.WebAPP
                 dbContext.Database.EnsureCreated();
 
 
-#if (EnableIdentity)
-                app.UseAuthentication();
                 var service = GetService<IRoleService>();
                 await service.Init();
 
                 var customerServiceManageService = GetService<ICustomerServiceManageService>();
                 await customerServiceManageService.InitBuildCustomerService();
-#endif
-
 
             }
 

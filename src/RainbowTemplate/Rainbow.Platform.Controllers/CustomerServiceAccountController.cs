@@ -85,6 +85,7 @@ namespace Rainbow.Platform.Controllers
         [Display(Name = "退出登陆")]
         [HttpPost]
         [Route("Logout")]
+        [Authorize(Roles = nameof(UserRoleType.CustomerService))]
         [ProducesDefaultResponseType(typeof(AsyncTaskTResult<bool>))]
         public async Task<IActionResult> Logout()
         {
@@ -104,5 +105,13 @@ namespace Rainbow.Platform.Controllers
             return BadRequest(AsyncTaskResult.Failed<bool>("账号未登录"));
         }
 
+        [HttpGet]
+        [Route("IsLogin")]
+        [ProducesDefaultResponseType(typeof(bool))]
+
+        public bool IsLogin()
+        {
+            return User.Identity?.IsAuthenticated ?? false;
+        }
     }
 }

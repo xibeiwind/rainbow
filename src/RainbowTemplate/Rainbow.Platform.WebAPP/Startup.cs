@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Rainbow.Authorize;
 using Rainbow.Schemas;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -15,7 +16,7 @@ namespace Rainbow.Platform.WebAPP
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration,IHostingEnvironment environment)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
             Environment = environment;
@@ -27,7 +28,9 @@ namespace Rainbow.Platform.WebAPP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.RegisterServices(Configuration,Environment);
+            services.RegisterServices(Configuration, Environment);
+
+            services.AddRainbowAuthorize();
 
 #if (EnableSwagger)
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "Rainbow API", Version = "v1" }); });
@@ -75,6 +78,8 @@ namespace Rainbow.Platform.WebAPP
 #endif
 
             app.RainbowInit().GetAwaiter().GetResult();
+
+            app.UseRainbowAuthorize();
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

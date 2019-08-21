@@ -27,5 +27,11 @@ export class CustomerServiceAccountService {
       (`${this.baseUrl}api/CustomerServiceAccount/Logout`,{}, getHttpOptions());
   }
 
+  public IsLogin()
+    : Observable<boolean> {
+    return this.http.get<boolean>
+      (`${this.baseUrl}api/CustomerServiceAccount/IsLogin`, getHttpOptions());
+  }
+
 }
 

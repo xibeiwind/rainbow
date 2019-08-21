@@ -13,8 +13,12 @@ export class SidebarLeftInnerComponent implements OnInit {
   constructor(private service: CustomerServiceAccountService) { }
 
   ngOnInit() {
-    this.service.GetCustomerService().subscribe(res => {
-      this.user = res.Data;
+    this.service.IsLogin().subscribe(isLogin => {
+      if (isLogin === true) {
+        this.service.GetCustomerService().subscribe(res => {
+          this.user = res.Data;
+        });
+      }
     });
   }
 

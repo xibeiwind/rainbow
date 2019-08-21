@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Rainbow.Platform.WebAPP
+namespace Rainbow.Authorize
 {
     public class RainbowSecurityTokenValidator : ISecurityTokenValidator
     {
@@ -17,7 +17,8 @@ namespace Rainbow.Platform.WebAPP
         }
 
         //验证token
-        ClaimsPrincipal ISecurityTokenValidator.ValidateToken(string securityToken, TokenValidationParameters validationParameters, out SecurityToken validatedToken)
+        ClaimsPrincipal ISecurityTokenValidator.ValidateToken(string securityToken,
+            TokenValidationParameters validationParameters, out SecurityToken validatedToken)
         {
             validatedToken = null;
 
@@ -31,6 +32,5 @@ namespace Rainbow.Platform.WebAPP
 
             return principle;
         }
-
     }
 }

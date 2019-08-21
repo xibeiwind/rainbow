@@ -14,6 +14,7 @@ import { adminLteConf } from './admin-lte.conf';
 import { ServiceModule } from './services/service.module';
 import { ModelModule } from './model/model.module';
 import { DataFieldTypeModule } from './data-field-type/data-field-type.module';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { DataFieldTypeModule } from './data-field-type/data-field-type.module';
     DataFieldTypeModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
