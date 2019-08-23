@@ -8,7 +8,7 @@ import { CustomerServiceAccountService } from '../../services/CustomerServiceAcc
   styleUrls: ['./sidebar-left-inner.component.scss']
 })
 export class SidebarLeftInnerComponent implements OnInit {
-  user: Rainbow.ViewModels.Users.CustomerServiceVM;
+  user: Rainbow.ViewModels.CustomerServices.CustomerServiceVM;
 
   constructor(private service: CustomerServiceAccountService) { }
 
@@ -17,6 +17,7 @@ export class SidebarLeftInnerComponent implements OnInit {
       if (isLogin === true) {
         this.service.GetCustomerService().subscribe(res => {
           this.user = res.Data;
+          this.user.AvatarUrl = this.user.AvatarUrl || '/assets/img/avatar.png';
         });
       }
     });

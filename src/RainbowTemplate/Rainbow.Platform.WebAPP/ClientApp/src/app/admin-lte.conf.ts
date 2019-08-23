@@ -1,5 +1,5 @@
 export const adminLteConf = {
-  skin: 'yellow-light',
+  skin: 'green',
   // isSidebarLeftCollapsed: false,
   // isSidebarLeftExpandOnOver: false,
   // isSidebarLeftMouseOver: false,
@@ -14,8 +14,12 @@ export const adminLteConf = {
       label: '控制面板', route: 'dashboard', iconClasses: 'fa fa-tachometer',
       pullRights: [{ text: 'New', classes: 'label pull-right bg-green' }]
     },
+    {
+      label: '管理设置', iconClasses: 'fa fa-gears', children: [
+        { label: '用户角色', route: 'admin/role' },
+        { label: 'FieldType', route: 'data-field-type', iconClasses: 'fa fa-list' },
+      ]
+    },
     // { label: 'Model', route: 'model', iconClasses: 'fa fa-list' },
-    { label: 'FieldType', route: 'data-field-type', iconClasses: 'fa fa-list' },
-    { label: '登录', iconClasses: 'fa fa-login', route: 'auth' }
   ]
 };

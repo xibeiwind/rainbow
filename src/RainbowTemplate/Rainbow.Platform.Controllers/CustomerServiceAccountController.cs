@@ -1,32 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Rainbow.Common.Enums;
 using Rainbow.Services.Users;
+using Rainbow.ViewModels.CustomerServices;
 using Rainbow.ViewModels.Users;
 using Yunyong.Core;
-using Yunyong.Mvc;
 using Controller = Yunyong.Mvc.Controller;
-using System.ComponentModel.DataAnnotations;
 
 namespace Rainbow.Platform.Controllers
 {
-
     [ApiController]
     [Route("api/[controller]")]
-
     public class CustomerServiceAccountController : Controller
     {
-        private ICustomerServiceManageService Service { get; }
-
         public CustomerServiceAccountController(ICustomerServiceManageService service)
         {
             Service = service;
         }
+
+        private ICustomerServiceManageService Service { get; }
 
         /// <summary>
         ///     客服登陆
@@ -39,13 +35,8 @@ namespace Rainbow.Platform.Controllers
         {
             var result = await Service.Login(vm);
             if (result.Status == AsyncTaskStatus.Success)
-            {
                 return Ok(result);
-            }
-            else
-            {
-                return Unauthorized(result);
-            }
+            return Unauthorized(result);
         }
 
         /// <summary>
@@ -64,6 +55,7 @@ namespace Rainbow.Platform.Controllers
                 var result = await Service.GetCustomerService(userId.Value);
                 return Ok(result);
             }
+
             return null;
         }
 
@@ -72,11 +64,7 @@ namespace Rainbow.Platform.Controllers
             var claim = User.Claims.FirstOrDefault(a => a.Type == "jti");
             if (Guid.TryParse(claim?.Value, out var userId))
                 return userId;
-            else
-            {
-                return default;
-            }
-
+            return default;
         }
 
         /// <summary>
@@ -94,21 +82,16 @@ namespace Rainbow.Platform.Controllers
             {
                 var result = await Service.Logout(userId.Value);
                 if (result.Status == AsyncTaskStatus.Success)
-                {
                     return Ok(result);
-                }
-                else
-                {
-                    return BadRequest(result);
-                }
+                return BadRequest(result);
             }
+
             return BadRequest(AsyncTaskResult.Failed<bool>("账号未登录"));
         }
 
         [HttpGet]
         [Route("IsLogin")]
         [ProducesDefaultResponseType(typeof(bool))]
-
         public bool IsLogin()
         {
             return User.Identity?.IsAuthenticated ?? false;

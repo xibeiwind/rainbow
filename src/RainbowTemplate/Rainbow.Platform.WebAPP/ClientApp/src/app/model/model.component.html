@@ -9,7 +9,7 @@
   </div>
 
   <div class="row">
-    <div class="col-3">
+    <div class="col-lg-3 col-md-3">
 
       <mk-box [isCollapsable]="false" [isRemovable]="false" contentClasses="table-responsive">
 
@@ -36,7 +36,7 @@
       </mk-box>
 
     </div>
-    <div class="col-9" *ngIf="currentModel">
+    <div class="col-lg-9 col-md-9" *ngIf="currentModel">
       <div class="btn-group">
         <button type="button" class="btn btn-primary" (click)="createNewVM()">创建</button>
         <button type="button" class="btn btn-warning" (click)="createNewVM('Update')">更新</button>
@@ -52,25 +52,37 @@
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" [(ngModel)]="generateService" value="true">
-            生成Service
+            <input type="checkbox" [(ngModel)]="generateVM" value="true">
+            生成ViewModels
           </label>
         </div>
         <div class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="generateService" value="true">
+            生成Service
+          </label>
           <label>
             <input type="checkbox" [(ngModel)]="generateController" value="true">
             生成Controller
           </label>
         </div>
         <div class="checkbox">
+
           <label>
             <input type="checkbox" [(ngModel)]="generateNgModuleComponent" value="true">
             生成Angular Module和Component
           </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="isNgModelListComponent" value="true">
+            Is List Component
+          </label>
+          <label *ngIf="generateNgModuleComponent">NgModelName<input type="text" class="form-control"
+              required="required" [(ngModel)]="ngModuleName" placeholder="NgModelName">
+          </label>
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" [(ngModel)]="updateTsServcie" value="true">
+            <input type="checkbox" [(ngModel)]="updateTsServices" value="true">
             更新生成AngularService
           </label>
         </div>

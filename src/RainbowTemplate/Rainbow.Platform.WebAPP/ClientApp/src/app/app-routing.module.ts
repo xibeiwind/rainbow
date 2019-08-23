@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: './dashboard/dashboard.module#DashboardModule', data: { title: '控制面板' }
   },
   {
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule', data: { title: '管理' }
+  },
+  {
     path: 'auth', loadChildren: './auth/auth.module#AuthModule',
     data: {
       customLayout: true

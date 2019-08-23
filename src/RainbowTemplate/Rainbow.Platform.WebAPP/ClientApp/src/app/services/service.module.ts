@@ -10,6 +10,7 @@ import { EnumDisplayService } from './EnumDisplayService';
 import { LookupQueryService } from './LookupQueryService';
 import { MessageService } from './MessageService';
 import { ModelService } from './ModelService';
+import { RoleInfoService } from './RoleInfoService';
 import { UserService } from './UserService';
 import { ViewModelDisplayService } from './ViewModelDisplayService';
 
@@ -28,6 +29,7 @@ import { ViewModelDisplayService } from './ViewModelDisplayService';
     LookupQueryService,
     MessageService,
     ModelService,
+    RoleInfoService,
     UserService,
     ViewModelDisplayService,
   ],

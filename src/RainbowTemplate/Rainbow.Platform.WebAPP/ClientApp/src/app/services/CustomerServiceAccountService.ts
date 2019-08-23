@@ -16,8 +16,8 @@ export class CustomerServiceAccountService {
   }
 
   public GetCustomerService()
-    : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.Users.CustomerServiceVM>> {
-    return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.Users.CustomerServiceVM>>
+    : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.CustomerServices.CustomerServiceVM>> {
+    return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.CustomerServices.CustomerServiceVM>>
       (`${this.baseUrl}api/CustomerServiceAccount/CustomerService`, getHttpOptions());
   }
 
@@ -28,8 +28,8 @@ export class CustomerServiceAccountService {
   }
 
   public IsLogin()
-    : Observable<boolean> {
-    return this.http.get<boolean>
+    : Observable<Boolean> {
+    return this.http.get<Boolean>
       (`${this.baseUrl}api/CustomerServiceAccount/IsLogin`, getHttpOptions());
   }
 

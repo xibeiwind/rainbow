@@ -1,4 +1,5 @@
 ﻿using System;
+using Rainbow.ViewModels.Users;
 
 namespace Rainbow.Services.Users
 {
@@ -8,7 +9,7 @@ namespace Rainbow.Services.Users
         bool IsLogin(Guid userId, Guid signId);
 
         // 用户登陆，如何避免一个账号多次登陆？
-        (Guid, DateTime) Login(Guid userId);
+        UserLoginTrackVM Login(Guid userId);
 
         /// <summary>
         ///     延长Token有效时间

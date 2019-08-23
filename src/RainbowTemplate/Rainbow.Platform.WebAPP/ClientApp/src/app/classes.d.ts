@@ -52,6 +52,33 @@ declare namespace Rainbow.ViewModels {
 		Type: Rainbow.Common.Enums.VMType;
 	}
 }
+declare namespace Rainbow.ViewModels.CustomerServices {
+	interface CreateCustomerServiceVM extends Yunyong.Core.ViewModels.CreateVM {
+		Name: string;
+		NickName: string;
+		Phone: string;
+	}
+	interface CustomerServiceVM extends Yunyong.Core.ViewModels.VMBase {
+		AvatarUrl: string;
+		Name: string;
+		NickName: string;
+		Phone: string;
+		Roles: string[];
+		UserId: string;
+	}
+	interface DeleteCustomerServiceVM extends Yunyong.Core.ViewModels.DeleteVM {
+	}
+	interface QueryCustomerServiceVM extends Yunyong.Core.PagingQueryOption {
+		Name: string;
+		NickName: string;
+		Phone: string;
+	}
+	interface UpdateCustomerServiceVM extends Yunyong.Core.ViewModels.UpdateVM {
+		Name: string;
+		NickName: string;
+		Phone: string;
+	}
+}
 declare namespace Rainbow.ViewModels.DataFieldTypes {
 	interface CreateDataFieldTypeVM extends Yunyong.Core.ViewModels.CreateVM {
 		FieldTypeDisplay: string;
@@ -95,9 +122,12 @@ declare namespace Rainbow.ViewModels.Models {
 		GenerateController: boolean;
 		GenerateNgModuleComponent: boolean;
 		GenerateService: boolean;
+		GenerateVM: boolean;
+		IsNgModelListComponent: boolean;
 		Items: Rainbow.ViewModels.Models.CreateViewModelApplyVM[];
 		ModelFullName: string;
 		ModelName: string;
+		NgModuleName: string;
 		UpdateTsServices: boolean;
 	}
 	interface CreateViewModelApplyVM {
@@ -120,6 +150,28 @@ declare namespace Rainbow.ViewModels.Models {
 		Name: string;
 	}
 }
+declare namespace Rainbow.ViewModels.RoleInfos {
+	interface CreateRoleInfoVM extends Yunyong.Core.ViewModels.CreateVM {
+		Description: string;
+		Name: string;
+		RoleType: Rainbow.Common.Enums.UserRoleType;
+	}
+	interface DeleteRoleInfoVM extends Yunyong.Core.ViewModels.DeleteVM {
+	}
+	interface QueryRoleInfoVM extends Yunyong.Core.PagingQueryOption {
+		Name: string;
+	}
+	interface RoleInfoVM extends Yunyong.Core.ViewModels.VMBase {
+		Description: string;
+		Name: string;
+		RoleType: Rainbow.Common.Enums.UserRoleType;
+	}
+	interface UpdateRoleInfoVM extends Yunyong.Core.ViewModels.UpdateVM {
+		Description: string;
+		Name: string;
+		RoleType: Rainbow.Common.Enums.UserRoleType;
+	}
+}
 declare namespace Rainbow.ViewModels.Tasks {
 	interface NotifyQueryOption extends Yunyong.Core.PagingQueryOption {
 		Type: Rainbow.Common.Enums.NotifyType;
@@ -139,11 +191,6 @@ declare namespace Rainbow.ViewModels.Users {
 		IsActive: boolean;
 		Name: string;
 		Phone: string;
-	}
-	interface CustomerServiceVM extends Yunyong.Core.ViewModels.VMBase {
-		Name: string;
-		Phone: string;
-		Roles: string[];
 	}
 	interface DeleteUserVM extends Yunyong.Core.ViewModels.DeleteVM {
 	}
@@ -175,6 +222,11 @@ declare namespace Rainbow.ViewModels.Users {
 	interface UpdateUserVM extends Yunyong.Core.ViewModels.UpdateVM {
 		IsActive: boolean;
 		Name: string;
+	}
+	interface UserLoginTrackVM {
+		ExpiresTime: Date;
+		SignId: string;
+		UserId: string;
 	}
 	interface UserVM extends Yunyong.Core.ViewModels.VMBase {
 		IsActive: boolean;

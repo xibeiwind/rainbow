@@ -24,15 +24,10 @@ export class AuthGuard implements CanActivate {
           this.toastr.info('未登录');
           this.router.navigate(['/auth/login']);
         }
-        observer.next(res);
+        observer.next(res.valueOf());
         observer.complete();
       });
       // observer.complete();
     });
-
-
-
-
-    return this.service.IsLogin();
   }
 }

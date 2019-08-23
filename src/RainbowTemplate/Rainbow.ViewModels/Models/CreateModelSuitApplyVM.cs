@@ -29,6 +29,8 @@ namespace Rainbow.ViewModels.Models
         [Display(Name = "生成删除VM")]
         public bool EnableDelete { get; set; }
 
+        public bool GenerateVM { get; set; }
+
         /// <summary>
         ///     生成服务
         /// </summary>
@@ -46,7 +48,20 @@ namespace Rainbow.ViewModels.Models
         /// </summary>
         [Display(Name = "生成Angular组件页面")]
         public bool GenerateNgModuleComponent { get; set; }
-
+        /// <summary>
+        ///     所采用NgModule的名称
+        /// </summary>
+        [Display(Name = "所采用NgModule的名称")]
+        public string NgModuleName { get; set; }
+        /// <summary>
+        ///     Angular组件为List组件
+        /// </summary>
+        [Display(Name = "Angular组件为List组件")]
+        public bool IsNgModelListComponent { get; set; }
+        /// <summary>
+        ///     是否更新呢生成TsService
+        /// </summary>
+        [Display(Name = "是否更新呢生成TsService")]
         public bool UpdateTsServices { get; set; }
         public List<CreateViewModelApplyVM> Items { get; set; }
     }

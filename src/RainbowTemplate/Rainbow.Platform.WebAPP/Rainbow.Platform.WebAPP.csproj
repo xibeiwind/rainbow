@@ -21,6 +21,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
+    <PackageReference Include="Yunyong.Cache.Register" Version="1.0.0" />
     <PackageReference Include="Yunyong.Configuration" Version="1.0.4" />
     <PackageReference Include="Yunyong.EventBus.EasyNetQ" Version="1.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />

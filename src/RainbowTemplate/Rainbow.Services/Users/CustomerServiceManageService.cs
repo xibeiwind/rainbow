@@ -12,6 +12,7 @@ using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.Models;
 using Rainbow.Services.Utils;
+using Rainbow.ViewModels.CustomerServices;
 using Rainbow.ViewModels.Users;
 using Yunyong.Core;
 using Yunyong.DataExchange;
@@ -81,25 +82,25 @@ namespace Rainbow.Services.Users
                     var pwdHash = Util.Encoding(vm.Password);
                     if (string.Equals(user.PasswordHash, pwdHash, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        var (signId, endDate) = IdentityService.Login(user.Id);
+                        var tmp = IdentityService.Login(user.Id);
                         var claims = new[]
                         {
                             new Claim("jti", user.Id.ToString(), ClaimValueTypes.String),
                             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                             new Claim(ClaimTypes.MobilePhone, user.Phone),
                             new Claim(ClaimTypes.Name, user.Name),
-                            new Claim("signId", signId.ToString()),
+                            new Claim("signId", tmp.SignId.ToString()),
                             new Claim(ClaimTypes.Role, string.Join(",", await GetCustomerServiceRoles(user.Id)))
                         };
 
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.SecretKey));
                         //签名证书(秘钥，加密算法)
-                        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                        var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                         //生成token  [注意]需要nuget添加Microsoft.AspNetCore.Authentication.JwtBearer包，并引用System.IdentityModel.Tokens.Jwt命名空间
 
                         var token = new JwtSecurityToken(Settings.Issuer, Settings.Audience, claims, DateTime.Now,
-                            endDate, creds);
+                           tmp.ExpiresTime, signingCredentials);
 
 
                         return AsyncTaskResult.Success(new LoginResultVM
@@ -163,17 +164,15 @@ namespace Rainbow.Services.Users
             return false;
         }
 
-        public async Task<AsyncTaskTResult<bool>> Logout(Guid id)
+        public Task<AsyncTaskTResult<bool>> Logout(Guid id)
         {
-            using (var conn = GetConnection())
-            {
-                IdentityService.Logout(id);
-            }
 
-            return null;
+            IdentityService.Logout(id);
+
+            return Task.FromResult(AsyncTaskResult.Success(true));
         }
 
-        public async Task<IEnumerable<string>> GetCustomerServiceRoles(Guid id)
+        private async Task<IEnumerable<string>> GetCustomerServiceRoles(Guid id)
         {
             using (var conn = GetConnection())
             {

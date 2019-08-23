@@ -7,6 +7,12 @@ namespace Rainbow.Common.Enums {
 	export const enum TplType {
 		LoginSMS = 0
 	}
+	export const enum UserRoleType {
+		Unknown = 0,
+		Customer = 1,
+		CustomerService = 16,
+		SysAdmin = 1024
+	}
 	export const enum VMType {
 		None = 0,
 		Create = 1,

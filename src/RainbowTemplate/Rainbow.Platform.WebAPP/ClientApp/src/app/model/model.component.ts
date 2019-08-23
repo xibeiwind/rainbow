@@ -25,6 +25,9 @@ export class ModelComponent implements OnInit {
     { name: '查询', value: Rainbow.Common.Enums.VMType.Query },
   ];
   currentDisplayViewModels: Rainbow.ViewModels.ViewModelDisplayVM[];
+  ngModuleName: string = 'Admin';
+  generateVM: boolean;
+  isNgModelListComponent: boolean;
 
   constructor(private service: ModelService,
     private displayService: ViewModelDisplayService,
@@ -46,7 +49,7 @@ export class ModelComponent implements OnInit {
       this.displayService.GetModelVMDisplays({ Name: model.Name }).subscribe(res => {
         this.currentDisplayViewModels = res.Data.ViewModels;
         res.Data.ViewModels.filter(a => a.Type !== Rainbow.Common.Enums.VMType.Delete).forEach(item => {
-          let vm: Rainbow.ViewModels.Models.CreateViewModelApplyVM = {
+          const vm: Rainbow.ViewModels.Models.CreateViewModelApplyVM = {
             Type: item.Type,
             DisplayName: this.getDisplayName(item),
             Name: item.Name,
@@ -142,9 +145,12 @@ export class ModelComponent implements OnInit {
       ModelFullName: this.currentModel.FullName,
       FolderName: this.folderName,
       EnableDelete: this.enableDelete,
+      GenerateVM: this.generateVM,
+      NgModuleName: this.ngModuleName,
       GenerateService: this.generateService,
       GenerateController: this.generateController,
       GenerateNgModuleComponent: this.generateNgModuleComponent,
+      IsNgModelListComponent: this.isNgModelListComponent,
       UpdateTsServices: this.updateTsServices,
       Items: this.createVMs.map((a) => {
         return {

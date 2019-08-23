@@ -1,46 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
+using Rainbow.ViewModels.Users;
+using Yunyong.Cache.Abstractions;
 using Yunyong.Core;
 
 namespace Rainbow.Services.Users
 {
     public class IdentityService : IIdentityService
     {
-        private Dictionary<Guid, (Guid signId, DateTime time)> IdentityDic { get; } =
-            new Dictionary<Guid, (Guid, DateTime)>();
+        public IdentityService(ICacheService<UserLoginTrackVM> service)
+        {
+            Service = service;
+        }
+
+        private ICacheService<UserLoginTrackVM> Service { get; }
 
         public bool IsLogin(Guid userId, Guid signId)
         {
-            if (IdentityDic.ContainsKey(userId))
-            {
-                var (id, time) = IdentityDic[userId];
-                if (time > DateTime.Now && id == signId) return true;
-            }
-
-            return false;
+            var result = Service.GetOrDefault<UserLoginTrackVM>($"LoginTrack:{userId}");
+            if (result?.SignId != signId)
+                return false;
+            return true;
         }
 
-        public (Guid, DateTime) Login(Guid userId)
+        public UserLoginTrackVM Login(Guid userId)
         {
             var signId = GuidUtil.NewSequentialId();
 
-            IdentityDic[userId] = (signId, DateTime.Now.AddDays(1));
-
-            return IdentityDic[userId];
+            var vm = new UserLoginTrackVM
+            {
+                UserId = userId,
+                SignId = signId,
+                ExpiresTime = DateTime.Now.AddDays(1)
+            };
+            Service.Set($"LoginTrack:{userId}", vm, TimeSpan.FromDays(1));
+            return vm;
         }
 
         public void ExtendSignTime(Guid userId)
         {
-            if (IdentityDic.ContainsKey(userId))
-            {
-                var (signId, time) = IdentityDic[userId];
-                IdentityDic[userId] = (signId, DateTime.Now.AddDays(1));
-            }
+            var result = Service.GetOrDefault<UserLoginTrackVM>($"LoginTrack:{userId}");
+            result.ExpiresTime = DateTime.Now.AddDays(1);
+            Service.Set($"LoginTrack:{userId}", result, TimeSpan.FromDays(1));
         }
 
         public void Logout(Guid userId)
         {
-            IdentityDic.Remove(userId);
+            Service.Remove($"LoginTrack:{userId}");
         }
     }
 }

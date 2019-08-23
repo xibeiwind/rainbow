@@ -1,0 +1,15 @@
+﻿import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { $ModelName$RoutingModule } from './$ModelSnackName$-routing.module';
+import { CoreModule } from '../core/core.module';
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+    CoreModule,
+    $ModelName$RoutingModule
+  ]
+})
+export class $ModelName$Module { }

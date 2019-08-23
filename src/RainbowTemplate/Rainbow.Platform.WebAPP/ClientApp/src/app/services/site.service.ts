@@ -9,7 +9,7 @@ export class SiteService {
     return {
       siteName: '彩虹',
       siteEngName: 'Rainbow',
-      title: 'RAINBOW',
+      title: 'Rainbow',
       producer: 'XIBEIWIND',
       version: '1.0.0'
     };

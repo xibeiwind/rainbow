@@ -1,0 +1,11 @@
+﻿<section class="content">
+  <h2>
+    {{modelDisplayName}}
+  </h2>
+  <div class="row">
+    <app-data-list #dataList [canCreate]="true" [canEdit]="true" [canDelete]="true" [items]="items"
+      (oncreate)="createSubmit($event)" (onupdate)="editSubmit($event)" [modelDisplayName]="modelDisplayName"
+      (ondelete)="deleteSubmit($event)" (onrefresh)="refreshList()">
+    </app-data-list>
+  </div>
+</section>

@@ -19,7 +19,11 @@ namespace Rainbow.Platform.WebAPP
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-			    .ConfigureAppConfiguration(config => { config.AddJsonFile("EventBusConfig.json"); })
+			    .ConfigureAppConfiguration(config =>
+                {
+                    config.AddJsonFile("CacheSettings.json");
+                    config.AddJsonFile("EventBusConfig.json");
+                })
                 .UseStartup<Startup>();
     }
 }

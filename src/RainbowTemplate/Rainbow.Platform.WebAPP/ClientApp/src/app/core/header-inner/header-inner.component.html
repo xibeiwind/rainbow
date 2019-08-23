@@ -208,7 +208,7 @@
         <a href="#" class="btn btn-default btn-flat">Profile</a>
       </div>
       <div class="pull-right">
-        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+        <a (click)="signout()" class="btn btn-default btn-flat">退出</a>
       </div>
     </li>
     </mk-dropdown-menu>
@@ -217,5 +217,9 @@
     <li calss="model-setting">
       <a [routerLink]="['/model']"><i class="fa fa-sliders"></i></a>
     </li>
+    <li calss="model-setting">
+      <a href="/swagger" target="_blank"><i class="fa fa-file-o"></i></a>
+    </li>
+
   </ul>
 </div>
