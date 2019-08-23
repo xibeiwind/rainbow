@@ -47,7 +47,7 @@ namespace Rainbow.Services
                 {
                     Name = Enum.GetName(typeof(DataType), a.Key),
                     DisplayName = a.Value,
-                    Value = (int) Convert.ChangeType(a.Key, TypeCode.Int32)
+                    Value = (int)Convert.ChangeType(a.Key, TypeCode.Int32)
                 })
             });
         }
@@ -66,12 +66,13 @@ namespace Rainbow.Services
                 FullName = type.FullName,
                 DisplayName = type.Name,
                 Fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                    .Where(a => !Equals((int)a.GetValue(null), 0))
                     .Select(
                         a => new EnumFieldDisplayVM
                         {
                             Name = a.Name,
                             DisplayName = a.GetCustomAttribute<DisplayAttribute>()?.Name ?? a.Name,
-                            Value = (int) a.GetValue(null)
+                            Value = (int)a.GetValue(null)
                         })
             };
 

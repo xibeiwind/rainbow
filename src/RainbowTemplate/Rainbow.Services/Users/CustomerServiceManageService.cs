@@ -127,6 +127,7 @@ namespace Rainbow.Services.Users
                 return new AsyncTaskTResult<CustomerServiceVM>(new CustomerServiceVM
                 {
                     Id = item.Id,
+                    UserId =  item.Id,
                     Name = item.Name,
                     Phone = item.Phone,
                     Roles = await GetCustomerServiceRoles(id)

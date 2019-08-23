@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -22,7 +23,7 @@ namespace Rainbow.Services.Users
         public async Task Init()
         {
             var roleType = typeof(UserRoleType);
-            var fields = roleType.GetFields(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static);
+            var fields = roleType.GetFields(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static).Where(a => (int)a.GetValue(null) != 0);
 
             using (var conn = GetConnection())
             {
@@ -32,7 +33,7 @@ namespace Rainbow.Services.Users
                         var role = EntityFactory.Create<RoleInfo>();
                         role.Name = field.Name;
                         role.Description = field.GetCustomAttribute<DisplayAttribute>()?.Name ?? field.Name;
-                        role.RoleType = (UserRoleType) field.GetValue(null);
+                        role.RoleType = (UserRoleType)field.GetValue(null);
                         await conn.CreateAsync(role);
                     }
             }

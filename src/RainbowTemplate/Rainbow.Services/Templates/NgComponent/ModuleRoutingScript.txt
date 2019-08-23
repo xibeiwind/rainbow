@@ -4,7 +4,7 @@ import { $ModelName$Component } from './$ModelSnackName$/$ModelSnackName$.compon
 
 const routes: Routes = [
   {
-    path: '$ModelSnackName$', component: $ModelName$Component,
+    path: '', component: $ModelName$Component,
     children: [
 
     ]
