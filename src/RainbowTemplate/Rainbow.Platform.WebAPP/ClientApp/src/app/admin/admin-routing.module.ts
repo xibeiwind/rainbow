@@ -7,7 +7,8 @@ const routes: Routes = [
   {
     path: '', component: AdminComponent,
     children: [
-      { path: 'role', component: RoleInfoComponent }
+      { path: 'role', component: RoleInfoComponent, data: { title: '用户角色管理' } },
+      { path: '', pathMatch: 'full', redirectTo: 'role' },
     ]
   }
 ];

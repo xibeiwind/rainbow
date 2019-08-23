@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: './admin/admin.module#AdminModule', data: { title: '管理' }
+    loadChildren: './admin/admin.module#AdminModule', data: { title: '管理设置' }
   },
   {
     path: 'auth', loadChildren: './auth/auth.module#AuthModule',

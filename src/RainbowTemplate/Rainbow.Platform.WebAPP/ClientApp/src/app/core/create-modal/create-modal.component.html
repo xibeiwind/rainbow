@@ -9,16 +9,15 @@
     <div class="modal-body">
       <div class="form-group" *ngFor="let field of fields">
         <label [for]="field.Name">{{field.DisplayName}}</label>
-        <select *ngIf="field.IsEnum" [formControlName]="field.Name" class=form-control>
+        <select *ngIf="field.IsEnum" [formControlName]="field.Name" class="form-control" [required]="!field.IsNullable">
           <option *ngFor="let option of enumObj[field.Name]" [value]="option.Value">
             {{option.DisplayName}} <small>{{option.Name}}</small>
           </option>
         </select>
-        <textarea *ngIf="getInputControlType(field) === 'textarea'"></textarea>
+        <ckeditor *ngIf="getInputControlType(field) === 'textarea'" [formControlName]="field.Name"
+          [required]="!field.IsNullable"></ckeditor>
         <input *ngIf="getInputControlType(field)=== 'input'" [type]="getInputType(field)" class="form-control"
-        [placeholder]="field.DisplayName" [formControlName]="field.Name" required>
-
-
+          [placeholder]="field.DisplayName" [formControlName]="field.Name" [required]="!field.IsNullable">
       </div>
     </div>
     <div class="modal-footer">

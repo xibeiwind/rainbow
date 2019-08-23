@@ -96,14 +96,24 @@ namespace Rainbow.Services
                                     ValueField = lookup.ValueField
                                 }
                                 : null,
-                            IsNullable = b.PropertyType.IsSubclassOf(typeof(Nullable<>))
-                                         || b.PropertyType.IsClass
+                            IsNullable = IsNullable(b)
                         };
                     }).ToList()
                 };
             });
 
             ViewModelDisplayDic = items.ToDictionary(a => a.Name);
+        }
+
+        private static bool IsNullable(PropertyInfo property)
+        {
+            if (property.GetCustomAttribute<RequiredAttribute>()!=null)
+            {
+                return false;
+            }
+
+            return property.PropertyType.IsSubclassOf(typeof(Nullable<>))
+                   || property.PropertyType.IsClass;
         }
 
         private Dictionary<string, Type> ModelTypeDic { get; }

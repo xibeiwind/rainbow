@@ -4,7 +4,7 @@ import { DataFieldTypeComponent } from './data-field-type.component';
 import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
-  { path: 'data-field-type',canActivate: [AuthGuard], component: DataFieldTypeComponent }
+  { path: 'data-field-type', canActivate: [AuthGuard], component: DataFieldTypeComponent, data: { title: 'DataField' } }
 ];
 
 @NgModule({

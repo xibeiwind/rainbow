@@ -15,9 +15,12 @@
       <app-sidebar-right-inner></app-sidebar-right-inner>
     </mk-layout-sidebar-right>
     <mk-layout-content>
-      <div class="content-inner">
-        <router-outlet></router-outlet>
+      <div mk-layout-content-before-header>
+        <div *mkLoadingPage="{checkPendingHttp: true, checkPendingRoute: true}">
+          <mk-material-bar></mk-material-bar>
+        </div>
       </div>
+      <router-outlet></router-outlet>
     </mk-layout-content>
     <mk-layout-footer>
       <mk-layout-footer-left>

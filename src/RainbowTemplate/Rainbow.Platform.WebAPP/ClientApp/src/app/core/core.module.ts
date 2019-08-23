@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CKEditorModule } from 'ckeditor4-angular';
 import { HeaderInnerComponent } from './header-inner/header-inner.component';
 import { SidebarLeftInnerComponent } from './sidebar-left-inner/sidebar-left-inner.component';
 import { SidebarRightInnerComponent } from './sidebar-right-inner/sidebar-right-inner.component';
@@ -30,6 +31,7 @@ import { RouterModule } from '@angular/router';
     DropdownModule,
     TabsModule,
     SweetAlert2Module,
+    CKEditorModule,
   ],
   exports: [
     HeaderInnerComponent,

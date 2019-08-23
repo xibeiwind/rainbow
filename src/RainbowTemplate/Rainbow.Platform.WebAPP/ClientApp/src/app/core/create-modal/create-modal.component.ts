@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild 
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { EnumDisplayService } from '../../services/EnumDisplayService';
+import { InputTypeService } from 'src/app/services/InputTypeService';
 
 @Component({
   selector: 'app-create-modal',
@@ -14,6 +15,8 @@ export class CreateModalComponent implements OnInit {
   title: string;
   @Input()
   fields: Rainbow.ViewModels.FieldDisplayVM[];
+  @Input()
+  largeModal: boolean;
 
   @Output()
   onsubmit: EventEmitter<any> = new EventEmitter<any>();
@@ -24,36 +27,12 @@ export class CreateModalComponent implements OnInit {
   private createModalRef: BsModalRef;
   private enumObj = {};
 
-  inputType = {
-
-  };
-
   constructor(
     private enumService: EnumDisplayService,
     private modalService: BsModalService,
-    public formBuilder: FormBuilder) {
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.DateTime] = 'date';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Date] = 'datetime';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Time] = 'time';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Duration] = 'range';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.PhoneNumber] = 'tel';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Currency] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Text] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Html] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.MultilineText] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.EmailAddress] = 'email';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Password] = 'password';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Url] = 'url';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.ImageUrl] = 'image';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.CreditCard] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.PostalCode] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Upload] = 'file';
+    private inputTypeService: InputTypeService,
+    public formBuilder: FormBuilder) { }
 
-    this.inputType['text'] = 'text';
-    this.inputType['number'] = 'number';
-    this.inputType['checkbox'] = 'checkbox';
-
-  }
 
   ngOnInit() {
   }
@@ -70,7 +49,8 @@ export class CreateModalComponent implements OnInit {
       });
 
     this.createForm = this.formBuilder.group(formFields);
-    this.createModalRef = this.modalService.show(this.template, { ignoreBackdropClick: true });
+
+    this.createModalRef = this.modalService.show(this.template, { ignoreBackdropClick: true, class: this.largeModal ? 'modal-lg' : '' });
   }
 
   createSubmit() {
@@ -90,18 +70,7 @@ export class CreateModalComponent implements OnInit {
       return 'input';
     }
   }
-
   getInputType(field: Rainbow.ViewModels.FieldDisplayVM): string {
-    if (this.inputType.hasOwnProperty(field.DataType)) {
-      return this.inputType[field.DataType];
-    }
-    if (this.inputType.hasOwnProperty(field.FieldType)) {
-      return this.inputType[field.FieldType];
-    }
-
-    return 'text';
+    return this.inputTypeService.getInputType(field);
   }
-
-
-
 }

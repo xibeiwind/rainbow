@@ -13,6 +13,7 @@ import { ModelService } from './ModelService';
 import { RoleInfoService } from './RoleInfoService';
 import { UserService } from './UserService';
 import { ViewModelDisplayService } from './ViewModelDisplayService';
+import { InputTypeService } from './InputTypeService';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ViewModelDisplayService } from './ViewModelDisplayService';
   ],
   providers: [
     SiteService,
+    InputTypeService,
     AccountService,
     CustomerServiceAccountService,
     DataFieldTypeService,

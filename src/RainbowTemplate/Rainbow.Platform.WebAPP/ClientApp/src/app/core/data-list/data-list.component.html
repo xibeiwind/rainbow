@@ -1,8 +1,10 @@
 <swal #deleteSwal title="删除?" type="question" [showCancelButton]="true" [focusCancel]="true" (confirm)="deleteItem()">
 </swal>
-<app-create-modal #createModal [title]="createTitle" [fields]="createFields" (onsubmit)="createItem($event)">
+<app-create-modal #createModal [title]="createTitle" [fields]="createFields" (onsubmit)="createItem($event)"
+  [largeModal]="true">
 </app-create-modal>
-<app-edit-modal #editModal [title]="editTitle" [fields]="editFields" (onsubmit)="updteItem($event)"></app-edit-modal>
+<app-edit-modal #editModal [title]="editTitle" [fields]="editFields" (onsubmit)="updteItem($event)" [largeModal]="true">
+</app-edit-modal>
 
 <!-- <div class="row">
   <div class="col">
@@ -14,7 +16,6 @@
     <h3 class="box-title">
       {{modelDisplayName}}列表
     </h3>
-
     <div class="box-tools pull-right">
       <div class="btn-group btn-group-sm">
         <button type="button" class="btn btn-primary" *ngIf="canCreate"
