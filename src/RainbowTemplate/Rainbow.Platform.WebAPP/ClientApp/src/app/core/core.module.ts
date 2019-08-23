@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CKEditorModule } from 'ckeditor4-angular';
+import { PaginationModule } from 'ngx-bootstrap';
 import { HeaderInnerComponent } from './header-inner/header-inner.component';
 import { SidebarLeftInnerComponent } from './sidebar-left-inner/sidebar-left-inner.component';
 import { SidebarRightInnerComponent } from './sidebar-right-inner/sidebar-right-inner.component';
@@ -12,6 +13,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DataListComponent } from './data-list/data-list.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { RouterModule } from '@angular/router';
+import { SearchComponent } from './search/search.component';
+import { PagingDataListComponent } from './paging-data-list/paging-data-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,9 @@ import { RouterModule } from '@angular/router';
     ConfirmModalComponent,
     EditModalComponent,
     CreateModalComponent,
-    DataListComponent
+    DataListComponent,
+    SearchComponent,
+    PagingDataListComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +37,7 @@ import { RouterModule } from '@angular/router';
     TabsModule,
     SweetAlert2Module,
     CKEditorModule,
+    PaginationModule,
   ],
   exports: [
     HeaderInnerComponent,
@@ -41,6 +47,7 @@ import { RouterModule } from '@angular/router';
     EditModalComponent,
     CreateModalComponent,
     DataListComponent,
+    PagingDataListComponent,
   ]
 
 })

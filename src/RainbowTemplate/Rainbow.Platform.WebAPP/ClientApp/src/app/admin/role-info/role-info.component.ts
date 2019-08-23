@@ -6,6 +6,7 @@ import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { RoleInfoService } from '../../services/RoleInfoService';
 import { DataListComponent } from '../../core/data-list/data-list.component';
+import { PagingDataListComponent } from '../../core/paging-data-list/paging-data-list.component';
 
 @Component({
   selector: 'app-role-info',
@@ -17,6 +18,16 @@ export class RoleInfoComponent
   implements OnInit {
   @ViewChild('dataList')
   dataList: DataListComponent;
+
+  @ViewChild('pagingDataList')
+  pagingDataList: PagingDataListComponent;
+  pagingData: Yunyong.Core.PagingList<Rainbow.ViewModels.RoleInfos.RoleInfoVM>;
+  queryOption: Rainbow.ViewModels.RoleInfos.QueryRoleInfoVM = {
+    Name: '',
+    PageIndex: 1,
+    PageSize: 10,
+    OrderBys: []
+  };
 
   constructor(
     private service: RoleInfoService,
@@ -32,15 +43,35 @@ export class RoleInfoComponent
       update: 'UpdateRoleInfoVM',
       detail: 'RoleInfoVM',
       query: 'QueryRoleInfoVM',
-    }
+    };
   }
   ngOnInit() {
     this._OnInit();
+    this.pagingDataList.config = {
+      canCreate: true,
+      canEdit: true,
+      canSelect: true,
+      canDelete: true,
+      pageSize: 10,
+      maxSize: 5
+    };
   }
   refreshList() {
-    this.service.GetListAsync().subscribe(res => {
-      this.items = res;
+    // this.service.GetListAsync().subscribe(res => {
+    //   this.items = res;
+    // });
+
+    this.service.QueryAsync(this.queryOption).subscribe(res => {
+      this.pagingData = res;
     });
+  }
+
+  querySubmit(query: Yunyong.Core.PagingQueryOption) {
+    console.log(JSON.stringify(query));
+
+    this.queryOption = { ...this.queryOption, ...query };
+    this.refreshList();
+
   }
   createSubmit(data: any) {
     this.service.CreateAsync(data).subscribe(res => {
@@ -71,14 +102,22 @@ export class RoleInfoComponent
   }
   onFieldsUpdated(data: { name: string; fields: Rainbow.ViewModels.FieldDisplayVM[]; }) {
     if (data.name === 'Create') {
-      this.dataList.createFields = data.fields;
+      // this.dataList.createFields = data.fields;
+      this.pagingDataList.createFields = data.fields;
     }
     if (data.name === 'Display') {
-      this.dataList.fields = data.fields;
-      this.dataList.items = this.items;
+      // this.dataList.fields = data.fields;
+      // this.dataList.items = this.items;
+
+      this.pagingDataList.listFields = data.fields;
+
     }
     if (data.name === 'Update') {
-      this.dataList.editFields = data.fields;
+      // this.dataList.editFields = data.fields;
+      this.pagingDataList.editFields = data.fields;
+    }
+    if (data.name === 'Query') {
+      this.pagingDataList.queryFields = data.fields;
     }
   }
 

@@ -59,7 +59,7 @@ namespace Rainbow.Services.Models
                 {
                     var propList = item.Fields.Select(a => ModelType.GetProperty(a)).ToList();
 
-                    template = template.Replace("$PropertyList$", string.Join("", GetVMFieldStrings(propList)));
+                    template = template.Replace("$PropertyList$", string.Join("", GetVMFieldStrings(propList, item.Type != VMType.Query)));
                 }
                 else
                 {
@@ -89,18 +89,18 @@ using {Settings.SolutionNamespace}.Common.Enums;
             }
         }
 
-        private IEnumerable<string> GetVMFieldStrings(List<PropertyInfo> propList)
+        private IEnumerable<string> GetVMFieldStrings(List<PropertyInfo> propList, bool findRequired=true)
         {
             foreach (var prop in propList)
             {
-                yield return GetVMFieldString(prop);
+                yield return GetVMFieldString(prop, findRequired);
             }
         }
 
-        private string GetVMFieldString(PropertyInfo prop)
+        private string GetVMFieldString(PropertyInfo prop, bool findRequired=true)
         {
             var displayName = prop.GetCustomAttribute<DisplayAttribute>()?.Name ?? prop.Name;
-            var required = prop.GetCustomAttribute<RequiredAttribute>() != null ? ",Required" : "";
+            var required =findRequired?  (prop.GetCustomAttribute<RequiredAttribute>() != null ? ",Required" : ""):"";
 
             var dataTypeAttribute = prop.GetCustomAttribute<DataTypeAttribute>();
             var dataTypeStr = dataTypeAttribute != null ? $@"

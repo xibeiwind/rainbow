@@ -19,7 +19,7 @@ namespace Rainbow.ViewModels.RoleInfos
         /// <summary>
         ///     角色名称
         /// </summary>
-        [Display(Name = "角色名称"),Required]
+        [Display(Name = "角色名称")]
         public String Name {get;set;}
 
     }

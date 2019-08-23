@@ -58,7 +58,6 @@ export class DataListComponent implements OnInit {
   onupdate: EventEmitter<any> = new EventEmitter<any>();
   @Output()
   ondelete: EventEmitter<string> = new EventEmitter<string>();
-
   @Output()
   onrefresh: EventEmitter<any> = new EventEmitter<any>();
 
@@ -75,6 +74,9 @@ export class DataListComponent implements OnInit {
   createFields: Rainbow.ViewModels.FieldDisplayVM[];
   enumObj = {};
 
+  page: number;
+  currentPage: number;
+  maxSize = 5;
 
   constructor(private enumService: EnumDisplayService) { }
 
@@ -95,7 +97,7 @@ export class DataListComponent implements OnInit {
     this.editModal.openEditModal(item);
   }
 
-  updteItem(value: any) {
+  updateItem(value: any) {
     this.onupdate.next(value);
   }
 
@@ -127,5 +129,10 @@ export class DataListComponent implements OnInit {
 
   refreshList() {
     this.onrefresh.next();
+  }
+
+
+  pageChanged(event: any): void {
+    this.page = event.page;
   }
 }

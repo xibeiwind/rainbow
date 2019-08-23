@@ -8,9 +8,9 @@
 </app-edit-modal>
 
 <!-- <div class="row">
-  <div class="col">
-  </div>
-</div> -->
+    <div class="col">
+    </div>
+  </div> -->
 
 <div class="box box-primary direct-chat direct-chat-primary">
   <div class="box-header with-border">
@@ -19,7 +19,7 @@
     </h3>
     <div class="box-tools pull-right">
       <div class="btn-group btn-group-sm">
-        <button type="button" class="btn btn-primary" *ngIf="canCreate"
+        <button type="button" class="btn btn-primary" *ngIf="config.canCreate"
           (click)="createModal.openCreateModal()">新建</button>
 
         <button type="button" class="btn btn-info" (click)="refreshList()">
@@ -33,10 +33,11 @@
 
   </div>
   <div class="box-header with-border">
-    <app-search></app-search>
+    <app-search [fields]="queryFields" (onsubmit)="querySubmit($event)"></app-search>
 
-    <pagination [totalItems]="333" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [boundaryLinks]="true"
-      [maxSize]="maxSize" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    <pagination [totalItems]="pagingData.TotalCount" [(ngModel)]="pagingData.PageIndex"
+      (pageChanged)="pageChanged($event)" [boundaryLinks]="true" [maxSize]="config.maxSize" previousText="&lsaquo;"
+      nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
     </pagination>
   </div>
   <!-- /.box-header -->
@@ -45,14 +46,14 @@
 
 
     <div class="table-responsive">
-      <table class="table no-margin table-hover table-striped data-list">
+      <table *ngIf="pagingData" class="table no-margin table-hover table-striped data-list">
         <thead>
           <tr>
             <th width="30">#</th>
-            <th *ngIf="enableSelect" width="50">
+            <th *ngIf="config.canSelect" width="50">
               <input type="checkbox" value="">
             </th>
-            <th *ngFor="let field of fields">
+            <th *ngFor="let field of _fields">
               {{field.DisplayName}}
             </th>
             <th width="100">
@@ -62,15 +63,15 @@
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr *ngFor="let item of items;let i = index" (click)="currentItem = item">
+        <tbody *ngIf="pagingData">
+          <tr *ngFor="let item of pagingData.Data;let i = index" (click)="currentItem = item">
             <td>
               {{i+1}}
             </td>
-            <td *ngIf="enableSelect">
+            <td *ngIf="config.canSelect">
               <input type="checkbox" [(ngModel)]="selectIdObj[item.Id]" value="{{item.Id}}">
             </td>
-            <td *ngFor="let field of fields" [title]="item[field.Name]" class="data-cell">
+            <td *ngFor="let field of _fields" [title]="item[field.Name]" class="data-cell">
 
               <ng-container *ngIf="field.IsEnum; else elseTemplate">
                 <span>
@@ -86,11 +87,11 @@
             <td>
               <div class="btn-group btn-group-xs pull-right">
 
-                <button type="button" class="btn btn-warning" *ngIf="canEdit" (click)="openEditModal(item)">
+                <button type="button" class="btn btn-warning" *ngIf="config.canEdit" (click)="openEditModal(item)">
                   <i class="fa fa-edit" aria-hidden="true"></i>
                 </button>
 
-                <button type="button" class="btn btn-danger" *ngIf="canDelete" (click)="showDeleteSwal(item)">
+                <button type="button" class="btn btn-danger" *ngIf="config.canDelete" (click)="showDeleteSwal(item)">
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
 
@@ -105,23 +106,24 @@
   <!-- /.box-body -->
   <div class="box-footer">
     <!-- <pagination [boundaryLinks]="true" [totalItems]="3333" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" maxSize="8" rotate="true"
-      lastText="&raquo;">
-    </pagination> -->
+        lastText="&raquo;">
+      </pagination> -->
 
-    <pagination [totalItems]="333" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [boundaryLinks]="true"
-      [maxSize]="maxSize" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    <pagination [totalItems]="pagingData.TotalCount" [(ngModel)]="pagingData.PageIndex"
+      (pageChanged)="pageChanged($event)" [boundaryLinks]="true" [maxSize]="config.maxSize" previousText="&lsaquo;"
+      nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
     </pagination>
     <!-- <pre class="card card-block card-header mb-3">
-        Page changed to: {{page}}
-      </pre> -->
+          Page changed to: {{page}}
+        </pre> -->
     <!-- <form action="#" method="post">
-      <div class="input-group">
-        <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-        <span class="input-group-btn">
-          <button type="submit" class="btn btn-primary btn-flat">Send</button>
-        </span>
-      </div>
-    </form> -->
+        <div class="input-group">
+          <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary btn-flat">Send</button>
+          </span>
+        </div>
+      </form> -->
   </div>
   <!-- /.box-footer-->
 </div>
