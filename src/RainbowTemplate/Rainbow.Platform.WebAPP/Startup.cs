@@ -51,6 +51,19 @@ namespace Rainbow.Platform.WebAPP
                 options.OutputFormatters.Insert(0, jsonOutputFormatter);
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddSignalR(options => { }).AddJsonProtocol(options =>
+            {
+                options.PayloadSerializerSettings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    ContractResolver = new DefaultContractResolver(),
+                    DateParseHandling = DateParseHandling.DateTimeOffset,
+                    DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
+                    DateTimeZoneHandling = DateTimeZoneHandling.Unspecified
+                };
+            });
+
             services.AddGraphQL();
 
             // In production, the Angular files will be served from this directory
@@ -83,6 +96,11 @@ namespace Rainbow.Platform.WebAPP
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseSignalR(builder =>
+            {
+                // todo: set SignalR here
+            });
 
             app.UseGraphQL();
 
