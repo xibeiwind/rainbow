@@ -1,102 +1,93 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TypeLite.TsModels;
 
-namespace TypeLite {
+namespace TypeLite
+{
     /// <summary>
-    /// Resolves TsTypes to more specialized types 
+    ///     Resolves TsTypes to more specialized types
     /// </summary>
     /// <remarks>
-    /// When a class is added to the model by TsModelBuilder, TsType is used for all type references. The purpose of the TypeResolver is to visit references and resolve them to the specific types.
+    ///     When a class is added to the model by TsModelBuilder, TsType is used for all type references. The purpose of the
+    ///     TypeResolver is to visit references and resolve them to the specific types.
     /// </remarks>
-    internal class TypeResolver : TsModelVisitor {
-        TsModel _model;
-        Dictionary<Type, TsType> _knownTypes;
-        Dictionary<string, TsModule> _modules;
+    internal class TypeResolver : TsModelVisitor
+    {
+        private readonly Dictionary<Type, TsType> _knownTypes;
+        private readonly TsModel _model;
+        private readonly Dictionary<string, TsModule> _modules;
 
         /// <summary>
-        /// Initializes a new instance of the TypeResolver.
+        ///     Initializes a new instance of the TypeResolver.
         /// </summary>
         /// <param name="model">The model to process.</param>
-        public TypeResolver(TsModel model) {
+        public TypeResolver(TsModel model)
+        {
             _model = model;
             _modules = new Dictionary<string, TsModule>();
             _knownTypes = new Dictionary<Type, TsType>();
 
-            foreach (var classModel in model.Classes) {
-                _knownTypes[classModel.Type] = classModel;
-            }
+            foreach (var classModel in model.Classes) _knownTypes[classModel.Type] = classModel;
 
-            foreach (var enumModel in model.Enums) {
-                _knownTypes[enumModel.Type] = enumModel;
-            }
+            foreach (var enumModel in model.Enums) _knownTypes[enumModel.Type] = enumModel;
         }
 
         /// <summary>
-        /// Resolves references in the class.
+        ///     Resolves references in the class.
         /// </summary>
         /// <param name="classModel"></param>
-        public override void VisitClass(TsClass classModel) {
-            if (classModel.Module != null) {
-                classModel.Module = this.ResolveModule(classModel.Module.Name);
-            }
+        public override void VisitClass(TsClass classModel)
+        {
+            if (classModel.Module != null) classModel.Module = ResolveModule(classModel.Module.Name);
 
-            if (classModel.BaseType != null && classModel.BaseType != TsType.Any) {
-                classModel.BaseType = this.ResolveType(classModel.BaseType, false);
-            }
+            if (classModel.BaseType != null && classModel.BaseType != TsType.Any)
+                classModel.BaseType = ResolveType(classModel.BaseType, false);
 
-            for (int i = 0; i < classModel.Interfaces.Count; i++) {
-                classModel.Interfaces[i] = this.ResolveType(classModel.Interfaces[i], false);
-            }
+            for (int i = 0; i < classModel.Interfaces.Count; i++)
+                classModel.Interfaces[i] = ResolveType(classModel.Interfaces[i], false);
         }
 
         /// <summary>
-        /// Resolves references in the enum.
+        ///     Resolves references in the enum.
         /// </summary>
         /// <param name="enumModel"></param>
-        public override void VisitEnum(TsEnum enumModel) {
-            if (enumModel.Module != null) {
-                enumModel.Module = this.ResolveModule(enumModel.Module.Name);
-            }
+        public override void VisitEnum(TsEnum enumModel)
+        {
+            if (enumModel.Module != null) enumModel.Module = ResolveModule(enumModel.Module.Name);
         }
 
         /// <summary>
-        /// Resolves references in the property.
+        ///     Resolves references in the property.
         /// </summary>
         /// <param name="property"></param>
-        public override void VisitProperty(TsProperty property) {
-            if (property.IsIgnored) {
-                return;
-            }
-            property.PropertyType = this.ResolveType(property.PropertyType);
-            if (property.GenericArguments != null) {
-                for (int i = 0; i < property.GenericArguments.Count; i++) {
-                    property.GenericArguments[i] = this.ResolveType(property.GenericArguments[i]);
-                }
-            }
+        public override void VisitProperty(TsProperty property)
+        {
+            if (property.IsIgnored) return;
+            property.PropertyType = ResolveType(property.PropertyType);
+            if (property.GenericArguments != null)
+                for (int i = 0; i < property.GenericArguments.Count; i++)
+                    property.GenericArguments[i] = ResolveType(property.GenericArguments[i]);
         }
 
         /// <summary>
-        /// Resolves TsType to the more specialized type.
+        ///     Resolves TsType to the more specialized type.
         /// </summary>
         /// <param name="toResolve">The type to resolve.</param>
         /// <returns></returns>
-        private TsType ResolveType(TsType toResolve, bool useOpenGenericDefinition = true) {
-            if (!(toResolve is TsType)) {
-                return toResolve;
-            }
+        private TsType ResolveType(TsType toResolve, bool useOpenGenericDefinition = true)
+        {
+            if (!(toResolve is TsType)) return toResolve;
 
-            if (_knownTypes.ContainsKey(toResolve.Type)) {
-                return _knownTypes[toResolve.Type];
-            } else if (toResolve.Type.IsGenericType && useOpenGenericDefinition) {
+            if (_knownTypes.ContainsKey(toResolve.Type)) return _knownTypes[toResolve.Type];
+
+            if (toResolve.Type.IsGenericType && useOpenGenericDefinition)
+            {
                 // We stored its open type definition instead
                 TsType openType = null;
-                if (_knownTypes.TryGetValue(toResolve.Type.GetGenericTypeDefinition(), out openType)) {
-                    return openType;
-                }
-            } else if (toResolve.Type.IsGenericType) {
+                if (_knownTypes.TryGetValue(toResolve.Type.GetGenericTypeDefinition(), out openType)) return openType;
+            }
+            else if (toResolve.Type.IsGenericType)
+            {
                 var genericType = TsType.Create(toResolve.Type);
                 _knownTypes[toResolve.Type] = genericType;
                 return genericType;
@@ -105,11 +96,20 @@ namespace TypeLite {
             var typeFamily = TsType.GetTypeFamily(toResolve.Type);
             TsType type = null;
 
-            switch (typeFamily) {
-                case TsTypeFamily.System: type = new TsSystemType(toResolve.Type); break;
-                case TsTypeFamily.Collection: type = this.CreateCollectionType(toResolve); break;
-                case TsTypeFamily.Enum: type = new TsEnum(toResolve.Type); break;
-                default: type = TsType.Any; break;
+            switch (typeFamily)
+            {
+                case TsTypeFamily.System:
+                    type = new TsSystemType(toResolve.Type);
+                    break;
+                case TsTypeFamily.Collection:
+                    type = CreateCollectionType(toResolve);
+                    break;
+                case TsTypeFamily.Enum:
+                    type = new TsEnum(toResolve.Type);
+                    break;
+                default:
+                    type = TsType.Any;
+                    break;
             }
 
             _knownTypes[toResolve.Type] = type;
@@ -117,27 +117,27 @@ namespace TypeLite {
         }
 
         /// <summary>
-        /// Creates a TsCollection from TsType
+        ///     Creates a TsCollection from TsType
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        private TsCollection CreateCollectionType(TsType type) {
+        private TsCollection CreateCollectionType(TsType type)
+        {
             var resolved = new TsCollection(type.Type);
-            resolved.ItemsType = this.ResolveType(resolved.ItemsType, false);
+            resolved.ItemsType = ResolveType(resolved.ItemsType, false);
             return resolved;
         }
 
         /// <summary>
-        /// Resolves module instance from the module name.
+        ///     Resolves module instance from the module name.
         /// </summary>
         /// <param name="name">The name of the module</param>
         /// <returns></returns>
-        private TsModule ResolveModule(string name) {
+        private TsModule ResolveModule(string name)
+        {
             name = name ?? string.Empty;
 
-            if (_modules.ContainsKey(name)) {
-                return _modules[name];
-            }
+            if (_modules.ContainsKey(name)) return _modules[name];
 
             var module = new TsModule(name);
             _modules[name] = module;

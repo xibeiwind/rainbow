@@ -59,7 +59,7 @@ namespace Rainbow.Services.Models
                 {
                     var propList = item.Fields.Select(a => ModelType.GetProperty(a)).ToList();
 
-                    template = template.Replace("$PropertyList$", string.Join("", GetVMFieldStrings(propList, item.Type != VMType.Query)));
+                    template = template.Replace("$PropertyList$", string.Join("", GetVMFieldStrings(propList, item.Type == VMType.Query)));
                 }
                 else
                 {
@@ -102,6 +102,8 @@ using {Settings.SolutionNamespace}.Common.Enums;
             var displayName = prop.GetCustomAttribute<DisplayAttribute>()?.Name ?? prop.Name;
             var required =isQueryVM? "": (prop.GetCustomAttribute<RequiredAttribute>() != null ? ",Required" : "");
 
+            var queryColumn = "";
+
             var dataTypeAttribute = prop.GetCustomAttribute<DataTypeAttribute>();
             var dataTypeStr = dataTypeAttribute != null ? $@"
         [DataType(DataType.{dataTypeAttribute.DataType})]" : "";
@@ -124,6 +126,13 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 {
                     returnType = $"{prop.PropertyType.Name}?";
                 }
+
+                if (prop.PropertyType == typeof(string))
+                {
+                    queryColumn = $@"
+        [QueryColumn(""{prop.Name}"", CompareEnum.Like)]";
+                }
+                // [QueryColumn("Name", CompareEnum.Like)]
             }
 
 
@@ -131,14 +140,15 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     $displayName$
         /// </summary>
-        [Display(Name = ""$displayName$"")$required$]$dataTypeStr$
+        [Display(Name = ""$displayName$"")$required$]$dataTypeStr$$QueryColumn$
         public $ReturnType$ $PropertyName$ {get;set;}
 ";
             return template.Replace("$displayName$", displayName)
                 .Replace("$required$", required)
                 .Replace("$dataTypeStr$", dataTypeStr)
                 .Replace("$ReturnType$", returnType)
-                .Replace("$PropertyName$", prop.Name);
+                .Replace("$PropertyName$", prop.Name)
+                .Replace("$QueryColumn$", queryColumn);
         }
 
         private string GetServiceInterfaceMethod(CreateViewModelApplyVM item)

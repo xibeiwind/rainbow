@@ -16,7 +16,7 @@ namespace Rainbow.ViewModels.DataFieldTypes
         ///     DataType类型
         /// </summary>
         [Display(Name = "DataType类型")]
-        public DataType Type { get; set; }
+        public DataType? Type { get; set; }
 
         /// <summary>
         ///     显示类型

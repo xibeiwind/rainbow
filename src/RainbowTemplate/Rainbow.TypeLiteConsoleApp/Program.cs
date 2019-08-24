@@ -41,6 +41,7 @@ namespace Rainbow.TypeLiteConsoleApp
                 $@"{Path.Combine(args[0], @"Rainbow.Platform.WebAPP\ClientApp\src\app")}\services");
         }
 
+
         private static void GenerateAngularTypeScriptServicesV2(Assembly assembly, string outputPath)
         {
             if (!Directory.Exists(outputPath)) Directory.CreateDirectory(outputPath);
@@ -287,16 +288,18 @@ namespace Rainbow.TypeLiteConsoleApp
 
             if (!Directory.Exists(outputPath)) Directory.CreateDirectory(outputPath);
 
-
             //Generate enums
             var tsEnumDefinitions = generator.Generate(TsGeneratorOutput.Enums);
             
             File.WriteAllText(Path.Combine(outputPath, "enums.ts"), tsEnumDefinitions);
             //Generate interface definitions for all classes
+
+            var tsClassStringBuilder = new StringBuilder();
+            tsClassStringBuilder.AppendLine("// tslint:disable:no-empty-interface");
             var tsClassDefinitions = generator.Generate(TsGeneratorOutput.Properties | TsGeneratorOutput.Fields);
-        
-            
-            File.WriteAllText(Path.Combine(outputPath, "classes.d.ts"), tsClassDefinitions);
+
+            tsClassStringBuilder.AppendLine(tsClassDefinitions);
+            File.WriteAllText(Path.Combine(outputPath, "classes.d.ts"), tsClassStringBuilder.ToString());
         }
 
         private static string GetTemplate(string fileName)

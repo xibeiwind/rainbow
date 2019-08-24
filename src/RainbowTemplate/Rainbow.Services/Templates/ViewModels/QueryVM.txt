@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Yunyong.Core;
-using Yunyong.Core.ViewModels;
+using Yunyong.Core.Attributes;
 using $RootNamespace$.Common;
 using $RootNamespace$.Common.Enums;
 $UsingNamespace$

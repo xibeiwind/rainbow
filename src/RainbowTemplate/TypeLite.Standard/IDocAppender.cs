@@ -1,12 +1,14 @@
 ﻿using TypeLite.TsModels;
 
-namespace TypeLite {
+namespace TypeLite
+{
     /// <summary>
-    /// interface of TS document appender.
+    ///     interface of TS document appender.
     /// </summary>
-    public interface IDocAppender {
+    public interface IDocAppender
+    {
         /// <summary>
-        /// Append class document.
+        ///     Append class document.
         /// </summary>
         /// <param name="sb"></param>
         /// <param name="classModel"></param>
@@ -14,7 +16,7 @@ namespace TypeLite {
         void AppendClassDoc(ScriptBuilder sb, TsClass classModel, string className);
 
         /// <summary>
-        /// Append property document.
+        ///     Append property document.
         /// </summary>
         /// <param name="sb"></param>
         /// <param name="property"></param>
@@ -23,7 +25,7 @@ namespace TypeLite {
         void AppendPropertyDoc(ScriptBuilder sb, TsProperty property, string propertyName, string propertyType);
 
         /// <summary>
-        /// Append constant document.
+        ///     Append constant document.
         /// </summary>
         /// <param name="sb"></param>
         /// <param name="property"></param>
@@ -32,7 +34,7 @@ namespace TypeLite {
         void AppendConstantModuleDoc(ScriptBuilder sb, TsProperty property, string propertyName, string propertyType);
 
         /// <summary>
-        /// Append Enum document.
+        ///     Append Enum document.
         /// </summary>
         /// <param name="sb"></param>
         /// <param name="enumModel"></param>
@@ -40,7 +42,7 @@ namespace TypeLite {
         void AppendEnumDoc(ScriptBuilder sb, TsEnum enumModel, string enumName);
 
         /// <summary>
-        /// Append Enum value document.
+        ///     Append Enum value document.
         /// </summary>
         /// <param name="sb"></param>
         /// <param name="value"></param>
@@ -48,22 +50,29 @@ namespace TypeLite {
     }
 
     /// <summary>
-    /// Dummy doc appender.
+    ///     Dummy doc appender.
     /// </summary>
-    public class NullDocAppender : IDocAppender {
-        public void AppendClassDoc(ScriptBuilder sb, TsClass classModel, string className) {
+    public class NullDocAppender : IDocAppender
+    {
+        public void AppendClassDoc(ScriptBuilder sb, TsClass classModel, string className)
+        {
         }
 
-        public void AppendPropertyDoc(ScriptBuilder sb, TsProperty property, string propertyName, string propertyType) {
+        public void AppendPropertyDoc(ScriptBuilder sb, TsProperty property, string propertyName, string propertyType)
+        {
         }
 
-        public void AppendConstantModuleDoc(ScriptBuilder sb, TsProperty property, string propertyName, string propertyType) {
+        public void AppendConstantModuleDoc(ScriptBuilder sb, TsProperty property, string propertyName,
+            string propertyType)
+        {
         }
 
-        public void AppendEnumDoc(ScriptBuilder sb, TsEnum enumModel, string enumName) {
+        public void AppendEnumDoc(ScriptBuilder sb, TsEnum enumModel, string enumName)
+        {
         }
 
-        public void AppendEnumValueDoc(ScriptBuilder sb, TsEnumValue value) {
+        public void AppendEnumValueDoc(ScriptBuilder sb, TsEnumValue value)
+        {
         }
     }
 }

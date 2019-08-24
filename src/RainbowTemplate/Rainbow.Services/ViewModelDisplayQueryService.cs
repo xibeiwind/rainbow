@@ -52,10 +52,11 @@ namespace Rainbow.Services
                     return tmp?.Key ?? "text";
                 }
 
-                if (!property.PropertyType.IsClass)
-                    return GetFieldType(property.PropertyType);
-                if (property.PropertyType.IsSubclassOf(typeof(Nullable<>)))
+                if (property.PropertyType.IsGenericType &&
+                    property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
                     return GetFieldType(property.PropertyType.GetGenericArguments().FirstOrDefault());
+                if (!property.PropertyType.IsClass) return GetFieldType(property.PropertyType);
+
                 return "text";
             }
 
@@ -86,7 +87,7 @@ namespace Rainbow.Services
                             Name = propName,
                             DisplayName = propDisplayName,
                             FieldType = FieldType(b),
-                            IsEnum = b.PropertyType.IsEnum,
+                            IsEnum = PropertyIsEnum(b), // b.PropertyType.IsEnum,
                             DataType = GetDataType(b),
                             Lookup = lookup != null
                                 ? new LookupSettingVM
@@ -103,17 +104,6 @@ namespace Rainbow.Services
             });
 
             ViewModelDisplayDic = items.ToDictionary(a => a.Name);
-        }
-
-        private static bool IsNullable(PropertyInfo property)
-        {
-            if (property.GetCustomAttribute<RequiredAttribute>()!=null)
-            {
-                return false;
-            }
-
-            return property.PropertyType.IsSubclassOf(typeof(Nullable<>))
-                   || property.PropertyType.IsClass;
         }
 
         private Dictionary<string, Type> ModelTypeDic { get; }
@@ -149,11 +139,39 @@ namespace Rainbow.Services
             return AsyncTaskResult.Failed<ModelDisplaySuitVM>($"Model:[{modelName}] 未找到");
         }
 
+        private bool PropertyIsEnum(PropertyInfo property)
+        {
+            if (property.PropertyType.IsEnum) return true;
+
+            //if (property.DeclaringType == typeof(QueryDataFieldTypeVM))
+            //{
+
+            //}
+            if (property.PropertyType.IsGenericType &&
+                property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                var type = property.PropertyType.GetGenericArguments().FirstOrDefault();
+                return type?.IsEnum ?? false;
+            }
+
+            return false;
+        }
+
+        private static bool IsNullable(PropertyInfo property)
+        {
+            if (property.GetCustomAttribute<RequiredAttribute>() != null) return false;
+
+            return property.PropertyType.IsGenericType &&
+                   property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)
+                   || property.PropertyType.IsClass;
+        }
+
         private DataType GetDataType(PropertyInfo property)
         {
             var attr = property.GetCustomAttribute<DataTypeAttribute>();
             if (attr != null) return attr.DataType;
-            if (property.PropertyType.IsSubclassOf(typeof(Nullable<>)))
+            if (property.PropertyType.IsGenericType &&
+                property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 var type = property.PropertyType.GetGenericArguments().FirstOrDefault();
             }

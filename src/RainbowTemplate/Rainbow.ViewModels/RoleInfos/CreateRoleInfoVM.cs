@@ -26,7 +26,7 @@ namespace Rainbow.ViewModels.RoleInfos
         ///     角色描述
         /// </summary>
         [Display(Name = "角色描述")]
-        [DataType(DataType.MultilineText)]
+        [DataType(DataType.Html)]
         public String Description {get;set;}
 
         /// <summary>

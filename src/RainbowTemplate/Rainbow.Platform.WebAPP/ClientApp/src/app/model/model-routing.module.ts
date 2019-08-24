@@ -7,7 +7,8 @@ const routes: Routes = [
   {
     path: 'model',
     canActivate: [AuthGuard],
-    component: ModelComponent
+    component: ModelComponent,
+    data: { title: 'Model管理' }
   }
 ];
 

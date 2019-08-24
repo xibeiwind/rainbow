@@ -57,7 +57,13 @@ namespace Rainbow.Services.RoleInfos
         {
             using (var conn = GetConnection())
             {
-                return await conn.PagingListAsync<RoleInfo, RoleInfoVM>(option);
+                conn.OpenDebug();
+                var result = await conn.PagingListAsync<RoleInfo, RoleInfoVM>(option);
+
+
+                var tmp = XDebug.SqlWithParams;
+
+                return result;
             }
         }
 

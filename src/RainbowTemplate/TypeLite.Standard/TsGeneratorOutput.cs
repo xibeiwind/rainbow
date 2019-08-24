@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace TypeLite {
+namespace TypeLite
+{
     /// <summary>
-    /// Defines output of the generator
+    ///     Defines output of the generator
     /// </summary>
     [Flags]
-    public enum TsGeneratorOutput {
+    public enum TsGeneratorOutput
+    {
         Properties = 1,
         Enums = 2,
         Fields = 4,
