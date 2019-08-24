@@ -3,8 +3,8 @@ import { SiteService } from 'src/app/services/site.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ViewModelDisplayService } from '../../services/ViewModelDisplayService';
 import { ToastrService } from 'ngx-toastr';
-import { CustomerServiceAccountService } from '../../services/CustomerServiceAccountService';
 import { Router } from '@angular/router';
+import { AccountService } from '../../services/AccountService';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   private loginInfo = {};
-  private site = { title: '管理彩虹' };
+  site = { title: '管理彩虹' };
   fields: Rainbow.ViewModels.FieldDisplayVM[];
 
 
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   inputType = {};
 
   constructor(site: SiteService,
-    private service: CustomerServiceAccountService,
+    private service: AccountService,
     private displayService: ViewModelDisplayService,
     private router: Router,
     private toastr: ToastrService,
@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.service.Login({ ...this.loginForm.value }).subscribe(res => {
-      localStorage['token'] = res.Data.Message;
+      localStorage['token'] = res.Message;
       // goto dashboard
       this.toastr.success('登陆成功');
       this.router.navigate(['/dashboard']);

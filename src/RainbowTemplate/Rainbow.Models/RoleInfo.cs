@@ -23,7 +23,7 @@ namespace Rainbow.Models
         ///     角色描述
         /// </summary>
         [Display(Name = "角色描述")]
-        [DataType(DataType.MultilineText)]
+        [DataType(DataType.Html)]
         public string Description { get; set; }
 
         public UserRoleType RoleType { get; set; }

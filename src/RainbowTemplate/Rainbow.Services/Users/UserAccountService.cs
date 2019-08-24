@@ -1,7 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.Events;
@@ -11,19 +18,28 @@ using Rainbow.ViewModels.Users;
 using Yunyong.Core;
 using Yunyong.DataExchange;
 using Yunyong.EventBus;
+using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace Rainbow.Services.Users
 {
     public class UserAccountService : ServiceBase, IUserAccountService
     {
         public UserAccountService(ConnectionSettings connectionSettings, SecurityUtil securityUtil,
-            IConnectionFactory connectionFactory, ILoggerFactory loggerFactory, IEventBus eventBus)
+            IConnectionFactory connectionFactory,
+            IIdentityService identityService,
+            IOptions<JwtSettings> jwtOptions,
+            ILoggerFactory loggerFactory, IEventBus eventBus)
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
         {
             SecurityUtil = securityUtil;
+            IdentityService = identityService;
+            Settings = jwtOptions.Value;
         }
 
         private SecurityUtil SecurityUtil { get; }
+        private IIdentityService IdentityService { get; }
+        private JwtSettings Settings { get; }
+
 
         public async Task<AsyncTaskTResult<UserVM>> RegisterAsync(RegisterUserVM vm)
         {
@@ -77,11 +93,22 @@ namespace Rainbow.Services.Users
             }
         }
 
-        public async Task<UserVM> GetUserAsync(Guid userId)
+        public async Task<UserProfileVM> GetUserAsync(Guid userId)
         {
             using (var conn = GetConnection())
             {
-                return await conn.FirstOrDefaultAsync<UserInfo, UserVM>(a => a.Id == userId);
+                var user = await conn.FirstOrDefaultAsync<UserInfo>(a => a.Id == userId);
+
+                return new UserProfileVM
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    AvatarUrl = user.AvatarUrl,
+                    NickName = user.Name,
+                    Phone = user.Phone,
+                    Roles = await GetUserRoles(userId),
+                    UserId = user.Id,
+                };
             }
         }
 
@@ -104,11 +131,39 @@ namespace Rainbow.Services.Users
                         var pwdHash = SecurityUtil.Encoding(vm.Password);
                         if (string.Equals(user.PasswordHash, pwdHash, StringComparison.InvariantCultureIgnoreCase))
                         {
+                            var tmp = IdentityService.Login(user.Id);
                             var claims = new[]
                             {
                                 new Claim("jti", user.Id.ToString(), ClaimValueTypes.String),
+                                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                                 new Claim(ClaimTypes.MobilePhone, user.Phone),
-                                new Claim(ClaimTypes.Name, user.Name)
+                                new Claim(ClaimTypes.Name, user.Name),
+                                new Claim("signId", tmp.SignId.ToString()),
+                                new Claim(ClaimTypes.Role, string.Join(",", await GetUserRoles(user.Id)))
+                            };
+
+                            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.SecretKey));
+                            //签名证书(秘钥，加密算法)
+                            var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                            //生成token  [注意]需要nuget添加Microsoft.AspNetCore.Authentication.JwtBearer包，并引用System.IdentityModel.Tokens.Jwt命名空间
+
+                            var token = new JwtSecurityToken(Settings.Issuer, Settings.Audience, claims, DateTime.Now,
+                                tmp.ExpiresTime, signingCredentials);
+
+                            return new LoginResultVM
+                            {
+                                IsSuccess = true,
+                                UserId = user.Id,
+                                Message = new JwtSecurityTokenHandler().WriteToken(token)
+                            };
+                        }
+                        else
+                        {
+                            return new LoginResultVM
+                            {
+                                IsSuccess = false,
+                                Message = "账号密码不匹配"
                             };
                         }
                     }
@@ -130,8 +185,47 @@ namespace Rainbow.Services.Users
                     };
                 }
             }
+        }
 
-            return null;
+        public async Task<AsyncTaskTResult<bool>> UserInRole(Guid userId, string roleName)
+        {
+            using (var conn = GetConnection())
+            {
+                var role = await conn.FirstOrDefaultAsync<RoleInfo>(a => a.Name == roleName);
+                if (role == null)
+                {
+                    return AsyncTaskResult.Failed<bool>("角色不存在");
+                }
+
+                var result = await conn.ExistAsync<UserRole>(a => a.UserId == userId && a.RoleId == role.Id);
+
+                return AsyncTaskResult.Success(result);
+            }
+        }
+
+        private async Task<IEnumerable<string>> GetUserRoles(Guid userId)
+        {
+            using (var conn = GetConnection())
+            {
+                var roles = (await conn.AllAsync<RoleInfo>()).ToDictionary(a => a.Id);
+
+                return (await conn.ListAsync<UserRole>(a => a.UserId == userId))
+                    .Where(b => roles.ContainsKey(b.RoleId))
+                    .Select(b => roles[b.RoleId].Name);
+            }
+        }
+
+        public Task<AsyncTaskTResult<bool>> Logout(Guid id)
+        {
+
+            IdentityService.Logout(id);
+
+            return Task.FromResult(AsyncTaskResult.Success(true));
+        }
+
+        public bool IsLogin(Guid userId, Guid signId)
+        {
+            return IdentityService.IsLogin(userId, signId);
         }
     }
 }

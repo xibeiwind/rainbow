@@ -52,33 +52,6 @@ declare namespace Rainbow.ViewModels {
 		Type: Rainbow.Common.Enums.VMType;
 	}
 }
-declare namespace Rainbow.ViewModels.CustomerServices {
-	interface CreateCustomerServiceVM extends Yunyong.Core.ViewModels.CreateVM {
-		Name: string;
-		NickName: string;
-		Phone: string;
-	}
-	interface CustomerServiceVM extends Yunyong.Core.ViewModels.VMBase {
-		AvatarUrl: string;
-		Name: string;
-		NickName: string;
-		Phone: string;
-		Roles: string[];
-		UserId: string;
-	}
-	interface DeleteCustomerServiceVM extends Yunyong.Core.ViewModels.DeleteVM {
-	}
-	interface QueryCustomerServiceVM extends Yunyong.Core.PagingQueryOption {
-		Name: string;
-		NickName: string;
-		Phone: string;
-	}
-	interface UpdateCustomerServiceVM extends Yunyong.Core.ViewModels.UpdateVM {
-		Name: string;
-		NickName: string;
-		Phone: string;
-	}
-}
 declare namespace Rainbow.ViewModels.DataFieldTypes {
 	interface CreateDataFieldTypeVM extends Yunyong.Core.ViewModels.CreateVM {
 		FieldTypeDisplay: string;
@@ -226,6 +199,14 @@ declare namespace Rainbow.ViewModels.Users {
 	interface UserLoginTrackVM {
 		ExpiresTime: Date;
 		SignId: string;
+		UserId: string;
+	}
+	interface UserProfileVM extends Yunyong.Core.ViewModels.VMBase {
+		AvatarUrl: string;
+		Name: string;
+		NickName: string;
+		Phone: string;
+		Roles: string[];
 		UserId: string;
 	}
 	interface UserVM extends Yunyong.Core.ViewModels.VMBase {

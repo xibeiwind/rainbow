@@ -5,14 +5,13 @@ using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Yunyong.Core.ViewModels;
 
-namespace Rainbow.ViewModels.CustomerServices
+namespace Rainbow.ViewModels.Users
 {
-	/// <summary>
-    ///     显示客服人员
+    /// <summary>
+    ///     用户Profile
     /// </summary>
-    [Display(Name = "显示客服人员")]
-	[BindModel("CustomerService", VMType.Display)]
-    public class CustomerServiceVM : VMBase
+    [Display(Name = "用户Profile")]
+    public class UserProfileVM : VMBase
     {
         /// <summary>
         ///     用户Id

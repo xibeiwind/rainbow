@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { SiteService } from './site.service';
 
 import { AccountService } from './AccountService';
-import { CustomerServiceAccountService } from './CustomerServiceAccountService';
 import { DataFieldTypeService } from './DataFieldTypeService';
 import { EnumDisplayService } from './EnumDisplayService';
 import { LookupQueryService } from './LookupQueryService';
@@ -23,11 +22,10 @@ import { InputTypeService } from './InputTypeService';
   ],
   providers: [
     SiteService,
-    InputTypeService,
     AccountService,
-    CustomerServiceAccountService,
     DataFieldTypeService,
     EnumDisplayService,
+    InputTypeService,
     LookupQueryService,
     MessageService,
     ModelService,

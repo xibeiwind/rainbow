@@ -21,10 +21,22 @@ export class AccountService {
       (`${this.baseUrl}api/Account/Login`, vm, getHttpOptions());
   }
 
+  public Logout()
+    : Observable<Yunyong.Core.AsyncTaskTResult<Boolean>> {
+    return this.http.post<Yunyong.Core.AsyncTaskTResult<Boolean>>
+      (`${this.baseUrl}api/Account/Logout`,{}, getHttpOptions());
+  }
+
   public GetUserAsync()
-    : Observable<Rainbow.ViewModels.Users.UserVM> {
-    return this.http.get<Rainbow.ViewModels.Users.UserVM>
+    : Observable<Rainbow.ViewModels.Users.UserProfileVM> {
+    return this.http.get<Rainbow.ViewModels.Users.UserProfileVM>
       (`${this.baseUrl}api/Account/UserInfo`, getHttpOptions());
+  }
+
+  public IsLogin()
+    : Observable<Boolean> {
+    return this.http.get<Boolean>
+      (`${this.baseUrl}api/Account/IsLogin`, getHttpOptions());
   }
 
 }

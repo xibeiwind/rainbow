@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../../services/MessageService';
 // import { AccountService } from '../../services/AccountService';
-import { CustomerServiceAccountService } from '../../services/CustomerServiceAccountService';
 import { Router } from '@angular/router';
+import { AccountService } from 'src/app/services/AccountService';
 
 @Component({
   selector: 'app-header-inner',
@@ -11,12 +11,12 @@ import { Router } from '@angular/router';
 })
 export class HeaderInnerComponent implements OnInit {
   msgData: Yunyong.Core.PagingList<Rainbow.ViewModels.Messages.MessageVM>;
-  user: Rainbow.ViewModels.CustomerServices.CustomerServiceVM;
+  user: Rainbow.ViewModels.Users.UserProfileVM;
 
   constructor(
     private router: Router,
     private msgService: MessageService,
-    private accountService: CustomerServiceAccountService) { }
+    private accountService: AccountService) { }
 
   ngOnInit() {
     this.msgService.QueryAsync({ PageSize: 5, PageIndex: 1, OrderBys: [] }).subscribe(res => {
@@ -25,8 +25,8 @@ export class HeaderInnerComponent implements OnInit {
 
     this.accountService.IsLogin().subscribe(isLogin => {
       if (isLogin === true) {
-        this.accountService.GetCustomerService().subscribe(res => {
-          this.user = res.Data;
+        this.accountService.GetUserAsync().subscribe(res => {
+          this.user = res;
           this.user.AvatarUrl = this.user.AvatarUrl || '/assets/img/avatar.png';
         });
       }

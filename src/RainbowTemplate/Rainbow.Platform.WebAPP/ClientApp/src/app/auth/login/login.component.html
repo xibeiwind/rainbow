@@ -4,7 +4,7 @@
       {{site.title}}
     </div>
     <!-- /.login-logo -->
-    <div class="login-box-body">
+    <div class="login-box-body" *ngIf="loginForm">
       <p class="login-box-msg">登录您的账号</p>
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="form-group has-feedback" *ngFor="let field of fields">

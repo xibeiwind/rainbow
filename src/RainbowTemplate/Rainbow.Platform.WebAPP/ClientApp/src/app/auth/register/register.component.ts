@@ -7,11 +7,15 @@ import { SiteService } from 'src/app/services/site.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  private site = { title: "管理彩虹" };
-  private registerInfo = {};
-  constructor(site:SiteService) {
+  site = { title: '管理彩虹' };
+  registerInfo = {
+    username: '',
+    password: '',
+
+  };
+  constructor(site: SiteService) {
     this.site = site.getSite();
-   }
+  }
 
   ngOnInit() {
   }

@@ -12,7 +12,7 @@ export class InputTypeService {
     this.inputType[System.ComponentModel.DataAnnotations.DataType.PhoneNumber] = 'tel';
     this.inputType[System.ComponentModel.DataAnnotations.DataType.Currency] = 'text';
     this.inputType[System.ComponentModel.DataAnnotations.DataType.Text] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Html] = 'text';
+    this.inputType[System.ComponentModel.DataAnnotations.DataType.Html] = 'textarea';
     this.inputType[System.ComponentModel.DataAnnotations.DataType.MultilineText] = 'textarea';
     this.inputType[System.ComponentModel.DataAnnotations.DataType.EmailAddress] = 'email';
     this.inputType[System.ComponentModel.DataAnnotations.DataType.Password] = 'password';

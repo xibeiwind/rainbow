@@ -89,18 +89,18 @@ using {Settings.SolutionNamespace}.Common.Enums;
             }
         }
 
-        private IEnumerable<string> GetVMFieldStrings(List<PropertyInfo> propList, bool findRequired=true)
+        private IEnumerable<string> GetVMFieldStrings(List<PropertyInfo> propList, bool isQueryVM = false)
         {
             foreach (var prop in propList)
             {
-                yield return GetVMFieldString(prop, findRequired);
+                yield return GetVMFieldString(prop, isQueryVM);
             }
         }
 
-        private string GetVMFieldString(PropertyInfo prop, bool findRequired=true)
+        private string GetVMFieldString(PropertyInfo prop, bool isQueryVM=false)
         {
             var displayName = prop.GetCustomAttribute<DisplayAttribute>()?.Name ?? prop.Name;
-            var required =findRequired?  (prop.GetCustomAttribute<RequiredAttribute>() != null ? ",Required" : ""):"";
+            var required =isQueryVM? "": (prop.GetCustomAttribute<RequiredAttribute>() != null ? ",Required" : "");
 
             var dataTypeAttribute = prop.GetCustomAttribute<DataTypeAttribute>();
             var dataTypeStr = dataTypeAttribute != null ? $@"
@@ -110,9 +110,22 @@ using {Settings.SolutionNamespace}.Common.Enums;
             if (prop.PropertyType.IsGenericType)
             {
                 returnType = prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)
-                    ? prop.PropertyType.GetGenericArguments()[0].Name
+                    ? $"{prop.PropertyType.GetGenericArguments()[0].Name}?"
                     : $"{Regex.Match(prop.PropertyType.Name, @"([0-9a-zA-Z]+)`").Groups[1].Value}<{string.Join(",", prop.PropertyType.GetGenericArguments().Select(b => b.Name))}>";
             }
+            if (isQueryVM)
+            {
+                if (prop.PropertyType.IsEnum)
+                {
+                    returnType = $"{prop.PropertyType.Name}?";
+                }
+
+                else if (!prop.PropertyType.IsClass)
+                {
+                    returnType = $"{prop.PropertyType.Name}?";
+                }
+            }
+
 
             var template = @"
         /// <summary>

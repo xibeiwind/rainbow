@@ -7,11 +7,6 @@
   [largeModal]="true">
 </app-edit-modal>
 
-<!-- <div class="row">
-    <div class="col">
-    </div>
-  </div> -->
-
 <div class="box box-primary direct-chat direct-chat-primary">
   <div class="box-header with-border">
     <h3 class="box-title">
@@ -26,24 +21,21 @@
           <i class="fa fa-retweet"></i>
           <!-- 刷新 -->
         </button>
-
       </div>
-
     </div>
-
   </div>
   <div class="box-header with-border">
     <app-search [fields]="queryFields" (onsubmit)="querySubmit($event)"></app-search>
-
-    <pagination [totalItems]="pagingData.TotalCount" [(ngModel)]="pagingData.PageIndex"
-      (pageChanged)="pageChanged($event)" [boundaryLinks]="true" [maxSize]="config.maxSize" previousText="&lsaquo;"
-      nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
-    </pagination>
   </div>
   <!-- /.box-header -->
   <div class="box-body">
 
-
+    <div>
+      <pagination [totalItems]="pagingData.TotalCount" [(ngModel)]="pagingData.PageIndex"
+        (pageChanged)="pageChanged($event)" [boundaryLinks]="true" [maxSize]="config.maxSize" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination>
+    </div>
 
     <div class="table-responsive">
       <table *ngIf="pagingData" class="table no-margin table-hover table-striped data-list">
@@ -102,28 +94,17 @@
         </tbody>
       </table>
     </div>
+    <div>
+      <pagination [totalItems]="pagingData.TotalCount" [(ngModel)]="pagingData.PageIndex"
+        (pageChanged)="pageChanged($event)" [boundaryLinks]="true" [maxSize]="config.maxSize" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination>
+    </div>
+
   </div>
   <!-- /.box-body -->
   <div class="box-footer">
-    <!-- <pagination [boundaryLinks]="true" [totalItems]="3333" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" maxSize="8" rotate="true"
-        lastText="&raquo;">
-      </pagination> -->
 
-    <pagination [totalItems]="pagingData.TotalCount" [(ngModel)]="pagingData.PageIndex"
-      (pageChanged)="pageChanged($event)" [boundaryLinks]="true" [maxSize]="config.maxSize" previousText="&lsaquo;"
-      nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
-    </pagination>
-    <!-- <pre class="card card-block card-header mb-3">
-          Page changed to: {{page}}
-        </pre> -->
-    <!-- <form action="#" method="post">
-        <div class="input-group">
-          <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-primary btn-flat">Send</button>
-          </span>
-        </div>
-      </form> -->
   </div>
   <!-- /.box-footer-->
 </div>

@@ -10,7 +10,7 @@ import { InputTypeService } from 'src/app/services/InputTypeService';
 })
 export class SearchComponent implements OnInit {
   _fields: Rainbow.ViewModels.FieldDisplayVM[];
-  private queryForm: any;
+  queryForm: any;
 
   @Input()
   set fields(items: Rainbow.ViewModels.FieldDisplayVM[]) {

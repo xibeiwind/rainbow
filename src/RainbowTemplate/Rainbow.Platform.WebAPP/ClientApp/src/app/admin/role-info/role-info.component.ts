@@ -120,5 +120,4 @@ export class RoleInfoComponent
       this.pagingDataList.queryFields = data.fields;
     }
   }
-
 }

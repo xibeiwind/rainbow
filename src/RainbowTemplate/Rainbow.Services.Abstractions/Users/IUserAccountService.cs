@@ -30,8 +30,13 @@ namespace Rainbow.Services.Users
         ///     获取用户信息
         /// </summary>
         [Display(Name = "获取用户信息")]
-        Task<UserVM> GetUserAsync(Guid userId);
+        Task<UserProfileVM> GetUserAsync(Guid userId);
 
         Task<LoginResultVM> PasswordLoginWithToken(LoginVM vm);
+
+        Task<AsyncTaskTResult<bool>> UserInRole(Guid userId, string roleName);
+        Task<AsyncTaskTResult<bool>> Logout(Guid id);
+
+        bool IsLogin(Guid userId, Guid signId);
     }
 }
