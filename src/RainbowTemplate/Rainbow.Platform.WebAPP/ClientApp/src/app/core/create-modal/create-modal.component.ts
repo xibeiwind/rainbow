@@ -64,8 +64,9 @@ export class CreateModalComponent implements OnInit {
     if (field.IsEnum) {
       return 'select';
     }
-    if (field.DataType === System.ComponentModel.DataAnnotations.DataType.MultilineText) {
-      return 'textarea';
+    if (field.DataType === System.ComponentModel.DataAnnotations.DataType.Html ||
+      field.DataType === System.ComponentModel.DataAnnotations.DataType.MultilineText) {
+      return 'html';
     } else {
       return 'input';
     }
