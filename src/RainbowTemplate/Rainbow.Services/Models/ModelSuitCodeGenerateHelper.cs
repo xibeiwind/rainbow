@@ -588,8 +588,10 @@ using {Settings.SolutionNamespace}.Common.Enums;
                         }
                         {
                             //$ModelName$
-                            var template = GetTemplate("NgComponent.ModuleRoutingScript").Replace("$ModelName$", SuitApplyVM.NgModuleName)
-                                .Replace("$ModelSnackName$", moduleSnackName);
+                            var template = GetTemplate("NgComponent.ModuleRoutingScript")
+                                .Replace("$ModelName$", SuitApplyVM.NgModuleName)
+                                .Replace("$ModelSnackName$", moduleSnackName)
+                                ;
                             var filePath = Path.Combine(pathRoot, moduleSnackName, $@"{moduleSnackName}-routing.module.ts");
                             File.WriteAllText(filePath, template);
                         }

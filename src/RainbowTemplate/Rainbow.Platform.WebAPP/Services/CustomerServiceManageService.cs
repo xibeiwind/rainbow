@@ -4,12 +4,13 @@ using Microsoft.Extensions.Logging;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.Models;
+using Rainbow.Services.Users;
 using Rainbow.Services.Utils;
 using Yunyong.Core;
 using Yunyong.DataExchange;
 using Yunyong.EventBus;
 
-namespace Rainbow.Services.Users
+namespace Rainbow.Platform.WebAPP.Services
 {
     public class CustomerServiceManageService : ServiceBase, ICustomerServiceManageService
     {

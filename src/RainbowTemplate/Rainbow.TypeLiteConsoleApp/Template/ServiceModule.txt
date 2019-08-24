@@ -1,0 +1,20 @@
+﻿import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SiteService } from './site.service';
+import { InputTypeService } from './InputTypeService';
+
+$ImportServices$
+
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule
+  ],
+  providers: [
+    SiteService,
+    InputTypeService,
+$ProviderServices$
+  ],
+})
+export class ServiceModule { }

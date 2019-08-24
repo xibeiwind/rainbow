@@ -1,4 +1,3 @@
-
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,6 +7,7 @@ import { getHttpOptions } from './httpOptions';
 @Injectable()
 export class RoleInfoService {
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){ }
+
 
   public CreateAsync(vm: Rainbow.ViewModels.RoleInfos.CreateRoleInfoVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<String>> {
@@ -44,6 +44,4 @@ export class RoleInfoService {
     return this.http.delete<Yunyong.Core.AsyncTaskResult>
       (`${this.baseUrl}api/RoleInfo/Delete?${stringify(vm)}`, getHttpOptions());
   }
-
 }
-

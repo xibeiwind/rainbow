@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Common;
 using Rainbow.Data;
+using Rainbow.Platform.WebAPP.Services;
 using Rainbow.Services;
 using Rainbow.Services.Users;
 using Rainbow.Services.Utils;

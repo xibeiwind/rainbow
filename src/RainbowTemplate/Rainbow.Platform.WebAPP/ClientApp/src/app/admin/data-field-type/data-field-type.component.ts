@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { EditableListViewComponent } from '../EditableListViewComponent';
-import { ViewModelDisplayService } from '../services/ViewModelDisplayService';
+import { EditableListViewComponent } from '../../EditableListViewComponent';
+import { ViewModelDisplayService } from '../../services/ViewModelDisplayService';
 import { BsModalService } from 'ngx-bootstrap';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { DataFieldTypeService } from '../services/DataFieldTypeService';
-import { DataListComponent } from '../core/data-list/data-list.component';
+import { DataFieldTypeService } from '../../services/DataFieldTypeService';
+import { PagingDataListComponent } from '../../core/paging-data-list/paging-data-list.component';
 
 @Component({
   selector: 'app-data-field-type',
@@ -15,8 +15,16 @@ import { DataListComponent } from '../core/data-list/data-list.component';
 export class DataFieldTypeComponent
   extends EditableListViewComponent<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM>
   implements OnInit {
-  @ViewChild('dataList')
-  dataList: DataListComponent;
+
+  @ViewChild('pagingDataList')
+  pagingDataList: PagingDataListComponent;
+
+  pagingData: Yunyong.Core.PagingList<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM>;
+  queryOption: Rainbow.ViewModels.DataFieldTypes.QueryDataFieldTypeVM = {
+    PageIndex: 1,
+    PageSize: 10,
+    OrderBys: []
+  };
 
   constructor(
     private service: DataFieldTypeService,
@@ -32,22 +40,42 @@ export class DataFieldTypeComponent
       update: 'UpdateDataFieldTypeVM',
       detail: 'DataFieldTypeVM',
       query: 'QueryDataFieldTypeVM',
-    }
+    };
   }
   ngOnInit() {
     this._OnInit();
+    this.pagingDataList.config = {
+      canCreate: true,
+      canEdit: true,
+      canSelect: true,
+      canDelete: true,
+      pageSize: 10,
+      maxSize: 5
+    };
   }
   refreshList() {
-    this.service.GetListAsync().subscribe(res => {
-      this.items = res;
+    // this.service.GetListAsync().subscribe(res => {
+    //   this.items = res;
+    // });
+
+    this.service.QueryAsync(this.queryOption).subscribe(res => {
+      this.pagingData = res;
     });
+  }
+
+  querySubmit(query: Yunyong.Core.PagingQueryOption) {
+    console.log(JSON.stringify(query));
+
+    this.queryOption = { ...this.queryOption, ...query };
+    this.refreshList();
+
   }
   createSubmit(data: any) {
     this.service.CreateAsync(data).subscribe(res => {
       if (res.Status === Yunyong.Core.AsyncTaskStatus.Success) {
         this.toastr.info(`${this.modelDisplayName}创建成功`);
         this.refreshList();
-        this.dataList.closeCreateModal();
+        this.pagingDataList.closeCreateModal();
       }
     }, err => {
       this.toastr.error(`${this.modelDisplayName}创建失败！`);
@@ -71,15 +99,17 @@ export class DataFieldTypeComponent
   }
   onFieldsUpdated(data: { name: string; fields: Rainbow.ViewModels.FieldDisplayVM[]; }) {
     if (data.name === 'Create') {
-      this.dataList.createFields = data.fields;
+      this.pagingDataList.createFields = data.fields;
     }
     if (data.name === 'Display') {
-      this.dataList.fields = data.fields;
-      this.dataList.items = this.items;
+      this.pagingDataList.listFields = data.fields;
+
     }
     if (data.name === 'Update') {
-      this.dataList.editFields = data.fields;
+      this.pagingDataList.editFields = data.fields;
+    }
+    if (data.name === 'Query') {
+      this.pagingDataList.queryFields = data.fields;
     }
   }
-
 }

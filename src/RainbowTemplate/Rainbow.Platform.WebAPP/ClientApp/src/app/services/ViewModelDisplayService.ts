@@ -1,4 +1,3 @@
-
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,6 +7,7 @@ import { getHttpOptions } from './httpOptions';
 @Injectable()
 export class ViewModelDisplayService {
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){ }
+
 
   public GetVMDisplay(vm: Rainbow.ViewModels.DisplayQueryVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ViewModelDisplayVM>> {
@@ -20,6 +20,4 @@ export class ViewModelDisplayService {
     return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ModelDisplaySuitVM>>
       (`${this.baseUrl}api/ViewModelDisplay/ModelVMDisplays?${stringify(vm)}`, getHttpOptions());
   }
-
 }
-

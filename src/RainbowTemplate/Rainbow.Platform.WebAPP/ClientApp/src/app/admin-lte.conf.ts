@@ -17,7 +17,7 @@ export const adminLteConf = {
     {
       label: '管理设置', iconClasses: 'fa fa-gears', children: [
         { label: '用户角色', route: 'admin/role' },
-        { label: 'FieldType', route: 'data-field-type', iconClasses: 'fa fa-list' },
+        { label: 'FieldType', route: 'admin/data-field-type', iconClasses: 'fa fa-list' },
       ]
     },
     // { label: 'Model', route: 'model', iconClasses: 'fa fa-list' },

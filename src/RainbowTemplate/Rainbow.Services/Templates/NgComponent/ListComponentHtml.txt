@@ -1,7 +1,6 @@
 ﻿<h2>
   {{modelDisplayName}}
 </h2>
-<app-data-list #dataList [canCreate]="true" [canEdit]="true" [canDelete]="true" [items]="items"
-  (oncreate)="createSubmit($event)" (onupdate)="editSubmit($event)" [modelDisplayName]="modelDisplayName"
-  (ondelete)="deleteSubmit($event)" (onrefresh)="refreshList()">
-</app-data-list>
+<app-paging-data-list #pagingDataList [pagingData]="pagingData" (oncreate)="createSubmit($event)"
+  (onupdate)="editSubmit($event)" [modelDisplayName]="modelDisplayName" (ondelete)="deleteSubmit($event)"
+  (onquery)="querySubmit($event)"></app-paging-data-list>

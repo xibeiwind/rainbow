@@ -1,4 +1,3 @@
-
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,6 +7,7 @@ import { getHttpOptions } from './httpOptions';
 @Injectable()
 export class UserService {
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){ }
+
 
   public GetAsync(id: String)
     : Observable<any> {
@@ -44,6 +44,4 @@ export class UserService {
     return this.http.delete<any>
       (`${this.baseUrl}api/User/Delete?${stringify(vm)}`, getHttpOptions());
   }
-
 }
-

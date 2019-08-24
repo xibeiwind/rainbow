@@ -13,7 +13,6 @@ import { CoreModule } from './core/core.module';
 import { adminLteConf } from './admin-lte.conf';
 import { ServiceModule } from './services/service.module';
 import { ModelModule } from './model/model.module';
-import { DataFieldTypeModule } from './data-field-type/data-field-type.module';
 import { AuthGuard } from './auth.guard';
 
 @NgModule({
@@ -34,7 +33,6 @@ import { AuthGuard } from './auth.guard';
     MaterialBarModule,
     ServiceModule,
     ModelModule,
-    DataFieldTypeModule,
     AppRoutingModule,
   ],
   providers: [AuthGuard],

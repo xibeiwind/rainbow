@@ -1,7 +1,7 @@
-﻿
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SiteService } from './site.service';
+import { InputTypeService } from './InputTypeService';
 
 import { AccountService } from './AccountService';
 import { DataFieldTypeService } from './DataFieldTypeService';
@@ -12,7 +12,6 @@ import { ModelService } from './ModelService';
 import { RoleInfoService } from './RoleInfoService';
 import { UserService } from './UserService';
 import { ViewModelDisplayService } from './ViewModelDisplayService';
-import { InputTypeService } from './InputTypeService';
 
 
 @NgModule({
@@ -22,10 +21,10 @@ import { InputTypeService } from './InputTypeService';
   ],
   providers: [
     SiteService,
+    InputTypeService,
     AccountService,
     DataFieldTypeService,
     EnumDisplayService,
-    InputTypeService,
     LookupQueryService,
     MessageService,
     ModelService,

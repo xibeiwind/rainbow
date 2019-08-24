@@ -11,6 +11,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Template\Service.txt" />
+    <None Remove="Template\ServiceModule.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Template\Service.txt" />
+    <EmbeddedResource Include="Template\ServiceModule.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="TypeLite.Standard" Version="1.0.0" />
     <PackageReference Include="Yunyong.Core" Version="1.0.9" />
   </ItemGroup>
@@ -18,6 +28,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Rainbow.Platform.Controllers\Rainbow.Platform.Controllers.csproj" />
     <ProjectReference Include="..\Rainbow.ViewModels\Rainbow.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Template\VMTemplate\" />
   </ItemGroup>
 
 </Project>
