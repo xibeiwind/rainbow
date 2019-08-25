@@ -6,9 +6,9 @@ import { getHttpOptions } from './httpOptions';
 
 @Injectable()
 export class LookupQueryService {
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){ }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-
+  // Query
   public Query(vm: Rainbow.ViewModels.LookupQueryVM)
     : Observable<any> {
     return this.http.post<any>

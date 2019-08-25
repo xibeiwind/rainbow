@@ -6,15 +6,15 @@ import { getHttpOptions } from './httpOptions';
 
 @Injectable()
 export class ViewModelDisplayService {
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){ }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-
+  // GetVMDisplay
   public GetVMDisplay(vm: Rainbow.ViewModels.DisplayQueryVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ViewModelDisplayVM>> {
     return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ViewModelDisplayVM>>
       (`${this.baseUrl}api/ViewModelDisplay/VMDisplay?${stringify(vm)}`, getHttpOptions());
   }
-
+  // GetModelVMDisplays
   public GetModelVMDisplays(vm: Rainbow.ViewModels.DisplayQueryVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ModelDisplaySuitVM>> {
     return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ModelDisplaySuitVM>>

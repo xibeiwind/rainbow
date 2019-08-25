@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace TypeLite.TsModels
         {
             MemberInfo = memberInfo;
             Name = memberInfo.Name;
+            Description = memberInfo.GetCustomAttribute<DisplayAttribute>()?.Name ?? Name;
 
             var propertyType = memberInfo.PropertyType;
             if (propertyType.IsNullable())
@@ -62,7 +64,7 @@ namespace TypeLite.TsModels
         {
             MemberInfo = memberInfo;
             Name = memberInfo.Name;
-
+            Description = memberInfo.GetCustomAttribute<DisplayAttribute>()?.Name ?? Name;
             if (memberInfo.ReflectedType.IsGenericType)
             {
                 var definitionType = memberInfo.ReflectedType.GetGenericTypeDefinition();
@@ -98,7 +100,8 @@ namespace TypeLite.TsModels
                 ConstantValue = null;
         }
 
-        public string Name { get; set; }
+        public string Name { get; }
+        public string Description { get; }
 
         /// <summary>
         ///     Gets or sets type of the property.

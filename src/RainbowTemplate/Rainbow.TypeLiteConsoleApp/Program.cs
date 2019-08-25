@@ -78,6 +78,8 @@ namespace Rainbow.TypeLiteConsoleApp
                     if (Regex.IsMatch(methodName, "{"))
                         methodName = Regex.Match(methodName, @"(.*){").Groups[1].Value;
 
+                    var description = methodInfo.GetCustomAttribute<DisplayAttribute>()?.Name?? methodName;
+
                     var url = $"{urlBase}/{routeAttr.Template}".Replace("{", "${");
 
                     var returnStr = GetReturnTypeString(methodInfo);
@@ -91,6 +93,7 @@ namespace Rainbow.TypeLiteConsoleApp
                         presentActions.Add(new RainbowAction
                         {
                             Name = methodName,
+                            Description = description,
                             Method = method,
                             ReturnStr = returnStr,
                             ArgParamsStr = argParamsStr,
@@ -120,7 +123,7 @@ namespace Rainbow.TypeLiteConsoleApp
                 }
 
                 template = template.Replace("$ModelServiceName$", serviceName)
-                    .Replace("$ServiceMethods$", string.Join("\r\n", presentActions.Select(a => GetServiceActionMethodString(a))));
+                    .Replace("$ServiceMethods$", string.Join("\r\n", presentActions.Select(GetServiceActionMethodString)));
 
                 Console.WriteLine(template);
 
@@ -141,133 +144,143 @@ namespace Rainbow.TypeLiteConsoleApp
 
         private static string GetServiceActionMethodString(RainbowAction action)
         {
+            var template = "";
+
             if (action.Name == "UploadPictureFile")
             {
-                return @"
+                template = @"
   public UpLoadPictureFile(data: FormData)
     : Observable<Rainbow.ViewModels.Utils.PictureFileVM> {
     return this.http.post<Rainbow.ViewModels.Utils.PictureFileVM>(`${this.baseUrl}api/ImageUpload/UpLoadPictureFile`, data, getHttpOptions());
   }";
             }
 
-            if (action.Name == "Logout")
+            else if (action.Name == "Logout")
             {
-                return @"
+                template = @"
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {
     return this.http.{action.Method}<{action.ReturnStr}>
       (`${this.baseUrl}{action.Url}`,{}, getHttpOptions());
   }
-".Replace("{action.Name}", action.Name)
-                        .Replace("{action.ArgParamsStr}", action.ArgParamsStr)
-                        .Replace("{action.ReturnStr}", action.ReturnStr)
-                        .Replace("{action.Method}", action.Method)
-                        .Replace("{action.ReturnStr}", action.ReturnStr)
-                        .Replace("{action.Url}", action.Url)
-                    ;
+";
+                    //    .Replace("{action.Name}", action.Name)
+                    //    .Replace("{action.ArgParamsStr}", action.ArgParamsStr)
+                    //    .Replace("{action.ReturnStr}", action.ReturnStr)
+                    //    .Replace("{action.Method}", action.Method)
+                    //    .Replace("{action.ReturnStr}", action.ReturnStr)
+                    //    .Replace("{action.Url}", action.Url)
+                    //;
             }
 
-            if (action.IsBaseType && (action.Method == "get" || action.Method == "delete"))
+            else if (action.IsBaseType && (action.Method == "get" || action.Method == "delete"))
             {
                 if (string.IsNullOrWhiteSpace(action.ArgParamsStr))
                 {
-                    return @"
+                    template = @"
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {
     return this.http.{action.Method}<{action.ReturnStr}>
       (`${this.baseUrl}{action.Url}`, getHttpOptions());
-  }"
-                        .Replace("{action.Name}", action.Name)
-                        .Replace("{action.ArgParamsStr}", action.ArgParamsStr)
-                        .Replace("{action.ReturnStr}", action.ReturnStr)
-                        .Replace("{action.Method}", action.Method)
-                        .Replace("{action.ReturnStr}", action.ReturnStr)
-                        .Replace("{action.Url}", action.Url);
+  }";
+                        //.Replace("{action.Name}", action.Name)
+                        //.Replace("{action.ArgParamsStr}", action.ArgParamsStr)
+                        //.Replace("{action.ReturnStr}", action.ReturnStr)
+                        //.Replace("{action.Method}", action.Method)
+                        //.Replace("{action.ReturnStr}", action.ReturnStr)
+                        //.Replace("{action.Url}", action.Url);
                 }
                 else if (action.Url.Contains("${"))
                 {
-                    return @"
+                    template = @"
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {
     return this.http.{action.Method}<{action.ReturnStr}>
       (`${this.baseUrl}{action.Url}`, getHttpOptions());
-  }"
+  }";
 
-                        .Replace("{action.Name}", action.Name)
-                        .Replace("{action.ArgParamsStr}", action.ArgParamsStr)
-                        .Replace("{action.ReturnStr}", action.ReturnStr)
-                        .Replace("{action.Method}", action.Method)
-                        .Replace("{action.ReturnStr}", action.ReturnStr)
-                        .Replace("{action.Url}", action.Url);
+                    //.Replace("{action.Name}", action.Name)
+                    //.Replace("{action.ArgParamsStr}", action.ArgParamsStr)
+                    //.Replace("{action.ReturnStr}", action.ReturnStr)
+                    //.Replace("{action.Method}", action.Method)
+                    //.Replace("{action.ReturnStr}", action.ReturnStr)
+                    //.Replace("{action.Url}", action.Url);
 
                 }
                 else
                 {
-                    return @"
+                    template = @"
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {
     return this.http.{action.Method}<{action.ReturnStr}>
       (`${this.baseUrl}{action.Url}?${stringify({action.ArgsStr})}`, getHttpOptions());
-  }"
-                        .Replace("{action.Name}", action.Name)
-                        .Replace("{action.ArgParamsStr}", action.ArgParamsStr)
-                        .Replace("{action.ReturnStr}", action.ReturnStr)
-                        .Replace("{action.Method}", action.Method)
-                        .Replace("{action.ReturnStr}", action.ReturnStr)
-                        .Replace("{action.ArgsStr}", action.ArgsStr)
-                        .Replace("{action.Url}", action.Url);
+  }";
+                        //.Replace("{action.Name}", action.Name)
+                        //.Replace("{action.ArgParamsStr}", action.ArgParamsStr)
+                        //.Replace("{action.ReturnStr}", action.ReturnStr)
+                        //.Replace("{action.Method}", action.Method)
+                        //.Replace("{action.ReturnStr}", action.ReturnStr)
+                        //.Replace("{action.ArgsStr}", action.ArgsStr)
+                        //.Replace("{action.Url}", action.Url);
 
 
                 }
             }
 
-            if (action.Method == "get")
+            else if (action.Method == "get")
             {
-                return @"
+                template = @"
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {
     return this.http.{action.Method}<{action.ReturnStr}>
       (`${this.baseUrl}{action.Url}?${stringify({action.ArgsStr})}`, getHttpOptions());
-  }"
-                    .Replace("{action.Name}", action.Name)
-                    .Replace("{action.ArgParamsStr}", action.ArgParamsStr)
-                    .Replace("{action.ReturnStr}", action.ReturnStr)
-                    .Replace("{action.Method}", action.Method)
-                    .Replace("{action.ReturnStr}", action.ReturnStr)
-                    .Replace("{action.ArgsStr}", action.ArgsStr)
-                    .Replace("{action.Url}", action.Url);
+  }";
+                    //.Replace("{action.Name}", action.Name)
+                    //.Replace("{action.ArgParamsStr}", action.ArgParamsStr)
+                    //.Replace("{action.ReturnStr}", action.ReturnStr)
+                    //.Replace("{action.Method}", action.Method)
+                    //.Replace("{action.ReturnStr}", action.ReturnStr)
+                    //.Replace("{action.ArgsStr}", action.ArgsStr)
+                    //.Replace("{action.Url}", action.Url);
             }
 
-            if (action.Method == "delete")
+            else if (action.Method == "delete")
             {
-                return @"
+                template = @"
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {
     return this.http.{action.Method}<{action.ReturnStr}>
       (`${this.baseUrl}{action.Url}?${stringify({action.ArgsStr})}`, getHttpOptions());
-  }"
-                    .Replace("{action.Name}", action.Name)
-                    .Replace("{action.ArgParamsStr}", action.ArgParamsStr)
-                    .Replace("{action.ReturnStr}", action.ReturnStr)
-                    .Replace("{action.Method}", action.Method)
-                    .Replace("{action.ReturnStr}", action.ReturnStr)
-                    .Replace("{action.ArgsStr}", action.ArgsStr)
-                    .Replace("{action.Url}", action.Url);
+  }";
+                //.Replace("{action.Name}", action.Name)
+                //.Replace("{action.ArgParamsStr}", action.ArgParamsStr)
+                //.Replace("{action.ReturnStr}", action.ReturnStr)
+                //.Replace("{action.Method}", action.Method)
+                //.Replace("{action.ReturnStr}", action.ReturnStr)
+                //.Replace("{action.ArgsStr}", action.ArgsStr)
+                //.Replace("{action.Url}", action.Url);
             }
-
-            return @"
+            else
+            {
+                template = @"
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {
     return this.http.{action.Method}<{action.ReturnStr}>
       (`${this.baseUrl}{action.Url}`, {action.ArgsStr}, getHttpOptions());
-  }"
-                .Replace("{action.Name}", action.Name)
-                .Replace("{action.ArgParamsStr}", action.ArgParamsStr)
-                .Replace("{action.ReturnStr}", action.ReturnStr)
-                .Replace("{action.Method}", action.Method)
-                .Replace("{action.ReturnStr}", action.ReturnStr)
-                .Replace("{action.ArgsStr}", string.IsNullOrEmpty(action.ArgsStr) ? "{}" : action.ArgsStr)
-                .Replace("{action.Url}", action.Url);
+  }";}
+
+            template = template
+            .Replace("{action.Name}", action.Name)
+            .Replace("{action.ArgParamsStr}", action.ArgParamsStr)
+            .Replace("{action.ReturnStr}", action.ReturnStr)
+            .Replace("{action.Method}", action.Method)
+            .Replace("{action.ReturnStr}", action.ReturnStr)
+            .Replace("{action.ArgsStr}", string.IsNullOrEmpty(action.ArgsStr) ? "{}" : action.ArgsStr)
+            .Replace("{action.Url}", action.Url);
+
+            return string.Join("", $"  // {action.Description}", template);
+
+
         }
 
 
@@ -278,8 +291,10 @@ namespace Rainbow.TypeLiteConsoleApp
             var models = assembly.GetTypes();
 
             var generator = new TypeScriptFluent()
-                .WithConvertor<Guid>(c => "string");
-
+                .WithConvertor<Guid>(c => "string")
+                .WithConvertor<String>(c=>"string")
+                .WithConvertor<Boolean>(c=>"boolean");
+            
             generator.ModelBuilder.Add<DataType>();
 
             foreach (var model in models) generator.ModelBuilder.Add(model);

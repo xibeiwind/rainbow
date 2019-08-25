@@ -34,6 +34,7 @@ namespace Rainbow.Platform.Controllers
         /// <summary>
         ///     用户注册
         /// </summary>
+        [Display(Name = "用户注册")]
         [HttpPost]
         [Route("Register")]
         [AllowAnonymous]
@@ -42,7 +43,10 @@ namespace Rainbow.Platform.Controllers
         {
             return await Service.RegisterAsync(vm);
         }
-
+        /// <summary>
+        ///     登录
+        /// </summary>
+        [Display(Name = "登录")]
         [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
@@ -53,9 +57,9 @@ namespace Rainbow.Platform.Controllers
         }
 
         /// <summary>
-        ///     退出登陆
+        ///     退出登录
         /// </summary>
-        [Display(Name = "退出登陆")]
+        [Display(Name = "退出登录")]
         [HttpPost]
         [Route("Logout")]
         [Authorize]
@@ -92,6 +96,7 @@ namespace Rainbow.Platform.Controllers
         /// <summary>
         ///     获取用户信息
         /// </summary>
+        [Display(Name = "获取用户信息")]
         [HttpGet]
         [Route("UserInfo")]
         [AllowAnonymous]
@@ -108,6 +113,10 @@ namespace Rainbow.Platform.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        ///     是否已登录
+        /// </summary>
+        [Display(Name = "是否已登录")]
         [HttpGet]
         [Route("IsLogin")]
         [AllowAnonymous]

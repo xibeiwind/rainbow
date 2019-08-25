@@ -339,6 +339,7 @@ namespace TypeLite
                     _docAppender.AppendPropertyDoc(sb, property, GetPropertyName(property), GetPropertyType(property));
 
                     var tmpProperty = classModel.Type.GetProperty(property.Name);
+                    sb.AppendLineIndented($"// {property.Description}");
                     if (tmpProperty?.GetCustomAttribute<RequiredAttribute>() != null)
                         sb.AppendLineIndented(string.Format("{0}: {1};", GetPropertyName(property),
                             GetPropertyType(property)));
@@ -376,6 +377,7 @@ namespace TypeLite
                 foreach (var v in enumModel.Values)
                 {
                     _docAppender.AppendEnumValueDoc(sb, v);
+                    sb.AppendLineIndented($"// {v.Description}");
                     sb.AppendLineIndented(string.Format(i < enumModel.Values.Count ? "{0} = {1}," : "{0} = {1}", v.Name,
                         v.Value));
                     i++;

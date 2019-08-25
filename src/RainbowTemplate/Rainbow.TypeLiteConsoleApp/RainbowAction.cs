@@ -3,6 +3,7 @@
     public class RainbowAction
     {
         public string Name { get; set; }
+        public string Description { get; set; }
         public string ArgParamsStr { get; set; }
         public string ArgsStr { get; set; }
         public string Method { get; set; }
