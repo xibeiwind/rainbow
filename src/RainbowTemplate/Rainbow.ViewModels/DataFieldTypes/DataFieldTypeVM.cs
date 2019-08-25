@@ -6,9 +6,9 @@ using Yunyong.Core.ViewModels;
 namespace Rainbow.ViewModels.DataFieldTypes
 {
     /// <summary>
-    ///     显示DataFieldType
+    ///     DataFieldType
     /// </summary>
-    [Display(Name = "显示DataFieldType")]
+    [Display(Name = "DataFieldType")]
     [BindModel("DataFieldType", VMType.Display)]
     public class DataFieldTypeVM : VMBase
     {

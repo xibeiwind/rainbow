@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { InputTypeService } from 'src/app/services/InputTypeService';
-import { EnumDisplayService } from 'src/app/services/EnumDisplayService';
+import { EnumCacheService } from 'src/app/services/EnumCacheService';
 
 @Component({
   selector: 'app-edit-modal',
@@ -26,7 +26,7 @@ export class EditModalComponent implements OnInit {
   private enumObj = {};
 
   constructor(
-    private enumService: EnumDisplayService,
+    private enumService: EnumCacheService,
     private modalService: BsModalService,
     private inputTypeService: InputTypeService,
     private formBuilder: FormBuilder

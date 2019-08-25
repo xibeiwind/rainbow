@@ -38,7 +38,7 @@
     </div>
 
     <div class="table-responsive">
-      <table *ngIf="pagingData" class="table no-margin table-hover table-striped data-list">
+      <table *ngIf="pagingData" class="table no-margin table-hover table-striped table-bordered paging-data-list">
         <thead>
           <tr>
             <th width="30">#</th>
@@ -63,7 +63,7 @@
             <td *ngIf="config.canSelect">
               <input type="checkbox" [(ngModel)]="selectIdObj[item.Id]" value="{{item.Id}}">
             </td>
-            <td *ngFor="let field of _fields" [title]="item[field.Name]" class="data-cell">
+            <td *ngFor="let field of _fields" class="data-cell">
 
               <ng-container *ngIf="field.IsEnum; else elseTemplate">
                 <span>
@@ -71,9 +71,14 @@
                 </span>
               </ng-container>
               <ng-template #elseTemplate>
-                <span>
-                  {{item[field.Name]}}
-                </span>
+                <ng-container *ngIf="getInputControlType(field) !== 'html'; else elseHtmlTemplate">
+                  <span>
+                    {{item[field.Name]}}
+                  </span>
+                </ng-container>
+                <ng-template #elseHtmlTemplate>
+                  <span [innerHTML]="item[field.Name]"></span>
+                </ng-template>
               </ng-template>
             </td>
             <td>
@@ -92,6 +97,8 @@
             </td>
           </tr>
         </tbody>
+        <tfoot>
+        </tfoot>
       </table>
     </div>
     <div>

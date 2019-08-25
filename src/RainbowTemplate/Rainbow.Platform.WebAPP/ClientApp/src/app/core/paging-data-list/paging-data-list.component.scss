@@ -1,0 +1,9 @@
+.data-cell {
+  max-width: 300px;
+  height: 50px;
+  max-height: 50px !important;
+  white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+}

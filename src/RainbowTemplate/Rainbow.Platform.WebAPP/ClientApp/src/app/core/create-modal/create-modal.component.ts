@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
-import { EnumDisplayService } from '../../services/EnumDisplayService';
 import { InputTypeService } from 'src/app/services/InputTypeService';
+import { EnumCacheService } from 'src/app/services/EnumCacheService';
 
 @Component({
   selector: 'app-create-modal',
@@ -28,7 +28,7 @@ export class CreateModalComponent implements OnInit {
   private enumObj = {};
 
   constructor(
-    private enumService: EnumDisplayService,
+    private enumService: EnumCacheService,
     private modalService: BsModalService,
     private inputTypeService: InputTypeService,
     public formBuilder: FormBuilder) { }

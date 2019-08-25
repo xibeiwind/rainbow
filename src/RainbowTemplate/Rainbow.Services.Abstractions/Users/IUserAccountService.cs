@@ -37,6 +37,6 @@ namespace Rainbow.Services.Users
         Task<AsyncTaskTResult<bool>> UserInRole(Guid userId, string roleName);
         Task<AsyncTaskTResult<bool>> Logout(Guid id);
 
-        bool IsLogin(Guid userId, Guid signId);
+        Task<bool> IsLogin(Guid userId, Guid signId);
     }
 }

@@ -84,6 +84,34 @@ declare namespace Rainbow.ViewModels {
     Type: Rainbow.Common.Enums.VMType;
   }
 }
+declare namespace Rainbow.ViewModels.ClientModules {
+  interface ClientModuleVM extends Yunyong.Core.ViewModels.VMBase {
+    // 模块描述
+    Description: string;
+    // 模块名称
+    Name: string;
+  }
+  interface CreateClientModuleVM extends Yunyong.Core.ViewModels.CreateVM {
+    // 模块描述
+    Description: string;
+    // 模块名称
+    Name: string;
+  }
+  interface DeleteClientModuleVM extends Yunyong.Core.ViewModels.DeleteVM {
+  }
+  interface QueryClientModuleVM extends Yunyong.Core.PagingQueryOption {
+    // 模块描述
+    Description?: string;
+    // 模块名称
+    Name?: string;
+  }
+  interface UpdateClientModuleVM extends Yunyong.Core.ViewModels.UpdateVM {
+    // 模块描述
+    Description: string;
+    // 模块名称
+    Name: string;
+  }
+}
 declare namespace Rainbow.ViewModels.DataFieldTypes {
   interface CreateDataFieldTypeVM extends Yunyong.Core.ViewModels.CreateVM {
     // 显示类型

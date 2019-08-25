@@ -76,8 +76,14 @@
             <input type="checkbox" [(ngModel)]="isNgModelListComponent" value="true">
             Is List Component
           </label>
-          <label *ngIf="generateNgModuleComponent">NgModelName<input type="text" class="form-control"
-              required="required" [(ngModel)]="ngModuleName" placeholder="NgModelName">
+          <label *ngIf="generateNgModuleComponent">NgModelName
+            <!-- <input type="text" class="form-control" required="required" [(ngModel)]="ngModuleName"
+              placeholder="NgModelName"> -->
+            <select class="form-control" [(ngModel)]="ngModuleName" required>
+              <option *ngFor="let option of clientModules" [value]="option.Name">
+                {{option.Name}}
+              </option>
+            </select>
           </label>
         </div>
         <div class="checkbox">

@@ -121,13 +121,13 @@ namespace Rainbow.Platform.Controllers
         [Route("IsLogin")]
         [AllowAnonymous]
         [ProducesDefaultResponseType(typeof(bool))]
-        public IActionResult IsLogin()
+        public async Task<IActionResult> IsLogin()
         {
             var userId = GetUserId();
             var signId = GetSignId();
             if (userId.HasValue && signId.HasValue)
             {
-                return Ok(Service.IsLogin(userId.Value, signId.Value));
+                return Ok(await Service.IsLogin(userId.Value, signId.Value));
 
             }
 
@@ -135,8 +135,6 @@ namespace Rainbow.Platform.Controllers
             //Service.IsLogin()
             //return Ok(User.Identity?.IsAuthenticated ?? false);
         }
-
-
 
     }
 }

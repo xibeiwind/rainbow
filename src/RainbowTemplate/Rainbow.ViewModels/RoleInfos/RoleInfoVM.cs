@@ -8,9 +8,9 @@ using Rainbow.Common.Enums;
 namespace Rainbow.ViewModels.RoleInfos
 {
 	/// <summary>
-    ///     显示角色
+    ///     角色
     /// </summary>
-    [Display(Name = "显示角色")]
+    [Display(Name = "角色")]
 	[BindModel("RoleInfo", VMType.Display)]
     public class RoleInfoVM : VMBase
     {

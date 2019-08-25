@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { EnumDisplayService } from 'src/app/services/EnumDisplayService';
 import { CreateModalComponent } from '../create-modal/create-modal.component';
 import { EditModalComponent } from '../edit-modal/edit-modal.component';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { PagingDataListConfig } from './PagingDataListConfig';
+import { EnumCacheService } from 'src/app/services/EnumCacheService';
+import { InputTypeService } from '../../services/InputTypeService';
 
 @Component({
   selector: 'app-paging-data-list',
@@ -87,9 +88,24 @@ export class PagingDataListComponent implements OnInit {
 
   paging: Yunyong.Core.PagingQueryOption;
 
-  constructor(private enumService: EnumDisplayService) { }
+  constructor(
+    private enumService: EnumCacheService,
+    private inputTypeService: InputTypeService
+  ) { }
 
   ngOnInit() {
+  }
+
+  getInputControlType(field: Rainbow.ViewModels.FieldDisplayVM): string {
+    if (field.IsEnum) {
+      return 'select';
+    }
+    if (field.DataType === System.ComponentModel.DataAnnotations.DataType.Html ||
+      field.DataType === System.ComponentModel.DataAnnotations.DataType.MultilineText) {
+      return 'html';
+    } else {
+      return 'input';
+    }
   }
 
 

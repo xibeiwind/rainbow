@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { EnumDisplayService } from 'src/app/services/EnumDisplayService';
 import { FormBuilder } from '@angular/forms';
 import { InputTypeService } from 'src/app/services/InputTypeService';
+import { EnumCacheService } from 'src/app/services/EnumCacheService';
 
 @Component({
   selector: 'app-search',
@@ -37,7 +37,7 @@ export class SearchComponent implements OnInit {
 
 
   constructor(
-    private enumService: EnumDisplayService,
+    private enumService: EnumCacheService,
     private inputTypeService: InputTypeService,
     private formBuilder: FormBuilder
   ) { }

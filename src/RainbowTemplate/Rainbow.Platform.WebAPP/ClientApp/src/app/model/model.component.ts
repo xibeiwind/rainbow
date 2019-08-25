@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModelService } from '../services/ModelService';
 import { ToastrService } from 'ngx-toastr';
 import { ViewModelDisplayService } from '../services/ViewModelDisplayService';
+import { ClientModuleService } from '../services/ClientModuleService';
 
 @Component({
   selector: 'app-model',
@@ -28,14 +29,19 @@ export class ModelComponent implements OnInit {
   ngModuleName: string = 'Admin';
   generateVM: boolean;
   isNgModelListComponent: boolean;
+  clientModules: Rainbow.ViewModels.ClientModules.ClientModuleVM[];
 
   constructor(private service: ModelService,
     private displayService: ViewModelDisplayService,
+    private clientModuleService: ClientModuleService,
     private toastr: ToastrService) { }
 
   ngOnInit() {
     this.service.GetModelTypes().subscribe(res => {
       this.models = res;
+    });
+    this.clientModuleService.GetListAsync().subscribe(res => {
+      this.clientModules = res;
     });
   }
 
@@ -44,7 +50,7 @@ export class ModelComponent implements OnInit {
       this.currentModel = model;
       this.folderName = `${model.Name}s`;
       this.createVMs = [];
-      this.enableDelete = false;
+      this.enableDelete = true;
 
       this.displayService.GetModelVMDisplays({ Name: model.Name }).subscribe(res => {
         this.currentDisplayViewModels = res.Data.ViewModels;
@@ -117,12 +123,11 @@ export class ModelComponent implements OnInit {
     const displayNameObj = {};
     displayNameObj[Rainbow.Common.Enums.VMType.Create] = '创建';
     displayNameObj[Rainbow.Common.Enums.VMType.Update] = '更新';
-    displayNameObj[Rainbow.Common.Enums.VMType.Display] = '显示';
+    displayNameObj[Rainbow.Common.Enums.VMType.Display] = '';
     displayNameObj[Rainbow.Common.Enums.VMType.Query] = '查询';
 
     vm.DisplayName = `${displayNameObj[vm.Type]}${this.currentModel.DisplayName}`;
     vm.Name = `${nameObj[vm.Type]}${this.currentModel.Name}VM`;
-
     vm.ActionName = nameObj[vm.Type];
   }
 

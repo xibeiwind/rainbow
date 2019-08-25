@@ -14,6 +14,8 @@ import { adminLteConf } from './admin-lte.conf';
 import { ServiceModule } from './services/service.module';
 import { ModelModule } from './model/model.module';
 import { AuthGuard } from './auth.guard';
+import { toastrConfig } from './toastrConfig';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +27,7 @@ import { AuthGuard } from './auth.guard';
     CoreModule,
     LayoutModule.forRoot(adminLteConf),
     ModalModule.forRoot(),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(toastrConfig),
     BsDropdownModule.forRoot(),
     SweetAlert2Module.forRoot(),
     PaginationModule.forRoot(),

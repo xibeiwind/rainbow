@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SiteService } from './site.service';
 import { InputTypeService } from './InputTypeService';
+import { EnumCacheService } from './EnumCacheService';
 
 import { AccountService } from './AccountService';
+import { ClientModuleService } from './ClientModuleService';
 import { DataFieldTypeService } from './DataFieldTypeService';
 import { EnumDisplayService } from './EnumDisplayService';
 import { LookupQueryService } from './LookupQueryService';
@@ -22,7 +24,9 @@ import { ViewModelDisplayService } from './ViewModelDisplayService';
   providers: [
     SiteService,
     InputTypeService,
+    EnumCacheService,
     AccountService,
+    ClientModuleService,
     DataFieldTypeService,
     EnumDisplayService,
     LookupQueryService,

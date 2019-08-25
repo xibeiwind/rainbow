@@ -5,6 +5,7 @@ import { ViewModelDisplayService } from '../../services/ViewModelDisplayService'
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AccountService } from '../../services/AccountService';
+import { InputTypeService } from '../../services/InputTypeService';
 
 @Component({
   selector: 'app-login',
@@ -21,36 +22,14 @@ export class LoginComponent implements OnInit {
 
   inputIcon = {};
 
-  inputType = {};
-
   constructor(site: SiteService,
     private service: AccountService,
+    private inputTypeService: InputTypeService,
     private displayService: ViewModelDisplayService,
     private router: Router,
     private toastr: ToastrService,
     private formBuilder: FormBuilder) {
     this.site = site.getSite();
-
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.DateTime] = 'date';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Date] = 'datetime';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Time] = 'time';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Duration] = 'range';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.PhoneNumber] = 'tel';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Currency] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Text] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Html] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.MultilineText] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.EmailAddress] = 'email';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Password] = 'password';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Url] = 'url';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.ImageUrl] = 'image';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.CreditCard] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.PostalCode] = 'text';
-    this.inputType[System.ComponentModel.DataAnnotations.DataType.Upload] = 'file';
-
-    this.inputType['text'] = 'text';
-    this.inputType['number'] = 'number';
-    this.inputType['checkbox'] = 'checkbox';
   }
 
   ngOnInit() {
@@ -74,21 +53,14 @@ export class LoginComponent implements OnInit {
       return 'select';
     }
     if (field.DataType === System.ComponentModel.DataAnnotations.DataType.MultilineText) {
-      return 'textarea';
+      return 'html';
     } else {
       return 'input';
     }
   }
 
   getInputType(field: Rainbow.ViewModels.FieldDisplayVM): string {
-    if (this.inputType.hasOwnProperty(field.DataType)) {
-      return this.inputType[field.DataType];
-    }
-    if (this.inputType.hasOwnProperty(field.FieldType)) {
-      return this.inputType[field.FieldType];
-    }
-
-    return 'text';
+    return this.inputTypeService.getInputType(field);
   }
 
   login() {

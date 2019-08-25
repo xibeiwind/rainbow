@@ -223,8 +223,15 @@ namespace Rainbow.Services.Users
             return Task.FromResult(AsyncTaskResult.Success(true));
         }
 
-        public bool IsLogin(Guid userId, Guid signId)
+        public async Task< bool> IsLogin(Guid userId, Guid signId)
         {
+            using (var conn = GetConnection())
+            {
+                if (!await conn.ExistAsync<UserInfo>(a=>a.Id == userId))
+                {
+                    return false;
+                }
+            }
             return IdentityService.IsLogin(userId, signId);
         }
     }
