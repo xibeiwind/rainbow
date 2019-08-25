@@ -74,8 +74,8 @@ export class $ModelName$Component
     this.service.CreateAsync(data).subscribe(res => {
       if (res.Status === Yunyong.Core.AsyncTaskStatus.Success) {
         this.toastr.info(`${this.modelDisplayName}创建成功`);
-        this.refreshList();
         this.pagingDataList.closeCreateModal();
+        this.refreshList();
       }
     }, err => {
       this.toastr.error(`${this.modelDisplayName}创建失败！`);
@@ -84,6 +84,7 @@ export class $ModelName$Component
   editSubmit(data: any) {
     this.service.UpdateAsync(data).subscribe(res => {
       this.toastr.info(`${this.modelDisplayName}编辑成功!`);
+        this.pagingDataList.closeEditModal();
       this.refreshList();
 
     }, error => {

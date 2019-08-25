@@ -41,9 +41,7 @@ export class CreateModalComponent implements OnInit {
     this.fields
       .forEach((field: Rainbow.ViewModels.FieldDisplayVM) => {
         if (field.IsEnum) {
-          this.enumService.GetEnumDisplay(field.FieldType).subscribe(res => {
-            this.enumObj[field.Name] = res.Data.Fields;
-          });
+          this.enumObj[field.Name] = this.enumService.GetEnumDisplay(field.FieldType).Fields;
         }
         formFields[field.Name] = ['', Validators.required];
       });

@@ -20,9 +20,7 @@ export class SearchComponent implements OnInit {
     items.forEach(field => {
       formFields[field.Name] = [''];
       if (field.IsEnum) {
-        this.enumService.GetEnumDisplay(field.FieldType).subscribe(res => {
-          this.enumObj[field.Name] = res.Data.Fields;
-        });
+        this.enumObj[field.Name] = this.enumService.GetEnumDisplay(field.FieldType).Fields;
       }
     });
     this.queryForm = this.formBuilder.group(formFields);

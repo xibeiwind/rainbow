@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { TemplateRef, ViewChild, EventEmitter } from '@angular/core';
 import { EditableModelListConfig } from './EditableModelListConfig';
 import { CreateModalComponent } from './core/create-modal/create-modal.component';
-import { DataListComponent } from './core/data-list/data-list.component';
 export abstract class EditableListViewComponent<ModelVM> {
 
   config: EditableModelListConfig;

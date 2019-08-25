@@ -85,6 +85,7 @@ export class RoleInfoComponent
   editSubmit(data: any) {
     this.service.UpdateAsync(data).subscribe(res => {
       this.toastr.info(`${this.modelDisplayName}编辑成功!`);
+      this.pagingDataList.closeEditModal();
       this.refreshList();
 
     }, error => {

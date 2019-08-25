@@ -6,7 +6,7 @@ import { getHttpOptions } from './httpOptions';
 
 @Injectable()
 export class DataFieldTypeService {
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){ }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
 
   public GetAsync(id: String)

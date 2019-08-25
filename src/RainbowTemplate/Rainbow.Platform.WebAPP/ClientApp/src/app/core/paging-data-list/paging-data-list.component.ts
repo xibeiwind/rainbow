@@ -32,11 +32,9 @@ export class PagingDataListComponent implements OnInit {
     this._fields = data;
     data.forEach(field => {
       if (field.IsEnum) {
-        this.enumService.GetEnumDisplay(field.FieldType).subscribe(res => {
-          this.enumObj[field.Name] = {};
-          res.Data.Fields.forEach(f => {
-            this.enumObj[field.Name][f.Value] = f;
-          });
+        this.enumObj[field.Name] = {};
+        this.enumService.GetEnumDisplay(field.FieldType).Fields.forEach(f => {
+          this.enumObj[field.Name][f.Value] = f;
         });
       }
     });
