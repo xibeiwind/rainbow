@@ -3,6 +3,7 @@ import { ModelService } from '../services/ModelService';
 import { ToastrService } from 'ngx-toastr';
 import { ViewModelDisplayService } from '../services/ViewModelDisplayService';
 import { ClientModuleService } from '../services/ClientModuleService';
+import { ControllerProjectService } from '../services/ControllerProjectService';
 
 @Component({
   selector: 'app-model',
@@ -12,13 +13,13 @@ import { ClientModuleService } from '../services/ClientModuleService';
 export class ModelComponent implements OnInit {
   models: Rainbow.ViewModels.Models.ModelTypeVM[];
   currentModel: Rainbow.ViewModels.Models.ModelTypeVM;
-  folderName: string;
+  // folderName: string;
   createVMs: Rainbow.ViewModels.Models.CreateViewModelApplyVM[] = [];
-  enableDelete: boolean;
-  generateService: boolean;
-  generateController: boolean;
-  generateNgModuleComponent: boolean;
-  updateTsServices: boolean;
+  // enableDelete: boolean;
+  // generateService: boolean;
+  // generateController: boolean;
+  // generateNgModuleComponent: boolean;
+  // updateTsServices: boolean;
   vmTypes: { name: string, value: Rainbow.Common.Enums.VMType }[] = [
     { name: '创建', value: Rainbow.Common.Enums.VMType.Create },
     { name: '更新', value: Rainbow.Common.Enums.VMType.Update },
@@ -26,14 +27,28 @@ export class ModelComponent implements OnInit {
     { name: '查询', value: Rainbow.Common.Enums.VMType.Query },
   ];
   currentDisplayViewModels: Rainbow.ViewModels.ViewModelDisplayVM[];
-  ngModuleName: string = 'Admin';
-  generateVM: boolean;
-  isNgModelListComponent: boolean;
+  // ngModuleName: string = 'Admin';
+  // generateVM: boolean;
+  // isNgModelListComponent: boolean;
+  // controllerProjectName: string;
+
+  suitApplyVM: Rainbow.ViewModels.Models.CreateModelSuitApplyVM = {
+    EnableDelete: true,
+    GenerateVM: false,
+    GenerateService: false,
+    GenerateController: false,
+    GenerateNgModuleComponent: false,
+    IsNgModelListComponent: false,
+    UpdateTsServices: false,
+  };
+
   clientModules: Rainbow.ViewModels.ClientModules.ClientModuleVM[];
+  controllerProjects: Rainbow.ViewModels.ControllerProjects.ControllerProjectVM[];
 
   constructor(private service: ModelService,
     private displayService: ViewModelDisplayService,
     private clientModuleService: ClientModuleService,
+    private controllerProjectService: ControllerProjectService,
     private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -43,14 +58,19 @@ export class ModelComponent implements OnInit {
     this.clientModuleService.GetListAsync().subscribe(res => {
       this.clientModules = res;
     });
+    this.controllerProjectService.GetListAsync().subscribe(res => {
+      this.controllerProjects = res;
+    })
   }
 
   selectModel(model: Rainbow.ViewModels.Models.ModelTypeVM) {
     if (this.currentModel !== model) {
       this.currentModel = model;
-      this.folderName = `${model.Name}s`;
+      this.suitApplyVM.ModelName = model.Name;
+      this.suitApplyVM.ModelFullName = model.FullName;
+      this.suitApplyVM.FolderName = `${model.Name}s`;
       this.createVMs = [];
-      this.enableDelete = true;
+      // this.suitApplyVM.EnableDelete = true;
 
       this.displayService.GetModelVMDisplays({ Name: model.Name }).subscribe(res => {
         this.currentDisplayViewModels = res.Data.ViewModels;
@@ -146,17 +166,19 @@ export class ModelComponent implements OnInit {
     });
 
     const vm: Rainbow.ViewModels.Models.CreateModelSuitApplyVM = {
-      ModelName: this.currentModel.Name,
-      ModelFullName: this.currentModel.FullName,
-      FolderName: this.folderName,
-      EnableDelete: this.enableDelete,
-      GenerateVM: this.generateVM,
-      NgModuleName: this.ngModuleName,
-      GenerateService: this.generateService,
-      GenerateController: this.generateController,
-      GenerateNgModuleComponent: this.generateNgModuleComponent,
-      IsNgModelListComponent: this.isNgModelListComponent,
-      UpdateTsServices: this.updateTsServices,
+      // ModelName: this.currentModel.Name,
+      // ModelFullName: this.currentModel.FullName,
+      // FolderName: this.folderName,
+      // EnableDelete: this.enableDelete,
+      // GenerateVM: this.generateVM,
+      // NgModuleName: this.ngModuleName,
+      // GenerateService: this.generateService,
+      // GenerateController: this.generateController,
+      // ControllerProjectName: this.controllerProjectName,
+      // GenerateNgModuleComponent: this.generateNgModuleComponent,
+      // IsNgModelListComponent: this.isNgModelListComponent,
+      // UpdateTsServices: this.updateTsServices,
+      ...this.suitApplyVM,
       Items: this.createVMs.map((a) => {
         return {
           ActionName: a.ActionName,
@@ -168,13 +190,10 @@ export class ModelComponent implements OnInit {
       }),
     };
 
-    console.log(JSON.stringify(vm));
     this.service.CreateUpdateFiles(vm).subscribe(res => {
-      console.log(res);
       this.toastr.success('创建成功');
       this.currentModel = null;
     }, err => {
-      console.log(JSON.stringify(err));
       this.toastr.error('出错了');
     });
   }

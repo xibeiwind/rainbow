@@ -11,10 +11,10 @@ export class AppComponent implements OnInit {
   public customLayout: boolean;
   site: any;
   title = 'RainbowAdmin';
-  constructor(private layoutService: LayoutService, siteService: SiteService) {
-    this.site = siteService.getSite();
+  constructor(private layoutService: LayoutService, private siteService: SiteService) {
   }
   ngOnInit(): void {
+    this.site = this.siteService.getSite();
     this.layoutService.isCustomLayout.subscribe(value => {
       this.customLayout = value;
     });

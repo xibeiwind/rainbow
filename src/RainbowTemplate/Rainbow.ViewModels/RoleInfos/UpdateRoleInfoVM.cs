@@ -19,14 +19,14 @@ namespace Rainbow.ViewModels.RoleInfos
         ///     角色名称
         /// </summary>
         [Display(Name = "角色名称"),Required]
-        public String Name {get;set;}
+        public string Name {get;set;}
 
         /// <summary>
         ///     角色描述
         /// </summary>
         [Display(Name = "角色描述")]
         [DataType(DataType.Html)]
-        public String Description {get;set;}
+        public string Description {get;set;}
 
         /// <summary>
         ///     RoleType

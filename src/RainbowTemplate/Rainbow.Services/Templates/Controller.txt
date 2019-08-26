@@ -8,7 +8,7 @@ using Controller = Yunyong.Mvc.Controller;
 using $RootNamespace$.ViewModels.$FolderName$;
 using Yunyong.Core;
 
-namespace $RootNamespace$.Platform.Controllers
+namespace $ControllerProjectName$
 {
 	/// <summary>
     ///     $DisplayName$

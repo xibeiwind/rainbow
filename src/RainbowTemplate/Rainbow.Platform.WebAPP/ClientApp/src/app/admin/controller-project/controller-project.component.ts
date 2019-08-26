@@ -4,30 +4,30 @@ import { ViewModelDisplayService } from '../../services/ViewModelDisplayService'
 import { BsModalService } from 'ngx-bootstrap';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { DataFieldTypeService } from '../../services/DataFieldTypeService';
+import { ControllerProjectService } from '../../services/ControllerProjectService';
 import { PagingDataListComponent } from '../../core/paging-data-list/paging-data-list.component';
 
 @Component({
-  selector: 'app-data-field-type',
-  templateUrl: './data-field-type.component.html',
-  styleUrls: ['./data-field-type.component.scss']
+  selector: 'app-controller-project',
+  templateUrl: './controller-project.component.html',
+  styleUrls: ['./controller-project.component.scss']
 })
-export class DataFieldTypeComponent
-  extends EditableListViewComponent<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM>
+export class ControllerProjectComponent
+  extends EditableListViewComponent<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM>
   implements OnInit {
 
   @ViewChild('pagingDataList')
   pagingDataList: PagingDataListComponent;
 
-  pagingData: Yunyong.Core.PagingList<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM>;
-  queryOption: Rainbow.ViewModels.DataFieldTypes.QueryDataFieldTypeVM = {
+  pagingData: Yunyong.Core.PagingList<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM>;
+  queryOption: Rainbow.ViewModels.ControllerProjects.QueryControllerProjectVM = {
     PageIndex: 1,
     PageSize: 10,
     OrderBys: []
   };
 
   constructor(
-    private service: DataFieldTypeService,
+    private service: ControllerProjectService,
     displayService: ViewModelDisplayService,
     modalService: BsModalService,
     formBuilder: FormBuilder,
@@ -35,11 +35,11 @@ export class DataFieldTypeComponent
   ) {
     super(displayService, modalService, formBuilder, toastr);
     this.config = {
-      modelType: 'DataFieldTypeVM',
-      create: 'CreateDataFieldTypeVM',
-      update: 'UpdateDataFieldTypeVM',
-      detail: 'DataFieldTypeVM',
-      query: 'QueryDataFieldTypeVM',
+      modelType: 'ControllerProjectVM',
+      create: 'CreateControllerProjectVM',
+      update: 'UpdateControllerProjectVM',
+      detail: 'ControllerProjectVM',
+      query: 'QueryControllerProjectVM',
     };
   }
   ngOnInit() {
@@ -72,8 +72,8 @@ export class DataFieldTypeComponent
     this.service.CreateAsync(data).subscribe(res => {
       if (res.Status === Yunyong.Core.AsyncTaskStatus.Success) {
         this.toastr.info(`${this.modelDisplayName}创建成功`);
-        this.refreshList();
         this.pagingDataList.closeCreateModal();
+        this.refreshList();
       }
     }, err => {
       this.toastr.error(`${this.modelDisplayName}创建失败！`);
@@ -82,6 +82,7 @@ export class DataFieldTypeComponent
   editSubmit(data: any) {
     this.service.UpdateAsync(data).subscribe(res => {
       this.toastr.info(`${this.modelDisplayName}编辑成功!`);
+        this.pagingDataList.closeEditModal();
       this.refreshList();
 
     }, error => {
@@ -109,5 +110,4 @@ export class DataFieldTypeComponent
     if (data.name === 'Query') {
       this.pagingDataList.queryFields = data.fields;
     }
-  }
-}
+  }}

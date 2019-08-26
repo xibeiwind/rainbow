@@ -1,15 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Yunyong.Core.ViewModels;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
-using Yunyong.Core.ViewModels;
+
 
 namespace Rainbow.ViewModels.DataFieldTypes
 {
-    /// <summary>
+	/// <summary>
     ///     删除DataFieldType
     /// </summary>
     [Display(Name = "删除DataFieldType")]
-    [BindModel("$ModelName$", VMType.Delete)]
+	[BindModel("DataFieldType", VMType.Delete)]
     public class DeleteDataFieldTypeVM : DeleteVM
     {
     }

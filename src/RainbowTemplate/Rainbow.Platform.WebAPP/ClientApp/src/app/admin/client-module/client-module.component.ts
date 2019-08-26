@@ -64,8 +64,6 @@ export class ClientModuleComponent
   }
 
   querySubmit(query: Yunyong.Core.PagingQueryOption) {
-    console.log(JSON.stringify(query));
-
     this.queryOption = { ...this.queryOption, ...query };
     this.refreshList();
 

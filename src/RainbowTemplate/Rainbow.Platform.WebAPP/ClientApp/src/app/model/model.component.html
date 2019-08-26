@@ -43,53 +43,76 @@
         <button type="button" class="btn btn-danger" (click)="createNewVM('Display')">展示</button>
         <button type="button" class="btn btn-info" (click)="createNewVM('Query')">查询</button>
       </div>
-      <div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" [(ngModel)]="enableDelete" value="true">
-            允许删除
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" [(ngModel)]="generateVM" value="true">
-            生成ViewModels
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" [(ngModel)]="generateService" value="true">
-            生成Service
-          </label>
-          <label>
-            <input type="checkbox" [(ngModel)]="generateController" value="true">
-            生成Controller
-          </label>
-        </div>
-        <div class="checkbox">
+      <div class="form-horizontal">
 
-          <label>
-            <input type="checkbox" [(ngModel)]="generateNgModuleComponent" value="true">
-            生成Angular Module和Component
-          </label>
-          <label>
-            <input type="checkbox" [(ngModel)]="isNgModelListComponent" value="true">
-            Is List Component
-          </label>
-          <label *ngIf="generateNgModuleComponent">NgModelName
-            <!-- <input type="text" class="form-control" required="required" [(ngModel)]="ngModuleName"
-              placeholder="NgModelName"> -->
-            <select class="form-control" [(ngModel)]="ngModuleName" required>
-              <option *ngFor="let option of clientModules" [value]="option.Name">
-                {{option.Name}}
-              </option>
-            </select>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">
+            允许删除 <input type="checkbox" [(ngModel)]="suitApplyVM.EnableDelete" value="true">
           </label>
         </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" [(ngModel)]="updateTsServices" value="true">
-            更新生成AngularService
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">
+            生成ViewModels <input type="checkbox" [(ngModel)]="suitApplyVM.GenerateVM" value="true">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">
+            生成Service<input type="checkbox" [(ngModel)]="suitApplyVM.GenerateService" value="true">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">
+            生成Controller<input type="checkbox" [(ngModel)]="suitApplyVM.GenerateController" value="true">
+          </label>
+          <div class="col-sm-10" *ngIf="suitApplyVM.GenerateController">
+            <div class="form-group">
+
+              <label class="col-sm-4 control-label">
+                生成到项目
+
+              </label>
+              <div class="col-sm-8">
+                <select class="form-control" [(ngModel)]="suitApplyVM.ControllerProjectName" required>
+                  <option *ngFor="let option of controllerProjects" [value]="option.ProjectName">
+                    {{option.ProjectName}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">
+
+            生成Angular Module和Component <input type="checkbox" [(ngModel)]="suitApplyVM.GenerateNgModuleComponent"
+              value="true">
+          </label>
+
+          <div class="col-sm-10" *ngIf="suitApplyVM.GenerateNgModuleComponent">
+            <div class="form-group">
+              <label class="col-sm-4 control-label">
+                Is List Component<input type="checkbox" [(ngModel)]="suitApplyVM.IsNgModelListComponent" value="true">
+              </label>
+
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">NgModelName </label>
+              <div class="col-sm-8">
+                <select class="form-control" [(ngModel)]="suitApplyVM.NgModuleName" required>
+                  <option *ngFor="let option of clientModules" [value]="option.Name">
+                    {{option.Name}}
+                  </option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">
+            更新生成AngularService<input type="checkbox" [(ngModel)]="suitApplyVM.UpdateTsServices" value="true">
           </label>
         </div>
       </div>

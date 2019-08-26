@@ -19,14 +19,14 @@ namespace Rainbow.ViewModels.ClientModules
         ///     模块名称
         /// </summary>
         [Display(Name = "模块名称"),Required]
-        public String Name {get;set;}
+        public string Name {get;set;}
 
         /// <summary>
         ///     模块描述
         /// </summary>
         [Display(Name = "模块描述"),Required]
         [DataType(DataType.Html)]
-        public String Description {get;set;}
+        public string Description {get;set;}
 
     }
 }

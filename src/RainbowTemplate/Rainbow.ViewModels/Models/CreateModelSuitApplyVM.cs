@@ -42,6 +42,11 @@ namespace Rainbow.ViewModels.Models
         /// </summary>
         [Display(Name = "生成Controller")]
         public bool GenerateController { get; set; }
+        /// <summary>
+        ///     Controller项目名称
+        /// </summary>
+        [Display(Name = "Controller项目名称")]
+        public string ControllerProjectName { get; set; }
 
         /// <summary>
         ///     生成Angular组件页面

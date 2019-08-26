@@ -7,9 +7,10 @@ import { AdminComponent } from './admin/admin.component';
 import { RoleInfoComponent } from './role-info/role-info.component';
 import { DataFieldTypeComponent } from './data-field-type/data-field-type.component';
 import { ClientModuleComponent } from './client-module/client-module.component';
+import { ControllerProjectComponent } from './controller-project/controller-project.component';
 
 @NgModule({
-  declarations: [AdminComponent, RoleInfoComponent, DataFieldTypeComponent, ClientModuleComponent],
+  declarations: [AdminComponent, RoleInfoComponent, DataFieldTypeComponent, ClientModuleComponent, ControllerProjectComponent],
   imports: [
     CommonModule,
     CoreModule,

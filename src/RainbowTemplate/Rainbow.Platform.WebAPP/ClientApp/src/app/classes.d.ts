@@ -112,6 +112,40 @@ declare namespace Rainbow.ViewModels.ClientModules {
     Name: string;
   }
 }
+declare namespace Rainbow.ViewModels.ControllerProjects {
+  interface ControllerProjectVM extends Yunyong.Core.ViewModels.VMBase {
+    // 是否默认项目
+    IsDefault: boolean;
+    // 项目描述
+    ProjectDescription?: string;
+    // 项目名称
+    ProjectName: string;
+  }
+  interface CreateControllerProjectVM extends Yunyong.Core.ViewModels.CreateVM {
+    // 是否默认项目
+    IsDefault: boolean;
+    // 项目描述
+    ProjectDescription?: string;
+    // 项目名称
+    ProjectName: string;
+  }
+  interface DeleteControllerProjectVM extends Yunyong.Core.ViewModels.DeleteVM {
+  }
+  interface QueryControllerProjectVM extends Yunyong.Core.PagingQueryOption {
+    // 是否默认项目
+    IsDefault?: boolean;
+    // 项目名称
+    ProjectName?: string;
+  }
+  interface UpdateControllerProjectVM extends Yunyong.Core.ViewModels.UpdateVM {
+    // 是否默认项目
+    IsDefault: boolean;
+    // 项目描述
+    ProjectDescription?: string;
+    // 项目名称
+    ProjectName: string;
+  }
+}
 declare namespace Rainbow.ViewModels.DataFieldTypes {
   interface CreateDataFieldTypeVM extends Yunyong.Core.ViewModels.CreateVM {
     // 显示类型
@@ -168,6 +202,8 @@ declare namespace Rainbow.ViewModels.Messages {
 }
 declare namespace Rainbow.ViewModels.Models {
   interface CreateModelSuitApplyVM {
+    // Controller项目名称
+    ControllerProjectName?: string;
     // 生成删除VM
     EnableDelete: boolean;
     // 目录名称

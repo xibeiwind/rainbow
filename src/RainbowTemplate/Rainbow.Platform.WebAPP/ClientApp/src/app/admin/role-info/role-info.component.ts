@@ -55,18 +55,12 @@ export class RoleInfoComponent
     };
   }
   refreshList() {
-    // this.service.GetListAsync().subscribe(res => {
-    //   this.items = res;
-    // });
-
     this.service.QueryAsync(this.queryOption).subscribe(res => {
       this.pagingData = res;
     });
   }
 
   querySubmit(query: Yunyong.Core.PagingQueryOption) {
-    console.log(JSON.stringify(query));
-
     this.queryOption = { ...this.queryOption, ...query };
     this.refreshList();
 

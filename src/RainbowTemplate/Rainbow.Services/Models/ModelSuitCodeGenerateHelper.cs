@@ -97,10 +97,32 @@ using {Settings.SolutionNamespace}.Common.Enums;
             }
         }
 
-        private string GetVMFieldString(PropertyInfo prop, bool isQueryVM=false)
+        private string GetTypeName(Type type)
+        {
+            var typeDic = new Dictionary<Type, string>()
+            {
+                {typeof(string), "string" },
+                {typeof(int), "int" },
+                {typeof(Guid), "Guid" },
+                {typeof(long), "long" },
+                {typeof(double), "double" },
+                {typeof(decimal),"decimal" },
+                {typeof(float),"float" },
+                {typeof(bool), "bool" },
+
+            };
+
+            if (typeDic.TryGetValue(type, out var name))
+            {
+                return name;
+            }
+
+            return type.Name;
+        }
+        private string GetVMFieldString(PropertyInfo prop, bool isQueryVM = false)
         {
             var displayName = prop.GetCustomAttribute<DisplayAttribute>()?.Name ?? prop.Name;
-            var required =isQueryVM? "": (prop.GetCustomAttribute<RequiredAttribute>() != null ? ",Required" : "");
+            var required = isQueryVM ? "" : (prop.GetCustomAttribute<RequiredAttribute>() != null ? ",Required" : "");
 
             var queryColumn = "";
 
@@ -108,23 +130,25 @@ using {Settings.SolutionNamespace}.Common.Enums;
             var dataTypeStr = dataTypeAttribute != null ? $@"
         [DataType(DataType.{dataTypeAttribute.DataType})]" : "";
 
-            var returnType = prop.PropertyType.Name;
+            var returnType = GetTypeName(prop.PropertyType); // prop.PropertyType.Name;
             if (prop.PropertyType.IsGenericType)
             {
                 returnType = prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)
-                    ? $"{prop.PropertyType.GetGenericArguments()[0].Name}?"
-                    : $"{Regex.Match(prop.PropertyType.Name, @"([0-9a-zA-Z]+)`").Groups[1].Value}<{string.Join(",", prop.PropertyType.GetGenericArguments().Select(b => b.Name))}>";
+                    //? $"{prop.PropertyType.GetGenericArguments()[0].Name}?"
+                    //: $"{Regex.Match(prop.PropertyType.Name, @"([0-9a-zA-Z]+)`").Groups[1].Value}<{string.Join(",", prop.PropertyType.GetGenericArguments().Select(b => b.Name))}>";
+                    ?$"{GetTypeName(prop.PropertyType.GetGenericArguments()[0])}"
+                    : $"{Regex.Match(prop.PropertyType.Name, @"([0-9a-zA-Z]+)`").Groups[1].Value}<{string.Join(",",  prop.PropertyType.GetGenericArguments().Select(GetTypeName))}>";
             }
             if (isQueryVM)
             {
                 if (prop.PropertyType.IsEnum)
                 {
-                    returnType = $"{prop.PropertyType.Name}?";
+                    returnType = $"{ GetTypeName(prop.PropertyType)}?";
                 }
 
                 else if (!prop.PropertyType.IsClass)
                 {
-                    returnType = $"{prop.PropertyType.Name}?";
+                    returnType = $"{GetTypeName(prop.PropertyType)}?";
                 }
 
                 if (prop.PropertyType == typeof(string))
@@ -490,6 +514,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
             template = template.Replace("$RootNamespace$", Settings.SolutionNamespace)
                 .Replace("$FolderName$", SuitApplyVM.FolderName)
                 .Replace("$Model$", $"{SuitApplyVM.ModelName}")
+                .Replace("$ControllerProjectName$",SuitApplyVM.ControllerProjectName)
                 .Replace("$DisplayName$", $"{SuitApplyVM.ModelName} Controller");
 
             var methodList = new List<string>();

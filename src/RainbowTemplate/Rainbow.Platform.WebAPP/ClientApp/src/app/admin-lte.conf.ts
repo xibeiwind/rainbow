@@ -19,6 +19,7 @@ export const adminLteConf = {
         { label: '用户角色', route: 'admin/role' },
         { label: 'FieldType', route: 'admin/data-field-type', iconClasses: 'fa fa-list' },
         { label: 'Client Module', route: 'admin/client-module', iconClasses: 'fa fa-list' },
+        { label: 'Controller Project', route: 'admin/controller-project', iconClasses: 'fa fa-list' },
       ]
     },
     // { label: 'Model', route: 'model', iconClasses: 'fa fa-list' },

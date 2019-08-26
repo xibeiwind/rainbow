@@ -21,7 +21,7 @@ namespace Rainbow.ViewModels.ClientModules
         /// </summary>
         [Display(Name = "模块名称")]
         [QueryColumn("Name", CompareEnum.Like)]
-        public String Name {get;set;}
+        public string Name {get;set;}
 
         /// <summary>
         ///     模块描述
@@ -29,7 +29,7 @@ namespace Rainbow.ViewModels.ClientModules
         [Display(Name = "模块描述")]
         [DataType(DataType.Html)]
         [QueryColumn("Description", CompareEnum.Like)]
-        public String Description {get;set;}
+        public string Description {get;set;}
 
     }
 }

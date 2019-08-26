@@ -67,7 +67,7 @@
 
               <ng-container *ngIf="field.IsEnum; else elseTemplate">
                 <span>
-                  {{enumObj[field.Name] && enumObj[field.Name][item[field.Name]].DisplayName}}
+                  {{enumObj[field.Name] && enumObj[field.Name][item[field.Name]]?.DisplayName}}
                 </span>
               </ng-container>
               <ng-template #elseTemplate>
