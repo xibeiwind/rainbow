@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ViewModelDisplayService } from '../services/ViewModelDisplayService';
 import { ClientModuleService } from '../services/ClientModuleService';
 import { ControllerProjectService } from '../services/ControllerProjectService';
+import { RoleInfoService } from '../services/RoleInfoService';
 
 @Component({
   selector: 'app-model',
@@ -37,6 +38,7 @@ export class ModelComponent implements OnInit {
     GenerateVM: false,
     GenerateService: false,
     GenerateController: false,
+    ControllerWithAuthorize: false,
     GenerateNgModuleComponent: false,
     IsNgModelListComponent: false,
     UpdateTsServices: false,
@@ -44,11 +46,13 @@ export class ModelComponent implements OnInit {
 
   clientModules: Rainbow.ViewModels.ClientModules.ClientModuleVM[];
   controllerProjects: Rainbow.ViewModels.ControllerProjects.ControllerProjectVM[];
+  roles: Rainbow.ViewModels.RoleInfos.RoleInfoVM[];
 
   constructor(private service: ModelService,
     private displayService: ViewModelDisplayService,
     private clientModuleService: ClientModuleService,
     private controllerProjectService: ControllerProjectService,
+    private roleService: RoleInfoService,
     private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -60,7 +64,10 @@ export class ModelComponent implements OnInit {
     });
     this.controllerProjectService.GetListAsync().subscribe(res => {
       this.controllerProjects = res;
-    })
+    });
+    this.roleService.GetListAsync().subscribe(res => {
+      this.roles = res;
+    });
   }
 
   selectModel(model: Rainbow.ViewModels.Models.ModelTypeVM) {

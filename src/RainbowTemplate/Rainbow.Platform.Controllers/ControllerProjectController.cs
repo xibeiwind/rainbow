@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Rainbow.Services.ControllerProjects;
 using Controller = Yunyong.Mvc.Controller;
 using Rainbow.ViewModels.ControllerProjects;
@@ -16,7 +17,7 @@ namespace Rainbow.Platform.Controllers
     [Display(Name = "ControllerProject Controller")]
     [ApiController]
     [Route("api/[controller]")]
-
+    [Authorize]
     public class ControllerProjectController: Controller
 	{
 		/// <summary>
@@ -57,6 +58,18 @@ namespace Rainbow.Platform.Controllers
         }
 
         /// <summary>
+        ///     查询Controller项目列表（分页）
+        /// </summary>
+        [Display(Name = "查询Controller项目列表（分页）")]
+        [HttpGet]
+        [Route("Query")]
+        [ProducesDefaultResponseType(typeof(PagingList<ControllerProjectVM>))]
+        public async Task<PagingList<ControllerProjectVM>> QueryAsync([FromQuery]QueryControllerProjectVM option)
+        {
+            return await QueryService.QueryAsync(option);
+        }
+
+        /// <summary>
         ///     获取Controller项目
         /// </summary>
         [Display(Name = "获取Controller项目")]
@@ -78,18 +91,6 @@ namespace Rainbow.Platform.Controllers
         public async Task < List<ControllerProjectVM> > GetListAsync()
         {
             return await QueryService.GetListAsync();
-        }
-
-        /// <summary>
-        ///     查询Controller项目列表（分页）
-        /// </summary>
-        [Display(Name = "查询Controller项目列表（分页）")]
-        [HttpGet]
-        [Route("Query")]
-        [ProducesDefaultResponseType(typeof(PagingList<ControllerProjectVM>))]
-        public async Task<PagingList<ControllerProjectVM>> QueryAsync([FromQuery]QueryControllerProjectVM option)
-        {
-            return await QueryService.QueryAsync(option);
         }
 
         /// <summary>

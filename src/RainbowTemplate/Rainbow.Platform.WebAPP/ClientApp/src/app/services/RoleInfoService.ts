@@ -26,13 +26,13 @@ export class RoleInfoService {
     return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.RoleInfos.RoleInfoVM>>
       (`${this.baseUrl}api/RoleInfo/Query?${stringify(option)}`, getHttpOptions());
   }
-  // 获取显示角色
+  // 获取角色
   public GetAsync(id: String)
     : Observable<Rainbow.ViewModels.RoleInfos.RoleInfoVM> {
     return this.http.get<Rainbow.ViewModels.RoleInfos.RoleInfoVM>
       (`${this.baseUrl}api/RoleInfo?${stringify(id)}`, getHttpOptions());
   }
-  // 获取显示角色列表
+  // 获取角色列表
   public GetListAsync()
     : Observable<Rainbow.ViewModels.RoleInfos.RoleInfoVM[]> {
     return this.http.get<Rainbow.ViewModels.RoleInfos.RoleInfoVM[]>

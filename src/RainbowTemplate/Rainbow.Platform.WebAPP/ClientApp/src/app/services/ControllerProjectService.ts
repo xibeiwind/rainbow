@@ -20,6 +20,12 @@ export class ControllerProjectService {
     return this.http.put<Yunyong.Core.AsyncTaskTResult<String>>
       (`${this.baseUrl}api/ControllerProject/Update`, vm, getHttpOptions());
   }
+  // 查询Controller项目列表（分页）
+  public QueryAsync(option: Rainbow.ViewModels.ControllerProjects.QueryControllerProjectVM)
+    : Observable<Yunyong.Core.PagingList<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM>> {
+    return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM>>
+      (`${this.baseUrl}api/ControllerProject/Query?${stringify(option)}`, getHttpOptions());
+  }
   // 获取Controller项目
   public GetAsync(id: String)
     : Observable<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM> {
@@ -31,12 +37,6 @@ export class ControllerProjectService {
     : Observable<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM[]> {
     return this.http.get<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM[]>
       (`${this.baseUrl}api/ControllerProject/List`, getHttpOptions());
-  }
-  // 查询Controller项目列表（分页）
-  public QueryAsync(option: Rainbow.ViewModels.ControllerProjects.QueryControllerProjectVM)
-    : Observable<Yunyong.Core.PagingList<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM>> {
-    return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM>>
-      (`${this.baseUrl}api/ControllerProject/Query?${stringify(option)}`, getHttpOptions());
   }
   // 删除Controller项目
   public DeleteAsync(vm: Rainbow.ViewModels.ControllerProjects.DeleteControllerProjectVM)

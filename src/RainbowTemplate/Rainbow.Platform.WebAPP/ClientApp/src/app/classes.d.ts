@@ -202,8 +202,12 @@ declare namespace Rainbow.ViewModels.Messages {
 }
 declare namespace Rainbow.ViewModels.Models {
   interface CreateModelSuitApplyVM {
+    // 权限允许角色
+    AuthorizeRole?: string;
     // Controller项目名称
     ControllerProjectName?: string;
+    // Controller是否要权限控制
+    ControllerWithAuthorize: boolean;
     // 生成删除VM
     EnableDelete: boolean;
     // 目录名称

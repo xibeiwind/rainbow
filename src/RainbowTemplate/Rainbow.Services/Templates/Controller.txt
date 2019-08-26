@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using $RootNamespace$.Services.$FolderName$;
 using Controller = Yunyong.Mvc.Controller;
 using $RootNamespace$.ViewModels.$FolderName$;
@@ -15,8 +16,7 @@ namespace $ControllerProjectName$
     /// </summary>
     [Display(Name = "$DisplayName$")]
     [ApiController]
-    [Route("api/[controller]")]
-
+    [Route("api/[controller]")]$ControllerAuthorize$
     public class $Model$Controller: Controller
 	{
 		/// <summary>

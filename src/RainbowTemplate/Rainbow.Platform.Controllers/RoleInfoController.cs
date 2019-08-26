@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Rainbow.Services.RoleInfos;
 using Controller = Yunyong.Mvc.Controller;
 using Rainbow.ViewModels.RoleInfos;
@@ -16,7 +17,7 @@ namespace Rainbow.Platform.Controllers
     [Display(Name = "RoleInfo Controller")]
     [ApiController]
     [Route("api/[controller]")]
-
+    [Authorize]
     public class RoleInfoController: Controller
 	{
 		/// <summary>
@@ -69,9 +70,9 @@ namespace Rainbow.Platform.Controllers
         }
 
         /// <summary>
-        ///     获取显示角色
+        ///     获取角色
         /// </summary>
-        [Display(Name = "获取显示角色")]
+        [Display(Name = "获取角色")]
         [HttpGet]
         [Route("")]
         [ProducesDefaultResponseType(typeof(RoleInfoVM))]
@@ -81,9 +82,9 @@ namespace Rainbow.Platform.Controllers
         }
 
         /// <summary>
-        ///     获取显示角色列表
+        ///     获取角色列表
         /// </summary>
-        [Display(Name = "获取显示角色列表")]
+        [Display(Name = "获取角色列表")]
         [HttpGet]
         [Route("List")]
         [ProducesDefaultResponseType(typeof(List<RoleInfoVM>))]

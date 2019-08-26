@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Rainbow.ViewModels.Models
 {
@@ -36,7 +37,7 @@ namespace Rainbow.ViewModels.Models
         /// </summary>
         [Display(Name = "生成服务")]
         public bool GenerateService { get; set; }
-
+         
         /// <summary>
         ///     生成Controller
         /// </summary>
@@ -47,7 +48,16 @@ namespace Rainbow.ViewModels.Models
         /// </summary>
         [Display(Name = "Controller项目名称")]
         public string ControllerProjectName { get; set; }
-
+        /// <summary>
+        ///     Controller是否要权限控制
+        /// </summary>
+        [Display(Name = "Controller是否要权限控制")]
+        public bool ControllerWithAuthorize { get; set; }
+        /// <summary>
+        ///     权限允许角色
+        /// </summary>
+        [Display(Name = "权限允许角色")]
+        public string AuthorizeRole { get; set; }
         /// <summary>
         ///     生成Angular组件页面
         /// </summary>

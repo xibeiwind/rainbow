@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Rainbow.Services.ClientModules;
 using Controller = Yunyong.Mvc.Controller;
 using Rainbow.ViewModels.ClientModules;
@@ -16,7 +17,7 @@ namespace Rainbow.Platform.Controllers
     [Display(Name = "ClientModule Controller")]
     [ApiController]
     [Route("api/[controller]")]
-
+    [Authorize]
     public class ClientModuleController: Controller
 	{
 		/// <summary>
@@ -57,6 +58,18 @@ namespace Rainbow.Platform.Controllers
         }
 
         /// <summary>
+        ///     查询客户端模块列表（分页）
+        /// </summary>
+        [Display(Name = "查询客户端模块列表（分页）")]
+        [HttpGet]
+        [Route("Query")]
+        [ProducesDefaultResponseType(typeof(PagingList<ClientModuleVM>))]
+        public async Task<PagingList<ClientModuleVM>> QueryAsync([FromQuery]QueryClientModuleVM option)
+        {
+            return await QueryService.QueryAsync(option);
+        }
+
+        /// <summary>
         ///     获取客户端模块
         /// </summary>
         [Display(Name = "获取客户端模块")]
@@ -78,18 +91,6 @@ namespace Rainbow.Platform.Controllers
         public async Task < List<ClientModuleVM> > GetListAsync()
         {
             return await QueryService.GetListAsync();
-        }
-
-        /// <summary>
-        ///     查询客户端模块列表（分页）
-        /// </summary>
-        [Display(Name = "查询客户端模块列表（分页）")]
-        [HttpGet]
-        [Route("Query")]
-        [ProducesDefaultResponseType(typeof(PagingList<ClientModuleVM>))]
-        public async Task<PagingList<ClientModuleVM>> QueryAsync([FromQuery]QueryClientModuleVM option)
-        {
-            return await QueryService.QueryAsync(option);
         }
 
         /// <summary>

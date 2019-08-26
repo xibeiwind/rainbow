@@ -515,6 +515,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 .Replace("$FolderName$", SuitApplyVM.FolderName)
                 .Replace("$Model$", $"{SuitApplyVM.ModelName}")
                 .Replace("$ControllerProjectName$",SuitApplyVM.ControllerProjectName)
+                .Replace("$ControllerAuthorize$", GetControllerWithAuthorize())// SuitApplyVM.ControllerWithAuthorize)
                 .Replace("$DisplayName$", $"{SuitApplyVM.ModelName} Controller");
 
             var methodList = new List<string>();
@@ -540,6 +541,15 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
             File.WriteAllText(Path.Combine(Settings.ControllerRoot, $"{SuitApplyVM.ModelName}Controller.cs"), template,
                 Encoding.UTF8);
+        }
+
+        private string GetControllerWithAuthorize()
+        {
+            return SuitApplyVM.ControllerWithAuthorize
+                ? (!string.IsNullOrEmpty(SuitApplyVM.AuthorizeRole)
+                    ? $"\r\n    [Authorize(Roles=\"{SuitApplyVM.AuthorizeRole}\")]"
+                    : "\r\n    [Authorize]")
+                : "";
         }
 
         public void CreateNgModuleComponent()

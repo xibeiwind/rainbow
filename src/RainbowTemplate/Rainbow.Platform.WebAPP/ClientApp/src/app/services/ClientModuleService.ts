@@ -20,6 +20,12 @@ export class ClientModuleService {
     return this.http.put<Yunyong.Core.AsyncTaskTResult<String>>
       (`${this.baseUrl}api/ClientModule/Update`, vm, getHttpOptions());
   }
+  // 查询客户端模块列表（分页）
+  public QueryAsync(option: Rainbow.ViewModels.ClientModules.QueryClientModuleVM)
+    : Observable<Yunyong.Core.PagingList<Rainbow.ViewModels.ClientModules.ClientModuleVM>> {
+    return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.ClientModules.ClientModuleVM>>
+      (`${this.baseUrl}api/ClientModule/Query?${stringify(option)}`, getHttpOptions());
+  }
   // 获取客户端模块
   public GetAsync(id: String)
     : Observable<Rainbow.ViewModels.ClientModules.ClientModuleVM> {
@@ -31,12 +37,6 @@ export class ClientModuleService {
     : Observable<Rainbow.ViewModels.ClientModules.ClientModuleVM[]> {
     return this.http.get<Rainbow.ViewModels.ClientModules.ClientModuleVM[]>
       (`${this.baseUrl}api/ClientModule/List`, getHttpOptions());
-  }
-  // 查询客户端模块列表（分页）
-  public QueryAsync(option: Rainbow.ViewModels.ClientModules.QueryClientModuleVM)
-    : Observable<Yunyong.Core.PagingList<Rainbow.ViewModels.ClientModules.ClientModuleVM>> {
-    return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.ClientModules.ClientModuleVM>>
-      (`${this.baseUrl}api/ClientModule/Query?${stringify(option)}`, getHttpOptions());
   }
   // 删除客户端模块
   public DeleteAsync(vm: Rainbow.ViewModels.ClientModules.DeleteClientModuleVM)
