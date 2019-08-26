@@ -37,12 +37,7 @@
 
     </div>
     <div class="col-lg-9 col-md-9" *ngIf="currentModel">
-      <div class="btn-group">
-        <button type="button" class="btn btn-primary" (click)="createNewVM()">创建</button>
-        <button type="button" class="btn btn-warning" (click)="createNewVM('Update')">更新</button>
-        <button type="button" class="btn btn-danger" (click)="createNewVM('Display')">展示</button>
-        <button type="button" class="btn btn-info" (click)="createNewVM('Query')">查询</button>
-      </div>
+
       <div class="form-horizontal">
 
         <div class="form-group">
@@ -155,6 +150,14 @@
               <label class="control-label">
                 生成删除VM <input type="checkbox" [(ngModel)]="suitApplyVM.EnableDelete" value="true">
               </label>
+            </div>
+            <div class="box-tools pull-right">
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary" (click)="createNewVM()">创建</button>
+                <button type="button" class="btn btn-warning" (click)="createNewVM('Update')">更新</button>
+                <button type="button" class="btn btn-danger" (click)="createNewVM('Display')">展示</button>
+                <button type="button" class="btn btn-info" (click)="createNewVM('Query')">查询</button>
+              </div>
             </div>
 
           </mk-box-header>
