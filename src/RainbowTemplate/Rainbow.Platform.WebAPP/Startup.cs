@@ -1,9 +1,12 @@
 ﻿using System.Buffers;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -33,7 +36,11 @@ namespace Rainbow.Platform.WebAPP
             services.AddRainbowAuthorize();
 
 #if (EnableSwagger)
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "Rainbow API", Version = "v1" }); });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Rainbow API", Version = "v1" });
+                c.IncludeXmlComments(Path.Combine(ApplicationEnvironment.ApplicationBasePath, "Rainbow.Platform.Controllers.xml"));
+            });
 #endif
 
             services.AddMvc(options =>

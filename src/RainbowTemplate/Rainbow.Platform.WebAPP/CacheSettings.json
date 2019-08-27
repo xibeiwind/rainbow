@@ -2,7 +2,7 @@
   "CacheServiceConfig": {
     "ConnectionString": "localhost",
     "Port": 6379,
-    "Password": "CosyPresent2019"
+    "Password": "RainbowCache2019"
 
   }
 }

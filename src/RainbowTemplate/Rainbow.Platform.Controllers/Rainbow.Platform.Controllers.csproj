@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>bin\Rainbow.Platform.Controllers.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>

@@ -127,7 +127,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
             var queryColumn = "";
 
             var dataTypeAttribute = prop.GetCustomAttribute<DataTypeAttribute>();
-            var dataTypeStr = dataTypeAttribute != null ? $@"
+            var dataTypeStr = dataTypeAttribute != null && dataTypeAttribute.DataType != DataType.Custom ? $@"
         [DataType(DataType.{dataTypeAttribute.DataType})]" : "";
 
             var returnType = GetTypeName(prop.PropertyType); // prop.PropertyType.Name;
