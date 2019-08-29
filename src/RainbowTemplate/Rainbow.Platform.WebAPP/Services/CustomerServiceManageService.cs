@@ -51,6 +51,29 @@ namespace Rainbow.Platform.WebAPP.Services
                         await conn.CreateAsync(userRole);
                     }
                 }
+
+                {
+                    var tmp = EntityFactory.Create<UserInfo>();
+                    tmp.Phone = $"18900009999";
+                    tmp.PasswordHash = Util.Encoding($"TestUser@9999");
+                    tmp.IsActive = true;
+                    tmp.Name = $"SysAdmin";
+
+                    if (!await conn.ExistAsync<UserInfo>(a => a.Phone == tmp.Phone))
+                    {
+                        await conn.CreateAsync(tmp);
+
+                        var roles = (await conn.AllAsync<RoleInfo>()).ToDictionary(a => a.RoleType);
+
+                        var userRole = new UserRole
+                        {
+                            UserId = tmp.Id,
+                            RoleId = roles[UserRoleType.SysAdmin].Id
+                        };
+
+                        await conn.CreateAsync(userRole);
+                    }
+                }
             }
         }
     }

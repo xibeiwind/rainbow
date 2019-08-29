@@ -9,10 +9,10 @@ export const toastrConfig: GlobalConfig = {
     error: 'toast-error',
     warning: 'toast-warning'
   },
+  countDuplicates: false,
   newestOnTop: true,
   preventDuplicates: false,
   resetTimeoutOnDuplicate: false,
-
   disableTimeOut: false,
   timeOut: 1000,
   closeButton: false,
@@ -20,7 +20,7 @@ export const toastrConfig: GlobalConfig = {
   progressBar: false,
   progressAnimation: 'decreasing',
   enableHtml: false,
-  toastClass: 'toast',
+  toastClass: 'ngx-toastr',
   positionClass: 'toast-bottom-right',
   titleClass: 'toast-title',
   messageClass: 'toast-message',

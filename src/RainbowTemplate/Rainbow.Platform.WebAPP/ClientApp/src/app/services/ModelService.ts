@@ -10,8 +10,8 @@ export class ModelService {
 
   // CreateUpdateFiles
   public CreateUpdateFiles(vm: Rainbow.ViewModels.Models.CreateModelSuitApplyVM)
-    : Observable<Boolean> {
-    return this.http.post<Boolean>
+    : Observable<boolean> {
+    return this.http.post<boolean>
       (`${this.baseUrl}api/Model/CreateUpdate`, vm, getHttpOptions());
   }
   // GetModelTypes
@@ -22,8 +22,8 @@ export class ModelService {
   }
   // RegenerateTsCode
   public RegenerateTsCode()
-    : Observable<Yunyong.Core.AsyncTaskTResult<Boolean>> {
-    return this.http.post<Yunyong.Core.AsyncTaskTResult<Boolean>>
+    : Observable<Yunyong.Core.AsyncTaskTResult<boolean>> {
+    return this.http.post<Yunyong.Core.AsyncTaskTResult<boolean>>
       (`${this.baseUrl}api/Model/RegenerateTsCode`, {}, getHttpOptions());
   }
 }

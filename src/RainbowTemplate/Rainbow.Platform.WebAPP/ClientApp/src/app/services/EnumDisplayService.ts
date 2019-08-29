@@ -15,7 +15,7 @@ export class EnumDisplayService {
       (`${this.baseUrl}api/EnumDisplay/List`, getHttpOptions());
   }
   // GetEnumDisplay
-  public GetEnumDisplay(name: String)
+  public GetEnumDisplay(name: string)
     : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.EnumDisplayVM>> {
     return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.EnumDisplayVM>>
       (`${this.baseUrl}api/EnumDisplay/${name}`, getHttpOptions());

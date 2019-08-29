@@ -16,7 +16,7 @@ export class RoleInfoComponent
   extends EditableListViewComponent<Rainbow.ViewModels.RoleInfos.RoleInfoVM>
   implements OnInit {
 
-  @ViewChild('pagingDataList')
+  @ViewChild(PagingDataListComponent, { static: true })
   pagingDataList: PagingDataListComponent;
 
   pagingData: Yunyong.Core.PagingList<Rainbow.ViewModels.RoleInfos.RoleInfoVM>;

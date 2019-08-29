@@ -49,11 +49,11 @@ export class PagingDataListComponent implements OnInit {
     this._pagingData = value || this._pagingData;
   }
 
-  @ViewChild('createModal')
+  @ViewChild(CreateModalComponent, { static: true })
   createModal: CreateModalComponent;
-  @ViewChild('editModal')
+  @ViewChild(EditModalComponent, { static: true })
   editModal: EditModalComponent;
-  @ViewChild('deleteSwal')
+  @ViewChild(SwalComponent, { static: true })
   deleteSwal: SwalComponent;
   @Input()
   modelDisplayName: string;

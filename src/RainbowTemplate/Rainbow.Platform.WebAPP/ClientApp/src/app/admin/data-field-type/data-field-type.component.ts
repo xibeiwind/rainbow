@@ -16,7 +16,7 @@ export class DataFieldTypeComponent
   extends EditableListViewComponent<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM>
   implements OnInit {
 
-  @ViewChild('pagingDataList')
+  @ViewChild(PagingDataListComponent, { static: true })
   pagingDataList: PagingDataListComponent;
 
   pagingData: Yunyong.Core.PagingList<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM>;

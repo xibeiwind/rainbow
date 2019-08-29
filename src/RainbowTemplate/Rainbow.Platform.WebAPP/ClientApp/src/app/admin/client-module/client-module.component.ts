@@ -16,7 +16,7 @@ export class ClientModuleComponent
   extends EditableListViewComponent<Rainbow.ViewModels.ClientModules.ClientModuleVM>
   implements OnInit {
 
-  @ViewChild('pagingDataList')
+  @ViewChild(PagingDataListComponent, { static: true })
   pagingDataList: PagingDataListComponent;
 
   pagingData: Yunyong.Core.PagingList<Rainbow.ViewModels.ClientModules.ClientModuleVM>;
@@ -82,7 +82,7 @@ export class ClientModuleComponent
   editSubmit(data: any) {
     this.service.UpdateAsync(data).subscribe(res => {
       this.toastr.info(`${this.modelDisplayName}编辑成功!`);
-        this.pagingDataList.closeEditModal();
+      this.pagingDataList.closeEditModal();
       this.refreshList();
 
     }, error => {
@@ -110,4 +110,5 @@ export class ClientModuleComponent
     if (data.name === 'Query') {
       this.pagingDataList.queryFields = data.fields;
     }
-  }}
+  }
+}

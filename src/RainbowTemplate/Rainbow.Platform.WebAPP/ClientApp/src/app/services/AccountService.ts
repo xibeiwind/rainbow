@@ -22,8 +22,8 @@ export class AccountService {
   }
   // 退出登录
   public Logout()
-    : Observable<Yunyong.Core.AsyncTaskTResult<Boolean>> {
-    return this.http.post<Yunyong.Core.AsyncTaskTResult<Boolean>>
+    : Observable<Yunyong.Core.AsyncTaskTResult<boolean>> {
+    return this.http.post<Yunyong.Core.AsyncTaskTResult<boolean>>
       (`${this.baseUrl}api/Account/Logout`,{}, getHttpOptions());
   }
 
@@ -35,8 +35,14 @@ export class AccountService {
   }
   // 是否已登录
   public IsLogin()
-    : Observable<Boolean> {
-    return this.http.get<Boolean>
+    : Observable<boolean> {
+    return this.http.get<boolean>
       (`${this.baseUrl}api/Account/IsLogin`, getHttpOptions());
+  }
+  // 用户是否具有某角色
+  public UserInRole(roleName: string)
+    : Observable<Yunyong.Core.AsyncTaskTResult<boolean>> {
+    return this.http.get<Yunyong.Core.AsyncTaskTResult<boolean>>
+      (`${this.baseUrl}api/Account/UserInRole/${roleName}`, getHttpOptions());
   }
 }

@@ -27,15 +27,13 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap-css-only/css/bootstrap.min.css",
+              "node_modules/bootstrap-css-only/css/bootstrap.css",
               "node_modules/font-awesome/css/font-awesome.css",
-              "node_modules/ionicons/dist/css/ionicons.css",
+              "node_modules/ionicons/css/ionicons.css",
               "node_modules/prismjs/themes/prism-tomorrow.css",
               "node_modules/admin-lte-css/dist/css/AdminLTE.css",
               "node_modules/admin-lte-css/dist/css/skins/_all-skins.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/@swimlane/ngx-datatable/release/index.css",
-              "node_modules/@swimlane/ngx-datatable/assets/icons.css",
               "src/styles.scss"
             ],
             "scripts": [

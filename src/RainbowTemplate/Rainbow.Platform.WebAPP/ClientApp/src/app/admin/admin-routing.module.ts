@@ -6,11 +6,13 @@ import { DataFieldTypeComponent } from './data-field-type/data-field-type.compon
 import { ClientModuleComponent } from './client-module/client-module.component';
 import { ControllerProjectComponent } from './controller-project/controller-project.component';
 import { AuthGuard } from '../auth.guard';
+import { SysAdminAuthGuard } from '../sys-admin-auth.guard';
 
 const routes: Routes = [
   {
     path: '', component: AdminComponent,
-    canActivate: [AuthGuard],
+    canActivate: [SysAdminAuthGuard],
+    canLoad: [SysAdminAuthGuard],
     canActivateChild: [AuthGuard],
     children: [
       { path: 'role', component: RoleInfoComponent, data: { title: '用户角色管理' } },

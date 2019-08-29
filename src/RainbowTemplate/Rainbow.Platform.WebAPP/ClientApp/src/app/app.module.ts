@@ -15,6 +15,7 @@ import { ServiceModule } from './services/service.module';
 import { ModelModule } from './model/model.module';
 import { AuthGuard } from './auth.guard';
 import { toastrConfig } from './toastrConfig';
+import { SysAdminAuthGuard } from './sys-admin-auth.guard';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { toastrConfig } from './toastrConfig';
     ModelModule,
     AppRoutingModule,
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, SysAdminAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

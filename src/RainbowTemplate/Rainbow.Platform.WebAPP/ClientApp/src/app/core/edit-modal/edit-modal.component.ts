@@ -20,7 +20,7 @@ export class EditModalComponent implements OnInit {
   largeModal: boolean;
   @Output()
   onsubmit: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('editTemplate')
+  @ViewChild('editTemplate', { static: true })
   template: TemplateRef<any>;
   editItemId: string;
   private enumObj = {};

@@ -9,7 +9,7 @@ export class UserService {
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   // 获取显示User
-  public GetAsync(id: String)
+  public GetAsync(id: string)
     : Observable<any> {
     return this.http.get<any>
       (`${this.baseUrl}api/User?${stringify(id)}`, getHttpOptions());

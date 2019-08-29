@@ -10,14 +10,14 @@ export class DataFieldTypeService {
 
   // 创建DataFieldType
   public CreateAsync(vm: Rainbow.ViewModels.DataFieldTypes.CreateDataFieldTypeVM)
-    : Observable<Yunyong.Core.AsyncTaskTResult<String>> {
-    return this.http.post<Yunyong.Core.AsyncTaskTResult<String>>
+    : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
+    return this.http.post<Yunyong.Core.AsyncTaskTResult<string>>
       (`${this.baseUrl}api/DataFieldType/Create`, vm, getHttpOptions());
   }
   // 更新DataFieldType
   public UpdateAsync(vm: Rainbow.ViewModels.DataFieldTypes.UpdateDataFieldTypeVM)
-    : Observable<Yunyong.Core.AsyncTaskTResult<String>> {
-    return this.http.put<Yunyong.Core.AsyncTaskTResult<String>>
+    : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
+    return this.http.put<Yunyong.Core.AsyncTaskTResult<string>>
       (`${this.baseUrl}api/DataFieldType/Update`, vm, getHttpOptions());
   }
   // 查询DataFieldType列表（分页）
@@ -27,7 +27,7 @@ export class DataFieldTypeService {
       (`${this.baseUrl}api/DataFieldType/Query?${stringify(option)}`, getHttpOptions());
   }
   // 获取DataFieldType
-  public GetAsync(id: String)
+  public GetAsync(id: string)
     : Observable<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM> {
     return this.http.get<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM>
       (`${this.baseUrl}api/DataFieldType?${stringify(id)}`, getHttpOptions());

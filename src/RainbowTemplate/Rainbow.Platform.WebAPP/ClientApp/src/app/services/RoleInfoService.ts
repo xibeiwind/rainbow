@@ -10,14 +10,14 @@ export class RoleInfoService {
 
   // 创建角色
   public CreateAsync(vm: Rainbow.ViewModels.RoleInfos.CreateRoleInfoVM)
-    : Observable<Yunyong.Core.AsyncTaskTResult<String>> {
-    return this.http.post<Yunyong.Core.AsyncTaskTResult<String>>
+    : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
+    return this.http.post<Yunyong.Core.AsyncTaskTResult<string>>
       (`${this.baseUrl}api/RoleInfo/Create`, vm, getHttpOptions());
   }
   // 更新角色
   public UpdateAsync(vm: Rainbow.ViewModels.RoleInfos.UpdateRoleInfoVM)
-    : Observable<Yunyong.Core.AsyncTaskTResult<String>> {
-    return this.http.put<Yunyong.Core.AsyncTaskTResult<String>>
+    : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
+    return this.http.put<Yunyong.Core.AsyncTaskTResult<string>>
       (`${this.baseUrl}api/RoleInfo/Update`, vm, getHttpOptions());
   }
   // 查询角色列表（分页）
@@ -27,7 +27,7 @@ export class RoleInfoService {
       (`${this.baseUrl}api/RoleInfo/Query?${stringify(option)}`, getHttpOptions());
   }
   // 获取角色
-  public GetAsync(id: String)
+  public GetAsync(id: string)
     : Observable<Rainbow.ViewModels.RoleInfos.RoleInfoVM> {
     return this.http.get<Rainbow.ViewModels.RoleInfos.RoleInfoVM>
       (`${this.baseUrl}api/RoleInfo?${stringify(id)}`, getHttpOptions());

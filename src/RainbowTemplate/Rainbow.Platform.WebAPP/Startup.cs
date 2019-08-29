@@ -71,7 +71,7 @@ namespace Rainbow.Platform.WebAPP
                 };
             });
 
-            services.AddGraphQL();
+            //services.AddGraphQL();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -109,7 +109,7 @@ namespace Rainbow.Platform.WebAPP
                 // todo: set SignalR here
             });
 
-            app.UseGraphQL();
+            //app.UseGraphQL();
 
             app.UseMvc(routes =>
             {

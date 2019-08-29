@@ -357,7 +357,7 @@ namespace Rainbow.TypeLiteConsoleApp
 
             }
 
-            if (type == typeof(Guid)) return "String";
+            if (type == typeof(Guid)) return "string";
 
             {
                 var types = new[]
@@ -367,11 +367,11 @@ namespace Rainbow.TypeLiteConsoleApp
                     typeof(double),
                     typeof(decimal)
                 };
-                if (types.Contains(type)) return "Number";
+                if (types.Contains(type)) return "number";
             }
-            if (type == typeof(string)) return "String";
+            if (type == typeof(string)) return "string";
 
-            if (type == typeof(bool)) return "Boolean";
+            if (type == typeof(bool)) return "boolean";
 
             return type.FullName;
         }

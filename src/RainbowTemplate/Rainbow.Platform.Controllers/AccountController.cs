@@ -135,6 +135,25 @@ namespace Rainbow.Platform.Controllers
             //Service.IsLogin()
             //return Ok(User.Identity?.IsAuthenticated ?? false);
         }
+        /// <summary>
+        ///    用户是否具有某角色
+        /// </summary>
+        [Display(Name = "用户是否具有某角色")]
+        [HttpGet]
+        [Authorize]
+        [Route("UserInRole/{roleName}")]
+
+        [ProducesDefaultResponseType(typeof(AsyncTaskTResult<bool>))]
+        public async Task<IActionResult> UserInRole(string roleName)
+        {
+            var userId = GetUserId();
+            if (userId.HasValue)
+            {
+                return Ok(await Service.UserInRole(userId.Value, roleName));
+            }
+
+            return BadRequest(AsyncTaskResult.Failed<bool>("failed"));
+        }
 
     }
 }
