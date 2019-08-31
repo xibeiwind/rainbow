@@ -10,7 +10,7 @@ import { AccountService } from './services/AccountService';
 export class AuthGuard implements CanActivate, CanActivateChild {
 
   constructor(private service: AccountService,
-    private router: Router, private toastr: ToastrService) {
+              private router: Router, private toastr: ToastrService) {
 
   }
   canActivate(
@@ -26,8 +26,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         }
         observer.next(res.valueOf());
         observer.complete();
+      }, err => {
+        this.toastr.error('未登录');
+        observer.next(false);
+        observer.complete();
       });
-      // observer.complete();
     });
   }
 
@@ -40,6 +43,10 @@ export class AuthGuard implements CanActivate, CanActivateChild {
           this.router.navigate(['/auth/login']);
         }
         observer.next(res.valueOf());
+        observer.complete();
+      }, err => {
+        this.toastr.error('未登录');
+        observer.next(false);
         observer.complete();
       });
     });

@@ -16,7 +16,7 @@ export class $ModelName$Component
   extends EditableListViewComponent<$SolutionNamespace$.ViewModels.$ModelName$s.$ModelName$VM>
   implements OnInit {
 
-  @ViewChild('pagingDataList')
+  @ViewChild(PagingDataListComponent, { static: true })
   pagingDataList: PagingDataListComponent;
 
   pagingData: Yunyong.Core.PagingList<$SolutionNamespace$.ViewModels.$ModelName$s.$ModelName$VM>;

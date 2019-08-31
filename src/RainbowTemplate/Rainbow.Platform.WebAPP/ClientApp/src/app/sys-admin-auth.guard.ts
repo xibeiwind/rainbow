@@ -21,6 +21,10 @@ export class SysAdminAuthGuard implements CanLoad, CanActivate {
         }
         observer.next(res.Data);
         observer.complete();
+      }, err => {
+        this.toastr.error('没有权限');
+        observer.next(false);
+        observer.complete();
       });
     });
   }
@@ -33,6 +37,10 @@ export class SysAdminAuthGuard implements CanLoad, CanActivate {
           this.toastr.error('没有权限');
         }
         observer.next(res.Data);
+        observer.complete();
+      }, err => {
+        this.toastr.error('没有权限');
+        observer.next(false);
         observer.complete();
       });
     });
