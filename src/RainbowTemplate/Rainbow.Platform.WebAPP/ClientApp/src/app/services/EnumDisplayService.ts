@@ -8,13 +8,19 @@ import { getHttpOptions } from './httpOptions';
 export class EnumDisplayService {
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  // GetEnumDisplayList
+
+  /**
+   * GetEnumDisplayList
+   */
   public GetEnumDisplayList()
     : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.EnumDisplayVM[]>> {
     return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.EnumDisplayVM[]>>
       (`${this.baseUrl}api/EnumDisplay/List`, getHttpOptions());
   }
-  // GetEnumDisplay
+
+  /**
+   * GetEnumDisplay
+   */
   public GetEnumDisplay(name: string)
     : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.EnumDisplayVM>> {
     return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.EnumDisplayVM>>

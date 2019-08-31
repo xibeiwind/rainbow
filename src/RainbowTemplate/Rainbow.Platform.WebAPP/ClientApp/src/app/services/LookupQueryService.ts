@@ -8,7 +8,10 @@ import { getHttpOptions } from './httpOptions';
 export class LookupQueryService {
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  // Query
+
+  /**
+   * Query
+   */
   public Query(vm: Rainbow.ViewModels.LookupQueryVM)
     : Observable<any> {
     return this.http.post<any>

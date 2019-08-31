@@ -161,7 +161,7 @@ namespace Rainbow.TypeLiteConsoleApp
   public {action.Name}({action.ArgParamsStr})
     : Observable<{action.ReturnStr}> {
     return this.http.{action.Method}<{action.ReturnStr}>
-      (`${this.baseUrl}{action.Url}`,{}, getHttpOptions());
+      (`${this.baseUrl}{action.Url}`, {}, getHttpOptions());
   }
 ";
                     //    .Replace("{action.Name}", action.Name)
@@ -278,7 +278,12 @@ namespace Rainbow.TypeLiteConsoleApp
             .Replace("{action.ArgsStr}", string.IsNullOrEmpty(action.ArgsStr) ? "{}" : action.ArgsStr)
             .Replace("{action.Url}", action.Url);
 
-            return string.Join("", $"  // {action.Description}", template);
+            var comments = $@"
+  /**
+   * {action.Description}
+   */";
+            
+            return string.Join("", comments, template);
 
 
         }
@@ -346,14 +351,14 @@ namespace Rainbow.TypeLiteConsoleApp
                 if (type.GetGenericTypeDefinition() == typeof(List<>))
                     return $@"{
                         string.Join(", ",
-                            type.GenericTypeArguments.Select(a => GetTypeString(a)))}[]";
+                            type.GenericTypeArguments.Select(GetTypeString))}[]";
 
 
                 var t = type.GetGenericTypeDefinition();
                 var name = t.FullName.Substring(0, t.FullName.IndexOf("`", StringComparison.Ordinal));
                 return $@"{name}<{
                     string.Join(", ",
-                        type.GenericTypeArguments.Select(a => GetTypeString(a)))}>";
+                        type.GenericTypeArguments.Select(GetTypeString))}>";
 
             }
 
