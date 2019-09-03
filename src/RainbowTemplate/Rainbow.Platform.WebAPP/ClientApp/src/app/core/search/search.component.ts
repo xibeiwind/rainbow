@@ -49,7 +49,9 @@ export class SearchComponent implements OnInit {
     const queryData = { ...this.queryForm.value };
     this.onsubmit.next(queryData);
   }
-
+  getInputControlType(field: Rainbow.ViewModels.FieldDisplayVM): string {
+    return this.inputTypeService.getInputControlType(field);
+  }
   getInputType(field: Rainbow.ViewModels.FieldDisplayVM) {
     return this.inputTypeService.getInputType(field);
   }

@@ -18,8 +18,10 @@
           [required]="!field.IsNullable"></ckeditor>
         <!-- <app-toggle-switch *ngIf="getInputControlType(field) === 'checkbox'" [formControlName]="field.Name" ngModel>
         </app-toggle-switch> -->
-        <input type="checkbox" *ngIf="getInputControlType(field) === 'checkbox'" [placeholder]="field.DisplayName"
-          [formControlName]="field.Name">
+        <!-- <input type="checkbox" *ngIf="getInputControlType(field) === 'checkbox'" [placeholder]="field.DisplayName"
+          [formControlName]="field.Name"> -->
+        <ui-switch *ngIf="getInputControlType(field) === 'checkbox'" [formControlName]="field.Name" [checkedLabel]="'是'"
+          [uncheckedLabel]="'否'"></ui-switch>
         <input *ngIf="getInputControlType(field)=== 'input'" [type]="getInputType(field)" class="form-control"
           [placeholder]="field.DisplayName" [formControlName]="field.Name" [required]="!field.IsNullable">
       </div>

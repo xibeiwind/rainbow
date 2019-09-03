@@ -34,6 +34,7 @@
               "node_modules/admin-lte-css/dist/css/AdminLTE.css",
               "node_modules/admin-lte-css/dist/css/skins/_all-skins.css",
               "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-ui-switch/ui-switch.component.css",
               "src/styles.scss"
             ],
             "scripts": [

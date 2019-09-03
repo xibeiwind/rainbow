@@ -6,7 +6,7 @@ using $RootNamespace$.ViewModels.$FolderName$;
 
 namespace $RootNamespace$.Services.$FolderName$
 {
-    public interface I$Model$ActionService
+    public partial interface I$Model$ActionService
     {
 $ActionMethods$
     }

@@ -29,6 +29,7 @@
     "ionicons": "2.0.1",
     "ngx-bootstrap": "^5.1.1",
     "ngx-toastr": "^10.1.0",
+    "ngx-ui-switch": "^8.2.0",
     "prismjs": "^1.17.1",
     "rxjs": "~6.4.0",
     "sweetalert2": "^8.16.3",

@@ -144,7 +144,7 @@ namespace Rainbow.Services.Models
 
                 template = template.Replace("$UsingNamespace$", @"");
 
-                File.WriteAllText(Path.Combine(path, $"{item.Name}.cs"), template, Encoding.UTF8);
+                File.WriteAllText(Path.Combine(path, $"{item.Name}.auto.cs"), template, Encoding.UTF8);
             }
 
             if (SuitApplyVM.EnableDelete)
@@ -329,7 +329,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
                 template = template.Replace("$ActionMethods$", string.Join("", methodList));
 
-                File.WriteAllText(Path.Combine(path, $"I{SuitApplyVM.ModelName}ActionService.cs"), template, Encoding.UTF8);
+                File.WriteAllText(Path.Combine(path, $"I{SuitApplyVM.ModelName}ActionService.auto.cs"), template, Encoding.UTF8);
             }
 
             items = SuitApplyVM.Items.Where(a => a.Type == VMType.Display || a.Type == VMType.Query);
@@ -352,7 +352,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 methodList.AddRange(queryVMs.Select(GetServiceInterfaceMethod));
                 template = template.Replace("$ActionMethods$", string.Join("", methodList));
 
-                File.WriteAllText(Path.Combine(path, $"I{SuitApplyVM.ModelName}QueryService.cs"), template, Encoding.UTF8);
+                File.WriteAllText(Path.Combine(path, $"I{SuitApplyVM.ModelName}QueryService.auto.cs"), template, Encoding.UTF8);
             }
         }
 
@@ -465,7 +465,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
                 template = template.Replace("$ActionMethods$", string.Join("", methodList));
 
-                File.WriteAllText(Path.Combine(path, $"{SuitApplyVM.ModelName}ActionService.cs"), template, Encoding.UTF8);
+                File.WriteAllText(Path.Combine(path, $"{SuitApplyVM.ModelName}ActionService.auto.cs"), template, Encoding.UTF8);
             }
 
             items = SuitApplyVM.Items.Where(a => a.Type == VMType.Display || a.Type == VMType.Query);
@@ -483,7 +483,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
                 template = template.Replace("$ActionMethods$", string.Join("", methodList));
 
-                File.WriteAllText(Path.Combine(path, $"{SuitApplyVM.ModelName}QueryService.cs"), template, Encoding.UTF8);
+                File.WriteAllText(Path.Combine(path, $"{SuitApplyVM.ModelName}QueryService.auto.cs"), template, Encoding.UTF8);
             }
         }
 

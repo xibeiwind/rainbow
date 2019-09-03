@@ -57,18 +57,7 @@ export class EditModalComponent implements OnInit {
     this.editModalRef.hide();
   }
   getInputControlType(field: Rainbow.ViewModels.FieldDisplayVM): string {
-    if (field.FieldType === 'checkbox') {
-      return 'checkbox';
-    }
-    if (field.IsEnum) {
-      return 'select';
-    }
-    if (field.DataType === System.ComponentModel.DataAnnotations.DataType.Html ||
-      field.DataType === System.ComponentModel.DataAnnotations.DataType.MultilineText) {
-      return 'html';
-    } else {
-      return 'input';
-    }
+    return this.inputTypeService.getInputControlType(field);
   }
   getInputType(field: Rainbow.ViewModels.FieldDisplayVM): string {
     return this.inputTypeService.getInputType(field);

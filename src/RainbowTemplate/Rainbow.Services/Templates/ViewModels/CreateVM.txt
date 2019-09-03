@@ -13,7 +13,7 @@ namespace $RootNamespace$.ViewModels.$FolderName$
     /// </summary>
     [Display(Name = "$DisplayName$")]
 	[BindModel("$ModelName$", VMType.Create)]
-    public class $Name$ : CreateVM
+    public partial class $Name$ : CreateVM
     {
 		$PropertyList$
     }

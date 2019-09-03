@@ -6,6 +6,7 @@ import { ModalModule, BsDropdownModule, PaginationModule } from 'ngx-bootstrap';
 import { LoadingPageModule, MaterialBarModule } from 'angular-loading-page';
 import { ToastrModule } from 'ngx-toastr';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,7 +35,16 @@ import { SysAdminAuthGuard } from './sys-admin-auth.guard';
     BsDropdownModule.forRoot(),
     SweetAlert2Module.forRoot(),
     PaginationModule.forRoot(),
-
+    UiSwitchModule.forRoot({
+      size: 'small',
+      color: 'rgb(0, 189, 99)',
+      // switchColor: '#80FFA2',
+      switchColor: '#fff',
+      defaultBgColor: 'rgb(180,180,180)',
+      defaultBoColor: 'rgb(180,180,180)',
+      checkedLabel: '是',
+      uncheckedLabel: '否'
+    }),
     ServiceModule,
     ModelModule,
     AppRoutingModule,

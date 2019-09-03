@@ -5,6 +5,7 @@ import { BoxModule } from 'angular-admin-lte';
 
 import { ModelRoutingModule } from './model-routing.module';
 import { ModelComponent } from './model.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 @NgModule({
   declarations: [ModelComponent],
@@ -12,6 +13,7 @@ import { ModelComponent } from './model.component';
     CommonModule,
     FormsModule,
     BoxModule,
+    UiSwitchModule,
     ModelRoutingModule
   ]
 })

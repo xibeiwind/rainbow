@@ -14,7 +14,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { RouterModule } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { PagingDataListComponent } from './paging-data-list/paging-data-list.component';
-import { ToggleSwitchComponent } from './toggle-switch/toggle-switch.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,6 @@ import { ToggleSwitchComponent } from './toggle-switch/toggle-switch.component';
     CreateModalComponent,
     SearchComponent,
     PagingDataListComponent,
-    ToggleSwitchComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +37,7 @@ import { ToggleSwitchComponent } from './toggle-switch/toggle-switch.component';
     SweetAlert2Module,
     CKEditorModule,
     PaginationModule,
+    UiSwitchModule,
   ],
   exports: [
     HeaderInnerComponent,
@@ -47,7 +47,6 @@ import { ToggleSwitchComponent } from './toggle-switch/toggle-switch.component';
     EditModalComponent,
     CreateModalComponent,
     PagingDataListComponent,
-    ToggleSwitchComponent,
   ]
 
 })

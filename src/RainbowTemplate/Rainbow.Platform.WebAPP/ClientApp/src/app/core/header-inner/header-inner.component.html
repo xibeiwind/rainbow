@@ -1,7 +1,7 @@
 <div class="navbar-custom-menu">
   <ul class="nav navbar-nav">
     <!-- Messages: style can be found in dropdown.less -->
-    <li mk-dropdown type="list" [isWrapper]="false" class="messages-menu">
+    <!-- <li mk-dropdown type="list" [isWrapper]="false" class="messages-menu">
       <mk-dropdown-toggle>
         <a #toggleElement>
           <i class="fa fa-envelope-o"></i>
@@ -9,6 +9,7 @@
         </a>
       </mk-dropdown-toggle>
       <mk-dropdown-menu>
+
     <li class="header">你有{{msgData?.TotalCount||0}}条新消息</li>
     <li>
       <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
@@ -37,10 +38,11 @@
       </div>
     </li>
     <li class="footer"><a href="#">See All Messages</a></li>
-    </mk-dropdown-menu>
-    </li>
 
-    <li mk-dropdown type="list" [isWrapper]="false" class="notifications-menu">
+    </mk-dropdown-menu>
+    </li> -->
+
+    <!-- <li mk-dropdown type="list" [isWrapper]="false" class="notifications-menu">
       <mk-dropdown-toggle>
         <a #toggleElement>
           <i class="fa fa-bell-o"></i>
@@ -89,7 +91,7 @@
     </li>
     <li class="footer"><a href="#">View all</a></li>
     </mk-dropdown-menu>
-    </li>
+    </li> -->
 
     <li mk-dropdown type="list" [isWrapper]="false" class="tasks-menu">
       <mk-dropdown-toggle>
@@ -174,6 +176,7 @@
     </li>
     </mk-dropdown-menu>
     </li>
+
     <li mk-dropdown type="list" [isWrapper]="false" class="user user-menu" *ngIf="user">
       <mk-dropdown-toggle>
         <a #toggleElement>
@@ -190,19 +193,6 @@
         <small>Member since Nov. 2012</small>
       </p>
     </li>
-    <!-- <li class="user-body">
-          <div class="row">
-            <div class="col-xs-4 text-center">
-              <a href="#">Followers</a>
-            </div>
-            <div class="col-xs-4 text-center">
-              <a href="#">Sales</a>
-            </div>
-            <div class="col-xs-4 text-center">
-              <a href="#">Friends</a>
-            </div>
-          </div>
-        </li> -->
     <li class="user-footer">
       <div class="pull-left">
         <a href="#" class="btn btn-default btn-flat">Profile</a>
@@ -218,39 +208,42 @@
       <mk-dropdown-toggle>
         <a #toggleElement>
           <i class="fa fa-sliders"></i>
-          <!-- <span class="label label-warning">10</span> -->
         </a>
       </mk-dropdown-toggle>
       <mk-dropdown-menu>
+    <li class="header"></li>
     <li>
       <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
         <ul class="menu" style="overflow: hidden; width: 100%; height: auto;">
           <li>
-            <!-- <a href="#">
-              <i class="fa fa-users text-aqua"></i> 5 new members joined today
-            </a> -->
             <a [routerLink]="['/model']"><i class="fa fa-sliders text-blue"></i>Model管理</a>
           </li>
           <li>
             <a [routerLink]="['/admin/controller-project']">
-              <i class="fa fa-warning text-yellow"></i> Controller项目管理
+              <i class="fa fa-bars text-yellow"></i> Controller项目管理
             </a>
           </li>
           <li>
             <a [routerLink]="['/admin/client-module']">
-              <i class="fa fa-users text-red"></i> Client Module管理
+              <i class="fa fa-list-ol text-blue"></i> Client Module管理
             </a>
           </li>
           <li>
             <a [routerLink]="['/admin/data-field-type']">
-              <i class="fa fa-users text-red"></i> FieldType管理
+              <i class="fa fa-list text-red"></i> FieldType管理
             </a>
           </li>
           <li calss="model-setting">
-            <a href="/swagger" target="_blank"><i class="fa fa-file-o"></i>Swagger文档</a>
+            <a href="/swagger" target="_blank">
+              <i class="fa">
+                <img src="/swagger/favicon-16x16.png" alt="">
+              </i>
+              Swagger文档</a>
           </li>
         </ul>
       </div>
+    </li>
+    <li class="footer">
     </li>
     </mk-dropdown-menu>
     </li>

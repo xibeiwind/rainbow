@@ -6,22 +6,22 @@
     </button>
   </div>
   <form [formGroup]="editForm" (ngSubmit)="editSubmit()">
-      <div class="modal-body">
-          <div class="form-group" *ngFor="let field of fields">
-            <label [for]="field.Name">{{field.DisplayName}}</label>
-            <select *ngIf="field.IsEnum" [formControlName]="field.Name" class="form-control" [required]="!field.IsNullable">
-              <option *ngFor="let option of enumObj[field.Name]" [value]="option.Value">
-                {{option.DisplayName}} <small>{{option.Name}}</small>
-              </option>
-            </select>
-            <ckeditor *ngIf="getInputControlType(field) === 'html'" [formControlName]="field.Name"
-              [required]="!field.IsNullable"></ckeditor>
-              <input type="checkbox" *ngIf="getInputControlType(field) === 'checkbox'" [placeholder]="field.DisplayName"
-              [formControlName]="field.Name">
-            <input *ngIf="getInputControlType(field)=== 'input'" [type]="getInputType(field)" class="form-control"
-              [placeholder]="field.DisplayName" [formControlName]="field.Name" [required]="!field.IsNullable">
-          </div>
-        </div>
+    <div class="modal-body">
+      <div class="form-group" *ngFor="let field of fields">
+        <label [for]="field.Name">{{field.DisplayName}}</label>
+        <select *ngIf="field.IsEnum" [formControlName]="field.Name" class="form-control" [required]="!field.IsNullable">
+          <option *ngFor="let option of enumObj[field.Name]" [value]="option.Value">
+            {{option.DisplayName}} <small>{{option.Name}}</small>
+          </option>
+        </select>
+        <ckeditor *ngIf="getInputControlType(field) === 'html'" [formControlName]="field.Name"
+          [required]="!field.IsNullable"></ckeditor>
+        <ui-switch *ngIf="getInputControlType(field) === 'checkbox'" [formControlName]="field.Name" [checkedLabel]="'是'"
+          [uncheckedLabel]="'否'"></ui-switch>
+        <input *ngIf="getInputControlType(field)=== 'input'" [type]="getInputType(field)" class="form-control"
+          [placeholder]="field.DisplayName" [formControlName]="field.Name" [required]="!field.IsNullable">
+      </div>
+    </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" (click)="editModalRef.hide()">关闭</button>
       <button type="submit" class="btn btn-danger" [disabled]="!editForm.valid||!editForm.dirty">提交</button>

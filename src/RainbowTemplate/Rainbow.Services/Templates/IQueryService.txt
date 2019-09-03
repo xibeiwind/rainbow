@@ -7,7 +7,7 @@ using Yunyong.Core;
 
 namespace $RootNamespace$.Services.$FolderName$
 {
-    public interface I$Model$QueryService
+    public partial interface I$Model$QueryService
     {
 $ActionMethods$
     }

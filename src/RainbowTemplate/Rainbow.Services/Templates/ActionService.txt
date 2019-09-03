@@ -18,7 +18,7 @@ using $RootNamespace$.ViewModels.$FolderName$;
 
 namespace $RootNamespace$.Services.$FolderName$
 {
-    public class $Model$ActionService : ServiceBase, I$Model$ActionService
+    public partial class $Model$ActionService : ServiceBase, I$Model$ActionService
     {
         public $Model$ActionService(ConnectionSettings connectionSettings, IConnectionFactory connectionFactory, ILoggerFactory loggerFactory, IEventBus eventBus)
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)

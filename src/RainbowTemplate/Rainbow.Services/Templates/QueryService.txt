@@ -17,7 +17,7 @@ using $RootNamespace$.ViewModels.$FolderName$;
 
 namespace $RootNamespace$.Services.$FolderName$
 {
-    public class $Model$QueryService : ServiceBase, I$Model$QueryService
+    public partial class $Model$QueryService : ServiceBase, I$Model$QueryService
     {
         public $Model$QueryService(ConnectionSettings connectionSettings, IConnectionFactory connectionFactory, ILoggerFactory loggerFactory, IEventBus eventBus)
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)

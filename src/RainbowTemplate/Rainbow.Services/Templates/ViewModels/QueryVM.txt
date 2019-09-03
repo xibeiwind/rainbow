@@ -13,7 +13,7 @@ namespace $RootNamespace$.ViewModels.$FolderName$
     /// </summary>
     [Display(Name = "$DisplayName$")]
 	[BindModel("$ModelName$", VMType.Query)]
-    public class $Name$ : PagingQueryOption
+    public partial class $Name$ : PagingQueryOption
     {
 		$PropertyList$
     }

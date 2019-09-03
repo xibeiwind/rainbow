@@ -12,7 +12,7 @@ namespace $RootNamespace$.ViewModels.$FolderName$
     /// </summary>
     [Display(Name = "$DisplayName$")]
 	[BindModel("$ModelName$", VMType.Display)]
-    public class $Name$ : VMBase
+    public partial class $Name$ : VMBase
     {
 		$PropertyList$
     }

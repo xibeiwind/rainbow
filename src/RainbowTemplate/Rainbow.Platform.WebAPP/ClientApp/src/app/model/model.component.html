@@ -45,17 +45,25 @@
 
         <div class="form-group">
           <label class="col-sm-2 control-label">
-            生成ViewModels <input type="checkbox" [(ngModel)]="suitApplyVM.GenerateVM" value="true">
+            生成ViewModels
+            <!-- <input type="checkbox" [(ngModel)]="suitApplyVM.GenerateVM" value="true"> -->
+            <ui-switch [(ngModel)]="suitApplyVM.GenerateVM" [checkedLabel]="'是'" [uncheckedLabel]="'否'"></ui-switch>
           </label>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">
-            生成Service<input type="checkbox" [(ngModel)]="suitApplyVM.GenerateService" value="true">
+            生成Service
+            <!-- <input type="checkbox" [(ngModel)]="suitApplyVM.GenerateService" value="true"> -->
+            <ui-switch [(ngModel)]="suitApplyVM.GenerateService" [checkedLabel]="'是'" [uncheckedLabel]="'否'">
+            </ui-switch>
           </label>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">
-            生成Controller<input type="checkbox" [(ngModel)]="suitApplyVM.GenerateController" value="true">
+            生成Controller
+            <!-- <input type="checkbox" [(ngModel)]="suitApplyVM.GenerateController" value="true"> -->
+            <ui-switch [(ngModel)]="suitApplyVM.GenerateController" [checkedLabel]="'是'" [uncheckedLabel]="'否'">
+            </ui-switch>
           </label>
           <div class="col-sm-10" *ngIf="suitApplyVM.GenerateController">
             <div class="form-group">
@@ -80,15 +88,8 @@
               <div class="col-sm-8">
 
                 <div class="checkbox">
-                  <label>
-                    <input type="checkbox" [(ngModel)]="suitApplyVM.ControllerWithAuthorize" value="true">
-                    <!-- <select *ngIf="suitApplyVM.ControllerWithAuthorize" class="form-control"
-                      [(ngModel)]="suitApplyVM.AuthorizeRole">
-                      <option *ngFor="let option of roles" [value]="option.Name">
-                        {{option.Description}}
-                      </option>
-                    </select> -->
-                  </label>
+                  <ui-switch [(ngModel)]="suitApplyVM.ControllerWithAuthorize" [checkedLabel]="'是'"
+                    [uncheckedLabel]="'否'"></ui-switch>
                 </div>
 
 
@@ -111,19 +112,27 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">
 
-            生成Angular Module和Component <input type="checkbox" [(ngModel)]="suitApplyVM.GenerateNgModuleComponent"
-              value="true">
+            生成Angular Module和Component
+            <!-- <input type="checkbox" [(ngModel)]="suitApplyVM.GenerateNgModuleComponent"
+              value="true"> -->
+            <ui-switch [(ngModel)]="suitApplyVM.GenerateNgModuleComponent" [checkedLabel]="'是'" [uncheckedLabel]="'否'">
+            </ui-switch>
           </label>
 
           <div class="col-sm-10" *ngIf="suitApplyVM.GenerateNgModuleComponent">
             <div class="form-group">
               <label class="col-sm-4 control-label">
-                Is List Component<input type="checkbox" [(ngModel)]="suitApplyVM.IsNgModelListComponent" value="true">
-              </label>
+                Is List Component
+                <!-- <input type="checkbox" [(ngModel)]="suitApplyVM.IsNgModelListComponent" value="true"> -->
 
+              </label>
+              <div class="col-sm-8">
+                <ui-switch [(ngModel)]="suitApplyVM.IsNgModelListComponent" [checkedLabel]="'是'" [uncheckedLabel]="'否'">
+                </ui-switch>
+              </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-4 control-label">NgModelName </label>
+              <label class="col-sm-4 control-label">生成到模块 </label>
               <div class="col-sm-8">
                 <select class="form-control" [(ngModel)]="suitApplyVM.NgModuleName" required>
                   <option *ngFor="let option of clientModules" [value]="option.Name">
@@ -137,7 +146,10 @@
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">
-            更新生成AngularService<input type="checkbox" [(ngModel)]="suitApplyVM.UpdateTsServices" value="true">
+            更新生成AngularService
+            <!-- <input type="checkbox" [(ngModel)]="suitApplyVM.UpdateTsServices" value="true"> -->
+            <ui-switch [(ngModel)]="suitApplyVM.UpdateTsServices" [checkedLabel]="'是'" [uncheckedLabel]="'否'">
+            </ui-switch>
           </label>
         </div>
       </div>
@@ -151,8 +163,9 @@
             </h2>
             <div class="form-group">
               <label class="control-label">
-                生成删除VM <input type="checkbox" [(ngModel)]="suitApplyVM.EnableDelete" value="true">
+                生成删除VM
               </label>
+              <ui-switch [(ngModel)]="suitApplyVM.EnableDelete" [checkedLabel]="'是'" [uncheckedLabel]="'否'"></ui-switch>
             </div>
             <div class="box-tools pull-right">
               <div class="btn-group">
