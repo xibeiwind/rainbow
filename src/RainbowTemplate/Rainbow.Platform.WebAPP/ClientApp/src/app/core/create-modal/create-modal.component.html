@@ -16,6 +16,10 @@
         </select>
         <ckeditor *ngIf="getInputControlType(field) === 'html'" [formControlName]="field.Name"
           [required]="!field.IsNullable"></ckeditor>
+        <!-- <app-toggle-switch *ngIf="getInputControlType(field) === 'checkbox'" [formControlName]="field.Name" ngModel>
+        </app-toggle-switch> -->
+        <input type="checkbox" *ngIf="getInputControlType(field) === 'checkbox'" [placeholder]="field.DisplayName"
+          [formControlName]="field.Name">
         <input *ngIf="getInputControlType(field)=== 'input'" [type]="getInputType(field)" class="form-control"
           [placeholder]="field.DisplayName" [formControlName]="field.Name" [required]="!field.IsNullable">
       </div>

@@ -214,12 +214,45 @@
     </mk-dropdown-menu>
     </li>
 
-    <li calss="model-setting">
-      <a [routerLink]="['/model']"><i class="fa fa-sliders"></i></a>
+    <li mk-dropdown type="list" [isWrapper]="false" class="notifications-menu">
+      <mk-dropdown-toggle>
+        <a #toggleElement>
+          <i class="fa fa-sliders"></i>
+          <!-- <span class="label label-warning">10</span> -->
+        </a>
+      </mk-dropdown-toggle>
+      <mk-dropdown-menu>
+    <li>
+      <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
+        <ul class="menu" style="overflow: hidden; width: 100%; height: auto;">
+          <li>
+            <!-- <a href="#">
+              <i class="fa fa-users text-aqua"></i> 5 new members joined today
+            </a> -->
+            <a [routerLink]="['/model']"><i class="fa fa-sliders text-blue"></i>Model管理</a>
+          </li>
+          <li>
+            <a [routerLink]="['/admin/controller-project']">
+              <i class="fa fa-warning text-yellow"></i> Controller项目管理
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/admin/client-module']">
+              <i class="fa fa-users text-red"></i> Client Module管理
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/admin/data-field-type']">
+              <i class="fa fa-users text-red"></i> FieldType管理
+            </a>
+          </li>
+          <li calss="model-setting">
+            <a href="/swagger" target="_blank"><i class="fa fa-file-o"></i>Swagger文档</a>
+          </li>
+        </ul>
+      </div>
     </li>
-    <li calss="model-setting">
-      <a href="/swagger" target="_blank"><i class="fa fa-file-o"></i></a>
+    </mk-dropdown-menu>
     </li>
-
   </ul>
 </div>

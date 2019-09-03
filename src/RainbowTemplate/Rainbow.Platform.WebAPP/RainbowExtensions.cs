@@ -3,15 +3,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Common;
 using Rainbow.Data;
 using Rainbow.Platform.WebAPP.Services;
 using Rainbow.Services;
+using Rainbow.Services.ClientModules;
+using Rainbow.Services.ControllerProjects;
 using Rainbow.Services.Users;
 using Rainbow.Services.Utils;
-using Yunyong.Cache; 
+using Rainbow.ViewModels.ClientModules;
+using Rainbow.ViewModels.ControllerProjects;
+using Yunyong.Cache;
 using Yunyong.Cache.Register;
 using Yunyong.Core;
 using Yunyong.EventBus;
@@ -39,7 +44,7 @@ namespace Rainbow.Platform.WebAPP
             services.AddSingleton<IEntityRegisterService, RainbowEntityRegisterService>();
 
             services.AddSingleton(new ProjectSettings("Rainbow",
-                new DirectoryInfo(environment.ContentRootPath).Parent.FullName));
+                new DirectoryInfo(environment.ContentRootPath).Parent?.FullName));
 
             services.RegisterEasyNetQ(configuration.GetSection("EventBusConfig").Get<EventBusConfig>());
             services.AddHttpContextAccessor();
@@ -77,11 +82,59 @@ namespace Rainbow.Platform.WebAPP
                 }
 
                 var dbContext = GetService<RainbowDbContext>();
-                dbContext.Database.EnsureCreated();
+                if (!dbContext.Database.CanConnect())
+                {
+                    dbContext.Database.EnsureCreated();
+                    var service = GetService<IRoleService>();
+                    await service.Init();
+                }
 
+                {
+                    var actionService = GetService<IControllerProjectActionService>();
+                    var queryService = GetService<IControllerProjectQueryService>();
+                    var list = await queryService.GetListAsync();
+                    if (!list.Any())
+                    {
+                        await actionService.CreateAsync(new CreateControllerProjectVM
+                        {
+                            ProjectName = "Rainbow.Platform.Controllers",
+                            ProjectDescription = "Rainbow.Platform.Controllers",
+                            IsDefault = true,
+                        });
+                    }
+                }
 
-                var service = GetService<IRoleService>();
-                await service.Init();
+                {
+                    var actionService = GetService<IClientModuleActionService>();
+                    var queryService = GetService<IClientModuleQueryService>();
+                    var list = await queryService.GetListAsync();
+                    if (!list.Any())
+                    {
+                        await actionService.CreateAsync(new CreateClientModuleVM
+                        {
+                            Name = "Dashboard",
+                            Path = "dashboard",
+                            Title = "控制面板",
+                            IsCustomLayout = false,
+                        });
+
+                        await actionService.CreateAsync(new CreateClientModuleVM
+                        {
+                            Name = "Admin",
+                            Path = "admin",
+                            Title = "管理",
+                            IsCustomLayout = false,
+                        });
+
+                        await actionService.CreateAsync(new CreateClientModuleVM
+                        {
+                            Name = "Auth",
+                            Path = "auth",
+                            IsCustomLayout = true,
+                        });
+ 
+                    }
+                }
 
                 var customerServiceManageService = GetService<ICustomerServiceManageService>();
                 await customerServiceManageService.InitBuildCustomerService();

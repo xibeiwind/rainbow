@@ -175,7 +175,7 @@ namespace Rainbow.Services
             {
                 var type = property.PropertyType.GetGenericArguments().FirstOrDefault();
             }
-
+            
             return DataType.Text;
         }
     }

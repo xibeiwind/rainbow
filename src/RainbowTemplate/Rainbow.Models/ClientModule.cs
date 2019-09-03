@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yunyong.Core;
 
 namespace Rainbow.Models
@@ -22,12 +17,24 @@ namespace Rainbow.Models
         [Display(Name = "模块名称")]
         [Required]
         public string Name { get; set; }
+
         /// <summary>
-        ///     模块描述
+        ///     中文标题
         /// </summary>
-        [Display(Name = "模块描述")]
+        [Display(Name = "Title")]
+        public string Title { get; set; }
+
+        /// <summary>
+        ///     是否扩展样式
+        /// </summary>
+        [Display(Name = "是否扩展样式")]
+        public bool IsCustomLayout { get; set; }
+
+        /// <summary>
+        ///     路由路径
+        /// </summary>
+        [Display(Name = "路由路径")]
         [Required]
-        [DataType(DataType.Html)]
-        public string Description { get; set; }
+        public string Path { get; set; }
     }
 }

@@ -7,8 +7,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
+using Rainbow.Models;
+using Rainbow.ViewModels.ClientModules;
 using Rainbow.ViewModels.Models;
 
 namespace Rainbow.Services.Models
@@ -21,14 +24,87 @@ namespace Rainbow.Services.Models
         public ProjectSettings Settings { get; }
         public ModelSuitCodeGenerateHelper(CreateModelSuitApplyVM suitApplyVm, ProjectSettings settings)
         {
-            this.SuitApplyVM = suitApplyVm;
             Settings = settings;
 
-            ModelType = GetModelType(suitApplyVm.ModelFullName);
+            if (suitApplyVm != null)
+            {
+                this.SuitApplyVM = suitApplyVm;
 
-            ModelDisplayName = ModelType.GetCustomAttribute<DisplayAttribute>()?.Name ?? ModelType.Name;
+                ModelType = GetModelType(suitApplyVm.ModelFullName);
+                ModelDisplayName = ModelType.GetCustomAttribute<DisplayAttribute>()?.Name ?? ModelType.Name;
+            }
         }
 
+        public async Task UpdateAppRoutingModule(IEnumerable<ClientModuleVM> items)
+        {
+            var pathRoot = Path.Combine(Settings.PlatformWebRoot, @"ClientApp\src\app");
+            //using (var conn = GetConnection())
+            {
+
+                var routes = string.Join("\r\n  ", items.Select(GetRoutSetting));
+
+                var appRoutingTemplate = GetTemplate("NgComponent.AppRoutingModuleScript");
+                var result = appRoutingTemplate.Replace("$ModuleRoutes$", routes);
+
+                File.WriteAllText(Path.Combine(pathRoot, "app-routing.module.ts"), result, Encoding.UTF8);
+
+                foreach (var item in items)
+                {
+                    if (!File.Exists(Path.Combine(pathRoot, item.Name.SnakeCase("-"))))
+                    {
+                        var cmd = $"ng g m {item.Name} --routing --force";
+                        Console.WriteLine(cmd);
+                        var process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "cmd.exe",
+
+                                WorkingDirectory = pathRoot,
+                                RedirectStandardInput = true,
+                                RedirectStandardOutput = true,
+                                RedirectStandardError = true,
+                                CreateNoWindow = true
+                            }
+                        };
+                        process.OutputDataReceived += (sender, args) => { Console.WriteLine(args.Data); };
+                        process.ErrorDataReceived += (sender, args) => { Console.Error.WriteLine(args.Data); };
+
+                        process.Start();
+                        process.StandardInput.WriteLine(cmd);
+                        process.StandardInput.WriteLine("exit");
+                        process.BeginOutputReadLine();
+                        process.BeginErrorReadLine();
+                        process.WaitForExit();
+                        process.Close();
+
+                        var modelSnakeName = item.Name.SnakeCase("-");
+
+                        {
+                            var template = GetTemplate("NgComponent.ListModuleScript");
+                            var filePath = Path.Combine(pathRoot, modelSnakeName, $@"{modelSnakeName}.module.ts");
+                            template = template.Replace("$ModelName$", item.Name).Replace("$ModelSnackName$", modelSnakeName);
+
+                            File.WriteAllText(filePath, template);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private string GetRoutSetting(ClientModuleVM module)
+        {
+            var template = "{ path: '$Path$', loadChildren: '$LoadChildren$', data: { title: '$Title$', customLayout: $CustomLayout$ } },";
+
+            var snakeName = module.Name.SnakeCase("-");
+
+            return template.Replace("$Path$", module.Path)
+                .Replace("$Title$", module.Title)
+                .Replace("$Name$", module.Name)
+                .Replace("$CustomLayout$", module.IsCustomLayout.ToString().ToLower())
+                .Replace("$LoadChildren$", $"./{snakeName}/{snakeName}.module#{module.Name}Module");
+        }
         private Type GetModelType(string modelName)
         {
             return Assembly.Load("Rainbow.Models").GetType(modelName);
@@ -99,7 +175,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
         private string GetTypeName(Type type)
         {
-            var typeDic = new Dictionary<Type, string>()
+            var typeDic = new Dictionary<Type, string>
             {
                 {typeof(string), "string" },
                 {typeof(int), "int" },
@@ -136,8 +212,8 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 returnType = prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)
                     //? $"{prop.PropertyType.GetGenericArguments()[0].Name}?"
                     //: $"{Regex.Match(prop.PropertyType.Name, @"([0-9a-zA-Z]+)`").Groups[1].Value}<{string.Join(",", prop.PropertyType.GetGenericArguments().Select(b => b.Name))}>";
-                    ?$"{GetTypeName(prop.PropertyType.GetGenericArguments()[0])}"
-                    : $"{Regex.Match(prop.PropertyType.Name, @"([0-9a-zA-Z]+)`").Groups[1].Value}<{string.Join(",",  prop.PropertyType.GetGenericArguments().Select(GetTypeName))}>";
+                    ? $"{GetTypeName(prop.PropertyType.GetGenericArguments()[0])}"
+                    : $"{Regex.Match(prop.PropertyType.Name, @"([0-9a-zA-Z]+)`").Groups[1].Value}<{string.Join(",", prop.PropertyType.GetGenericArguments().Select(GetTypeName))}>";
             }
             if (isQueryVM)
             {
@@ -165,7 +241,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         ///     $displayName$
         /// </summary>
         [Display(Name = ""$displayName$"")$required$]$dataTypeStr$$QueryColumn$
-        public $ReturnType$ $PropertyName$ {get;set;}
+        public $ReturnType$ $PropertyName$ { get; set; }
 ";
             return template.Replace("$displayName$", displayName)
                 .Replace("$required$", required)
@@ -514,7 +590,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
             template = template.Replace("$RootNamespace$", Settings.SolutionNamespace)
                 .Replace("$FolderName$", SuitApplyVM.FolderName)
                 .Replace("$Model$", $"{SuitApplyVM.ModelName}")
-                .Replace("$ControllerProjectName$",SuitApplyVM.ControllerProjectName)
+                .Replace("$ControllerProjectName$", SuitApplyVM.ControllerProjectName)
                 .Replace("$ControllerAuthorize$", GetControllerWithAuthorize())// SuitApplyVM.ControllerWithAuthorize)
                 .Replace("$DisplayName$", $"{SuitApplyVM.ModelName} Controller");
 

@@ -211,4 +211,9 @@ export class ModelComponent implements OnInit {
     });
   }
 
+  updateAppRoutingCode() {
+    this.service.UpdateAppRoutingModule().subscribe(res => {
+      this.toastr.success('更新成功');
+    });
+  }
 }

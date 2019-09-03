@@ -16,9 +16,9 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     children: [
       { path: 'role', component: RoleInfoComponent, data: { title: '用户角色管理' } },
-      { path: 'data-field-type', component: DataFieldTypeComponent, data: { title: 'DataFieldType' } },
-      { path: 'client-module', component: ClientModuleComponent, data: { title: 'Client Module' } },
-      { path: 'controller-project', component: ControllerProjectComponent, data: { title: 'Controller Project' } },
+      { path: 'data-field-type', component: DataFieldTypeComponent, data: { title: 'DataFieldType管理' } },
+      { path: 'client-module', component: ClientModuleComponent, data: { title: 'Client Module管理' } },
+      { path: 'controller-project', component: ControllerProjectComponent, data: { title: 'Controller 项目管理' } },
       { path: '', pathMatch: 'full', redirectTo: 'role' },
     ]
   }

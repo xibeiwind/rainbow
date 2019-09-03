@@ -7,3 +7,12 @@
   overflow-y: hidden;
   text-overflow: ellipsis;
 }
+
+.current-item {
+  color: darkblue;
+  font-weight: 700;
+}
+
+table {
+  table-layout: fixed;
+}

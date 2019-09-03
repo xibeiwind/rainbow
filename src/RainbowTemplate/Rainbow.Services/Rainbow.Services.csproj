@@ -11,6 +11,7 @@
     <None Remove="Templates\HostingStartup.txt" />
     <None Remove="Templates\IActionService.txt" />
     <None Remove="Templates\IQueryService.txt" />
+    <None Remove="Templates\NgComponent\AppRoutingModuleScript.txt" />
     <None Remove="Templates\NgComponent\ListComponentHtml.txt" />
     <None Remove="Templates\NgComponent\ListComponentScript.txt" />
     <None Remove="Templates\NgComponent\ListModuleScript.txt" />
@@ -30,6 +31,7 @@
     <EmbeddedResource Include="Templates\HostingStartup.txt" />
     <EmbeddedResource Include="Templates\IActionService.txt" />
     <EmbeddedResource Include="Templates\IQueryService.txt" />
+    <EmbeddedResource Include="Templates\NgComponent\AppRoutingModuleScript.txt" />
     <EmbeddedResource Include="Templates\NgComponent\ListComponentHtml.txt" />
     <EmbeddedResource Include="Templates\NgComponent\ListComponentScript.txt" />
     <EmbeddedResource Include="Templates\NgComponent\ListModuleScript.txt" />

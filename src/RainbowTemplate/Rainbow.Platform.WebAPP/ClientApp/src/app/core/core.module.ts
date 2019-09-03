@@ -14,6 +14,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { RouterModule } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { PagingDataListComponent } from './paging-data-list/paging-data-list.component';
+import { ToggleSwitchComponent } from './toggle-switch/toggle-switch.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PagingDataListComponent } from './paging-data-list/paging-data-list.com
     EditModalComponent,
     CreateModalComponent,
     SearchComponent,
-    PagingDataListComponent
+    PagingDataListComponent,
+    ToggleSwitchComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +47,7 @@ import { PagingDataListComponent } from './paging-data-list/paging-data-list.com
     EditModalComponent,
     CreateModalComponent,
     PagingDataListComponent,
+    ToggleSwitchComponent,
   ]
 
 })

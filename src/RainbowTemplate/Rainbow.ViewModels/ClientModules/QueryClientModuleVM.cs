@@ -21,15 +21,27 @@ namespace Rainbow.ViewModels.ClientModules
         /// </summary>
         [Display(Name = "模块名称")]
         [QueryColumn("Name", CompareEnum.Like)]
-        public string Name {get;set;}
+        public string Name { get; set; }
 
         /// <summary>
-        ///     模块描述
+        ///     Title
         /// </summary>
-        [Display(Name = "模块描述")]
-        [DataType(DataType.Html)]
-        [QueryColumn("Description", CompareEnum.Like)]
-        public string Description {get;set;}
+        [Display(Name = "Title")]
+        [QueryColumn("Title", CompareEnum.Like)]
+        public string Title { get; set; }
+
+        /// <summary>
+        ///     扩展样式
+        /// </summary>
+        [Display(Name = "扩展样式")]
+        public bool? IsCustomLayout { get; set; }
+
+        /// <summary>
+        ///     路由路径
+        /// </summary>
+        [Display(Name = "路由路径")]
+        [QueryColumn("Path", CompareEnum.Like)]
+        public string Path { get; set; }
 
     }
 }

@@ -78,6 +78,7 @@ namespace Rainbow.ViewModels.Models
         /// </summary>
         [Display(Name = "是否更新呢生成TsService")]
         public bool UpdateTsServices { get; set; }
+
         public List<CreateViewModelApplyVM> Items { get; set; }
     }
 }

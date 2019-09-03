@@ -1,0 +1,13 @@
+<div role="radio" class="toggle-switch" [ngClass]="{'disabled': disabled}" (click)="toggleSwitch()">
+  <div class="toggle-switch-animate" [ngClass]="{'switch-off': !value, 'switch-on':value}">
+    <span class="switch-left">
+      {{onLabel}}
+    </span>
+    <span class="knob">
+      {{knobLabel}}
+    </span>
+    <span class="switch-right">
+      {{offLabel}}
+    </span>
+  </div>
+</div>

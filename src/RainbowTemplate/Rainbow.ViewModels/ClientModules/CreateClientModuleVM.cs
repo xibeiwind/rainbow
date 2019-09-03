@@ -20,14 +20,25 @@ namespace Rainbow.ViewModels.ClientModules
         ///     模块名称
         /// </summary>
         [Display(Name = "模块名称"),Required]
-        public string Name {get;set;}
+        public string Name { get; set; }
 
         /// <summary>
-        ///     模块描述
+        ///     路由路径
         /// </summary>
-        [Display(Name = "模块描述"),Required]
-        [DataType(DataType.Html)]
-        public string Description {get;set;}
+        [Display(Name = "路由路径"),Required]
+        public string Path { get; set; }
+
+        /// <summary>
+        ///     Title
+        /// </summary>
+        [Display(Name = "Title")]
+        public string Title { get; set; }
+
+        /// <summary>
+        ///     扩展样式
+        /// </summary>
+        [Display(Name = "扩展样式")]
+        public bool IsCustomLayout { get; set; }
 
     }
 }

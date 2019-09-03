@@ -11,16 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Scripts\TypeLite.d.ts">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TypeLite.tt</DependentUpon>
-    </None>
-    <None Update="Scripts\TypeLite.Net4.d.ts">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TypeLite.Net4.tt</DependentUpon>
-    </None>
     <None Update="Scripts\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>

@@ -10,7 +10,7 @@ export class ModelService {
 
 
   /**
-   * CreateUpdateFiles
+   * 创建更新设置
    */
   public CreateUpdateFiles(vm: Rainbow.ViewModels.Models.CreateModelSuitApplyVM)
     : Observable<boolean> {
@@ -19,7 +19,7 @@ export class ModelService {
   }
 
   /**
-   * GetModelTypes
+   * 获取model列表
    */
   public GetModelTypes()
     : Observable<Rainbow.ViewModels.Models.ModelTypeVM[]> {
@@ -28,11 +28,20 @@ export class ModelService {
   }
 
   /**
-   * RegenerateTsCode
+   * 重新生成TS代码
    */
   public RegenerateTsCode()
     : Observable<Yunyong.Core.AsyncTaskTResult<boolean>> {
     return this.http.post<Yunyong.Core.AsyncTaskTResult<boolean>>
       (`${this.baseUrl}api/Model/RegenerateTsCode`, {}, getHttpOptions());
+  }
+
+  /**
+   * 更新AppRouting
+   */
+  public UpdateAppRoutingModule()
+    : Observable<Yunyong.Core.AsyncTaskTResult<boolean>> {
+    return this.http.post<Yunyong.Core.AsyncTaskTResult<boolean>>
+      (`${this.baseUrl}api/Model/UpdateAppRoutingModule`, {}, getHttpOptions());
   }
 }

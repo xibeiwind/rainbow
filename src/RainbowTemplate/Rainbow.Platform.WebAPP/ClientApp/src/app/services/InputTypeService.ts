@@ -28,6 +28,9 @@ export class InputTypeService {
   }
 
   getInputType(field: Rainbow.ViewModels.FieldDisplayVM): string {
+    if (this.inputType.hasOwnProperty(field.DataType) && this.inputType.hasOwnProperty(field.FieldType)) {
+      return this.inputType[field.FieldType];
+    }
     if (this.inputType.hasOwnProperty(field.DataType)) {
       return this.inputType[field.DataType];
     }

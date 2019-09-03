@@ -9,5 +9,7 @@ namespace Rainbow.Services.Models
         Task<AsyncTaskTResult<bool>> CreateUpdateFiles(CreateModelSuitApplyVM vm);
 
         Task<AsyncTaskTResult<bool>> RegenerateTsCode();
+
+        Task<AsyncTaskTResult<bool>> UpdateAppRoutingModule();
     }
 }

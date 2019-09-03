@@ -12,8 +12,10 @@ using Microsoft.Extensions.Logging;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.Models;
+using Rainbow.ViewModels.ClientModules;
 using Rainbow.ViewModels.Models;
 using Yunyong.Core;
+using Yunyong.DataExchange;
 using Yunyong.EventBus;
 
 namespace Rainbow.Services.Models
@@ -61,7 +63,21 @@ namespace Rainbow.Services.Models
                 await RegenerateTsCode();
             }
 
+
             return AsyncTaskResult.Success(true);
+        }
+
+        public async Task<AsyncTaskTResult<bool>> UpdateAppRoutingModule()
+        {
+            using (var conn = GetConnection())
+            {
+                var items = await conn.AllAsync<ClientModule, ClientModuleVM>();
+
+                var helper = new ModelSuitCodeGenerateHelper(null, Settings);
+
+                await helper.UpdateAppRoutingModule(items);
+                return AsyncTaskResult.Success(true);
+            }
         }
 
         public async Task<AsyncTaskTResult<bool>> RegenerateTsCode()

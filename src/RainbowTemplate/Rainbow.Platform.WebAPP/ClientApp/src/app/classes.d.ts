@@ -86,30 +86,44 @@ declare namespace Rainbow.ViewModels {
 }
 declare namespace Rainbow.ViewModels.ClientModules {
   interface ClientModuleVM extends Yunyong.Core.ViewModels.VMBase {
-    // 模块描述
-    Description: string;
+    // 扩展样式
+    IsCustomLayout: boolean;
     // 模块名称
     Name: string;
+    // 路由路径
+    Path: string;
+    // Title
+    Title?: string;
   }
   interface CreateClientModuleVM extends Yunyong.Core.ViewModels.CreateVM {
-    // 模块描述
-    Description: string;
+    // 扩展样式
+    IsCustomLayout: boolean;
     // 模块名称
     Name: string;
+    // 路由路径
+    Path: string;
+    // Title
+    Title?: string;
   }
   interface DeleteClientModuleVM extends Yunyong.Core.ViewModels.DeleteVM {
   }
   interface QueryClientModuleVM extends Yunyong.Core.PagingQueryOption {
-    // 模块描述
-    Description?: string;
+    // 扩展样式
+    IsCustomLayout?: boolean;
     // 模块名称
     Name?: string;
+    // 路由路径
+    Path?: string;
+    // Title
+    Title?: string;
   }
   interface UpdateClientModuleVM extends Yunyong.Core.ViewModels.UpdateVM {
-    // 模块描述
-    Description: string;
+    // 扩展样式
+    IsCustomLayout: boolean;
     // 模块名称
     Name: string;
+    // Title
+    Title?: string;
   }
 }
 declare namespace Rainbow.ViewModels.ControllerProjects {

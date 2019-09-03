@@ -18,7 +18,7 @@ namespace Rainbow.Platform.WebAPP.HostingStartups
         {
             builder.ConfigureServices(services =>
             {
-                var dic = new Dictionary<DataType, string>()
+                var dic = new Dictionary<DataType, string>
                 {
                     {DataType.DateTime, "日期时间"},
                     {DataType.Date,"日期" },

@@ -57,6 +57,9 @@ export class EditModalComponent implements OnInit {
     this.editModalRef.hide();
   }
   getInputControlType(field: Rainbow.ViewModels.FieldDisplayVM): string {
+    if (field.FieldType === 'checkbox') {
+      return 'checkbox';
+    }
     if (field.IsEnum) {
       return 'select';
     }

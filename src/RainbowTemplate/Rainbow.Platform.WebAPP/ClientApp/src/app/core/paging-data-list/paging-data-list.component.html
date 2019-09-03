@@ -56,7 +56,8 @@
           </tr>
         </thead>
         <tbody *ngIf="pagingData">
-          <tr *ngFor="let item of pagingData.Data;let i = index" (click)="currentItem = item">
+          <tr *ngFor="let item of pagingData.Data;let i = index" (click)="currentItem = item"
+            [ngClass]="{'current-item': item === currentItem}">
             <td>
               {{i+1}}
             </td>

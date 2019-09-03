@@ -17,15 +17,24 @@ namespace Rainbow.Platform.Controllers
     [Route("api/[controller]")]
     public class ModelController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="actionService"></param>
+        /// <param name="queryService"></param>
         public ModelController(IModelActionService actionService, IModelQueryService queryService)
         {
             ActionService = actionService;
             QueryService = queryService;
         }
 
-        public IModelActionService ActionService { get; }
-        public IModelQueryService QueryService { get; }
+        private IModelActionService ActionService { get; }
+        private IModelQueryService QueryService { get; }
 
+        /// <summary>
+        ///     创建更新设置
+        /// </summary>
+        [Display(Name = "创建更新设置")]
         [HttpPost]
         [Route("CreateUpdate")]
         [ProducesDefaultResponseType(typeof(bool))]
@@ -33,7 +42,10 @@ namespace Rainbow.Platform.Controllers
         {
             return await ActionService.CreateUpdateFiles(vm);
         }
-
+        /// <summary>
+        ///     获取model列表
+        /// </summary>
+        [Display(Name = "获取model列表")]
         [HttpGet]
         [Route("List")]
         [ProducesDefaultResponseType(typeof(IEnumerable<ModelTypeVM>))]
@@ -42,12 +54,29 @@ namespace Rainbow.Platform.Controllers
             return QueryService.GetModelTypes();
         }
 
+        /// <summary>
+        ///     重新生成TS代码
+        /// </summary>
+        [Display(Name = "重新生成TS代码")]
         [HttpPost]
         [Route("RegenerateTsCode")]
         [ProducesDefaultResponseType(typeof(AsyncTaskTResult<bool>))]
         public async Task<AsyncTaskTResult<bool>> RegenerateTsCode()
         {
             return await ActionService.RegenerateTsCode();
+        }
+
+        /// <summary>
+        ///     更新AppRouting
+        /// </summary>
+        [Display(Name = "更新AppRouting")]
+        [HttpPost]
+        [Route("UpdateAppRoutingModule")]
+        [ProducesDefaultResponseType(typeof(AsyncTaskTResult<bool>))]
+
+        public async Task<AsyncTaskTResult<bool>> UpdateAppRoutingModule()
+        {
+            return await ActionService.UpdateAppRoutingModule();
         }
     }
 }
