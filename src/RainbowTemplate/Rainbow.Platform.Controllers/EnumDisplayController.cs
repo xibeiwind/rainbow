@@ -18,7 +18,7 @@ namespace Rainbow.Platform.Controllers
 
     public class EnumDisplayController:Controller
     {
-        public IEnumDisplayQueryService QueryService { get; }
+        private IEnumDisplayQueryService QueryService { get; }
 
         public EnumDisplayController(IEnumDisplayQueryService queryService)
         {

@@ -1,3 +1,4 @@
+// tslint:disable:no-namespace
 namespace Rainbow.Common.Enums {
   export const enum NotifyType {
     // Metting

@@ -19,7 +19,11 @@ namespace Rainbow.Platform.Controllers
 
     public class UserController: Controller
 	{
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="actionService"></param>
+        /// <param name="queryService"></param>
         public UserController(IUserActionService actionService, IUserQueryService queryService)
         {
             ActionService = actionService;

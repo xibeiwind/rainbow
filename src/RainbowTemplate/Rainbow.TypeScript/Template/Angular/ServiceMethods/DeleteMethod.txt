@@ -1,0 +1,5 @@
+﻿  public  $action.Name$($action.ArgParamsStr$)
+    : Observable<$action.ReturnStr$> {
+    return this.http.delete<$action.ReturnStr$>
+      (`${this.baseUrl}$action.Url$`, { params: { ...vm }, ...getHttpOptions() });
+  }

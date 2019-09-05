@@ -39,7 +39,7 @@ namespace Rainbow.Platform.Controllers
         [Route("Register")]
         [AllowAnonymous]
         [ProducesDefaultResponseType(typeof(AsyncTaskResult))]
-        public async Task<AsyncTaskResult> RegisterAsync([FromBody] RegisterUserVM vm)
+        public async Task<AsyncTaskResult> Register([FromBody] RegisterUserVM vm)
         {
             return await Service.RegisterAsync(vm);
         }

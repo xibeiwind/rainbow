@@ -1,4 +1,4 @@
-﻿namespace Rainbow.TypeLiteConsoleApp
+﻿namespace Rainbow.TypeScript
 {
     public class RainbowAction
     {

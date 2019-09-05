@@ -1,0 +1,8 @@
+﻿
+/*tslint:disable */
+
+export class ProductService {
+  constructor(private directives: any) { }
+
+$ServiceMethods$
+}

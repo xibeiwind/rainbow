@@ -18,7 +18,7 @@ namespace Rainbow.Platform.Controllers
 
     public class LookupQueryController:Controller
     {
-        public ILookupQueryService QueryService { get; }
+        private ILookupQueryService QueryService { get; }
 
         public LookupQueryController(ILookupQueryService queryService)
         {

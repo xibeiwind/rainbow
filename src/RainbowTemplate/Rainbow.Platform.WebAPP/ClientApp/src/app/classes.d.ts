@@ -1,4 +1,5 @@
 // tslint:disable:no-empty-interface
+// tslint:disable:no-namespace
 
 declare namespace Rainbow.Common.Enums {
 }
@@ -86,7 +87,7 @@ declare namespace Rainbow.ViewModels {
 }
 declare namespace Rainbow.ViewModels.ClientModules {
   interface ClientModuleVM extends Yunyong.Core.ViewModels.VMBase {
-    // 扩展样式
+    // 是否扩展样式
     IsCustomLayout: boolean;
     // 模块名称
     Name: string;
@@ -96,7 +97,7 @@ declare namespace Rainbow.ViewModels.ClientModules {
     Title?: string;
   }
   interface CreateClientModuleVM extends Yunyong.Core.ViewModels.CreateVM {
-    // 扩展样式
+    // 是否扩展样式
     IsCustomLayout: boolean;
     // 模块名称
     Name: string;
@@ -108,7 +109,7 @@ declare namespace Rainbow.ViewModels.ClientModules {
   interface DeleteClientModuleVM extends Yunyong.Core.ViewModels.DeleteVM {
   }
   interface QueryClientModuleVM extends Yunyong.Core.PagingQueryOption {
-    // 扩展样式
+    // 是否扩展样式
     IsCustomLayout?: boolean;
     // 模块名称
     Name?: string;
@@ -118,7 +119,7 @@ declare namespace Rainbow.ViewModels.ClientModules {
     Title?: string;
   }
   interface UpdateClientModuleVM extends Yunyong.Core.ViewModels.UpdateVM {
-    // 扩展样式
+    // 是否扩展样式
     IsCustomLayout: boolean;
     // 模块名称
     Name: string;
@@ -158,6 +159,24 @@ declare namespace Rainbow.ViewModels.ControllerProjects {
     ProjectDescription?: string;
     // 项目名称
     ProjectName: string;
+  }
+}
+declare namespace Rainbow.ViewModels.Controllers {
+  interface ControllerAction {
+    // Argument
+    Argument?: string;
+    // Description
+    Description?: string;
+    // Name
+    Name?: string;
+    // ReturnType
+    ReturnType?: string;
+  }
+  interface ControllerVM {
+    // Description
+    Description?: string;
+    // Name
+    Name?: string;
   }
 }
 declare namespace Rainbow.ViewModels.DataFieldTypes {

@@ -13,6 +13,8 @@ import { LookupQueryService } from './LookupQueryService';
 import { MessageService } from './MessageService';
 import { ModelService } from './ModelService';
 import { RoleInfoService } from './RoleInfoService';
+import { ServiceManagementService } from './ServiceManagementService';
+import { TypeQueryService } from './TypeQueryService';
 import { UserService } from './UserService';
 import { ViewModelDisplayService } from './ViewModelDisplayService';
 
@@ -35,6 +37,8 @@ import { ViewModelDisplayService } from './ViewModelDisplayService';
     MessageService,
     ModelService,
     RoleInfoService,
+    ServiceManagementService,
+    TypeQueryService,
     UserService,
     ViewModelDisplayService,
   ],

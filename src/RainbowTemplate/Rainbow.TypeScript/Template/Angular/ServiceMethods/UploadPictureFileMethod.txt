@@ -1,0 +1,4 @@
+﻿  public UpLoadPictureFile(data: FormData)
+    : Observable<Rainbow.ViewModels.Utils.PictureFileVM> {
+    return this.http.post<Rainbow.ViewModels.Utils.PictureFileVM>(`${this.baseUrl}api/ImageUpload/UpLoadPictureFile`, data, getHttpOptions());
+  }

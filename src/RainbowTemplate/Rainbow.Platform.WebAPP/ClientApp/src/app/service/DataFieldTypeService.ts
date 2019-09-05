@@ -15,7 +15,7 @@ export class DataFieldTypeService {
   public CreateAsync(vm: Rainbow.ViewModels.DataFieldTypes.CreateDataFieldTypeVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
     return this.http.post<Yunyong.Core.AsyncTaskTResult<string>>
-      (`${this.baseUrl}api/DataFieldType/Create`, vm, getHttpOptions());
+      (`${this.baseUrl}Create`,{ ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -24,7 +24,7 @@ export class DataFieldTypeService {
   public UpdateAsync(vm: Rainbow.ViewModels.DataFieldTypes.UpdateDataFieldTypeVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
     return this.http.put<Yunyong.Core.AsyncTaskTResult<string>>
-      (`${this.baseUrl}api/DataFieldType/Update`, vm, getHttpOptions());
+      (`${this.baseUrl}Update`,{ ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -33,7 +33,7 @@ export class DataFieldTypeService {
   public QueryAsync(option: Rainbow.ViewModels.DataFieldTypes.QueryDataFieldTypeVM)
     : Observable<Yunyong.Core.PagingList<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM>> {
     return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM>>
-      (`${this.baseUrl}api/DataFieldType/Query?${stringify(option)}`, getHttpOptions());
+      (`${this.baseUrl}Query`, { params: {option: option}, ...getHttpOptions() });
   }
 
   /**
@@ -42,7 +42,7 @@ export class DataFieldTypeService {
   public GetAsync(id: string)
     : Observable<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM> {
     return this.http.get<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM>
-      (`${this.baseUrl}api/DataFieldType?${stringify(id)}`, getHttpOptions());
+      (`${this.baseUrl}`, { params: {id: id}, ...getHttpOptions() });
   }
 
   /**
@@ -51,15 +51,15 @@ export class DataFieldTypeService {
   public GetListAsync()
     : Observable<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM[]> {
     return this.http.get<Rainbow.ViewModels.DataFieldTypes.DataFieldTypeVM[]>
-      (`${this.baseUrl}api/DataFieldType/List`, { ...getHttpOptions() });
+      (`${this.baseUrl}List`, { ...getHttpOptions() });
   }
 
   /**
    * 删除DataFieldType
    */
-  public DeleteAsync(vm: Rainbow.ViewModels.DataFieldTypes.DeleteDataFieldTypeVM)
+  public  DeleteAsync(vm: Rainbow.ViewModels.DataFieldTypes.DeleteDataFieldTypeVM)
     : Observable<Yunyong.Core.AsyncTaskResult> {
     return this.http.delete<Yunyong.Core.AsyncTaskResult>
-      (`${this.baseUrl}api/DataFieldType/Delete?${stringify(vm)}`, { params: { ...vm }, ...getHttpOptions() });
+      (`${this.baseUrl}Delete`, { params: { ...vm }, ...getHttpOptions() });
   }
 }

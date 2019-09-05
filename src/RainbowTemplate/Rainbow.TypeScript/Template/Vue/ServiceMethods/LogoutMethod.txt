@@ -1,0 +1,5 @@
+﻿  public $action.Name$($action.ArgParamsStr$)
+    : Observable<$action.ReturnStr$> {
+    return this.http.{action.Method}<$action.ReturnStr$>
+      (`${this.baseUrl}$action.Url$`, {}, getHttpOptions());
+  }

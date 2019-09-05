@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.757
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 15.0.26124.0
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Platform.WebAPP", "Rainbow.Platform.WebAPP\Rainbow.Platform.WebAPP.csproj", "{4449634E-42FF-4E06-A55E-2A4FBD29369E}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Identity.WebAPI", "Rainbow.Identity.WebAPI\Rainbow.Identity.WebAPI.csproj", "{C9E70C75-B025-428F-88E7-05A6AA3B3FDE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Common", "Rainbow.Common\Rainbow.Common.csproj", "{D6E65F5B-6FEF-4318-BC12-85FB431C7042}"
@@ -25,8 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Platform.Controller
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{D85130B4-8AC8-4DAC-83E3-E3BBDC7DCE61}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Platform.WebAPP", "Rainbow.Platform.WebAPP\Rainbow.Platform.WebAPP.csproj", "{4449634E-42FF-4E06-A55E-2A4FBD29369E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSGenerater", "TSGenerater", "{4FC89F8C-97B2-4AC5-B5B5-DFA7AF889282}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeLite.Standard", "TypeLite.Standard\TypeLite.Standard.csproj", "{EC7AF649-A651-452F-9A9B-BFB4D38FBD86}"
@@ -37,7 +37,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Schemas", "Rainbow.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{819CD9D1-E6C2-462D-BE57-2B461EB876DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.Authorize", "Rainbow.Authorize\Rainbow.Authorize.csproj", "{F1382DE5-E9B0-4FBA-A2FA-CDA8B9DB002C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Authorize", "Rainbow.Authorize\Rainbow.Authorize.csproj", "{F1382DE5-E9B0-4FBA-A2FA-CDA8B9DB002C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.TypeScript", "Rainbow.TypeScript\Rainbow.TypeScript.csproj", "{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.TypeScriptTests", "Rainbow.TypeScriptTests\Rainbow.TypeScriptTests.csproj", "{B6B29476-B1CB-4A60-B416-CBBAFCF01306}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -229,6 +233,30 @@ Global
 		{F1382DE5-E9B0-4FBA-A2FA-CDA8B9DB002C}.Release|x64.Build.0 = Release|Any CPU
 		{F1382DE5-E9B0-4FBA-A2FA-CDA8B9DB002C}.Release|x86.ActiveCfg = Release|Any CPU
 		{F1382DE5-E9B0-4FBA-A2FA-CDA8B9DB002C}.Release|x86.Build.0 = Release|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Debug|x64.Build.0 = Debug|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Debug|x86.Build.0 = Debug|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Release|x64.ActiveCfg = Release|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Release|x64.Build.0 = Release|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Release|x86.ActiveCfg = Release|Any CPU
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Release|x86.Build.0 = Release|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Debug|x64.Build.0 = Debug|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Debug|x86.Build.0 = Debug|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Release|x64.ActiveCfg = Release|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Release|x64.Build.0 = Release|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Release|x86.ActiveCfg = Release|Any CPU
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -241,6 +269,8 @@ Global
 		{4449634E-42FF-4E06-A55E-2A4FBD29369E} = {D85130B4-8AC8-4DAC-83E3-E3BBDC7DCE61}
 		{EC7AF649-A651-452F-9A9B-BFB4D38FBD86} = {4FC89F8C-97B2-4AC5-B5B5-DFA7AF889282}
 		{2CC90343-9124-449D-AF48-096F1B4B21EF} = {4FC89F8C-97B2-4AC5-B5B5-DFA7AF889282}
+		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD} = {4FC89F8C-97B2-4AC5-B5B5-DFA7AF889282}
+		{B6B29476-B1CB-4A60-B416-CBBAFCF01306} = {4FC89F8C-97B2-4AC5-B5B5-DFA7AF889282}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EFCA0AB5-DA8E-41D9-8E7A-DDCB7DD6D4EF}

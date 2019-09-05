@@ -14,6 +14,10 @@ namespace Rainbow.Platform.Controllers
     [Route("api/[controller]")]
     public class ViewModelDisplayController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="queryService"></param>
         public ViewModelDisplayController(IViewModelDisplayQueryService queryService)
         {
             QueryService = queryService;

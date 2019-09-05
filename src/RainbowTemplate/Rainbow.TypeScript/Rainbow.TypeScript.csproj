@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Template\Angular\ServiceMethods\DeleteMethod.txt" />
+    <None Remove="Template\Angular\ServiceMethods\DeleteMethodWithArgument.txt" />
+    <None Remove="Template\Angular\ServiceMethods\GetMethod.txt" />
+    <None Remove="Template\Angular\ServiceMethods\GetMethodWithArgument.txt" />
+    <None Remove="Template\Angular\ServiceMethods\LogoutMethod.txt" />
+    <None Remove="Template\Angular\ServiceMethods\PostMethod.txt" />
+    <None Remove="Template\Angular\ServiceMethods\PutMethod.txt" />
+    <None Remove="Template\Angular\ServiceMethods\UploadPictureFileMethod.txt" />
+    <None Remove="Template\Service.txt" />
+    <None Remove="Template\Vue\DeleteMethod.txt" />
+    <None Remove="Template\Vue\DeleteMethodWithArgument.txt" />
+    <None Remove="Template\Vue\GetMethod.txt" />
+    <None Remove="Template\Vue\GetMethodWithArgument.txt" />
+    <None Remove="Template\Vue\LogoutMethod.txt" />
+    <None Remove="Template\Vue\PostMethod.txt" />
+    <None Remove="Template\Vue\PutMethod.txt" />
+    <None Remove="Template\Vue\UploadPictureFileMethod.txt" />
+    <None Remove="Template\ServiceModule.txt" />
+    <None Remove="Template\VueService.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Template\Angular\Service.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\DeleteMethod.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\DeleteMethodWithArgument.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\GetMethod.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\GetMethodWithArgument.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\LogoutMethod.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\PostMethod.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\PutMethod.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\UploadPictureFileMethod.txt" />
+    <EmbeddedResource Include="Template\Vue\ServiceMethods\DeleteMethod.txt" />
+    <EmbeddedResource Include="Template\Vue\ServiceMethods\DeleteMethodWithArgument.txt" />
+    <EmbeddedResource Include="Template\Vue\ServiceMethods\GetMethod.txt" />
+    <EmbeddedResource Include="Template\Vue\ServiceMethods\GetMethodWithArgument.txt" />
+    <EmbeddedResource Include="Template\Vue\ServiceMethods\LogoutMethod.txt" />
+    <EmbeddedResource Include="Template\Vue\ServiceMethods\PutMethod.txt" />
+    <EmbeddedResource Include="Template\Vue\ServiceMethods\PostMethod.txt" />
+    <EmbeddedResource Include="Template\Vue\ServiceMethods\UploadPictureFileMethod.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceModule.txt" />
+    <EmbeddedResource Include="Template\Vue\Service.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rainbow.Common\Rainbow.Common.csproj" />
+    <ProjectReference Include="..\TypeLite.Standard\TypeLite.Standard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Template\VMTemplate\" />
+  </ItemGroup>
+
+</Project>
