@@ -43,7 +43,7 @@ namespace Rainbow.Platform.Controllers
         }
 
         [HttpPut]
-        [Route("Readed/{msgId}")]
+        [Route("Readed")]
         [ProducesDefaultResponseType(typeof(AsyncTaskResult))]
         public async Task<AsyncTaskResult> ReadedAsync(Guid msgId)
         {

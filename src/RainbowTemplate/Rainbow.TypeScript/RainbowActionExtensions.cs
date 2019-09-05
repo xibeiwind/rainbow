@@ -38,20 +38,6 @@ namespace Rainbow.TypeScript
 
         public static string GetTypeString(this Type type)
         {
-            if (type.IsGenericType)
-            {
-                var genericType = type.GetGenericTypeDefinition();
-                if (genericType == typeof(IEnumerable<>) || genericType == typeof(List<>))
-                    return $@"{type.GenericTypeArguments.FirstOrDefault()?.FullName}[]";
-
-
-                var name = genericType?.FullName?.Substring(0,
-                    genericType.FullName.IndexOf("`", StringComparison.Ordinal));
-                return $@"{name}<{
-                    string.Join(", ",
-                        type.GenericTypeArguments.Select(GetTypeString))}>";
-            }
-
             var dic = new Dictionary<Type, string>
             {
                 {typeof(Guid), "string"},
@@ -63,6 +49,28 @@ namespace Rainbow.TypeScript
                 {typeof(string), "string"},
                 {typeof(bool), "boolean"}
             };
+            if (type.IsGenericType)
+            {
+                var genericType = type.GetGenericTypeDefinition();
+                if (genericType == typeof(IEnumerable<>) || genericType == typeof(List<>))
+                {
+                    var firstType = type.GenericTypeArguments.FirstOrDefault();
+                    if (dic.TryGetValue(firstType ?? throw new InvalidOperationException(), out var returnType))
+                    {
+                        return $"{returnType}[]";
+                    }
+                    return $@"{type.GenericTypeArguments.FirstOrDefault()?.FullName}[]";
+                }
+
+
+                var name = genericType?.FullName?.Substring(0,
+                    genericType.FullName.IndexOf("`", StringComparison.Ordinal));
+                return $@"{name}<{
+                    string.Join(", ",
+                        type.GenericTypeArguments.Select(GetTypeString))}>";
+            }
+
+
             return dic.TryGetValue(type, out var result) ? result : type.FullName;
         }
 
@@ -109,23 +117,24 @@ namespace Rainbow.TypeScript
             return true;
         }
 
-        public static string GetVueActionTemplate(this RainbowAction action)
+        public static string GetActionTemplate(this RainbowAction action, TypeScriptServiceType type)
         {
             switch (action.Method)
             {
                 case "get":
                     return string.IsNullOrEmpty(action.ArgsStr)
-                        ? GetTemplate("ServiceMethods.Vue.GetMethod")
-                        : GetTemplate("ServiceMethods.Vue.GetMethodWithArgument");
+                        ? GetTemplate($"{type}.ServiceMethods.GetMethod")
+                        : action.IsClassArguments
+                            ? GetTemplate($"{type}.ServiceMethods.GetMethodWithObjectArgument")
+                            : GetTemplate($"{type}.ServiceMethods.GetMethodWithArgument");
                 case "post":
-                    return GetTemplate("ServiceMethods.Vue.PostMethod");
+                    return GetTemplate($"{type}.ServiceMethods.PostMethod");
                 case "put":
-                    return GetTemplate("ServiceMethods.Vue.PutMethod");
+                    return action.IsClassArguments? GetTemplate($"{type}.ServiceMethods.PutMethodWithObjectArgument") : GetTemplate($"{type}.ServiceMethods.PutMethod");
                 case "delete":
-                    return GetTemplate("ServiceMethods.Vue.DeleteMethod");
+                    return GetTemplate($"{type}.ServiceMethods.DeleteMethod");
             }
-
-            return null;
+            throw new ArgumentException();
         }
 
 

@@ -15,6 +15,6 @@ export class TypeQueryService {
   public Query(keyword: string)
     : Observable<string[]> {
     return this.http.get<string[]>
-      (`${this.baseUrl}TypeQueryService/Query/${keyword}`, getHttpOptions());
+      (`${this.baseUrl}TypeQueryService/Query/${keyword}?keyword=${keyword}`, { ...getHttpOptions() });
   }
 }

@@ -15,7 +15,7 @@ export class EnumDisplayService {
   public GetEnumDisplayList()
     : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.EnumDisplayVM[]>> {
     return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.EnumDisplayVM[]>>
-      (`${this.baseUrl}api/EnumDisplay/List`, getHttpOptions());
+      (`${this.baseUrl}api/EnumDisplay/List`, { ...getHttpOptions() });
   }
 
   /**
@@ -24,6 +24,6 @@ export class EnumDisplayService {
   public GetEnumDisplay(name: string)
     : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.EnumDisplayVM>> {
     return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.EnumDisplayVM>>
-      (`${this.baseUrl}api/EnumDisplay/${name}`, getHttpOptions());
+      (`${this.baseUrl}api/EnumDisplay/${name}?name=${name}`, { ...getHttpOptions() });
   }
 }

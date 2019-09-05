@@ -1,5 +1,5 @@
 ﻿  public $action.Name$($action.ArgParamsStr$)
     : Observable<$action.ReturnStr$> {
     return this.http.get<$action.ReturnStr$>
-      (`${this.baseUrl}$action.Url$?$action.ArgsStr$=${$action.ArgsStr$}`, { ...getHttpOptions() });
+      (`${this.baseUrl}$action.Url$?${stringify($action.ArgsStr$)}`, { ...getHttpOptions() });
   }

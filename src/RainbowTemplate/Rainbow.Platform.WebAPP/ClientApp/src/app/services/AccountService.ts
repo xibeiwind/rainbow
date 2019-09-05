@@ -12,10 +12,10 @@ export class AccountService {
   /**
    * 用户注册
    */
-  public RegisterAsync(vm: Rainbow.ViewModels.Users.RegisterUserVM)
+  public Register(vm: Rainbow.ViewModels.Users.RegisterUserVM)
     : Observable<Yunyong.Core.AsyncTaskResult> {
     return this.http.post<Yunyong.Core.AsyncTaskResult>
-      (`${this.baseUrl}api/Account/Register`, { params: vm, ...getHttpOptions() });
+      (`${this.baseUrl}api/Account/Register`, { ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -24,7 +24,7 @@ export class AccountService {
   public Login(vm: Rainbow.ViewModels.Users.LoginVM)
     : Observable<Rainbow.ViewModels.Users.LoginResultVM> {
     return this.http.post<Rainbow.ViewModels.Users.LoginResultVM>
-      (`${this.baseUrl}api/Account/Login`, { params: vm, ...getHttpOptions() });
+      (`${this.baseUrl}api/Account/Login`, { ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -33,9 +33,8 @@ export class AccountService {
   public Logout()
     : Observable<Yunyong.Core.AsyncTaskTResult<boolean>> {
     return this.http.post<Yunyong.Core.AsyncTaskTResult<boolean>>
-      (`${this.baseUrl}api/Account/Logout`, null, getHttpOptions());
+      (`${this.baseUrl}api/Account/Logout`, { ...{} }, { ...getHttpOptions() });
   }
-
 
   /**
    * 获取用户信息
@@ -52,7 +51,7 @@ export class AccountService {
   public IsLogin()
     : Observable<boolean> {
     return this.http.get<boolean>
-      (`${this.baseUrl}api/Account/IsLogin`, getHttpOptions());
+      (`${this.baseUrl}api/Account/IsLogin`, { ...getHttpOptions() });
   }
 
   /**
@@ -61,6 +60,6 @@ export class AccountService {
   public UserInRole(roleName: string)
     : Observable<Yunyong.Core.AsyncTaskTResult<boolean>> {
     return this.http.get<Yunyong.Core.AsyncTaskTResult<boolean>>
-      (`${this.baseUrl}api/Account/UserInRole/${roleName}`, getHttpOptions());
+      (`${this.baseUrl}api/Account/UserInRole/${roleName}?roleName=${roleName}`, { ...getHttpOptions() });
   }
 }

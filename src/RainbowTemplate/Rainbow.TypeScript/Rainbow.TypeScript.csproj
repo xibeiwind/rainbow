@@ -9,9 +9,11 @@
     <None Remove="Template\Angular\ServiceMethods\DeleteMethodWithArgument.txt" />
     <None Remove="Template\Angular\ServiceMethods\GetMethod.txt" />
     <None Remove="Template\Angular\ServiceMethods\GetMethodWithArgument.txt" />
+    <None Remove="Template\Angular\ServiceMethods\GetMethodWithObjectArgument.txt" />
     <None Remove="Template\Angular\ServiceMethods\LogoutMethod.txt" />
     <None Remove="Template\Angular\ServiceMethods\PostMethod.txt" />
     <None Remove="Template\Angular\ServiceMethods\PutMethod.txt" />
+    <None Remove="Template\Angular\ServiceMethods\PutMethodWithObjectArgument.txt" />
     <None Remove="Template\Angular\ServiceMethods\UploadPictureFileMethod.txt" />
     <None Remove="Template\Service.txt" />
     <None Remove="Template\Vue\DeleteMethod.txt" />
@@ -31,9 +33,11 @@
     <EmbeddedResource Include="Template\Angular\ServiceMethods\DeleteMethod.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\DeleteMethodWithArgument.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\GetMethod.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\GetMethodWithObjectArgument.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\GetMethodWithArgument.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\LogoutMethod.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\PostMethod.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\PutMethodWithObjectArgument.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\PutMethod.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\UploadPictureFileMethod.txt" />
     <EmbeddedResource Include="Template\Vue\ServiceMethods\DeleteMethod.txt" />

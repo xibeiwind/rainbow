@@ -44,7 +44,7 @@ namespace Rainbow.TypeScript
                 var actions = model.GetMethods(BindingFlags.Public | BindingFlags.Default | BindingFlags.Instance |
                                                BindingFlags.DeclaredOnly);
 
-                var presentActions = actions.Select(GetRainbowAction).ToList();
+                var presentActions = actions.Select(info => GetRainbowAction(info, urlBase)).ToList();
 
                 var template = GetTemplate($"{setting.ServiceType}.Service");
 
@@ -64,7 +64,7 @@ namespace Rainbow.TypeScript
    * {action.Description}
    */
 ";
-            var template = comments + GetActionTemplate(action, type);
+            var template = comments + action.GetActionTemplate(type);
 
             return template.Replace("$action.Name$", action.Name)
                 .Replace("$action.ArgParamsStr$", action.ArgParamsStr)
@@ -75,27 +75,10 @@ namespace Rainbow.TypeScript
                 .Replace("$action.Url$", action.Url);
         }
 
-        private string GetActionTemplate(RainbowAction action, TypeScriptServiceType type)
-        {
-            switch (action.Method)
-            {
-                case "get":
-                    return string.IsNullOrEmpty(action.ArgsStr)
-                        ? GetTemplate($"{type}.ServiceMethods.GetMethod")
-                        : GetTemplate($"{type}.ServiceMethods.GetMethodWithArgument");
-                case "post":
-                    return GetTemplate($"{type}.ServiceMethods.PostMethod");
-                case "put":
-                    return GetTemplate($"{type}.ServiceMethods.PutMethod");
-                case "delete":
-                    return GetTemplate($"{type}.ServiceMethods.DeleteMethod");
-            }
-
-            return null;
-        }
 
 
-        private RainbowAction GetRainbowAction(MethodInfo method)
+
+        private RainbowAction GetRainbowAction(MethodInfo method, string urlBase)
         {
             var routeAttr = method.GetCustomAttribute<RouteAttribute>();
             routeAttr = routeAttr ?? new RouteAttribute("");
@@ -104,7 +87,7 @@ namespace Rainbow.TypeScript
             if (Regex.IsMatch(methodName, "{")) methodName = Regex.Match(methodName, @"(.*){").Groups[1].Value;
 
             var description = method.GetCustomAttribute<DisplayAttribute>()?.Name ?? methodName;
-            var url = $"{routeAttr.Template}".Replace("{", "${");
+            var url = $"{urlBase}/{routeAttr.Template}".Replace("{", "${");
 
             var returnStr = method.GetReturnTypeString();
             var httpMethod = method.GetHttpMethod();
@@ -119,7 +102,7 @@ namespace Rainbow.TypeScript
                 ArgsStr = method.GetArgumentsString(),
                 Method = httpMethod,
                 Url = url,
-                IsBaseType = !method.IsClassArguments()
+                IsClassArguments = method.IsClassArguments()
             };
         }
 

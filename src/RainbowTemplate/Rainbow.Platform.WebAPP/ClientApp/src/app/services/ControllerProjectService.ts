@@ -15,7 +15,7 @@ export class ControllerProjectService {
   public CreateAsync(vm: Rainbow.ViewModels.ControllerProjects.CreateControllerProjectVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
     return this.http.post<Yunyong.Core.AsyncTaskTResult<string>>
-      (`${this.baseUrl}api/ControllerProject/Create`, vm, getHttpOptions());
+      (`${this.baseUrl}api/ControllerProject/Create`, { ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -24,7 +24,7 @@ export class ControllerProjectService {
   public UpdateAsync(vm: Rainbow.ViewModels.ControllerProjects.UpdateControllerProjectVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
     return this.http.put<Yunyong.Core.AsyncTaskTResult<string>>
-      (`${this.baseUrl}api/ControllerProject/Update`, vm, getHttpOptions());
+      (`${this.baseUrl}api/ControllerProject/Update`, { ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -33,7 +33,7 @@ export class ControllerProjectService {
   public QueryAsync(option: Rainbow.ViewModels.ControllerProjects.QueryControllerProjectVM)
     : Observable<Yunyong.Core.PagingList<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM>> {
     return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM>>
-      (`${this.baseUrl}api/ControllerProject/Query?${stringify(option)}`, getHttpOptions());
+      (`${this.baseUrl}api/ControllerProject/Query?${stringify(option)}`, { ...getHttpOptions() });
   }
 
   /**
@@ -42,7 +42,7 @@ export class ControllerProjectService {
   public GetAsync(id: string)
     : Observable<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM> {
     return this.http.get<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM>
-      (`${this.baseUrl}api/ControllerProject?${stringify(id)}`, getHttpOptions());
+      (`${this.baseUrl}api/ControllerProject/?id=${id}`, { ...getHttpOptions() });
   }
 
   /**
@@ -51,15 +51,15 @@ export class ControllerProjectService {
   public GetListAsync()
     : Observable<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM[]> {
     return this.http.get<Rainbow.ViewModels.ControllerProjects.ControllerProjectVM[]>
-      (`${this.baseUrl}api/ControllerProject/List`, getHttpOptions());
+      (`${this.baseUrl}api/ControllerProject/List`, { ...getHttpOptions() });
   }
 
   /**
    * 删除Controller项目
    */
-  public DeleteAsync(vm: Rainbow.ViewModels.ControllerProjects.DeleteControllerProjectVM)
+  public  DeleteAsync(vm: Rainbow.ViewModels.ControllerProjects.DeleteControllerProjectVM)
     : Observable<Yunyong.Core.AsyncTaskResult> {
     return this.http.delete<Yunyong.Core.AsyncTaskResult>
-      (`${this.baseUrl}api/ControllerProject/Delete?${stringify(vm)}`, getHttpOptions());
+      (`${this.baseUrl}api/ControllerProject/Delete`, { params: { ...vm }, ...getHttpOptions() });
   }
 }

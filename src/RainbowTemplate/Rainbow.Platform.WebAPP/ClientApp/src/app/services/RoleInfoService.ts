@@ -15,7 +15,7 @@ export class RoleInfoService {
   public CreateAsync(vm: Rainbow.ViewModels.RoleInfos.CreateRoleInfoVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
     return this.http.post<Yunyong.Core.AsyncTaskTResult<string>>
-      (`${this.baseUrl}api/RoleInfo/Create`, vm, getHttpOptions());
+      (`${this.baseUrl}api/RoleInfo/Create`, { ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -24,7 +24,7 @@ export class RoleInfoService {
   public UpdateAsync(vm: Rainbow.ViewModels.RoleInfos.UpdateRoleInfoVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
     return this.http.put<Yunyong.Core.AsyncTaskTResult<string>>
-      (`${this.baseUrl}api/RoleInfo/Update`, vm, getHttpOptions());
+      (`${this.baseUrl}api/RoleInfo/Update`, { ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -33,7 +33,7 @@ export class RoleInfoService {
   public QueryAsync(option: Rainbow.ViewModels.RoleInfos.QueryRoleInfoVM)
     : Observable<Yunyong.Core.PagingList<Rainbow.ViewModels.RoleInfos.RoleInfoVM>> {
     return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.RoleInfos.RoleInfoVM>>
-      (`${this.baseUrl}api/RoleInfo/Query?${stringify(option)}`, getHttpOptions());
+      (`${this.baseUrl}api/RoleInfo/Query?${stringify(option)}`, { ...getHttpOptions() });
   }
 
   /**
@@ -42,7 +42,7 @@ export class RoleInfoService {
   public GetAsync(id: string)
     : Observable<Rainbow.ViewModels.RoleInfos.RoleInfoVM> {
     return this.http.get<Rainbow.ViewModels.RoleInfos.RoleInfoVM>
-      (`${this.baseUrl}api/RoleInfo?${stringify(id)}`, getHttpOptions());
+      (`${this.baseUrl}api/RoleInfo/?id=${id}`, { ...getHttpOptions() });
   }
 
   /**
@@ -51,15 +51,15 @@ export class RoleInfoService {
   public GetListAsync()
     : Observable<Rainbow.ViewModels.RoleInfos.RoleInfoVM[]> {
     return this.http.get<Rainbow.ViewModels.RoleInfos.RoleInfoVM[]>
-      (`${this.baseUrl}api/RoleInfo/List`, getHttpOptions());
+      (`${this.baseUrl}api/RoleInfo/List`, { ...getHttpOptions() });
   }
 
   /**
    * 删除角色
    */
-  public DeleteAsync(vm: Rainbow.ViewModels.RoleInfos.DeleteRoleInfoVM)
+  public  DeleteAsync(vm: Rainbow.ViewModels.RoleInfos.DeleteRoleInfoVM)
     : Observable<Yunyong.Core.AsyncTaskResult> {
     return this.http.delete<Yunyong.Core.AsyncTaskResult>
-      (`${this.baseUrl}api/RoleInfo/Delete?${stringify(vm)}`, getHttpOptions());
+      (`${this.baseUrl}api/RoleInfo/Delete`, { params: { ...vm }, ...getHttpOptions() });
   }
 }

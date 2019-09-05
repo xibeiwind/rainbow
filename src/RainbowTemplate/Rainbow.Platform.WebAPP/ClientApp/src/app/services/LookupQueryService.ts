@@ -15,6 +15,6 @@ export class LookupQueryService {
   public Query(vm: Rainbow.ViewModels.LookupQueryVM)
     : Observable<any> {
     return this.http.post<any>
-      (`${this.baseUrl}api/LookupQuery/Query`, vm, getHttpOptions());
+      (`${this.baseUrl}api/LookupQuery/Query`, { ...vm }, { ...getHttpOptions() });
   }
 }

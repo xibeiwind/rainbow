@@ -24,14 +24,19 @@ namespace Rainbow.TypeLiteConsoleApp
                 typeof(PagingList<>)
             };
 
-            helper.GenerateTypeScriptContracts( new ContractSetting()
+            helper.GenerateTypeScriptContracts(new ContractSetting()
             {
                 Assembly = Assembly.Load("Rainbow.ViewModels"),
                 OutputPath = $@"{Path.Combine(args[0], @"Rainbow.Platform.WebAPP\ClientApp\src\app")}",
                 ExtTypes = types
             });
 
-            helper.GenerateTypeScriptServices(new TypeScriptServiceSetting(Assembly.Load("Rainbow.Platform.Controllers"), TypeScriptServiceType.Angular, $@"{Path.Combine(args[0], @"Rainbow.Platform.WebAPP\ClientApp\src\app", "service")}"));
+            helper.GenerateTypeScriptServices(new TypeScriptServiceSetting
+            {
+                Assembly = Assembly.Load("Rainbow.Platform.Controllers"),
+                ServiceType = TypeScriptServiceType.Angular,
+                OutputPath = $@"{Path.Combine(args[0], @"Rainbow.Platform.WebAPP\ClientApp\src\app", "services")}"
+            });
 
             //helper.GenerateTypeScriptContracts(Assembly.Load("Rainbow.ViewModels"),
             //    $@"{Path.Combine(args[0], @"VueServiceTS")}", types.ToArray());

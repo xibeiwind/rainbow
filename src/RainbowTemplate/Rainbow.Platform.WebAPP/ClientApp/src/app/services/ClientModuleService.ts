@@ -15,7 +15,7 @@ export class ClientModuleService {
   public CreateAsync(vm: Rainbow.ViewModels.ClientModules.CreateClientModuleVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
     return this.http.post<Yunyong.Core.AsyncTaskTResult<string>>
-      (`${this.baseUrl}api/ClientModule/Create`, vm, getHttpOptions());
+      (`${this.baseUrl}api/ClientModule/Create`, { ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -24,7 +24,7 @@ export class ClientModuleService {
   public UpdateAsync(vm: Rainbow.ViewModels.ClientModules.UpdateClientModuleVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<string>> {
     return this.http.put<Yunyong.Core.AsyncTaskTResult<string>>
-      (`${this.baseUrl}api/ClientModule/Update`, vm, getHttpOptions());
+      (`${this.baseUrl}api/ClientModule/Update`, { ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -33,7 +33,7 @@ export class ClientModuleService {
   public QueryAsync(option: Rainbow.ViewModels.ClientModules.QueryClientModuleVM)
     : Observable<Yunyong.Core.PagingList<Rainbow.ViewModels.ClientModules.ClientModuleVM>> {
     return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.ClientModules.ClientModuleVM>>
-      (`${this.baseUrl}api/ClientModule/Query?${stringify(option)}`, getHttpOptions());
+      (`${this.baseUrl}api/ClientModule/Query?${stringify(option)}`, { ...getHttpOptions() });
   }
 
   /**
@@ -42,7 +42,7 @@ export class ClientModuleService {
   public GetAsync(id: string)
     : Observable<Rainbow.ViewModels.ClientModules.ClientModuleVM> {
     return this.http.get<Rainbow.ViewModels.ClientModules.ClientModuleVM>
-      (`${this.baseUrl}api/ClientModule?${stringify(id)}`, getHttpOptions());
+      (`${this.baseUrl}api/ClientModule/?id=${id}`, { ...getHttpOptions() });
   }
 
   /**
@@ -51,15 +51,15 @@ export class ClientModuleService {
   public GetListAsync()
     : Observable<Rainbow.ViewModels.ClientModules.ClientModuleVM[]> {
     return this.http.get<Rainbow.ViewModels.ClientModules.ClientModuleVM[]>
-      (`${this.baseUrl}api/ClientModule/List`, getHttpOptions());
+      (`${this.baseUrl}api/ClientModule/List`, { ...getHttpOptions() });
   }
 
   /**
    * 删除客户端模块
    */
-  public DeleteAsync(vm: Rainbow.ViewModels.ClientModules.DeleteClientModuleVM)
+  public  DeleteAsync(vm: Rainbow.ViewModels.ClientModules.DeleteClientModuleVM)
     : Observable<Yunyong.Core.AsyncTaskResult> {
     return this.http.delete<Yunyong.Core.AsyncTaskResult>
-      (`${this.baseUrl}api/ClientModule/Delete?${stringify(vm)}`, getHttpOptions());
+      (`${this.baseUrl}api/ClientModule/Delete`, { params: { ...vm }, ...getHttpOptions() });
   }
 }

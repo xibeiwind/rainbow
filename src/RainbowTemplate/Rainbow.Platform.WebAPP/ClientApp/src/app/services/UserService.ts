@@ -15,7 +15,7 @@ export class UserService {
   public GetAsync(id: string)
     : Observable<any> {
     return this.http.get<any>
-      (`${this.baseUrl}api/User?${stringify(id)}`, getHttpOptions());
+      (`${this.baseUrl}api/User/?id=${id}`, { ...getHttpOptions() });
   }
 
   /**
@@ -24,7 +24,7 @@ export class UserService {
   public GetListAsync()
     : Observable<any> {
     return this.http.get<any>
-      (`${this.baseUrl}api/User/List`, getHttpOptions());
+      (`${this.baseUrl}api/User/List`, { ...getHttpOptions() });
   }
 
   /**
@@ -33,7 +33,7 @@ export class UserService {
   public QueryAsync(option: Rainbow.ViewModels.Users.QueryUserVM)
     : Observable<any> {
     return this.http.get<any>
-      (`${this.baseUrl}api/User/Query?${stringify(option)}`, getHttpOptions());
+      (`${this.baseUrl}api/User/Query?${stringify(option)}`, { ...getHttpOptions() });
   }
 
   /**
@@ -42,7 +42,7 @@ export class UserService {
   public CreateAsync(vm: Rainbow.ViewModels.Users.CreateUserVM)
     : Observable<any> {
     return this.http.post<any>
-      (`${this.baseUrl}api/User/Create`, vm, getHttpOptions());
+      (`${this.baseUrl}api/User/Create`, { ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -51,15 +51,15 @@ export class UserService {
   public UpdateAsync(vm: Rainbow.ViewModels.Users.UpdateUserVM)
     : Observable<any> {
     return this.http.put<any>
-      (`${this.baseUrl}api/User/Update`, vm, getHttpOptions());
+      (`${this.baseUrl}api/User/Update`, { ...vm }, { ...getHttpOptions() });
   }
 
   /**
    * 删除User
    */
-  public DeleteAsync(vm: Rainbow.ViewModels.Users.DeleteUserVM)
+  public  DeleteAsync(vm: Rainbow.ViewModels.Users.DeleteUserVM)
     : Observable<any> {
     return this.http.delete<any>
-      (`${this.baseUrl}api/User/Delete?${stringify(vm)}`, getHttpOptions());
+      (`${this.baseUrl}api/User/Delete`, { params: { ...vm }, ...getHttpOptions() });
   }
 }

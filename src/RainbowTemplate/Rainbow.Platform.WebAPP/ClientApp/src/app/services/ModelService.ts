@@ -15,7 +15,7 @@ export class ModelService {
   public CreateUpdateFiles(vm: Rainbow.ViewModels.Models.CreateModelSuitApplyVM)
     : Observable<boolean> {
     return this.http.post<boolean>
-      (`${this.baseUrl}api/Model/CreateUpdate`, vm, getHttpOptions());
+      (`${this.baseUrl}api/Model/CreateUpdate`, { ...vm }, { ...getHttpOptions() });
   }
 
   /**
@@ -24,7 +24,7 @@ export class ModelService {
   public GetModelTypes()
     : Observable<Rainbow.ViewModels.Models.ModelTypeVM[]> {
     return this.http.get<Rainbow.ViewModels.Models.ModelTypeVM[]>
-      (`${this.baseUrl}api/Model/List`, getHttpOptions());
+      (`${this.baseUrl}api/Model/List`, { ...getHttpOptions() });
   }
 
   /**
@@ -33,7 +33,7 @@ export class ModelService {
   public RegenerateTsCode()
     : Observable<Yunyong.Core.AsyncTaskTResult<boolean>> {
     return this.http.post<Yunyong.Core.AsyncTaskTResult<boolean>>
-      (`${this.baseUrl}api/Model/RegenerateTsCode`, {}, getHttpOptions());
+      (`${this.baseUrl}api/Model/RegenerateTsCode`, { ...{} }, { ...getHttpOptions() });
   }
 
   /**
@@ -42,6 +42,6 @@ export class ModelService {
   public UpdateAppRoutingModule()
     : Observable<Yunyong.Core.AsyncTaskTResult<boolean>> {
     return this.http.post<Yunyong.Core.AsyncTaskTResult<boolean>>
-      (`${this.baseUrl}api/Model/UpdateAppRoutingModule`, {}, getHttpOptions());
+      (`${this.baseUrl}api/Model/UpdateAppRoutingModule`, { ...{} }, { ...getHttpOptions() });
   }
 }
