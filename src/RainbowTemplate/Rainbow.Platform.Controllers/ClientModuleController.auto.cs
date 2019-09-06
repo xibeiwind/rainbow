@@ -17,8 +17,8 @@ namespace Rainbow.Platform.Controllers
     [Display(Name = "ClientModule Controller")]
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
-    public class ClientModuleController: Controller
+    [Authorize(Roles="SysAdmin")]
+    public partial class ClientModuleController: Controller
 	{
 		/// <summary>
 		///     ClientModule Controller构造函数
@@ -32,7 +32,6 @@ namespace Rainbow.Platform.Controllers
         private IClientModuleActionService ActionService { get; }
         private IClientModuleQueryService QueryService { get; }
 
-
         /// <summary>
         ///     创建客户端模块
         /// </summary>
@@ -44,7 +43,6 @@ namespace Rainbow.Platform.Controllers
         {
             return await ActionService.CreateAsync(vm);
         }
-
         /// <summary>
         ///     更新客户端模块
         /// </summary>
@@ -56,25 +54,25 @@ namespace Rainbow.Platform.Controllers
         {
             return await ActionService.UpdateAsync(vm);
         }
-
         /// <summary>
         ///     查询客户端模块列表（分页）
         /// </summary>
         [Display(Name = "查询客户端模块列表（分页）")]
         [HttpGet]
         [Route("Query")]
+        [Authorize]
         [ProducesDefaultResponseType(typeof(PagingList<ClientModuleVM>))]
         public async Task<PagingList<ClientModuleVM>> QueryAsync([FromQuery]QueryClientModuleVM option)
         {
             return await QueryService.QueryAsync(option);
         }
-
         /// <summary>
         ///     获取客户端模块
         /// </summary>
         [Display(Name = "获取客户端模块")]
         [HttpGet]
         [Route("")]
+        [Authorize]
         [ProducesDefaultResponseType(typeof(ClientModuleVM))]
         public async Task < ClientModuleVM > GetAsync(Guid id)
         {
@@ -87,11 +85,13 @@ namespace Rainbow.Platform.Controllers
         [Display(Name = "获取客户端模块列表")]
         [HttpGet]
         [Route("List")]
+        [Authorize]
         [ProducesDefaultResponseType(typeof(List<ClientModuleVM>))]
         public async Task < List<ClientModuleVM> > GetListAsync()
         {
             return await QueryService.GetListAsync();
         }
+
 
         /// <summary>
         ///     删除客户端模块

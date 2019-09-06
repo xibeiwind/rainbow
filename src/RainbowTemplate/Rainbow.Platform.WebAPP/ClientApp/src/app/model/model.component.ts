@@ -1,3 +1,5 @@
+// tslint:disable:no-string-literal
+
 import { Component, OnInit } from '@angular/core';
 import { ModelService } from '../services/ModelService';
 import { ToastrService } from 'ngx-toastr';
@@ -47,6 +49,7 @@ export class ModelComponent implements OnInit {
   clientModules: Rainbow.ViewModels.ClientModules.ClientModuleVM[];
   controllerProjects: Rainbow.ViewModels.ControllerProjects.ControllerProjectVM[];
   roles: Rainbow.ViewModels.RoleInfos.RoleInfoVM[];
+  roleNames: string[];
 
   constructor(private service: ModelService,
     private displayService: ViewModelDisplayService,
@@ -67,6 +70,7 @@ export class ModelComponent implements OnInit {
     });
     this.roleService.GetListAsync().subscribe(res => {
       this.roles = res;
+      this.roleNames = res.map(a => a.Name);
     });
   }
 
@@ -86,6 +90,7 @@ export class ModelComponent implements OnInit {
             Type: item.Type,
             DisplayName: this.getDisplayName(item),
             Name: item.Name,
+            WithAuthorize: false,
             ActionName: this.getActionName(item),
             Fields: item.Fields.map(f => f.Name),
           };
@@ -124,16 +129,17 @@ export class ModelComponent implements OnInit {
 
   createNewVM(typeStr: string = 'Create') {
     const typeObj = {
-      'Create': Rainbow.Common.Enums.VMType.Create,
-      'Update': Rainbow.Common.Enums.VMType.Update,
-      'Display': Rainbow.Common.Enums.VMType.Display,
-      'Query': Rainbow.Common.Enums.VMType.Query,
+      Create: Rainbow.Common.Enums.VMType.Create,
+      Update: Rainbow.Common.Enums.VMType.Update,
+      Display: Rainbow.Common.Enums.VMType.Display,
+      Query: Rainbow.Common.Enums.VMType.Query,
     };
-    let vm: Rainbow.ViewModels.Models.CreateViewModelApplyVM = {
+    const vm: Rainbow.ViewModels.Models.CreateViewModelApplyVM = {
       Type: typeObj[typeStr],
       DisplayName: '',
       Name: '',
       ActionName: '',
+      WithAuthorize: true,
       Fields: [],
     };
     vm['field'] = {};
@@ -192,7 +198,9 @@ export class ModelComponent implements OnInit {
           Name: a.Name,
           DisplayName: a.DisplayName,
           Fields: a.Fields,
-          Type: a.Type
+          Type: a.Type,
+          WithAuthorize: a.WithAuthorize,
+          AuthorizeRoles: a.AuthorizeRoles
         };
       }),
     };

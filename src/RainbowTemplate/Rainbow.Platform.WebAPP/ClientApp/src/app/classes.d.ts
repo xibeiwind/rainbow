@@ -236,7 +236,7 @@ declare namespace Rainbow.ViewModels.Messages {
 declare namespace Rainbow.ViewModels.Models {
   interface CreateModelSuitApplyVM {
     // 权限允许角色
-    AuthorizeRole?: string;
+    AuthorizeRoles?: string[];
     // Controller项目名称
     ControllerProjectName?: string;
     // Controller是否要权限控制
@@ -267,16 +267,20 @@ declare namespace Rainbow.ViewModels.Models {
     UpdateTsServices: boolean;
   }
   interface CreateViewModelApplyVM {
-    // ActionName
+    // 操作名称
     ActionName?: string;
-    // DisplayName
+    // 授权角色
+    AuthorizeRoles?: string[];
+    // 显示名称
     DisplayName?: string;
     // Fields
     Fields?: string[];
-    // Name
+    // 名称
     Name?: string;
-    // Type
+    // 操作类型
     Type: Rainbow.Common.Enums.VMType;
+    // 添加权限控制
+    WithAuthorize: boolean;
   }
   interface FieldVM {
     // DisplayName

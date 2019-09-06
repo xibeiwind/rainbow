@@ -1,0 +1,8 @@
+<ng-container>
+  <span *ngFor="let item of items" style="margin-right: 20px;">
+    <label>
+      {{item.name}}
+      <input type="checkbox" [(ngModel)]="item.checked" (ngModelChange)="onSelectChanged()">
+    </label>
+  </span>
+</ng-container>

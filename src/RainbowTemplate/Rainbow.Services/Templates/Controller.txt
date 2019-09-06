@@ -17,7 +17,7 @@ namespace $ControllerProjectName$
     [Display(Name = "$DisplayName$")]
     [ApiController]
     [Route("api/[controller]")]$ControllerAuthorize$
-    public class $Model$Controller: Controller
+    public partial class $Model$Controller: Controller
 	{
 		/// <summary>
 		///     $DisplayName$构造函数

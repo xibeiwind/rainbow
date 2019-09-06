@@ -17,8 +17,8 @@ namespace Rainbow.Platform.Controllers
     [Display(Name = "RoleInfo Controller")]
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
-    public class RoleInfoController: Controller
+    [Authorize(Roles="SysAdmin")]
+    public partial class RoleInfoController: Controller
 	{
 		/// <summary>
 		///     RoleInfo Controller构造函数
@@ -32,7 +32,6 @@ namespace Rainbow.Platform.Controllers
         private IRoleInfoActionService ActionService { get; }
         private IRoleInfoQueryService QueryService { get; }
 
-
         /// <summary>
         ///     创建角色
         /// </summary>
@@ -44,7 +43,6 @@ namespace Rainbow.Platform.Controllers
         {
             return await ActionService.CreateAsync(vm);
         }
-
         /// <summary>
         ///     更新角色
         /// </summary>
@@ -56,25 +54,25 @@ namespace Rainbow.Platform.Controllers
         {
             return await ActionService.UpdateAsync(vm);
         }
-
         /// <summary>
         ///     查询角色列表（分页）
         /// </summary>
         [Display(Name = "查询角色列表（分页）")]
         [HttpGet]
         [Route("Query")]
+        [Authorize]
         [ProducesDefaultResponseType(typeof(PagingList<RoleInfoVM>))]
         public async Task<PagingList<RoleInfoVM>> QueryAsync([FromQuery]QueryRoleInfoVM option)
         {
             return await QueryService.QueryAsync(option);
         }
-
         /// <summary>
         ///     获取角色
         /// </summary>
         [Display(Name = "获取角色")]
         [HttpGet]
         [Route("")]
+        [Authorize]
         [ProducesDefaultResponseType(typeof(RoleInfoVM))]
         public async Task < RoleInfoVM > GetAsync(Guid id)
         {
@@ -87,11 +85,13 @@ namespace Rainbow.Platform.Controllers
         [Display(Name = "获取角色列表")]
         [HttpGet]
         [Route("List")]
+        [Authorize]
         [ProducesDefaultResponseType(typeof(List<RoleInfoVM>))]
         public async Task < List<RoleInfoVM> > GetListAsync()
         {
             return await QueryService.GetListAsync();
         }
+
 
         /// <summary>
         ///     删除角色

@@ -8,6 +8,11 @@
   <ItemGroup>
     <None Remove="Templates\ActionService.txt" />
     <None Remove="Templates\Controller.txt" />
+    <None Remove="Templates\ControllerActions\CreateAction.txt" />
+    <None Remove="Templates\ControllerActions\DeleteAction.txt" />
+    <None Remove="Templates\ControllerActions\DisplayAndListAction.txt" />
+    <None Remove="Templates\ControllerActions\QueryAction.txt" />
+    <None Remove="Templates\ControllerActions\UpdateAction.txt" />
     <None Remove="Templates\HostingStartup.txt" />
     <None Remove="Templates\IActionService.txt" />
     <None Remove="Templates\IQueryService.txt" />
@@ -28,6 +33,11 @@
   <ItemGroup>
     <EmbeddedResource Include="Templates\ActionService.txt" />
     <EmbeddedResource Include="Templates\Controller.txt" />
+    <EmbeddedResource Include="Templates\ControllerActions\CreateAction.txt" />
+    <EmbeddedResource Include="Templates\ControllerActions\DeleteAction.txt" />
+    <EmbeddedResource Include="Templates\ControllerActions\DisplayAndListAction.txt" />
+    <EmbeddedResource Include="Templates\ControllerActions\QueryAction.txt" />
+    <EmbeddedResource Include="Templates\ControllerActions\UpdateAction.txt" />
     <EmbeddedResource Include="Templates\HostingStartup.txt" />
     <EmbeddedResource Include="Templates\IActionService.txt" />
     <EmbeddedResource Include="Templates\IQueryService.txt" />

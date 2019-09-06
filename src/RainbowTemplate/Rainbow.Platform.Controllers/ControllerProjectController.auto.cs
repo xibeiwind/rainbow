@@ -17,8 +17,8 @@ namespace Rainbow.Platform.Controllers
     [Display(Name = "ControllerProject Controller")]
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
-    public class ControllerProjectController: Controller
+    [Authorize(Roles="SysAdmin")]
+    public partial class ControllerProjectController: Controller
 	{
 		/// <summary>
 		///     ControllerProject Controller构造函数
@@ -32,7 +32,6 @@ namespace Rainbow.Platform.Controllers
         private IControllerProjectActionService ActionService { get; }
         private IControllerProjectQueryService QueryService { get; }
 
-
         /// <summary>
         ///     创建Controller项目
         /// </summary>
@@ -44,7 +43,6 @@ namespace Rainbow.Platform.Controllers
         {
             return await ActionService.CreateAsync(vm);
         }
-
         /// <summary>
         ///     更新Controller项目
         /// </summary>
@@ -56,25 +54,25 @@ namespace Rainbow.Platform.Controllers
         {
             return await ActionService.UpdateAsync(vm);
         }
-
         /// <summary>
         ///     查询Controller项目列表（分页）
         /// </summary>
         [Display(Name = "查询Controller项目列表（分页）")]
         [HttpGet]
         [Route("Query")]
+        [Authorize]
         [ProducesDefaultResponseType(typeof(PagingList<ControllerProjectVM>))]
         public async Task<PagingList<ControllerProjectVM>> QueryAsync([FromQuery]QueryControllerProjectVM option)
         {
             return await QueryService.QueryAsync(option);
         }
-
         /// <summary>
         ///     获取Controller项目
         /// </summary>
         [Display(Name = "获取Controller项目")]
         [HttpGet]
         [Route("")]
+        [Authorize]
         [ProducesDefaultResponseType(typeof(ControllerProjectVM))]
         public async Task < ControllerProjectVM > GetAsync(Guid id)
         {
@@ -87,11 +85,13 @@ namespace Rainbow.Platform.Controllers
         [Display(Name = "获取Controller项目列表")]
         [HttpGet]
         [Route("List")]
+        [Authorize]
         [ProducesDefaultResponseType(typeof(List<ControllerProjectVM>))]
         public async Task < List<ControllerProjectVM> > GetListAsync()
         {
             return await QueryService.GetListAsync();
         }
+
 
         /// <summary>
         ///     删除Controller项目

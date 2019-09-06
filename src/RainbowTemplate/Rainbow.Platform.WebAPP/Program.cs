@@ -25,7 +25,7 @@ namespace Rainbow.Platform.WebAPP
                     config.AddJsonFile("EventBusConfig.json");
                     if (context.HostingEnvironment.IsDevelopment())
                     {
-                        config.AddJsonFile("EventBusConfig.Development.json");
+                        config.AddJsonFile("CacheSettings.Development.json");
                     }
                 })
                 .UseStartup<Startup>();

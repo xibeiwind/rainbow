@@ -57,7 +57,7 @@ namespace Rainbow.ViewModels.Models
         ///     权限允许角色
         /// </summary>
         [Display(Name = "权限允许角色")]
-        public string AuthorizeRole { get; set; }
+        public List<string> AuthorizeRoles { get; set; }
         /// <summary>
         ///     生成Angular组件页面
         /// </summary>

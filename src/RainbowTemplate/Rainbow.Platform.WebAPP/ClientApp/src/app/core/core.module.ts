@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { PagingDataListComponent } from './paging-data-list/paging-data-list.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { CheckboxListComponent } from './checkbox-list/checkbox-list.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     CreateModalComponent,
     SearchComponent,
     PagingDataListComponent,
+    CheckboxListComponent,
   ],
   imports: [
     CommonModule,
@@ -47,6 +49,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     EditModalComponent,
     CreateModalComponent,
     PagingDataListComponent,
+    CheckboxListComponent,
   ]
 
 })

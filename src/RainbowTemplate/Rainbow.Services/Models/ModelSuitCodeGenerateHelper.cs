@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
-using Rainbow.Models;
 using Rainbow.ViewModels.ClientModules;
 using Rainbow.ViewModels.Models;
 
@@ -18,29 +17,29 @@ namespace Rainbow.Services.Models
 {
     public class ModelSuitCodeGenerateHelper
     {
-        private Type ModelType { get; }
-        private string ModelDisplayName { get; }
-        private CreateModelSuitApplyVM SuitApplyVM { get; }
-        public ProjectSettings Settings { get; }
         public ModelSuitCodeGenerateHelper(CreateModelSuitApplyVM suitApplyVm, ProjectSettings settings)
         {
             Settings = settings;
 
             if (suitApplyVm != null)
             {
-                this.SuitApplyVM = suitApplyVm;
+                SuitApplyVM = suitApplyVm;
 
                 ModelType = GetModelType(suitApplyVm.ModelFullName);
                 ModelDisplayName = ModelType.GetCustomAttribute<DisplayAttribute>()?.Name ?? ModelType.Name;
             }
         }
 
+        private Type ModelType { get; }
+        private string ModelDisplayName { get; }
+        private CreateModelSuitApplyVM SuitApplyVM { get; }
+        public ProjectSettings Settings { get; }
+
         public async Task UpdateAppRoutingModule(IEnumerable<ClientModuleVM> items)
         {
             var pathRoot = Path.Combine(Settings.PlatformWebRoot, @"ClientApp\src\app");
             //using (var conn = GetConnection())
             {
-
                 var routes = string.Join("\r\n  ", items.Select(GetRoutSetting));
 
                 var appRoutingTemplate = GetTemplate("NgComponent.AppRoutingModuleScript");
@@ -49,7 +48,6 @@ namespace Rainbow.Services.Models
                 File.WriteAllText(Path.Combine(pathRoot, "app-routing.module.ts"), result, Encoding.UTF8);
 
                 foreach (var item in items)
-                {
                     if (!File.Exists(Path.Combine(pathRoot, item.Name.SnakeCase("-"))))
                     {
                         var cmd = $"ng g m {item.Name} --routing --force";
@@ -83,19 +81,20 @@ namespace Rainbow.Services.Models
                         {
                             var template = GetTemplate("NgComponent.ListModuleScript");
                             var filePath = Path.Combine(pathRoot, modelSnakeName, $@"{modelSnakeName}.module.ts");
-                            template = template.Replace("$ModelName$", item.Name).Replace("$ModelSnackName$", modelSnakeName);
+                            template = template.Replace("$ModelName$", item.Name)
+                                .Replace("$ModelSnackName$", modelSnakeName);
 
                             File.WriteAllText(filePath, template);
                         }
                     }
-                }
             }
         }
 
 
         private string GetRoutSetting(ClientModuleVM module)
         {
-            var template = "{ path: '$Path$', loadChildren: '$LoadChildren$', data: { title: '$Title$', customLayout: $CustomLayout$ } },";
+            var template =
+                "{ path: '$Path$', loadChildren: '$LoadChildren$', data: { title: '$Title$', customLayout: $CustomLayout$ } },";
 
             var snakeName = module.Name.SnakeCase("-");
 
@@ -105,6 +104,7 @@ namespace Rainbow.Services.Models
                 .Replace("$CustomLayout$", module.IsCustomLayout.ToString().ToLower())
                 .Replace("$LoadChildren$", $"./{snakeName}/{snakeName}.module#{module.Name}Module");
         }
+
         private Type GetModelType(string modelName)
         {
             return Assembly.Load("Rainbow.Models").GetType(modelName);
@@ -116,6 +116,7 @@ namespace Rainbow.Services.Models
             var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(resName));
             return reader.ReadToEnd();
         }
+
         public void CreateViewModels()
         {
             // ViewModelProject root path
@@ -135,7 +136,8 @@ namespace Rainbow.Services.Models
                 {
                     var propList = item.Fields.Select(a => ModelType.GetProperty(a)).ToList();
 
-                    template = template.Replace("$PropertyList$", string.Join("", GetVMFieldStrings(propList, item.Type == VMType.Query)));
+                    template = template.Replace("$PropertyList$",
+                        string.Join("", GetVMFieldStrings(propList, item.Type == VMType.Query)));
                 }
                 else
                 {
@@ -167,71 +169,58 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
         private IEnumerable<string> GetVMFieldStrings(List<PropertyInfo> propList, bool isQueryVM = false)
         {
-            foreach (var prop in propList)
-            {
-                yield return GetVMFieldString(prop, isQueryVM);
-            }
+            foreach (var prop in propList) yield return GetVMFieldString(prop, isQueryVM);
         }
 
         private string GetTypeName(Type type)
         {
             var typeDic = new Dictionary<Type, string>
             {
-                {typeof(string), "string" },
-                {typeof(int), "int" },
-                {typeof(Guid), "Guid" },
-                {typeof(long), "long" },
-                {typeof(double), "double" },
-                {typeof(decimal),"decimal" },
-                {typeof(float),"float" },
-                {typeof(bool), "bool" },
-
+                {typeof(string), "string"},
+                {typeof(int), "int"},
+                {typeof(Guid), "Guid"},
+                {typeof(long), "long"},
+                {typeof(double), "double"},
+                {typeof(decimal), "decimal"},
+                {typeof(float), "float"},
+                {typeof(bool), "bool"}
             };
 
-            if (typeDic.TryGetValue(type, out var name))
-            {
-                return name;
-            }
+            if (typeDic.TryGetValue(type, out var name)) return name;
 
             return type.Name;
         }
+
         private string GetVMFieldString(PropertyInfo prop, bool isQueryVM = false)
         {
             var displayName = prop.GetCustomAttribute<DisplayAttribute>()?.Name ?? prop.Name;
-            var required = isQueryVM ? "" : (prop.GetCustomAttribute<RequiredAttribute>() != null ? ",Required" : "");
+            var required = isQueryVM ? "" : prop.GetCustomAttribute<RequiredAttribute>() != null ? ",Required" : "";
 
             var queryColumn = "";
 
             var dataTypeAttribute = prop.GetCustomAttribute<DataTypeAttribute>();
-            var dataTypeStr = dataTypeAttribute != null && dataTypeAttribute.DataType != DataType.Custom ? $@"
-        [DataType(DataType.{dataTypeAttribute.DataType})]" : "";
+            var dataTypeStr = dataTypeAttribute != null && dataTypeAttribute.DataType != DataType.Custom
+                ? $@"
+        [DataType(DataType.{dataTypeAttribute.DataType})]"
+                : "";
 
             var returnType = GetTypeName(prop.PropertyType); // prop.PropertyType.Name;
             if (prop.PropertyType.IsGenericType)
-            {
                 returnType = prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)
                     //? $"{prop.PropertyType.GetGenericArguments()[0].Name}?"
                     //: $"{Regex.Match(prop.PropertyType.Name, @"([0-9a-zA-Z]+)`").Groups[1].Value}<{string.Join(",", prop.PropertyType.GetGenericArguments().Select(b => b.Name))}>";
                     ? $"{GetTypeName(prop.PropertyType.GetGenericArguments()[0])}"
                     : $"{Regex.Match(prop.PropertyType.Name, @"([0-9a-zA-Z]+)`").Groups[1].Value}<{string.Join(",", prop.PropertyType.GetGenericArguments().Select(GetTypeName))}>";
-            }
             if (isQueryVM)
             {
                 if (prop.PropertyType.IsEnum)
-                {
-                    returnType = $"{ GetTypeName(prop.PropertyType)}?";
-                }
-
-                else if (!prop.PropertyType.IsClass)
-                {
                     returnType = $"{GetTypeName(prop.PropertyType)}?";
-                }
+
+                else if (!prop.PropertyType.IsClass) returnType = $"{GetTypeName(prop.PropertyType)}?";
 
                 if (prop.PropertyType == typeof(string))
-                {
                     queryColumn = $@"
         [QueryColumn(""{prop.Name}"", CompareEnum.Like)]";
-                }
                 // [QueryColumn("Name", CompareEnum.Like)]
             }
 
@@ -322,14 +311,12 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     .Replace("$DisplayName$", $"{SuitApplyVM.ModelName} Action Service");
 
                 var methodList = items.Select(GetServiceInterfaceMethod).ToList();
-                if (SuitApplyVM.EnableDelete)
-                {
-                    methodList.Add(GetServiceInterfaceDeleteMethod());
-                }
+                if (SuitApplyVM.EnableDelete) methodList.Add(GetServiceInterfaceDeleteMethod());
 
                 template = template.Replace("$ActionMethods$", string.Join("", methodList));
 
-                File.WriteAllText(Path.Combine(path, $"I{SuitApplyVM.ModelName}ActionService.auto.cs"), template, Encoding.UTF8);
+                File.WriteAllText(Path.Combine(path, $"I{SuitApplyVM.ModelName}ActionService.auto.cs"), template,
+                    Encoding.UTF8);
             }
 
             items = SuitApplyVM.Items.Where(a => a.Type == VMType.Display || a.Type == VMType.Query);
@@ -352,7 +339,8 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 methodList.AddRange(queryVMs.Select(GetServiceInterfaceMethod));
                 template = template.Replace("$ActionMethods$", string.Join("", methodList));
 
-                File.WriteAllText(Path.Combine(path, $"I{SuitApplyVM.ModelName}QueryService.auto.cs"), template, Encoding.UTF8);
+                File.WriteAllText(Path.Combine(path, $"I{SuitApplyVM.ModelName}QueryService.auto.cs"), template,
+                    Encoding.UTF8);
             }
         }
 
@@ -465,7 +453,8 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
                 template = template.Replace("$ActionMethods$", string.Join("", methodList));
 
-                File.WriteAllText(Path.Combine(path, $"{SuitApplyVM.ModelName}ActionService.auto.cs"), template, Encoding.UTF8);
+                File.WriteAllText(Path.Combine(path, $"{SuitApplyVM.ModelName}ActionService.auto.cs"), template,
+                    Encoding.UTF8);
             }
 
             items = SuitApplyVM.Items.Where(a => a.Type == VMType.Display || a.Type == VMType.Query);
@@ -483,7 +472,8 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
                 template = template.Replace("$ActionMethods$", string.Join("", methodList));
 
-                File.WriteAllText(Path.Combine(path, $"{SuitApplyVM.ModelName}QueryService.auto.cs"), template, Encoding.UTF8);
+                File.WriteAllText(Path.Combine(path, $"{SuitApplyVM.ModelName}QueryService.auto.cs"), template,
+                    Encoding.UTF8);
             }
         }
 
@@ -514,12 +504,52 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 .Replace("$DisplayName$", $"{SuitApplyVM.ModelName} Hosting Startup");
 
 
-            File.WriteAllText(Path.Combine(Settings.HostingStartupsRoot, $"{SuitApplyVM.ModelName}Startup.cs"), template,
+            File.WriteAllText(Path.Combine(Settings.HostingStartupsRoot, $"{SuitApplyVM.ModelName}Startup.cs"),
+                template,
                 Encoding.UTF8);
         }
 
         private string GetControllerMethod(CreateViewModelApplyVM item)
         {
+            var template = "";
+            switch (item.Type)
+            {
+                case VMType.Create:
+                    template = GetTemplate("ControllerActions.CreateAction");
+                    break;
+                case VMType.Update:
+                    template = GetTemplate("ControllerActions.UpdateAction");
+                    break;
+                case VMType.Query:
+                    template = GetTemplate("ControllerActions.QueryAction");
+                    break;
+                case VMType.Display:
+                    template = GetTemplate("ControllerActions.DisplayAndListAction");
+                    break;
+                case VMType.Delete:
+                    template = GetTemplate("ControllerActions.DeleteAction");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            var actionAuthorize = item.WithAuthorize
+                ? item.AuthorizeRoles?.Any() == true
+                    ?
+                    $"\r\n        [Authorize(Roles=\"{string.Join(",", item.AuthorizeRoles)}\")]"
+                    :
+                    "\r\n        [Authorize]"
+                : "";
+
+            return template
+                .Replace("$item.DisplayName$", item.DisplayName)
+                .Replace("$item.ActionName$", item.ActionName)
+                .Replace("$item.ActionName$", item.ActionName)
+                .Replace("$SuitApplyVM.ModelName$", SuitApplyVM.ModelName)
+                .Replace("$item.Name$", item.Name)
+                .Replace("$ActionAuthorize$", actionAuthorize)
+                ;
+
             switch (item.Type)
             {
                 case VMType.Create:
@@ -591,7 +621,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 .Replace("$FolderName$", SuitApplyVM.FolderName)
                 .Replace("$Model$", $"{SuitApplyVM.ModelName}")
                 .Replace("$ControllerProjectName$", SuitApplyVM.ControllerProjectName)
-                .Replace("$ControllerAuthorize$", GetControllerWithAuthorize())// SuitApplyVM.ControllerWithAuthorize)
+                .Replace("$ControllerAuthorize$", GetControllerWithAuthorize()) // SuitApplyVM.ControllerWithAuthorize)
                 .Replace("$DisplayName$", $"{SuitApplyVM.ModelName} Controller");
 
             var methodList = new List<string>();
@@ -613,18 +643,18 @@ using {Settings.SolutionNamespace}.Common.Enums;
         }}
 ");
 
-            template = template.Replace("$ActionMethods$", string.Join("", methodList));
+            template = template.Replace("$ActionMethods$", string.Join("\r\n", methodList));
 
-            File.WriteAllText(Path.Combine(Settings.ControllerRoot, $"{SuitApplyVM.ModelName}Controller.cs"), template,
+            File.WriteAllText(Path.Combine(Settings.ControllerRoot, $"{SuitApplyVM.ModelName}Controller.auto.cs"), template,
                 Encoding.UTF8);
         }
 
         private string GetControllerWithAuthorize()
         {
             return SuitApplyVM.ControllerWithAuthorize
-                ? (!string.IsNullOrEmpty(SuitApplyVM.AuthorizeRole)
-                    ? $"\r\n    [Authorize(Roles=\"{SuitApplyVM.AuthorizeRole}\")]"
-                    : "\r\n    [Authorize]")
+                ? SuitApplyVM.AuthorizeRoles.Any()
+                    ? $"\r\n    [Authorize(Roles=\"{string.Join(",", SuitApplyVM.AuthorizeRoles)}\")]"
+                    : "\r\n    [Authorize]"
                 : "";
         }
 
@@ -668,7 +698,8 @@ using {Settings.SolutionNamespace}.Common.Enums;
                         {
                             var template = GetTemplate("NgComponent.ListModuleScript");
                             var filePath = Path.Combine(pathRoot, modelSnakeName, $@"{modelSnakeName}.module.ts");
-                            template = template.Replace("$ModelName$", SuitApplyVM.NgModuleName).Replace("$ModelSnackName$", modelSnakeName);
+                            template = template.Replace("$ModelName$", SuitApplyVM.NgModuleName)
+                                .Replace("$ModelSnackName$", modelSnakeName);
 
                             File.WriteAllText(filePath, template);
                         }
@@ -704,20 +735,21 @@ using {Settings.SolutionNamespace}.Common.Enums;
                         var moduleSnackName = SuitApplyVM.NgModuleName.SnakeCase("-");
                         {
                             var template = GetTemplate("NgComponent.ModuleComponentHtml");
-                            var filePath = Path.Combine(pathRoot, moduleSnackName, moduleSnackName, $@"{moduleSnackName}.component.html");
+                            var filePath = Path.Combine(pathRoot, moduleSnackName, moduleSnackName,
+                                $@"{moduleSnackName}.component.html");
                             File.WriteAllText(filePath, template);
                         }
                         {
                             //$ModelName$
                             var template = GetTemplate("NgComponent.ModuleRoutingScript")
-                                .Replace("$ModelName$", SuitApplyVM.NgModuleName)
-                                .Replace("$ModelSnackName$", moduleSnackName)
+                                    .Replace("$ModelName$", SuitApplyVM.NgModuleName)
+                                    .Replace("$ModelSnackName$", moduleSnackName)
                                 ;
-                            var filePath = Path.Combine(pathRoot, moduleSnackName, $@"{moduleSnackName}-routing.module.ts");
+                            var filePath = Path.Combine(pathRoot, moduleSnackName,
+                                $@"{moduleSnackName}-routing.module.ts");
                             File.WriteAllText(filePath, template);
                         }
                     }
-
                 }
             }
             {
@@ -754,12 +786,14 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     var modelSnakeName = SuitApplyVM.ModelName.SnakeCase("-");
                     {
                         var template = GetTemplate("NgComponent.ListComponentHtml");
-                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName, $@"{modelSnakeName}.component.html");
+                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName,
+                            $@"{modelSnakeName}.component.html");
                         File.WriteAllText(filePath, template);
                     }
                     {
                         var template = GetTemplate("NgComponent.ListComponentScript");
-                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName, $@"{modelSnakeName}.component.ts");
+                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName,
+                            $@"{modelSnakeName}.component.ts");
 
                         template = template.Replace("$ModelName$", SuitApplyVM.ModelName)
                             .Replace("$ModelSnackName$", modelSnakeName)
@@ -769,7 +803,6 @@ using {Settings.SolutionNamespace}.Common.Enums;
                         File.WriteAllText(filePath, template);
                     }
                 }
-
             }
         }
     }

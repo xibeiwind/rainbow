@@ -1,0 +1,11 @@
+﻿        /// <summary>
+        ///     $item.DisplayName$列表（分页）
+        /// </summary>
+        [Display(Name = "$item.DisplayName$列表（分页）")]
+        [HttpGet]
+        [Route("$item.ActionName$")]$ActionAuthorize$
+        [ProducesDefaultResponseType(typeof(PagingList<$SuitApplyVM.ModelName$VM>))]
+        public async Task<PagingList<$SuitApplyVM.ModelName$VM>> $item.ActionName$Async([FromQuery]$item.Name$ option)
+        {
+            return await QueryService.$item.ActionName$Async(option);
+        }
