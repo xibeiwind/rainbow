@@ -1,8 +1,7 @@
-﻿
-/*tslint:disable */
+﻿/*tslint:disable */
 
-export class ProductService {
-  constructor(private directives: any) { }
+export class $ModelServiceName$ {
+  constructor(private http: any) { }
 
 $ServiceMethods$
 }

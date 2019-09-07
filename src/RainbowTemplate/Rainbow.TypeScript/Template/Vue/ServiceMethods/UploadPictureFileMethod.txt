@@ -1,4 +1,5 @@
-﻿  public UpLoadPictureFile(data: FormData)
+﻿  public async UpLoadPictureFile(data: FormData)
     : Observable<Rainbow.ViewModels.Utils.PictureFileVM> {
-    return this.http.post<Rainbow.ViewModels.Utils.PictureFileVM>(`api/ImageUpload/UpLoadPictureFile`, data, getHttpOptions());
+    return (await this.http.postAsync(`api/ImageUpload/UpLoadPictureFile`, { ...$action.ArgsStr$ }))
+	    as Rainbow.ViewModels.Utils.PictureFileVM;
   }

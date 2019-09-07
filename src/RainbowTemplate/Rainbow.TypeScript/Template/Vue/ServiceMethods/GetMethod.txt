@@ -1,4 +1,5 @@
 ﻿  public async $action.Name$($action.ArgParamsStr$)
     : Promise<$action.ReturnStr$> {
-    return this.directives.getAsync<$action.ReturnStr$>(`$action.Url$`, { });
+    return (await this.http.getAsync(`$action.Url$`))
+	    as $action.ReturnStr$;
   }

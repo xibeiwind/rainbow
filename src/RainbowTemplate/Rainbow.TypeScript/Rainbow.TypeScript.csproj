@@ -23,6 +23,7 @@
     <None Remove="Template\Vue\LogoutMethod.txt" />
     <None Remove="Template\Vue\PostMethod.txt" />
     <None Remove="Template\Vue\PutMethod.txt" />
+    <None Remove="Template\Vue\ServiceMethods\GetMethodWithObjectArgument.txt" />
     <None Remove="Template\Vue\UploadPictureFileMethod.txt" />
     <None Remove="Template\ServiceModule.txt" />
     <None Remove="Template\VueService.txt" />
@@ -44,6 +45,7 @@
     <EmbeddedResource Include="Template\Vue\ServiceMethods\DeleteMethodWithArgument.txt" />
     <EmbeddedResource Include="Template\Vue\ServiceMethods\GetMethod.txt" />
     <EmbeddedResource Include="Template\Vue\ServiceMethods\GetMethodWithArgument.txt" />
+    <EmbeddedResource Include="Template\Vue\ServiceMethods\GetMethodWithObjectArgument.txt" />
     <EmbeddedResource Include="Template\Vue\ServiceMethods\LogoutMethod.txt" />
     <EmbeddedResource Include="Template\Vue\ServiceMethods\PutMethod.txt" />
     <EmbeddedResource Include="Template\Vue\ServiceMethods\PostMethod.txt" />
@@ -60,10 +62,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Rainbow.Common\Rainbow.Common.csproj" />
     <ProjectReference Include="..\TypeLite.Standard\TypeLite.Standard.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Template\VMTemplate\" />
   </ItemGroup>
 
 </Project>

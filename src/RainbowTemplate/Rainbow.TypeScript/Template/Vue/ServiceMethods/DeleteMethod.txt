@@ -1,4 +1,5 @@
 ﻿  public async $action.Name$($action.ArgParamsStr$)
     : Promise<$action.ReturnStr$> {
-    return this.directives.deleteAsync<$action.ReturnStr$>(`$action.Url$`, { });
+    return (await this.http.deleteAsync(`$action.Url$`, $action.ArgsStr$))
+	    as $action.ReturnStr$;
   }
