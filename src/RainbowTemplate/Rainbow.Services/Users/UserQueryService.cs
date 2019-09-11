@@ -14,8 +14,11 @@ namespace Rainbow.Services.Users
 {
     public class UserQueryService : ServiceBase, IUserQueryService
     {
-        public UserQueryService(ConnectionSettings connectionSettings, IConnectionFactory connectionFactory,
-            ILoggerFactory loggerFactory, IEventBus eventBus)
+        public UserQueryService(
+            ConnectionSettings connectionSettings,
+            IConnectionFactory connectionFactory,
+            ILoggerFactory loggerFactory,
+            IEventBus eventBus)
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
         {
         }

@@ -14,8 +14,11 @@ namespace Rainbow.Services.Users
 {
     public class RoleService : ServiceBase, IRoleService
     {
-        public RoleService(ConnectionSettings connectionSettings, IConnectionFactory connectionFactory,
-            ILoggerFactory loggerFactory, IEventBus eventBus)
+        public RoleService(
+            ConnectionSettings connectionSettings,
+            IConnectionFactory connectionFactory,
+            ILoggerFactory loggerFactory,
+            IEventBus eventBus)
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
         {
         }
@@ -23,7 +26,8 @@ namespace Rainbow.Services.Users
         public async Task Init()
         {
             var roleType = typeof(UserRoleType);
-            var fields = roleType.GetFields(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static).Where(a => (int)a.GetValue(null) != 0);
+            var fields = roleType.GetFields(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static)
+                                 .Where(a => (int) a.GetValue(null) != 0);
 
             using (var conn = GetConnection())
             {
@@ -33,7 +37,7 @@ namespace Rainbow.Services.Users
                         var role = EntityFactory.Create<RoleInfo>();
                         role.Name = field.Name;
                         role.Description = field.GetCustomAttribute<DisplayAttribute>()?.Name ?? field.Name;
-                        role.RoleType = (UserRoleType)field.GetValue(null);
+                        role.RoleType = (UserRoleType) field.GetValue(null);
                         await conn.CreateAsync(role);
                     }
             }

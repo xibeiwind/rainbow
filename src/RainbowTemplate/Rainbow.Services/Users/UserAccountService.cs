@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Dapper;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -24,11 +23,14 @@ namespace Rainbow.Services.Users
 {
     public class UserAccountService : ServiceBase, IUserAccountService
     {
-        public UserAccountService(ConnectionSettings connectionSettings, SecurityUtil securityUtil,
+        public UserAccountService(
+            ConnectionSettings connectionSettings,
+            SecurityUtil securityUtil,
             IConnectionFactory connectionFactory,
             IIdentityService identityService,
             IOptions<JwtSettings> jwtOptions,
-            ILoggerFactory loggerFactory, IEventBus eventBus)
+            ILoggerFactory loggerFactory,
+            IEventBus eventBus)
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
         {
             SecurityUtil = securityUtil;
@@ -60,16 +62,8 @@ namespace Rainbow.Services.Users
             var response =
                 await EventBus.RequestAsync<SmsCodeVerifyRequest, SmsCodeVerifyResponse>(new SmsCodeVerifyRequest());
             if (response.IsSuccess)
-                return new LoginResultVM
-                {
-                    UserId = response.UserId,
-                    IsSuccess = true
-                };
-            return new LoginResultVM
-            {
-                IsSuccess = false,
-                Message = response.ResultDesc
-            };
+                return new LoginResultVM {UserId = response.UserId, IsSuccess = true};
+            return new LoginResultVM {IsSuccess = false, Message = response.ResultDesc};
         }
 
         public async Task<AsyncTaskResult> SendLoginSmsAsync(SendLoginSmsVM vm)
@@ -79,11 +73,7 @@ namespace Rainbow.Services.Users
                 if (await conn.ExistAsync<UserInfo>(a => a.Phone == vm.Phone && a.IsActive))
                 {
                     var response = await EventBus.RequestAsync<SendSmsCodeRequest, SendSmsCodeResponse>(
-                        new SendSmsCodeRequest
-                        {
-                            Phone = vm.Phone,
-                            Type = TplType.LoginSMS
-                        });
+                        new SendSmsCodeRequest {Phone = vm.Phone, Type = TplType.LoginSMS});
                     if (response.IsSuccess)
                         return AsyncTaskResult.Success();
                     return AsyncTaskResult.Failed(response.ResultDesc);
@@ -100,15 +90,15 @@ namespace Rainbow.Services.Users
                 var user = await conn.FirstOrDefaultAsync<UserInfo>(a => a.Id == userId);
 
                 return new UserProfileVM
-                {
-                    Id = user.Id,
-                    Name = user.Name,
-                    AvatarUrl = user.AvatarUrl,
-                    NickName = user.Name,
-                    Phone = user.Phone,
-                    Roles = await GetUserRoles(userId),
-                    UserId = user.Id,
-                };
+                       {
+                           Id = user.Id,
+                           Name = user.Name,
+                           AvatarUrl = user.AvatarUrl,
+                           NickName = user.Name,
+                           Phone = user.Phone,
+                           Roles = await GetUserRoles(userId),
+                           UserId = user.Id
+                       };
             }
         }
 
@@ -122,25 +112,23 @@ namespace Rainbow.Services.Users
                     if (user.IsActive)
                     {
                         if (string.IsNullOrEmpty(user.PasswordHash))
-                            return new LoginResultVM
-                            {
-                                IsSuccess = false,
-                                Message = "账号不允许使用密码登陆"
-                            };
+                            return new LoginResultVM {IsSuccess = false, Message = "账号不允许使用密码登陆"};
 
                         var pwdHash = SecurityUtil.Encoding(vm.Password);
                         if (string.Equals(user.PasswordHash, pwdHash, StringComparison.InvariantCultureIgnoreCase))
                         {
                             var tmp = IdentityService.Login(user.Id);
-                            var claims = new[]
-                            {
-                                new Claim("jti", user.Id.ToString(), ClaimValueTypes.String),
-                                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                                new Claim(ClaimTypes.MobilePhone, user.Phone),
-                                new Claim(ClaimTypes.Name, user.Name),
-                                new Claim("signId", tmp.SignId.ToString()),
-                                new Claim(ClaimTypes.Role, string.Join(",", await GetUserRoles(user.Id)))
-                            };
+                            var claims = new List<Claim>
+                                         {
+                                             new Claim("jti", user.Id.ToString(), ClaimValueTypes.String),
+                                             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                                             new Claim(ClaimTypes.MobilePhone, user.Phone),
+                                             new Claim(ClaimTypes.Name, user.Name),
+                                             new Claim("signId", tmp.SignId.ToString())
+                                         };
+
+                            claims.AddRange(
+                                (await GetUserRoles(user.Id)).Select(role => new Claim(ClaimTypes.Role, role)));
 
                             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.SecretKey));
                             //签名证书(秘钥，加密算法)
@@ -149,41 +137,23 @@ namespace Rainbow.Services.Users
                             //生成token  [注意]需要nuget添加Microsoft.AspNetCore.Authentication.JwtBearer包，并引用System.IdentityModel.Tokens.Jwt命名空间
 
                             var token = new JwtSecurityToken(Settings.Issuer, Settings.Audience, claims, DateTime.Now,
-                                tmp.ExpiresTime, signingCredentials);
+                                                             tmp.ExpiresTime, signingCredentials);
 
                             return new LoginResultVM
-                            {
-                                IsSuccess = true,
-                                UserId = user.Id,
-                                Message = new JwtSecurityTokenHandler().WriteToken(token)
-                            };
+                                   {
+                                       IsSuccess = true,
+                                       UserId = user.Id,
+                                       Message = new JwtSecurityTokenHandler().WriteToken(token)
+                                   };
                         }
-                        else
-                        {
-                            return new LoginResultVM
-                            {
-                                IsSuccess = false,
-                                Message = "账号密码不匹配"
-                            };
-                        }
+
+                        return new LoginResultVM {IsSuccess = false, Message = "账号密码不匹配"};
                     }
-                    else
-                    {
-                        return new LoginResultVM
-                        {
-                            IsSuccess = false,
-                            Message = "账号未激活"
-                        };
-                    }
+
+                    return new LoginResultVM {IsSuccess = false, Message = "账号未激活"};
                 }
-                else
-                {
-                    return new LoginResultVM
-                    {
-                        IsSuccess = false,
-                        Message = "账号不存在"
-                    };
-                }
+
+                return new LoginResultVM {IsSuccess = false, Message = "账号不存在"};
             }
         }
 
@@ -193,14 +163,30 @@ namespace Rainbow.Services.Users
             {
                 var role = await conn.FirstOrDefaultAsync<RoleInfo>(a => a.Name == roleName);
                 if (role == null)
-                {
                     return AsyncTaskResult.Failed<bool>("角色不存在");
-                }
 
                 var result = await conn.ExistAsync<UserRole>(a => a.UserId == userId && a.RoleId == role.Id);
 
                 return AsyncTaskResult.Success(result);
             }
+        }
+
+        public Task<AsyncTaskTResult<bool>> Logout(Guid id)
+        {
+            IdentityService.Logout(id);
+
+            return Task.FromResult(AsyncTaskResult.Success(true));
+        }
+
+        public async Task<bool> IsLogin(Guid userId, Guid signId)
+        {
+            using (var conn = GetConnection())
+            {
+                if (!await conn.ExistAsync<UserInfo>(a => a.Id == userId))
+                    return false;
+            }
+
+            return IdentityService.IsLogin(userId, signId);
         }
 
         private async Task<IEnumerable<string>> GetUserRoles(Guid userId)
@@ -210,29 +196,9 @@ namespace Rainbow.Services.Users
                 var roles = (await conn.AllAsync<RoleInfo>()).ToDictionary(a => a.Id);
 
                 return (await conn.ListAsync<UserRole>(a => a.UserId == userId))
-                    .Where(b => roles.ContainsKey(b.RoleId))
-                    .Select(b => roles[b.RoleId].Name);
+                      .Where(b => roles.ContainsKey(b.RoleId))
+                      .Select(b => roles[b.RoleId].Name);
             }
-        }
-
-        public Task<AsyncTaskTResult<bool>> Logout(Guid id)
-        {
-
-            IdentityService.Logout(id);
-
-            return Task.FromResult(AsyncTaskResult.Success(true));
-        }
-
-        public async Task< bool> IsLogin(Guid userId, Guid signId)
-        {
-            using (var conn = GetConnection())
-            {
-                if (!await conn.ExistAsync<UserInfo>(a=>a.Id == userId))
-                {
-                    return false;
-                }
-            }
-            return IdentityService.IsLogin(userId, signId);
         }
     }
 }

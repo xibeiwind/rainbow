@@ -13,8 +13,11 @@ namespace Rainbow.Services.Users
 {
     public class UserActionService : ServiceBase, IUserActionService
     {
-        public UserActionService(ConnectionSettings connectionSettings, IConnectionFactory connectionFactory,
-            ILoggerFactory loggerFactory, IEventBus eventBus)
+        public UserActionService(
+            ConnectionSettings connectionSettings,
+            IConnectionFactory connectionFactory,
+            ILoggerFactory loggerFactory,
+            IEventBus eventBus)
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
         {
         }
