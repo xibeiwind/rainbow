@@ -36,7 +36,7 @@
     <None Remove="Templates\QueryService.txt" />
     <None Remove="Templates\ServiceMethods\CreateMethod.txt" />
     <None Remove="Templates\ServiceMethods\DeleteMethod.txt" />
-    <None Remove="Templates\ServiceMethods\DisplayMethod.txt" />
+    <None Remove="Templates\ServiceMethods\DetailMethod.txt" />
     <None Remove="Templates\ServiceMethods\ListMethod.txt" />
     <None Remove="Templates\ServiceMethods\ManageTracked\CreateMethod.txt" />
     <None Remove="Templates\ServiceMethods\ManageTracked\DeleteMethod.txt" />
@@ -87,7 +87,7 @@
     <EmbeddedResource Include="Templates\QueryService.txt" />
     <EmbeddedResource Include="Templates\ServiceMethods\CreateMethod.txt" />
     <EmbeddedResource Include="Templates\ServiceMethods\DeleteMethod.txt" />
-    <EmbeddedResource Include="Templates\ServiceMethods\DisplayMethod.txt" />
+    <EmbeddedResource Include="Templates\ServiceMethods\DetailMethod.txt" />
     <EmbeddedResource Include="Templates\ServiceMethods\ListMethod.txt" />
     <EmbeddedResource Include="Templates\ServiceMethods\ManageTracked\CreateMethod.txt" />
     <EmbeddedResource Include="Templates\ServiceMethods\ManageTracked\DeleteMethod.txt" />

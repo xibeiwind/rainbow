@@ -11,13 +11,20 @@ namespace Rainbow.Platform.Controllers
     public static class ControllerExtensions
     {
         /// <summary>
-        ///     获取用户Id
+        ///     获取用户编号
         /// </summary>
         /// <param name="target">The target.</param>
         /// <returns></returns>
         public static Guid GetUserId(this Controller target)
         {
             return target.GetGuidValue("UserId");
+        }
+        /// <summary>
+        /// 获取客服编号
+        /// </summary>
+        public static Guid GetCustomerServiceId(this Controller target)
+        {
+            return target.GetGuidValue("CustomerServiceId");
         }
 
         /// <summary>

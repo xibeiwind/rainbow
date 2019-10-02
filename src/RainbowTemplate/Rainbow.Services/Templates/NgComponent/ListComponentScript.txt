@@ -13,13 +13,13 @@ import { PagingDataListComponent } from '../../core/paging-data-list/paging-data
   styleUrls: ['./$ModelSnackName$.component.scss']
 })
 export class $ModelName$Component
-  extends EditableListViewComponent<$SolutionNamespace$.ViewModels.$ModelName$s.$ModelName$VM>
+  extends EditableListViewComponent<$SolutionNamespace$.ViewModels.$ModelName$s.List$ModelName$VM>
   implements OnInit {
 
   @ViewChild(PagingDataListComponent, { static: true })
   pagingDataList: PagingDataListComponent;
 
-  pagingData: Yunyong.Core.PagingList<$SolutionNamespace$.ViewModels.$ModelName$s.$ModelName$VM>;
+  pagingData: Yunyong.Core.PagingList<$SolutionNamespace$.ViewModels.$ModelName$s.List$ModelName$VM>;
   queryOption: $SolutionNamespace$.ViewModels.$ModelName$s.Query$ModelName$VM = {
     PageIndex: 1,
     PageSize: 10,
@@ -38,7 +38,7 @@ export class $ModelName$Component
       modelType: '$ModelName$VM',
       create: 'Create$ModelName$VM',
       update: 'Update$ModelName$VM',
-      detail: '$ModelName$VM',
+      list: 'List$ModelName$VM',
       query: 'Query$ModelName$VM',
     };
   }

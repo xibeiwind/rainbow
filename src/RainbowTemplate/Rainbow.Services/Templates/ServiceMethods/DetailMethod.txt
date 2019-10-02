@@ -6,6 +6,6 @@
         {
             using (var conn = GetConnection())
             {
-                return await conn.FirstOrDefaultAsync<$SuitApplyVM.ModelName$, $SuitApplyVM.ModelName$VM>(a => a.Id == id);
+                return await conn.FirstOrDefaultAsync<$SuitApplyVM.ModelName$, $item.Name$>(a => a.Id == id);
             }
         }

@@ -6,6 +6,6 @@
         {
             using (var conn = GetConnection())
             {
-                return await conn.PagingListAsync<$SuitApplyVM.ModelName$, $SuitApplyVM.ModelName$VM>(option);
+                return await conn.PagingListAsync<$SuitApplyVM.ModelName$, List$SuitApplyVM.ModelName$VM>(option);
             }
         }

@@ -45,6 +45,8 @@ export class ModelComponent implements OnInit {
     GenerateNgModuleComponent: false,
     GenerateNgListComponent: false,
     GenerateNgDetailComponent: false,
+    ManageService:false,
+    TrackOperation:false,
     UpdateTsServices: false,
   };
 

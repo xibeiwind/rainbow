@@ -271,12 +271,16 @@ declare namespace Rainbow.ViewModels.Models {
     GenerateVM: boolean;
     // Items
     Items?: Rainbow.ViewModels.Models.CreateViewModelApplyVM[];
+    // 管理服务功能
+    ManageService: boolean;
     // Model全名
     ModelFullName?: string;
     // Model名称
     ModelName?: string;
     // 所采用NgModule的名称
     NgModuleName?: string;
+    // 跟踪操作记录
+    TrackOperation: boolean;
     // 是否更新呢生成TsService
     UpdateTsServices: boolean;
   }
@@ -317,6 +321,36 @@ declare namespace Rainbow.ViewModels.Models {
     Fields?: Rainbow.ViewModels.Models.FieldVM[];
     // FullName
     FullName?: string;
+    // Name
+    Name?: string;
+  }
+}
+declare namespace Rainbow.ViewModels.ProductInfos {
+  interface CreateProductInfoVM extends Yunyong.Core.ViewModels.CreateVM {
+    // Description
+    Description?: string;
+    // Name
+    Name?: string;
+  }
+  interface DeleteProductInfoVM extends Yunyong.Core.ViewModels.DeleteVM {
+  }
+  interface DetailProductInfoVM extends Yunyong.Core.ViewModels.VMBase {
+    // Description
+    Description?: string;
+    // Name
+    Name?: string;
+  }
+  interface ListProductInfoVM extends Yunyong.Core.ViewModels.VMBase {
+    // Name
+    Name?: string;
+  }
+  interface QueryProductInfoVM extends Yunyong.Core.PagingQueryOption {
+    // Name
+    Name?: string;
+  }
+  interface UpdateProductInfoVM extends Yunyong.Core.ViewModels.UpdateVM {
+    // Description
+    Description?: string;
     // Name
     Name?: string;
   }

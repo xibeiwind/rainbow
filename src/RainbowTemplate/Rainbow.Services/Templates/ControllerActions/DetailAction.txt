@@ -5,7 +5,7 @@
         [HttpGet]
         [Route("$item.ActionName$")]$ActionAuthorize$
         [ProducesDefaultResponseType(typeof($item.Name$))]
-        public async Task < $item.Name$ > Get$item.ActionName$Async(Guid id)
+        public async Task <IActionResult> Get$item.ActionName$Async(Guid id)
         {
-            return await QueryService.Get$item.ActionName$Async(id);
+            return Ok(await QueryService.Get$item.ActionName$Async(id));
         }

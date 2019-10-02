@@ -276,7 +276,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// </summary>
         [Display(Name = ""获取{item.DisplayName}"")]
         Task < {item.Name} > Get{item.ActionName}Async(Guid id);";
-                        
+
                 case VMType.Delete:
                     return $@"
         /// <summary>
@@ -284,7 +284,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// </summary>
         [Display(Name=""删除{ModelDisplayName}"")]
         Task<AsyncTaskResult> DeleteAsync(Delete{SuitApplyVM.ModelName}VM vm);";
-                
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -337,7 +337,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                                   Encoding.UTF8);
             }
 
-            items = SuitApplyVM.Items.Where(a => a.Type == VMType.ListDisplay 
+            items = SuitApplyVM.Items.Where(a => a.Type == VMType.ListDisplay
                                                  || a.Type == VMType.DetailDisplay
                                                  || a.Type == VMType.Query);
             if (items.Any())
@@ -364,7 +364,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
                 methodList.AddRange(detailDisplayVMs.Select(GetServiceInterfaceMethod));
 
-                var queryVMs = items.Where(a => a.Type == VMType.Query );
+                var queryVMs = items.Where(a => a.Type == VMType.Query);
 
                 methodList.AddRange(queryVMs.Select(GetServiceInterfaceMethod));
                 template = template.Replace("$ActionMethods$", string.Join("", methodList));
@@ -403,13 +403,11 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     break;
                 case VMType.ListDisplay:
 
-                    template = string.Join("\r\n", GetTemplate("ServiceMethods.DisplayMethod"),
-                                           GetTemplate("ServiceMethods.ListMethod"));
+                    template = GetTemplate("ServiceMethods.ListMethod");
 
                     break;
                 case VMType.DetailDisplay:
-                    template = string.Join("\r\n", GetTemplate("ServiceMethods.DisplayMethod"),
-                        GetTemplate("ServiceMethods.DetailMethod"));
+                    template = GetTemplate("ServiceMethods.DetailMethod");
                     break;
                 case VMType.Delete:
                     template = SuitApplyVM.TrackOperation
@@ -467,7 +465,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                                   Encoding.UTF8);
             }
 
-            items = SuitApplyVM.Items.Where(a => a.CreateAction && (a.Type == VMType.ListDisplay 
+            items = SuitApplyVM.Items.Where(a => a.CreateAction && (a.Type == VMType.ListDisplay
                                                                     || a.Type == VMType.DetailDisplay
                                                                     || a.Type == VMType.Query));
             if (items.Any())
@@ -622,9 +620,9 @@ using {Settings.SolutionNamespace}.Common.Enums;
         [HttpDelete]
         [Route(""Delete"")]
         [ProducesDefaultResponseType(typeof(AsyncTaskResult))]
-        public async Task<AsyncTaskResult> DeleteAsync([FromQuery]Delete{SuitApplyVM.ModelName}VM vm)
+        public async Task<IActionResult> DeleteAsync([FromQuery]Delete{SuitApplyVM.ModelName}VM vm)
         {{
-            return await ActionService.DeleteAsync(vm);
+            return Ok(await ActionService.DeleteAsync(vm));
         }}
 ");
 
@@ -732,38 +730,41 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 }
             }
             {
-                var cmd = $"ng g c {SuitApplyVM.ModelName} --force";
-                Console.WriteLine(pathRoot);
-                Console.WriteLine(cmd);
-
-                var process = new Process
                 {
-                    StartInfo = new ProcessStartInfo
+
+                    var cmd = $"ng g c {SuitApplyVM.ModelName}List --force";
+                    Console.WriteLine(pathRoot);
+                    Console.WriteLine(cmd);
+
+                    var process = new Process
                     {
-                        FileName = "cmd.exe",
-                        WorkingDirectory =
-                                                      Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-")),
-                        RedirectStandardInput = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        CreateNoWindow = true
-                    }
-                };
-                ExecuteProcess(process, cmd);
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = "cmd.exe",
+                            WorkingDirectory =
+                                                          Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-")),
+                            RedirectStandardInput = true,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            CreateNoWindow = true
+                        }
+                    };
+                    ExecuteProcess(process, cmd);
+                }
 
                 if (SuitApplyVM.GenerateNgListComponent)
                 {
                     var modelSnakeName = SuitApplyVM.ModelName.SnakeCase("-");
                     {
                         var template = GetTemplate("NgComponent.ListComponentHtml");
-                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName,
-                                                    $@"{modelSnakeName}.component.html");
+                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), $"{modelSnakeName}-list",
+                                                    $@"{modelSnakeName}-list.component.html");
                         File.WriteAllText(filePath, template);
                     }
                     {
                         var template = GetTemplate("NgComponent.ListComponentScript");
-                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName,
-                                                    $@"{modelSnakeName}.component.ts");
+                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), $"{modelSnakeName}-list",
+                                                    $@"{modelSnakeName}-list.component.ts");
 
                         template = template.Replace("$ModelName$", SuitApplyVM.ModelName)
                                            .Replace("$ModelSnackName$", modelSnakeName)
@@ -771,6 +772,50 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
 
                         File.WriteAllText(filePath, template);
+                    }
+                }
+
+                if (SuitApplyVM.GenerateNgDetailComponent)
+                {
+                    {
+
+                        var cmd = $"ng g c {SuitApplyVM.ModelName}Detail --force";
+                        Console.WriteLine(pathRoot);
+                        Console.WriteLine(cmd);
+
+                        var process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "cmd.exe",
+                                WorkingDirectory =
+                                    Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-")),
+                                RedirectStandardInput = true,
+                                RedirectStandardOutput = true,
+                                RedirectStandardError = true,
+                                CreateNoWindow = true
+                            }
+                        };
+                        ExecuteProcess(process, cmd);
+                        var modelSnakeName = SuitApplyVM.ModelName.SnakeCase("-");
+                        {
+                            var template = GetTemplate("NgComponent.DetailComponentHtml");
+                            var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName,
+                                $@"{modelSnakeName}-detail.component.html");
+                            File.WriteAllText(filePath, template);
+                        }
+                        {
+                            var template = GetTemplate("NgComponent.DetailComponentScript");
+                            var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName,
+                                $@"{modelSnakeName}-detail.component.ts");
+
+                            template = template.Replace("$ModelName$", SuitApplyVM.ModelName)
+                                .Replace("$ModelSnackName$", modelSnakeName)
+                                .Replace("$SolutionNamespace$", Settings.SolutionNamespace);
+
+
+                            File.WriteAllText(filePath, template);
+                        }
                     }
                 }
             }

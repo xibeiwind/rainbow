@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -7,7 +7,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./item-detail.component.scss']
 })
 export class ItemDetailComponent implements OnInit {
+  @Input()
   fields: Rainbow.ViewModels.FieldDisplayVM[];
+  @Input()
   item: any;
 
 

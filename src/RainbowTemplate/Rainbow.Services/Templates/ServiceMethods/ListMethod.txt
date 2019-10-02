@@ -6,6 +6,6 @@
         {
             using (var conn = GetConnection())
             {
-                return await conn.AllAsync<$SuitApplyVM.ModelName$, List$item.Name$>();
+                return await conn.AllAsync<$SuitApplyVM.ModelName$, $item.Name$>();
             }
         }

@@ -4,8 +4,8 @@
         [Display(Name = "$item.DisplayName$列表（分页）")]
         [HttpGet]
         [Route("$item.ActionName$")]$ActionAuthorize$
-        [ProducesDefaultResponseType(typeof(PagingList<$SuitApplyVM.ModelName$VM>))]
-        public async Task<PagingList<$SuitApplyVM.ModelName$VM>> $item.ActionName$Async([FromQuery]$item.Name$ option)
+        [ProducesDefaultResponseType(typeof(PagingList<List$SuitApplyVM.ModelName$VM>))]
+        public async Task<IActionResult> $item.ActionName$Async([FromQuery]$item.Name$ option)
         {
-            return await QueryService.$item.ActionName$Async(option);
+            return Ok(await QueryService.$item.ActionName$Async(option));
         }
