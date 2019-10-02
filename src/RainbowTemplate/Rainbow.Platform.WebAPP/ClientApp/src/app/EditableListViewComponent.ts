@@ -6,9 +6,7 @@ import { TemplateRef, ViewChild, EventEmitter } from '@angular/core';
 import { EditableModelListConfig } from './EditableModelListConfig';
 import { CreateModalComponent } from './core/create-modal/create-modal.component';
 export abstract class EditableListViewComponent<ModelVM> {
-
   config: EditableModelListConfig;
-
   fieldGroup = {};
   modelDisplayName: string;
   items: ModelVM[];
@@ -36,10 +34,6 @@ export abstract class EditableListViewComponent<ModelVM> {
       this.getFieldsAsync(Rainbow.Common.Enums.VMType.Update, 'Update', this.config.update);
     }
     this.getFieldsAsync(Rainbow.Common.Enums.VMType.ListDisplay, 'List', this.config.list);
-    if(this.config.detail!== undefined)
-    {
-      this.getFieldsAsync(Rainbow.Common.Enums.VMType.DetailDisplay, 'Detail', this.config.detail);
-    }
     this.getFieldsAsync(Rainbow.Common.Enums.VMType.Query, 'Query', this.config.query);
 
     this.refreshList();
@@ -69,3 +63,5 @@ export abstract class EditableListViewComponent<ModelVM> {
     });
   }
 }
+
+

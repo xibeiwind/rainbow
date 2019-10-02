@@ -225,40 +225,6 @@ declare namespace Rainbow.ViewModels.CustomerInfos {
     NickName?: string;
   }
 }
-declare namespace Rainbow.ViewModels.DataFieldTypes {
-  interface CreateDataFieldTypeVM extends Yunyong.Core.ViewModels.CreateVM {
-    // 显示类型
-    FieldTypeDisplay?: string;
-    // 编辑类型
-    FieldTypeEdit?: string;
-    // DataType类型
-    Type: System.ComponentModel.DataAnnotations.DataType;
-  }
-  interface DataFieldTypeVM extends Yunyong.Core.ViewModels.VMBase {
-    // 显示类型
-    FieldTypeDisplay?: string;
-    // 编辑类型
-    FieldTypeEdit?: string;
-    // DataType类型
-    Type: System.ComponentModel.DataAnnotations.DataType;
-  }
-  interface DeleteDataFieldTypeVM extends Yunyong.Core.ViewModels.DeleteVM {
-  }
-  interface QueryDataFieldTypeVM extends Yunyong.Core.PagingQueryOption {
-    // 显示类型
-    FieldTypeDisplay?: string;
-    // 编辑类型
-    FieldTypeEdit?: string;
-    // DataType类型
-    Type?: System.ComponentModel.DataAnnotations.DataType;
-  }
-  interface UpdateDataFieldTypeVM extends Yunyong.Core.ViewModels.UpdateVM {
-    // 显示类型
-    FieldTypeDisplay?: string;
-    // 编辑类型
-    FieldTypeEdit?: string;
-  }
-}
 declare namespace Rainbow.ViewModels.Messages {
   interface MessageQueryOption extends Yunyong.Core.PagingQueryOption {
   }
@@ -293,14 +259,16 @@ declare namespace Rainbow.ViewModels.Models {
     FolderName?: string;
     // 生成Controller
     GenerateController: boolean;
+    // 生成Angular详情组件
+    GenerateNgDetailComponent: boolean;
+    // Angular组件为List组件
+    GenerateNgListComponent: boolean;
     // 生成Angular组件页面
     GenerateNgModuleComponent: boolean;
     // 生成服务
     GenerateService: boolean;
     // GenerateVM
     GenerateVM: boolean;
-    // Angular组件为List组件
-    IsNgModelListComponent: boolean;
     // Items
     Items?: Rainbow.ViewModels.Models.CreateViewModelApplyVM[];
     // Model全名
@@ -317,12 +285,16 @@ declare namespace Rainbow.ViewModels.Models {
     ActionName?: string;
     // 授权角色
     AuthorizeRoles?: string[];
+    // 生成ControllerAction
+    CreateAction: boolean;
     // 显示名称
     DisplayName?: string;
     // Fields
     Fields?: string[];
     // 名称
     Name?: string;
+    // 选择生成VM
+    SelectGenerateVM: boolean;
     // 操作类型
     Type: Rainbow.Common.Enums.VMType;
     // 添加权限控制

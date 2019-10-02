@@ -262,16 +262,17 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 case VMType.ListDisplay:
                     return $@"
         /// <summary>
-        ///     获取{item.DisplayName}
-        /// </summary>
-        [ListDisplay(Name = ""获取{item.DisplayName}"")]
-        Task < {item.Name} > Get{item.ActionName}Async(Guid id);
-
-        /// <summary>
         ///     获取{item.DisplayName}列表
         /// </summary>
         [ListDisplay(Name = ""获取{item.DisplayName}列表"")]
         Task < List<{item.Name}> > Get{item.ActionName}ListAsync();";
+                case VMType.DetailDisplay:
+                    return $@"
+        /// <summary>
+        ///     获取{item.DisplayName}
+        /// </summary>
+        [ListDisplay(Name = ""获取{item.DisplayName}"")]
+        Task < {item.Name} > Get{item.ActionName}Async(Guid id);";
                 case VMType.Delete:
                     return $@"
         /// <summary>
@@ -300,8 +301,8 @@ using {Settings.SolutionNamespace}.Common.Enums;
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
 
-            var items = SuitApplyVM.Items.Where(a => a.Type == VMType.Create || a.Type == VMType.Update);
-            if (items.Any())
+            var items = SuitApplyVM.Items.Where(a => a.Type == VMType.Create || a.Type == VMType.Update );
+            if (items.Any() || SuitApplyVM.EnableDelete)
             {
                 var template = GetTemplate("IActionService");
 
@@ -781,7 +782,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 process.Close();
 
 
-                if (SuitApplyVM.IsNgModelListComponent)
+                if (SuitApplyVM.GenerateNgListComponent)
                 {
                     var modelSnakeName = SuitApplyVM.ModelName.SnakeCase("-");
                     {

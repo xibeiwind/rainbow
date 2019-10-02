@@ -32,9 +32,9 @@ namespace Rainbow.Platform.WebAPP.Services
                 {
                     var tmp = EntityFactory.Create<UserInfo>();
                     tmp.Phone = $"1890000{index:0000}";
-                    tmp.PasswordHash = Util.Encoding($"TestUser@{index:0000}");
+                    tmp.PasswordHash = Util.Encoding($"RainbowUser@{index:0000}");
                     tmp.IsActive = true;
-                    tmp.Name = $"TestUser:{index:0000}";
+                    tmp.Name = $"RainbowUser:{index:0000}";
 
                     if (!await conn.ExistAsync<UserInfo>(a => a.Phone == tmp.Phone))
                     {
@@ -55,7 +55,7 @@ namespace Rainbow.Platform.WebAPP.Services
                 {
                     var tmp = EntityFactory.Create<UserInfo>();
                     tmp.Phone = $"18900009999";
-                    tmp.PasswordHash = Util.Encoding($"TestUser@9999");
+                    tmp.PasswordHash = Util.Encoding($"RainbowUser@9999");
                     tmp.IsActive = true;
                     tmp.Name = $"SysAdmin";
 

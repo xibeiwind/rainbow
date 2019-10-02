@@ -76,12 +76,6 @@ export class PagingDataListComponent implements OnInit {
   editFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
 
   queryFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
-  detailFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
-
-
-
-
-
 
   config: PagingDataListConfig;
   // currentPage: number = 1;

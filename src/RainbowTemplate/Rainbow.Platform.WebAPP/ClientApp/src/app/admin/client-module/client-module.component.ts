@@ -103,9 +103,6 @@ export class ClientModuleComponent
     if (data.name === 'List') {
       this.pagingDataList.listFields = data.fields;
     }
-    if (data.name === 'Detail') {
-      this.pagingDataList.detailFields = data.fields;
-    }
     if (data.name === 'Update') {
       this.pagingDataList.editFields = data.fields;
     }

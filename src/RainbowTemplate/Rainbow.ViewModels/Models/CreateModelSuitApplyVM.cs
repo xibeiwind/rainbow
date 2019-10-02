@@ -72,7 +72,13 @@ namespace Rainbow.ViewModels.Models
         ///     Angular组件为List组件
         /// </summary>
         [Display(Name = "Angular组件为List组件")]
-        public bool IsNgModelListComponent { get; set; }
+        public bool GenerateNgListComponent { get; set; }
+        
+        /// <summary>
+        ///     生成Angular详情组件
+        /// </summary>
+        [Display(Name = "生成Angular详情组件")]
+        public bool GenerateNgDetailComponent { get; set; }
         /// <summary>
         ///     是否更新呢生成TsService
         /// </summary>

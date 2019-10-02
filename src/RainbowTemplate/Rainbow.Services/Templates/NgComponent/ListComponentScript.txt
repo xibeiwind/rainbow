@@ -38,7 +38,7 @@ export class $ModelName$Component
       modelType: '$ModelName$VM',
       create: 'Create$ModelName$VM',
       update: 'Update$ModelName$VM',
-      detail: '$ModelName$VM',
+      list: 'List$ModelName$VM',
       query: 'Query$ModelName$VM',
     };
   }

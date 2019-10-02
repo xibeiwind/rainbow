@@ -7,7 +7,6 @@ import { EnumCacheService } from './EnumCacheService';
 import { AccountService } from './AccountService';
 import { ClientModuleService } from './ClientModuleService';
 import { ControllerProjectService } from './ControllerProjectService';
-import { DataFieldTypeService } from './DataFieldTypeService';
 import { EnumDisplayService } from './EnumDisplayService';
 import { LookupQueryService } from './LookupQueryService';
 import { MessageService } from './MessageService';
@@ -31,7 +30,6 @@ import { ViewModelDisplayService } from './ViewModelDisplayService';
     AccountService,
     ClientModuleService,
     ControllerProjectService,
-    DataFieldTypeService,
     EnumDisplayService,
     LookupQueryService,
     MessageService,

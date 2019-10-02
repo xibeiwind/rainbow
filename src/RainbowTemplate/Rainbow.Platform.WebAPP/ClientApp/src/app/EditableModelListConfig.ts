@@ -5,7 +5,6 @@ export interface EditableModelListConfig {
   create?: string;
   update?: string;
   list: string;
-  detail?: string;
   query: string;
 
 }

@@ -7,6 +7,11 @@ namespace Rainbow.ViewModels.Models
     public class CreateViewModelApplyVM
     {
         /// <summary>
+        ///     选择生成VM
+        /// </summary>
+        [Display(Name = "选择生成VM")]
+        public bool SelectGenerateVM { get; set; }
+        /// <summary>
         ///     名称
         /// </summary>
         [Display(Name = "名称")]
@@ -26,6 +31,11 @@ namespace Rainbow.ViewModels.Models
         /// </summary>
         [Display(Name = "操作名称")]
         public string ActionName { get; set; }
+        /// <summary>
+        ///     生成ControllerAction
+        /// </summary>
+        [Display(Name = "生成ControllerAction")]
+        public bool CreateAction { get; set; }
         /// <summary>
         ///     添加权限控制
         /// </summary>

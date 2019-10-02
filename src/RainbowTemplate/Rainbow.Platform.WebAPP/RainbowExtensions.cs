@@ -128,7 +128,15 @@ namespace Rainbow.Platform.WebAPP
                         {
                             Name = "Admin",
                             Path = "admin",
-                            Title = "管理",
+                            Title = "平台管理",
+                            IsCustomLayout = false,
+                        });
+
+                        await actionService.CreateAsync(new CreateClientModuleVM
+                        {
+                            Name = "Manage",
+                            Path = "manage",
+                            Title = "数据管理",
                             IsCustomLayout = false,
                         });
 

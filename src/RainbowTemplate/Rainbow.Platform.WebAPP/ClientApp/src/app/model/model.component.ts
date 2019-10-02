@@ -43,7 +43,8 @@ export class ModelComponent implements OnInit {
     GenerateController: false,
     ControllerWithAuthorize: false,
     GenerateNgModuleComponent: false,
-    IsNgModelListComponent: false,
+    GenerateNgListComponent: false,
+    GenerateNgDetailComponent: false,
     UpdateTsServices: false,
   };
 
@@ -92,6 +93,7 @@ export class ModelComponent implements OnInit {
             DisplayName: this.getDisplayName(item),
             Name: item.Name,
             WithAuthorize: false,
+            CreateAction: true,
             ActionName: this.getActionName(item),
             Fields: item.Fields.map(f => f.Name),
           };
@@ -140,7 +142,9 @@ export class ModelComponent implements OnInit {
       Type: typeObj[typeStr],
       DisplayName: '',
       Name: '',
+      CreateAction: true,
       ActionName: '',
+      SelectGenerateVM: true,
       WithAuthorize: true,
       Fields: [],
     };
@@ -154,7 +158,7 @@ export class ModelComponent implements OnInit {
     nameObj[Rainbow.Common.Enums.VMType.Create] = 'Create';
     nameObj[Rainbow.Common.Enums.VMType.Update] = 'Update';
     nameObj[Rainbow.Common.Enums.VMType.ListDisplay] = 'List';
-    nameObj[Rainbow.Common.Enums.VMType.ListDisplay] = 'Detail';
+    nameObj[Rainbow.Common.Enums.VMType.DetailDisplay] = 'Detail';
     nameObj[Rainbow.Common.Enums.VMType.Query] = 'Query';
     const displayNameObj = {};
     displayNameObj[Rainbow.Common.Enums.VMType.Create] = '创建';
@@ -198,6 +202,7 @@ export class ModelComponent implements OnInit {
       ...this.suitApplyVM,
       Items: this.createVMs.map((a) => {
         return {
+          CreateAction: a.CreateAction,
           ActionName: a.ActionName,
           Name: a.Name,
           DisplayName: a.DisplayName,
