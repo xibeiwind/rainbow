@@ -1,0 +1,11 @@
+﻿        /// <summary>
+        ///     获取$item.DisplayName$列表
+        /// </summary>
+        [Display(Name = "获取$item.DisplayName$列表")]
+        public async Task <List<$item.Name$>> Get$item.ActionName$ListAsync()
+        {
+            using (var conn = GetConnection())
+            {
+                return await conn.AllAsync<$SuitApplyVM.ModelName$, List$item.Name$>();
+            }
+        }

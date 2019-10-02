@@ -1,0 +1,11 @@
+﻿        /// <summary>
+        ///     $item.DisplayName$列表（分页）
+        /// </summary>
+        [Display(Name = "$item.DisplayName$列表（分页）")]
+        public async Task<PagingList<List$SuitApplyVM.ModelName$VM>> $item.ActionName$Async($item.Name$ option)
+        {
+            using (var conn = GetConnection())
+            {
+                return await conn.PagingListAsync<$SuitApplyVM.ModelName$, $SuitApplyVM.ModelName$VM>(option);
+            }
+        }

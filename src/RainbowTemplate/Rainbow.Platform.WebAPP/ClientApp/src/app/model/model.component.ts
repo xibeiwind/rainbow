@@ -94,6 +94,7 @@ export class ModelComponent implements OnInit {
             Name: item.Name,
             WithAuthorize: false,
             CreateAction: true,
+            SelectGenerateVM:false,
             ActionName: this.getActionName(item),
             Fields: item.Fields.map(f => f.Name),
           };
@@ -202,6 +203,7 @@ export class ModelComponent implements OnInit {
       ...this.suitApplyVM,
       Items: this.createVMs.map((a) => {
         return {
+          SelectGenerateVM : a.SelectGenerateVM,
           CreateAction: a.CreateAction,
           ActionName: a.ActionName,
           Name: a.Name,

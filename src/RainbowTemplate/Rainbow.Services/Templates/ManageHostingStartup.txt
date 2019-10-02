@@ -4,21 +4,21 @@ using Microsoft.Extensions.DependencyInjection;
 using $ControllerProject$.HostingStartups;
 using $RootNamespace$.Services.$FolderName$;
 
-[assembly: HostingStartup(typeof($Model$Startup))]
+[assembly: HostingStartup(typeof(Manage$Model$Startup))]
 namespace $ControllerProject$.HostingStartups
 {
 	/// <summary>
     ///     $DisplayName$
     /// </summary>
     [Display(Name = "$DisplayName$")]
-    public class $Model$Startup : IHostingStartup
+    public class Manage$Model$Startup : IHostingStartup
     {
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((services) =>
             {
-                services.AddScoped<I$Model$ActionService, $Model$ActionService>();
-                services.AddScoped<I$Model$QueryService, $Model$QueryService>();
+                services.AddScoped<IManage$Model$ActionService, Manage$Model$ActionService>();
+                services.AddScoped<IManage$Model$QueryService, Manage$Model$QueryService>();
             });
         }
     }

@@ -1,0 +1,13 @@
+﻿        /// <summary>
+        ///     删除$ModelDisplayName$
+        /// </summary>
+        [Display(Name="删除$ModelDisplayName$")]
+        Task<AsyncTaskResult> DeleteAsync(Delete$SuitApplyVM.ModelName$VM vm)
+		{
+		    using (var conn = GetConnection())
+            {
+                // todo:
+                await conn.DeleteAsync<$SuitApplyVM.ModelName$>(a => a.Id == vm.Id);
+                return AsyncTaskResult.Success();
+            }
+		}

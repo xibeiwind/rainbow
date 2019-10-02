@@ -1,0 +1,11 @@
+﻿        /// <summary>
+        ///     获取$item.DisplayName$
+        /// </summary>
+        [Display(Name = "获取$item.DisplayName$")]
+        public async Task <$item.Name$> Get$item.ActionName$Async(Guid id)
+        {
+            using (var conn = GetConnection())
+            {
+                return await conn.FirstOrDefaultAsync<$SuitApplyVM.ModelName$, $SuitApplyVM.ModelName$VM>(a => a.Id == id);
+            }
+        }

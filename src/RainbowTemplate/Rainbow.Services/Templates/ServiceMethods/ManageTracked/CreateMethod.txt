@@ -1,0 +1,16 @@
+﻿        /// <summary>
+        ///     {item.DisplayName}
+        /// </summary>
+        [Display(Name="$item.DisplayName$")]
+        public async Task<AsyncTaskTResult<Guid>> $item.ActionName$Async($item.Name$ vm)
+        {
+            using (var conn = GetConnection())
+            {
+                var entity = EntityFactory.Create<$SuitApplyVM.ModelName$,$item.Name$>(vm);
+                // todo:
+                await conn.CreateAsync(entity);
+                var trackRecord = vm.CustomerServiceOperationTrack<$SuitApplyVM.ModelName$>(CustomerServiceId, entity.Id);
+                await conn.CreateAsync(trackRecord);
+                return AsyncTaskResult.Success(entity.Id);
+            }
+        }

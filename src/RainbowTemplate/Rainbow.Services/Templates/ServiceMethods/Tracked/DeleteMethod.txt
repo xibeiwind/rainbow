@@ -1,0 +1,15 @@
+﻿        /// <summary>
+        ///     删除$ModelDisplayName$
+        /// </summary>
+        [Display(Name="删除$ModelDisplayName$")]
+        Task<AsyncTaskResult> DeleteAsync(Delete$SuitApplyVM.ModelName$VM vm)
+		{
+		    using (var conn = GetConnection())
+            {
+                // todo:
+                await conn.DeleteAsync<$SuitApplyVM.ModelName$>(a => a.Id == vm.Id);
+                var trackRecord = vm.CustomerOperationTrack<$SuitApplyVM.ModelName$>(CustomerId);
+                await conn.CreateAsync(trackRecord);
+                return AsyncTaskResult.Success();
+            }
+		}

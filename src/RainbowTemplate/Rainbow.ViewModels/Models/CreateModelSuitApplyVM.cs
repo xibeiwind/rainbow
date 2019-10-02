@@ -37,7 +37,16 @@ namespace Rainbow.ViewModels.Models
         /// </summary>
         [Display(Name = "生成服务")]
         public bool GenerateService { get; set; }
-         
+        /// <summary>
+        ///     管理服务功能
+        /// </summary>
+        [Display(Name = "管理服务功能")]
+        public bool ManageService { get; set; }
+        /// <summary>
+        ///     跟踪操作记录
+        /// </summary>
+        [Display(Name = "跟踪操作记录")]
+        public bool TrackOperation { get; set; }
         /// <summary>
         ///     生成Controller
         /// </summary>

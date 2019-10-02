@@ -1,0 +1,11 @@
+﻿        /// <summary>
+        ///     获取$item.DisplayName$
+        /// </summary>
+        [Display(Name = "获取$item.DisplayName$")]
+        [HttpGet]
+        [Route("$item.ActionName$")]$ActionAuthorize$
+        [ProducesDefaultResponseType(typeof($item.Name$))]
+        public async Task < $item.Name$ > Get$item.ActionName$Async(Guid id)
+        {
+            return await QueryService.Get$item.ActionName$Async(id);
+        }

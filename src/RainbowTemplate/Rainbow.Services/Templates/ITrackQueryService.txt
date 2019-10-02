@@ -1,0 +1,15 @@
+﻿using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using $RootNamespace$.ViewModels.$FolderName$;
+using Yunyong.Core;
+
+namespace $RootNamespace$.Services.$FolderName$
+{
+    public partial interface I$Model$QueryService
+    {
+        Guid CustomerId{ get;set; }
+	$ActionMethods$
+    }
+}

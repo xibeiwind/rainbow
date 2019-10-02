@@ -28,6 +28,16 @@ namespace $ControllerProjectName$
             QueryService = queryService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void Controller_BeforeAction()
+        {
+            base.Controller_BeforeAction();
+            ActionService.CustomerServiceId = this.GetCustomerServiceId();
+            QueryService.CustomerServiceId = this.GetCustomerServiceId();
+        }
+
         private $IModelActionService$ ActionService { get; }
         private $IModelQueryService$ QueryService { get; }
 
