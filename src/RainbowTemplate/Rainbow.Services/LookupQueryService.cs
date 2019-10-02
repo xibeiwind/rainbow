@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Rainbow.Common;
 using Rainbow.ViewModels;
 using Yunyong.Core;
+using Yunyong.Core.Attributes;
 using Yunyong.EventBus;
 
 namespace Rainbow.Services
@@ -28,7 +29,7 @@ namespace Rainbow.Services
                     var result = await conn.QueryAsync<LookupResultVM>(
                         $@"
 select Id, {attr.DisplayField} as Name,{attr.ValueField} as Value 
-from {attr.Type.Name} 
+from {attr.TypeName} 
 order by {attr.DisplayField} limit 10");
 
                     return AsyncTaskResult.Success(result);

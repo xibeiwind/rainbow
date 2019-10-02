@@ -16,11 +16,19 @@ namespace TypeLite.TsModels
         {
         }
 
+        public TsEnumValue(FieldInfo field, string value)
+        {
+            Field = field;
+            Name = field.Name;
+            Description = field.GetCustomAttribute<DisplayAttribute>()?.Name ?? field.Name;
+
+
+            Value = value;
+        }
+
         /// <summary>
         ///     Initializes a new instance of the TsEnumValue class with the specific name and value.
         /// </summary>
-        /// <param name="name">The name of the enum value.</param>
-        /// <param name="value">The value of the enum value.</param>
         public TsEnumValue(FieldInfo field)
         {
             Field = field;
@@ -30,14 +38,14 @@ namespace TypeLite.TsModels
             var value = field.GetValue(null);
 
             var valueType = Enum.GetUnderlyingType(value.GetType());
-            if (valueType == typeof(byte)) Value = ((byte)value).ToString();
-            if (valueType == typeof(sbyte)) Value = ((sbyte)value).ToString();
-            if (valueType == typeof(short)) Value = ((short)value).ToString();
-            if (valueType == typeof(ushort)) Value = ((ushort)value).ToString();
-            if (valueType == typeof(int)) Value = ((int)value).ToString();
-            if (valueType == typeof(uint)) Value = ((uint)value).ToString();
-            if (valueType == typeof(long)) Value = ((long)value).ToString();
-            if (valueType == typeof(ulong)) Value = ((ulong)value).ToString();
+            if (valueType == typeof(byte)) Value = ((byte) value).ToString();
+            if (valueType == typeof(sbyte)) Value = ((sbyte) value).ToString();
+            if (valueType == typeof(short)) Value = ((short) value).ToString();
+            if (valueType == typeof(ushort)) Value = ((ushort) value).ToString();
+            if (valueType == typeof(int)) Value = ((int) value).ToString();
+            if (valueType == typeof(uint)) Value = ((uint) value).ToString();
+            if (valueType == typeof(long)) Value = ((long) value).ToString();
+            if (valueType == typeof(ulong)) Value = ((ulong) value).ToString();
         }
 
         /// <summary>

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.ViewModels;
 using Yunyong.Core;
+using Yunyong.Core.Attributes;
 
 namespace Rainbow.Services
 {
@@ -60,6 +63,55 @@ namespace Rainbow.Services
                 return "text";
             }
 
+            InputControlType GetInputControlType(PropertyInfo property)
+            {
+                if (property.PropertyType == typeof(IFormFile))
+                {
+                    return InputControlType.FileSelect;
+                }
+                if (property.GetCustomAttribute<Yunyong.Core.Attributes.LookupAttribute>() != null)
+                {
+                    return InputControlType.Select;
+                }
+                if (property.PropertyType.IsEnum)
+                {
+                    return InputControlType.Select;
+                }
+
+                InputControlType GetControlType(Type type)
+                {
+                    var dic = new Dictionary<InputControlType, List<Type>>
+                    {
+                        {
+                            InputControlType.Input, new List<Type>()
+                            {
+                                typeof(string), typeof(Guid),
+                                typeof(int),
+                                typeof(double),
+                                typeof(float),
+                                typeof(decimal),
+                                typeof(byte)
+                            }
+                        },
+                        {
+                            InputControlType.Checkbox, new List<Type>
+                            {
+                                typeof(bool),
+                            }
+                        }
+                    };
+                    KeyValuePair<InputControlType, List<Type>>? tmp = dic.FirstOrDefault(a => a.Value.Contains(type));
+
+                    return tmp?.Key ?? InputControlType.Input;
+
+                }
+                if (property.PropertyType.IsGenericType &&
+                    property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    return GetControlType(property.PropertyType.GetGenericArguments().FirstOrDefault());
+                if (!property.PropertyType.IsClass) return GetControlType(property.PropertyType);
+                return InputControlType.Input;
+            }
+
             ModelTypeDic = Assembly.Load("Rainbow.Models").GetTypes()
                 .Where(a => a.IsSubclassOf(typeof(Entity)) && !a.IsAbstract)
                 .ToDictionary(b => b.Name);
@@ -87,12 +139,13 @@ namespace Rainbow.Services
                             Name = propName,
                             DisplayName = propDisplayName,
                             FieldType = FieldType(b),
+                            ControlType = GetInputControlType(b),
                             IsEnum = PropertyIsEnum(b), // b.PropertyType.IsEnum,
                             DataType = GetDataType(b),
                             Lookup = lookup != null
                                 ? new LookupSettingVM
                                 {
-                                    VMType = lookup.Type.Name,
+                                    VMType = lookup.TypeName,
                                     DisplayField = lookup.DisplayField,
                                     ValueField = lookup.ValueField
                                 }
@@ -143,10 +196,6 @@ namespace Rainbow.Services
         {
             if (property.PropertyType.IsEnum) return true;
 
-            //if (property.DeclaringType == typeof(QueryDataFieldTypeVM))
-            //{
-
-            //}
             if (property.PropertyType.IsGenericType &&
                 property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
@@ -175,7 +224,7 @@ namespace Rainbow.Services
             {
                 var type = property.PropertyType.GetGenericArguments().FirstOrDefault();
             }
-            
+
             return DataType.Text;
         }
     }

@@ -4,10 +4,6 @@
     <ProjectReference Include="..\Rainbow.ViewModels\Rainbow.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DataFieldTypes\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>

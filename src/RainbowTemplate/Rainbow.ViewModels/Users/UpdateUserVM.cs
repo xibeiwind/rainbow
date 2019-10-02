@@ -1,4 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+using Rainbow.Common;
+using Rainbow.Common.Enums;
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Users
@@ -7,6 +10,7 @@ namespace Rainbow.ViewModels.Users
     ///     更新User
     /// </summary>
     [Display(Name = "更新User")]
+    [BindModel("UserInfo", VMType.Update)]
     public class UpdateUserVM : UpdateVM
     {
         /// <summary>
@@ -20,5 +24,10 @@ namespace Rainbow.ViewModels.Users
         /// </summary>
         [Display(Name = "IsActive")]
         public bool IsActive { get; set; }
+        /// <summary>
+        ///     头像图片
+        /// </summary>
+        [Display(Name = "头像图片")]
+        public IFormFile File { get; set; }
     }
 }

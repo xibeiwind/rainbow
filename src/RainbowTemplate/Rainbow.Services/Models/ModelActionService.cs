@@ -145,7 +145,7 @@ namespace Rainbow.Services.Models
         /// <summary>
         ///     {displayName}
         /// </summary>
-        [Display(Name = ""{displayName}"")]
+        [ListDisplay(Name = ""{displayName}"")]
         public {returnType} {prop.Name} {{ get; set; }}
 ";
             });

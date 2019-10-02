@@ -35,7 +35,11 @@ export abstract class EditableListViewComponent<ModelVM> {
     if (this.config.update !== undefined) {
       this.getFieldsAsync(Rainbow.Common.Enums.VMType.Update, 'Update', this.config.update);
     }
-    this.getFieldsAsync(Rainbow.Common.Enums.VMType.Display, 'Display', this.config.detail);
+    this.getFieldsAsync(Rainbow.Common.Enums.VMType.ListDisplay, 'List', this.config.list);
+    if(this.config.detail!== undefined)
+    {
+      this.getFieldsAsync(Rainbow.Common.Enums.VMType.DetailDisplay, 'Detail', this.config.detail);
+    }
     this.getFieldsAsync(Rainbow.Common.Enums.VMType.Query, 'Query', this.config.query);
 
     this.refreshList();

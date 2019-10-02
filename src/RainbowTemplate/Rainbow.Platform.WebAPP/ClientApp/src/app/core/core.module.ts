@@ -16,6 +16,7 @@ import { SearchComponent } from './search/search.component';
 import { PagingDataListComponent } from './paging-data-list/paging-data-list.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { CheckboxListComponent } from './checkbox-list/checkbox-list.component';
+import { SelectImageFileComponent } from './select-image-file/select-image-file.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CheckboxListComponent } from './checkbox-list/checkbox-list.component';
     SearchComponent,
     PagingDataListComponent,
     CheckboxListComponent,
+    SelectImageFileComponent,
   ],
   imports: [
     CommonModule,

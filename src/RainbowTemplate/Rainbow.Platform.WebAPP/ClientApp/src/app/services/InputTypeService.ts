@@ -34,25 +34,27 @@ export class InputTypeService {
     if (this.inputType.hasOwnProperty(field.DataType)) {
       return this.inputType[field.DataType];
     }
-    if (this.inputType.hasOwnProperty(field.FieldType)) {
-      return this.inputType[field.FieldType];
+    if (this.inputType.hasOwnProperty(field.ControlType)) {
+      return this.inputType[field.ControlType];
     }
 
     return 'text';
   }
 
   getInputControlType(field: Rainbow.ViewModels.FieldDisplayVM): string {
-    if (field.FieldType === 'checkbox') {
-      return 'checkbox';
-    }
-    if (field.IsEnum) {
-      return 'select';
-    }
-    if (field.DataType === System.ComponentModel.DataAnnotations.DataType.Html ||
-      field.DataType === System.ComponentModel.DataAnnotations.DataType.MultilineText) {
-      return 'html';
-    } else {
-      return 'input';
+    switch (field.ControlType) {
+      case Rainbow.Common.Enums.InputControlType.Checkbox:
+        return 'checkbox';
+      case Rainbow.Common.Enums.InputControlType.Select:
+        return 'select';
+      case Rainbow.Common.Enums.InputControlType.FileSelect:
+        return 'file';
+
+        case Rainbow.Common.Enums.InputControlType.Html:
+          return 'html';
+
+      default:
+        return 'input';
     }
   }
 }

@@ -11,7 +11,7 @@ namespace Rainbow.ViewModels.ControllerProjects
     ///     Controller项目
     /// </summary>
     [Display(Name = "Controller项目")]
-	[BindModel("ControllerProject", VMType.Display)]
+	[BindModel("ControllerProject", VMType.ListDisplay)]
     public partial class ControllerProjectVM : VMBase
     {
 		

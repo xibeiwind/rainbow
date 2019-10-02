@@ -106,10 +106,10 @@ namespace Rainbow.Platform.WebAPP
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseSignalR(builder =>
-            {
-                // todo: set SignalR here
-            });
+            //app.UseSignalR(builder =>
+            //{
+            //    // todo: set SignalR here
+            //});
 
             //app.UseGraphQL();
 

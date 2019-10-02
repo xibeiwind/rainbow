@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Rainbow.Common.Enums;
 
 namespace Rainbow.ViewModels
 {
@@ -21,6 +22,12 @@ namespace Rainbow.ViewModels
         /// </summary>
         [Display(Name = "字段类型")]
         public string FieldType { get; set; }
+
+        /// <summary>
+        ///     字段控件类型
+        /// </summary>
+        [Display(Name = "字段控件类型")]
+        public InputControlType ControlType { get; set; }
 
         /// <summary>
         ///     是否枚举

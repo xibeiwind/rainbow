@@ -11,7 +11,7 @@ namespace Rainbow.ViewModels.ClientModules
     ///     客户端模块
     /// </summary>
     [Display(Name = "客户端模块")]
-	[BindModel("ClientModule", VMType.Display)]
+	[BindModel("ClientModule", VMType.ListDisplay)]
     public partial class ClientModuleVM : VMBase
     {
 		

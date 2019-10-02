@@ -38,7 +38,7 @@ export class ClientModuleComponent
       modelType: 'ClientModuleVM',
       create: 'CreateClientModuleVM',
       update: 'UpdateClientModuleVM',
-      detail: 'ClientModuleVM',
+      list: 'ClientModuleVM',
       query: 'QueryClientModuleVM',
     };
   }
@@ -100,9 +100,11 @@ export class ClientModuleComponent
     if (data.name === 'Create') {
       this.pagingDataList.createFields = data.fields;
     }
-    if (data.name === 'Display') {
+    if (data.name === 'List') {
       this.pagingDataList.listFields = data.fields;
-
+    }
+    if (data.name === 'Detail') {
+      this.pagingDataList.detailFields = data.fields;
     }
     if (data.name === 'Update') {
       this.pagingDataList.editFields = data.fields;

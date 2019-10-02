@@ -38,7 +38,7 @@ export class ControllerProjectComponent
       modelType: 'ControllerProjectVM',
       create: 'CreateControllerProjectVM',
       update: 'UpdateControllerProjectVM',
-      detail: 'ControllerProjectVM',
+      list: 'ControllerProjectVM',
       query: 'QueryControllerProjectVM',
     };
   }

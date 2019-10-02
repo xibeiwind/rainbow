@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Rainbow.Common;
+using Rainbow.Common.Enums;
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Users
@@ -7,6 +9,7 @@ namespace Rainbow.ViewModels.Users
     ///     删除User
     /// </summary>
     [Display(Name = "删除User")]
+    [BindModel("UserInfo", VMType.Delete)]
     public class DeleteUserVM : DeleteVM
     {
     }

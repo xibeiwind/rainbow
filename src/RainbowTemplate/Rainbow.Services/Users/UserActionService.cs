@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Rainbow.Common;
+using Rainbow.Common.Configs;
+using Rainbow.Common.Enums;
 using Rainbow.Models;
 using Rainbow.ViewModels.Users;
 using Yunyong.Core;
@@ -13,13 +18,20 @@ namespace Rainbow.Services.Users
 {
     public class UserActionService : ServiceBase, IUserActionService
     {
+        private PictureSettings PictureSettings { get; }
+        private IHostingEnvironment Env { get; }
+
         public UserActionService(
             ConnectionSettings connectionSettings,
             IConnectionFactory connectionFactory,
             ILoggerFactory loggerFactory,
-            IEventBus eventBus)
+            IEventBus eventBus,
+            PictureSettings pictureSettings,
+            IHostingEnvironment env)
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
         {
+            PictureSettings = pictureSettings;
+            Env = env;
         }
 
 
@@ -48,6 +60,9 @@ namespace Rainbow.Services.Users
             {
                 // todo:
                 await conn.UpdateAsync<UserInfo>(a => a.Id == vm.Id, vm);
+
+                await this.UpdateUserAvatarAsync(new UpdateUserAvatarVM() {Id = vm.Id, File = vm.File});
+
                 return AsyncTaskResult.Success(vm.Id);
             }
         }
@@ -62,6 +77,43 @@ namespace Rainbow.Services.Users
             {
                 await conn.DeleteAsync<UserInfo>(a => a.Id == vm.Id);
                 return AsyncTaskResult.Success();
+            }
+        }
+
+        public async Task<AsyncTaskResult> UpdateUserAvatarAsync(UpdateUserAvatarVM vm)
+        {
+            var imageTypeDic =
+                new Dictionary<string, string>
+                {
+                    {"image/bmp", "bmp"},
+                    {"image/gif", "gif"},
+                    {"image/x-icon", "ico"},
+                    {"image/jpeg", "jpg"},
+                    {"image/png", "png"}
+                };
+
+            var dirPath = Path.Combine(Env.WebRootPath, PictureSettings.PictureTypePathDir[PictureType.Avatar]);
+
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
+            var fileName = $"{vm.Id}.{imageTypeDic[vm.File.ContentType]}";
+
+            var filePath = Path.Combine(dirPath, fileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await vm.File.CopyToAsync(stream);
+
+                using (var conn = GetConnection())
+                {
+                    await conn.UpdateAsync<UserInfo>(a => a.Id == vm.Id, new
+                    {
+                        AvatarUrl = $"/{PictureSettings.PictureTypePathDir[PictureType.Avatar]}/{fileName}"
+                    });
+                    return AsyncTaskResult.Success();
+                }
             }
         }
     }

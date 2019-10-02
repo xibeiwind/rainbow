@@ -25,7 +25,8 @@
     <None Remove="Templates\QueryService.txt" />
     <None Remove="Templates\ViewModels\CreateVM.txt" />
     <None Remove="Templates\ViewModels\DeleteVM.txt" />
-    <None Remove="Templates\ViewModels\DisplayVM.txt" />
+    <None Remove="Templates\ViewModels\DetailDisplayVM.txt" />
+    <None Remove="Templates\ViewModels\ListDisplayVM.txt" />
     <None Remove="Templates\ViewModels\QueryVM.txt" />
     <None Remove="Templates\ViewModels\UpdateVM.txt" />
   </ItemGroup>
@@ -50,7 +51,8 @@
     <EmbeddedResource Include="Templates\QueryService.txt" />
     <EmbeddedResource Include="Templates\ViewModels\CreateVM.txt" />
     <EmbeddedResource Include="Templates\ViewModels\DeleteVM.txt" />
-    <EmbeddedResource Include="Templates\ViewModels\DisplayVM.txt" />
+    <EmbeddedResource Include="Templates\ViewModels\DetailDisplayVM.txt" />
+    <EmbeddedResource Include="Templates\ViewModels\ListDisplayVM.txt" />
     <EmbeddedResource Include="Templates\ViewModels\QueryVM.txt" />
     <EmbeddedResource Include="Templates\ViewModels\UpdateVM.txt" />
   </ItemGroup>
@@ -74,10 +76,6 @@
     <Reference Include="Microsoft.IdentityModel.Tokens">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.identitymodel.tokens\5.3.0\lib\netstandard2.0\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DataFieldTypes\" />
   </ItemGroup>
 
 </Project>

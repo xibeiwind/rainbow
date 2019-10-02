@@ -11,7 +11,7 @@ namespace Rainbow.ViewModels.RoleInfos
     ///     角色
     /// </summary>
     [Display(Name = "角色")]
-	[BindModel("RoleInfo", VMType.Display)]
+	[BindModel("RoleInfo", VMType.ListDisplay)]
     public partial class RoleInfoVM : VMBase
     {
 		

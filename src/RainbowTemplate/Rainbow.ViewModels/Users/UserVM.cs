@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Rainbow.Common;
+using Rainbow.Common.Enums;
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Users
@@ -7,6 +9,7 @@ namespace Rainbow.ViewModels.Users
     ///     显示User
     /// </summary>
     [Display(Name = "显示User")]
+    [BindModel("UserInfo", VMType.ListDisplay)]
     public class UserVM : VMBase
     {
         /// <summary>

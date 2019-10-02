@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Common;
+using Rainbow.Common.Configs;
 using Rainbow.Data;
 using Rainbow.Platform.WebAPP.Services;
 using Rainbow.Services;
@@ -62,9 +63,8 @@ namespace Rainbow.Platform.WebAPP
 
             services.AddScoped<IRoleService, RoleService>();
 
-            services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
-            var jwtSettings = new JwtSettings();
-            configuration.Bind("JwtSettings", jwtSettings);
+            services.AddSingleton(configuration.Get<JwtSettings>("JwtSettings"));
+            services.AddSingleton(configuration.Get<TokenSettings>("TokenSettings"));
 
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<ICustomerServiceManageService, CustomerServiceManageService>();

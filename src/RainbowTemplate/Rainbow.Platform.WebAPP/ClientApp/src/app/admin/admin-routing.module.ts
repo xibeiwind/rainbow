@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { RoleInfoComponent } from './role-info/role-info.component';
-import { DataFieldTypeComponent } from './data-field-type/data-field-type.component';
 import { ClientModuleComponent } from './client-module/client-module.component';
 import { ControllerProjectComponent } from './controller-project/controller-project.component';
 import { AuthGuard } from '../auth.guard';
@@ -16,7 +15,6 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     children: [
       { path: 'role', component: RoleInfoComponent, data: { title: '用户角色管理' } },
-      { path: 'data-field-type', component: DataFieldTypeComponent, data: { title: 'DataFieldType管理' } },
       { path: 'client-module', component: ClientModuleComponent, data: { title: 'Client Module管理' } },
       { path: 'controller-project', component: ControllerProjectComponent, data: { title: 'Controller 项目管理' } },
       { path: '', pathMatch: 'full', redirectTo: 'role' },

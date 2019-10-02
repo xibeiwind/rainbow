@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Rainbow.Common;
 using Rainbow.ViewModels;
 using Yunyong.Core;
+using Yunyong.Core.Attributes;
 
 namespace Rainbow.Services
 {

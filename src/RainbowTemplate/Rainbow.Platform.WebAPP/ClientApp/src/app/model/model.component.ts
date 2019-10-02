@@ -26,7 +26,8 @@ export class ModelComponent implements OnInit {
   vmTypes: { name: string, value: Rainbow.Common.Enums.VMType }[] = [
     { name: '创建', value: Rainbow.Common.Enums.VMType.Create },
     { name: '更新', value: Rainbow.Common.Enums.VMType.Update },
-    { name: '显示', value: Rainbow.Common.Enums.VMType.Display },
+    { name: '列表', value: Rainbow.Common.Enums.VMType.ListDisplay },
+    { name: '详情', value: Rainbow.Common.Enums.VMType.DetailDisplay },
     { name: '查询', value: Rainbow.Common.Enums.VMType.Query },
   ];
   currentDisplayViewModels: Rainbow.ViewModels.ViewModelDisplayVM[];
@@ -116,22 +117,23 @@ export class ModelComponent implements OnInit {
         return 'Update';
       case Rainbow.Common.Enums.VMType.Delete:
         return 'Delete';
-      case Rainbow.Common.Enums.VMType.Display:
-        return '';
+      case Rainbow.Common.Enums.VMType.ListDisplay:
+        return 'List';
+      case Rainbow.Common.Enums.VMType.DetailDisplay:
+        return 'Detail';
       case Rainbow.Common.Enums.VMType.Query:
         return 'Query';
-
       default:
         return '';
     }
-
   }
 
   createNewVM(typeStr: string = 'Create') {
     const typeObj = {
       Create: Rainbow.Common.Enums.VMType.Create,
       Update: Rainbow.Common.Enums.VMType.Update,
-      Display: Rainbow.Common.Enums.VMType.Display,
+      ListDisplay: Rainbow.Common.Enums.VMType.ListDisplay,
+      DetailDisplay: Rainbow.Common.Enums.VMType.DetailDisplay,
       Query: Rainbow.Common.Enums.VMType.Query,
     };
     const vm: Rainbow.ViewModels.Models.CreateViewModelApplyVM = {
@@ -151,12 +153,14 @@ export class ModelComponent implements OnInit {
     const nameObj = {};
     nameObj[Rainbow.Common.Enums.VMType.Create] = 'Create';
     nameObj[Rainbow.Common.Enums.VMType.Update] = 'Update';
-    nameObj[Rainbow.Common.Enums.VMType.Display] = '';
+    nameObj[Rainbow.Common.Enums.VMType.ListDisplay] = 'List';
+    nameObj[Rainbow.Common.Enums.VMType.ListDisplay] = 'Detail';
     nameObj[Rainbow.Common.Enums.VMType.Query] = 'Query';
     const displayNameObj = {};
     displayNameObj[Rainbow.Common.Enums.VMType.Create] = '创建';
     displayNameObj[Rainbow.Common.Enums.VMType.Update] = '更新';
-    displayNameObj[Rainbow.Common.Enums.VMType.Display] = '';
+    displayNameObj[Rainbow.Common.Enums.VMType.ListDisplay] = '列表';
+    displayNameObj[Rainbow.Common.Enums.VMType.DetailDisplay] = '详情';
     displayNameObj[Rainbow.Common.Enums.VMType.Query] = '查询';
 
     vm.DisplayName = `${displayNameObj[vm.Type]}${this.currentModel.DisplayName}`;

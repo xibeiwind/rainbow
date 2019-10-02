@@ -41,6 +41,7 @@ export class PagingDataListComponent implements OnInit {
     });
   }
 
+
   @Input()
   get pagingData(): Yunyong.Core.PagingList<any> {
     return this._pagingData;
@@ -75,6 +76,7 @@ export class PagingDataListComponent implements OnInit {
   editFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
 
   queryFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
+  detailFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
 
 
 

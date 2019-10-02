@@ -1,5 +1,17 @@
 // tslint:disable:no-namespace
 namespace Rainbow.Common.Enums {
+  export const enum InputControlType {
+    // Input
+    Input = 'Input',
+    // Checkbox
+    Checkbox = 'Checkbox',
+    // Select
+    Select = 'Select',
+    // FileSelect
+    FileSelect = 'FileSelect',
+    // Html
+    Html = 'Html'
+  }
   export const enum NotifyType {
     // Metting
     Metting = 0
@@ -30,9 +42,11 @@ namespace Rainbow.Common.Enums {
     // 查询
     Query = 4,
     // 展示
-    Display = 8,
+    ListDisplay = 8,
+    // 详情
+    DetailDisplay = 32,
     // 删除
-    Delete = 16,
+    Delete = 64,
     // 杂项
     Misc = 128
   }

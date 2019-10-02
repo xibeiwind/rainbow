@@ -229,7 +229,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     $displayName$
         /// </summary>
-        [Display(Name = ""$displayName$"")$required$]$dataTypeStr$$QueryColumn$
+        [ListDisplay(Name = ""$displayName$"")$required$]$dataTypeStr$$QueryColumn$
         public $ReturnType$ $PropertyName$ { get; set; }
 ";
             return template.Replace("$displayName$", displayName)
@@ -250,34 +250,34 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     {item.DisplayName}
         /// </summary>
-        [Display(Name=""{item.DisplayName}"")]
+        [ListDisplay(Name=""{item.DisplayName}"")]
         Task<AsyncTaskTResult<Guid>> {item.ActionName}Async({item.Name} vm);";
                 case VMType.Query:
                     return $@"
         /// <summary>
         ///     {item.DisplayName}列表（分页）
         /// </summary>
-        [Display(Name = ""{item.DisplayName}列表（分页）"")]
+        [ListDisplay(Name = ""{item.DisplayName}列表（分页）"")]
         Task<PagingList<{SuitApplyVM.ModelName}VM>> {item.ActionName}Async({item.Name} option);";
-                case VMType.Display:
+                case VMType.ListDisplay:
                     return $@"
         /// <summary>
         ///     获取{item.DisplayName}
         /// </summary>
-        [Display(Name = ""获取{item.DisplayName}"")]
+        [ListDisplay(Name = ""获取{item.DisplayName}"")]
         Task < {item.Name} > Get{item.ActionName}Async(Guid id);
 
         /// <summary>
         ///     获取{item.DisplayName}列表
         /// </summary>
-        [Display(Name = ""获取{item.DisplayName}列表"")]
+        [ListDisplay(Name = ""获取{item.DisplayName}列表"")]
         Task < List<{item.Name}> > Get{item.ActionName}ListAsync();";
                 case VMType.Delete:
                     return $@"
         /// <summary>
         ///     删除{ModelDisplayName}
         /// </summary>
-        [Display(Name=""删除{ModelDisplayName}"")]
+        [ListDisplay(Name=""删除{ModelDisplayName}"")]
         Task<AsyncTaskResult> DeleteAsync(Delete{SuitApplyVM.ModelName}VM vm);";
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -290,7 +290,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     删除{ModelDisplayName}
         /// </summary>
-        [Display(Name=""删除{ModelDisplayName}"")]
+        [ListDisplay(Name=""删除{ModelDisplayName}"")]
         Task<AsyncTaskResult> DeleteAsync(Delete{SuitApplyVM.ModelName}VM vm);";
         }
 
@@ -319,7 +319,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     Encoding.UTF8);
             }
 
-            items = SuitApplyVM.Items.Where(a => a.Type == VMType.Display || a.Type == VMType.Query);
+            items = SuitApplyVM.Items.Where(a => a.Type == VMType.ListDisplay || a.Type == VMType.Query);
             if (items.Any())
             {
                 var template = GetTemplate("IQueryService");
@@ -330,7 +330,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     .Replace("$DisplayName$", $"{SuitApplyVM.ModelName} Action Service");
 
 
-                var displayVMs = items.Where(a => a.Type == VMType.Display);
+                var displayVMs = items.Where(a => a.Type == VMType.ListDisplay);
 
                 var methodList = displayVMs.Select(GetServiceInterfaceMethod).ToList();
 
@@ -353,7 +353,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     {item.DisplayName}
         /// </summary>
-        [Display(Name=""{item.DisplayName}"")]
+        [ListDisplay(Name=""{item.DisplayName}"")]
         public async Task<AsyncTaskTResult<Guid>> {item.ActionName}Async({item.Name} vm)
         {{
             using (var conn = GetConnection())
@@ -369,7 +369,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     {item.DisplayName}
         /// </summary>
-        [Display(Name=""{item.DisplayName}"")]
+        [ListDisplay(Name=""{item.DisplayName}"")]
         public async Task<AsyncTaskTResult<Guid>> {item.ActionName}Async({item.Name} vm)
         {{
             using (var conn = GetConnection())
@@ -384,7 +384,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     {item.DisplayName}列表（分页）
         /// </summary>
-        [Display(Name = ""{item.DisplayName}列表（分页）"")]
+        [ListDisplay(Name = ""{item.DisplayName}列表（分页）"")]
         public async Task<PagingList<{SuitApplyVM.ModelName}VM>> {item.ActionName}Async({item.Name} option)
         {{
             using (var conn = GetConnection())
@@ -392,12 +392,12 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 return await conn.PagingListAsync<{SuitApplyVM.ModelName}, {SuitApplyVM.ModelName}VM>(option);
             }}
         }}";
-                case VMType.Display:
+                case VMType.ListDisplay:
                     return $@"
         /// <summary>
         ///     获取{item.DisplayName}
         /// </summary>
-        [Display(Name = ""获取{item.DisplayName}"")]
+        [ListDisplay(Name = ""获取{item.DisplayName}"")]
         public async Task < {item.Name}> Get{item.ActionName}Async(Guid id)
         {{
             using (var conn = GetConnection())
@@ -408,7 +408,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     获取{item.DisplayName}列表
         /// </summary>
-        [Display(Name = ""获取{item.DisplayName}列表"")]
+        [ListDisplay(Name = ""获取{item.DisplayName}列表"")]
         public async Task <List<{item.Name}>> Get{item.ActionName}ListAsync()
         {{
             using (var conn = GetConnection())
@@ -423,7 +423,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     删除{ModelDisplayName}
         /// </summary>
-        [Display(Name=""删除{ModelDisplayName}"")]
+        [ListDisplay(Name=""删除{ModelDisplayName}"")]
         Task<AsyncTaskResult> DeleteAsync(Delete{SuitApplyVM.ModelName}VM vm);";
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -457,7 +457,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     Encoding.UTF8);
             }
 
-            items = SuitApplyVM.Items.Where(a => a.Type == VMType.Display || a.Type == VMType.Query);
+            items = SuitApplyVM.Items.Where(a => a.Type == VMType.ListDisplay || a.Type == VMType.Query);
             if (items.Any())
             {
                 var template = GetTemplate("QueryService");
@@ -483,7 +483,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     删除{ModelDisplayName}
         /// </summary>
-        [Display(Name=""删除{ModelDisplayName}"")]
+        [ListDisplay(Name=""删除{ModelDisplayName}"")]
         public async Task<AsyncTaskResult> DeleteAsync(Delete{SuitApplyVM.ModelName}VM vm)
         {{
             using (var conn = GetConnection())
@@ -523,7 +523,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 case VMType.Query:
                     template = GetTemplate("ControllerActions.QueryAction");
                     break;
-                case VMType.Display:
+                case VMType.ListDisplay:
                     template = GetTemplate("ControllerActions.DisplayAndListAction");
                     break;
                 case VMType.Delete:
@@ -562,7 +562,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         [{httpMethod}]
         [Route(""{item.ActionName}"")]
         [ProducesDefaultResponseType(typeof(AsyncTaskTResult<Guid>))]
-        [Display(Name=""{item.DisplayName}"")]
+        [ListDisplay(Name=""{item.DisplayName}"")]
         public async Task<AsyncTaskTResult<Guid>> {item.ActionName}Async([FromBody]{item.Name} vm)
         {{
             return await ActionService.{item.ActionName}Async(vm);
@@ -573,7 +573,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     {item.DisplayName}列表（分页）
         /// </summary>
-        [Display(Name = ""{item.DisplayName}列表（分页）"")]
+        [ListDisplay(Name = ""{item.DisplayName}列表（分页）"")]
         [HttpGet]
         [Route(""{item.ActionName}"")]
         [ProducesDefaultResponseType(typeof(PagingList<{SuitApplyVM.ModelName}VM>))]
@@ -582,12 +582,12 @@ using {Settings.SolutionNamespace}.Common.Enums;
             return await QueryService.{item.ActionName}Async(option);
         }}
 ";
-                case VMType.Display:
+                case VMType.ListDisplay:
                     return $@"
         /// <summary>
         ///     获取{item.DisplayName}
         /// </summary>
-        [Display(Name = ""获取{item.DisplayName}"")]
+        [ListDisplay(Name = ""获取{item.DisplayName}"")]
         [HttpGet]
         [Route(""{item.ActionName}"")]
         [ProducesDefaultResponseType(typeof({item.Name}))]
@@ -599,7 +599,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     获取{item.DisplayName}列表
         /// </summary>
-        [Display(Name = ""获取{item.DisplayName}列表"")]
+        [ListDisplay(Name = ""获取{item.DisplayName}列表"")]
         [HttpGet]
         [Route(""{item.ActionName}List"")]
         [ProducesDefaultResponseType(typeof(List<{item.Name}>))]
@@ -633,7 +633,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
         /// <summary>
         ///     删除{ModelDisplayName}
         /// </summary>
-        [Display(Name=""删除{ModelDisplayName}"")]
+        [ListDisplay(Name=""删除{ModelDisplayName}"")]
         [HttpDelete]
         [Route(""Delete"")]
         [ProducesDefaultResponseType(typeof(AsyncTaskResult))]

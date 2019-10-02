@@ -39,7 +39,7 @@ export class RoleInfoComponent
       modelType: 'RoleInfoVM',
       create: 'CreateRoleInfoVM',
       update: 'UpdateRoleInfoVM',
-      detail: 'RoleInfoVM',
+      list: 'RoleInfoVM',
       query: 'QueryRoleInfoVM',
     };
   }

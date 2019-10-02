@@ -1,6 +1,10 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using TypeLite.Extensions;
 
 namespace TypeLite.TsModels
@@ -47,9 +51,21 @@ namespace TypeLite.TsModels
         /// <returns>collection of all enum values.</returns>
         protected IEnumerable<TsEnumValue> GetEnumValues(Type enumType)
         {
-            return enumType.GetFields()
-                .Where(fieldInfo => fieldInfo.IsLiteral && !string.IsNullOrEmpty(fieldInfo.Name))
-                .Select(fieldInfo => new TsEnumValue(fieldInfo));
+            var attribute = enumType.GetCustomAttribute<JsonConverterAttribute>();
+            if (attribute?.ConverterType == typeof(StringEnumConverter))
+            {
+                return enumType.GetFields()
+                               .Where(fieldInfo => fieldInfo.IsLiteral && !string.IsNullOrEmpty(fieldInfo.Name))
+                               .Select(fieldInfo => new TsEnumValue(fieldInfo, $"'{fieldInfo.Name}'"));
+            }
+            else
+            {
+                return enumType.GetFields()
+                    .Where(fieldInfo => fieldInfo.IsLiteral && !string.IsNullOrEmpty(fieldInfo.Name))
+                    .Select(fieldInfo => new TsEnumValue(fieldInfo));
+            }
+
+
         }
     }
 }

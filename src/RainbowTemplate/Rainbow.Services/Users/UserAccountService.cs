@@ -28,14 +28,14 @@ namespace Rainbow.Services.Users
             SecurityUtil securityUtil,
             IConnectionFactory connectionFactory,
             IIdentityService identityService,
-            IOptions<JwtSettings> jwtOptions,
+            JwtSettings jwtSettings,
             ILoggerFactory loggerFactory,
             IEventBus eventBus)
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
         {
             SecurityUtil = securityUtil;
             IdentityService = identityService;
-            Settings = jwtOptions.Value;
+            Settings = jwtSettings;
         }
 
         private SecurityUtil SecurityUtil { get; }

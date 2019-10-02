@@ -1,6 +1,22 @@
 // tslint:disable:no-empty-interface
 // tslint:disable:no-namespace
 
+declare namespace Microsoft.AspNetCore.Http {
+  interface IFormFile {
+    // ContentDisposition
+    ContentDisposition?: string;
+    // ContentType
+    ContentType?: string;
+    // FileName
+    FileName?: string;
+    // Headers
+    Headers: System.Collections.Generic.KeyValuePair<string, string[]>[];
+    // Length
+    Length: number;
+    // Name
+    Name?: string;
+  }
+}
 declare namespace Rainbow.Common.Enums {
 }
 declare namespace Rainbow.ViewModels {
@@ -27,6 +43,8 @@ declare namespace Rainbow.ViewModels {
     Value: number;
   }
   interface FieldDisplayVM {
+    // 字段控件类型
+    ControlType: Rainbow.Common.Enums.InputControlType;
     // 控件展示类型
     DataType: System.ComponentModel.DataAnnotations.DataType;
     // 显示名称
@@ -177,6 +195,34 @@ declare namespace Rainbow.ViewModels.Controllers {
     Description?: string;
     // Name
     Name?: string;
+  }
+}
+declare namespace Rainbow.ViewModels.CustomerInfos {
+  interface CustomerInfoVM {
+  }
+  interface CustomerLoginTrackVM {
+    // 用户Id
+    CustomerId: string;
+    // 过期时间
+    ExpiresTime: Date;
+    // 签名Id
+    SignId: string;
+  }
+  interface WechatLoginResultVM {
+    // 出错信息
+    ErrorMessage?: string;
+    // 是否成功
+    IsSuccess: boolean;
+    // 如果成功返回token
+    Token?: string;
+  }
+  interface WechatLoginVM {
+    // 用户头像
+    AvatarUrl?: string;
+    // LoginCode
+    LoginCode?: string;
+    // 昵称
+    NickName?: string;
   }
 }
 declare namespace Rainbow.ViewModels.DataFieldTypes {
@@ -404,7 +450,13 @@ declare namespace Rainbow.ViewModels.Users {
     // SmsCode
     SmsCode?: string;
   }
+  interface UpdateUserAvatarVM extends Yunyong.Core.ViewModels.UpdateVM {
+    // 头像图片
+    File: Microsoft.AspNetCore.Http.IFormFile;
+  }
   interface UpdateUserVM extends Yunyong.Core.ViewModels.UpdateVM {
+    // 头像图片
+    File: Microsoft.AspNetCore.Http.IFormFile;
     // IsActive
     IsActive: boolean;
     // Name
@@ -503,6 +555,14 @@ declare namespace Rainbow.ViewModels.Utils {
     Phone?: string;
     // Token
     Token: string;
+  }
+}
+declare namespace System.Collections.Generic {
+  interface KeyValuePair<TKey, TValue> {
+    // Key
+    Key?: TKey;
+    // Value
+    Value?: TValue;
   }
 }
 declare namespace System.ComponentModel.DataAnnotations {

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DataFieldTypeComponent } from './data-field-type.component';
+import { SelectImageFileComponent } from './select-image-file.component';
 
-describe('DataFieldTypeComponent', () => {
-  let component: DataFieldTypeComponent;
-  let fixture: ComponentFixture<DataFieldTypeComponent>;
+describe('SelectImageFileComponent', () => {
+  let component: SelectImageFileComponent;
+  let fixture: ComponentFixture<SelectImageFileComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataFieldTypeComponent ]
+      declarations: [ SelectImageFileComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DataFieldTypeComponent);
+    fixture = TestBed.createComponent(SelectImageFileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

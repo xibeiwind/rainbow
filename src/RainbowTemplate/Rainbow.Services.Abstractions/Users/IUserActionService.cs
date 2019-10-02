@@ -25,5 +25,7 @@ namespace Rainbow.Services.Users
         /// </summary>
         [Display(Name = "删除User")]
         Task<AsyncTaskResult> DeleteAsync(DeleteUserVM vm);
+
+        Task<AsyncTaskResult> UpdateUserAvatarAsync(UpdateUserAvatarVM vm);
     }
 }

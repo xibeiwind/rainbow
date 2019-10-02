@@ -13,32 +13,37 @@ namespace Rainbow.Common.Enums
         ///     创建
         /// </summary>
         [Display(Name = "创建")]
-        Create=1,
+        Create = 1,
         /// <summary>
         ///     更新
         /// </summary>
         [Display(Name = "更新")]
-        Update=2,
+        Update = 2,
         /// <summary>
         ///     查询
         /// </summary>
         [Display(Name = "查询")]
-        Query=4,
+        Query = 4,
         /// <summary>
         ///     展示
         /// </summary>
         [Display(Name = "展示")]
-        Display=8,
+        ListDisplay = 8,
+        /// <summary>
+        ///     详情
+        /// </summary>
+        [Display(Name = "详情")]
+        DetailDisplay = 32,
         /// <summary>
         ///     删除
         /// </summary>
         [Display(Name = "删除")]
-        Delete=16,
+        Delete = 64,
         /// <summary>
         ///     杂项
         /// </summary>
         [Display(Name = "杂项")]
-        Misc=128,
-}
+        Misc = 128,
+    }
 
 }

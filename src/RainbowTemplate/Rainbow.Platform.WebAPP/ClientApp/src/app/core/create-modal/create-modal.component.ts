@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { InputTypeService } from 'src/app/services/InputTypeService';
 import { EnumCacheService } from 'src/app/services/EnumCacheService';
+import { SelectImageFileComponent } from '../select-image-file/select-image-file.component';
 
 @Component({
   selector: 'app-create-modal',
@@ -23,6 +24,9 @@ export class CreateModalComponent implements OnInit {
 
   @ViewChild('createTemplate', { static: true })
   template: TemplateRef<any>;
+
+  @ViewChildren(SelectImageFileComponent)
+  files!: QueryList<SelectImageFileComponent>;
 
   private createModalRef: BsModalRef;
   private enumObj = {};
@@ -52,7 +56,10 @@ export class CreateModalComponent implements OnInit {
   }
 
   createSubmit() {
-    this.onsubmit.next({ ...this.createForm.value });
+    var data = { ...this.createForm.value };
+    Object.assign(data, this.getFiles());
+
+    this.onsubmit.next(data);
   }
   public hide() {
     this.createModalRef.hide();
@@ -63,5 +70,13 @@ export class CreateModalComponent implements OnInit {
   }
   getInputType(field: Rainbow.ViewModels.FieldDisplayVM): string {
     return this.inputTypeService.getInputType(field);
+  }
+  private getFiles() {
+    var result = {};
+    this.files.forEach(file => {
+      const data = file.getFileData();
+      Object.assign(result, data);
+    });
+    return result;
   }
 }

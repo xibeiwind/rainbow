@@ -1,0 +1,4 @@
+<div class="select-image-file">
+    <img src="{{fileResult}}" class="img-thumbnail" *ngIf="showImg">
+    <input type="file" #file (change)="fileChange($event)">
+</div>

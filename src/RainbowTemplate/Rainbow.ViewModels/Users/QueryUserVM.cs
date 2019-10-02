@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Rainbow.Common;
+using Rainbow.Common.Enums;
 using Yunyong.Core;
 
 namespace Rainbow.ViewModels.Users
@@ -7,6 +9,7 @@ namespace Rainbow.ViewModels.Users
     ///     查询User
     /// </summary>
     [Display(Name = "查询User")]
+    [BindModel("UserInfo", VMType.Query)]
     public class QueryUserVM : PagingQueryOption
     {
         /// <summary>
