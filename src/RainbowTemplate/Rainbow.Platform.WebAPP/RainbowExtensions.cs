@@ -101,6 +101,12 @@ namespace Rainbow.Platform.WebAPP
                             ProjectDescription = "Rainbow.Platform.Controllers",
                             IsDefault = true,
                         });
+                        await actionService.CreateAsync(new CreateControllerProjectVM
+                        {
+                            ProjectName = "Rainbow.MP.Controllers",
+                            ProjectDescription = "Rainbow.MP.Controllers",
+                            IsDefault = true,
+                        });
                     }
                 }
 

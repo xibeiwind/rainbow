@@ -1,7 +1,4 @@
-﻿using System.Buffers;
-using System.IO;
-using System.Reflection;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -11,9 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Rainbow.Authorize;
-using Rainbow.Schemas;
+using Rainbow.Platform.Authorize;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Buffers;
+using System.IO;
 
 namespace Rainbow.Platform.WebAPP
 {
@@ -58,18 +56,22 @@ namespace Rainbow.Platform.WebAPP
                 options.OutputFormatters.Insert(0, jsonOutputFormatter);
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddSignalR(options => { }).AddJsonProtocol(options =>
+            services.AddMvc(options =>
             {
-                options.PayloadSerializerSettings = new JsonSerializerSettings
+                var jsonSerializerSettings = new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                     ContractResolver = new DefaultContractResolver(),
                     DateParseHandling = DateParseHandling.DateTimeOffset,
                     DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
-                    DateTimeZoneHandling = DateTimeZoneHandling.Unspecified
+                    DateTimeZoneHandling = DateTimeZoneHandling.Unspecified,
+                    DateFormatString = "yyyy-MM-dd HH:mm:ss"
                 };
-            });
+                var jsonOutputFormatter = new JsonOutputFormatter(jsonSerializerSettings, ArrayPool<char>.Shared);
+                options.OutputFormatters.Insert(0, jsonOutputFormatter);
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
 
             //services.AddGraphQL();
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Rainbow.Authorize
+namespace Rainbow.Platform.Authorize
 {
     public static class RainbowAuthorizeExtensions
     {
