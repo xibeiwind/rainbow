@@ -85,6 +85,10 @@
             <td>
               <div class="btn-group btn-group-xs pull-right">
 
+                <a class="btn btn-info" *ngIf="config.detailLink" [routerLink]="[config.detailLink, item.id]">
+                  <i class="fa fa-info" aria-hidden="true"></i>
+                </a>
+
                 <button type="button" class="btn btn-warning" *ngIf="config.canEdit" (click)="openEditModal(item)">
                   <i class="fa fa-edit" aria-hidden="true"></i>
                 </button>
