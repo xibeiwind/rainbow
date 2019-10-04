@@ -25,6 +25,7 @@ namespace Rainbow.Models
         ///     商品价格
         /// </summary>
         [Display(Name = "商品价格")]
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
     }
 }
