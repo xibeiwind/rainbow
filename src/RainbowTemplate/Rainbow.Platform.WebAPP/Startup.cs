@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Rainbow.Platform.Authorize;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
 using System.Buffers;
 using System.IO;
 
@@ -126,7 +127,7 @@ namespace Rainbow.Platform.WebAPP
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
                 spa.Options.SourcePath = "ClientApp";
-
+                spa.Options.StartupTimeout = TimeSpan.FromMinutes(2);
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");

@@ -5,4 +5,5 @@ export interface PagingDataListConfig {
   canSelect: boolean;
   pageSize: number;
   maxSize: number;
+  detailLink?: string;
 }
