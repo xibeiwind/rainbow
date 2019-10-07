@@ -143,7 +143,8 @@ export class PagingDataListComponent implements OnInit {
     this.onquery.next(vm);
   }
 
-  pageChanged(pageIndex) {
+  pageChanged(data) {
+    this.pagingData.PageIndex = data.page;
     this.refreshList();
   }
 

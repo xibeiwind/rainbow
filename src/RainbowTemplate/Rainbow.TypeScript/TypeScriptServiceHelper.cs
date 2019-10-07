@@ -102,7 +102,9 @@ namespace Rainbow.TypeScript
                 ArgsStr = method.GetArgumentsString(),
                 Method = httpMethod,
                 Url = url,
-                IsClassArguments = method.IsClassArguments()
+                IsClassArguments = method.IsClassArguments(),
+                IsFromForm = method.IsFromForm(),
+
             };
         }
 

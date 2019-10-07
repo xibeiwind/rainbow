@@ -117,6 +117,11 @@ namespace Rainbow.TypeScript
             return true;
         }
 
+        public static bool IsFromForm(this MethodInfo method)
+        {
+            return method.GetParameters().Any(a => a.GetCustomAttribute<FromFormAttribute>() != null);
+        }
+
         public static string GetActionTemplate(this RainbowAction action, TypeScriptServiceType type)
         {
             switch (action.Method)
@@ -128,9 +133,16 @@ namespace Rainbow.TypeScript
                             ? GetTemplate($"{type}.ServiceMethods.GetMethodWithObjectArgument")
                             : GetTemplate($"{type}.ServiceMethods.GetMethodWithArgument");
                 case "post":
+                    if (action.IsFromForm)
+                    {
+                        return GetTemplate($"{type}.ServiceMethods.FormPostMethod");
+                    }
                     return GetTemplate($"{type}.ServiceMethods.PostMethod");
                 case "put":
-                    return action.IsClassArguments? GetTemplate($"{type}.ServiceMethods.PutMethodWithObjectArgument") : GetTemplate($"{type}.ServiceMethods.PutMethod");
+                    return action.IsClassArguments ? (
+                            action.IsFromForm ? GetTemplate($"{type}.ServiceMethods.FormPutMethodWithObjectArgument") :
+                                GetTemplate($"{type}.ServiceMethods.PutMethodWithObjectArgument"))
+                        : GetTemplate($"{type}.ServiceMethods.PutMethod");
                 case "delete":
                     return GetTemplate($"{type}.ServiceMethods.DeleteMethod");
             }

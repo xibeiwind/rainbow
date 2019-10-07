@@ -36,5 +36,10 @@ namespace Rainbow.TypeScript
         public string ReturnStr { get; set; }
 
         public bool IsClassArguments { get; set; }
+        /// <summary>
+        ///     是否Form数据
+        /// </summary>
+        [Display(Name = "是否Form数据")]
+        public bool IsFromForm { get; set; }
     }
 }

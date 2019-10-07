@@ -1,0 +1,12 @@
+﻿  public $action.Name$($action.ArgParamsStr$)
+    : Observable<$action.ReturnStr$> {
+    const data = new FormData();
+    for (const key in $action.ArgsStr$) {
+      if ($action.ArgsStr$.hasOwnProperty(key)) {
+        const element = vm[key];
+        data.append(key, element);
+      }
+    }
+    return this.http.post<$action.ReturnStr$>
+      (`${this.baseUrl}$action.Url$`, data, { ...getHttpOptions() });
+  }

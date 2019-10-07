@@ -7,6 +7,8 @@
   <ItemGroup>
     <None Remove="Template\Angular\ServiceMethods\DeleteMethod.txt" />
     <None Remove="Template\Angular\ServiceMethods\DeleteMethodWithArgument.txt" />
+    <None Remove="Template\Angular\ServiceMethods\FormPostMethod.txt" />
+    <None Remove="Template\Angular\ServiceMethods\FormPutMethodWithObjectArgument.txt" />
     <None Remove="Template\Angular\ServiceMethods\GetMethod.txt" />
     <None Remove="Template\Angular\ServiceMethods\GetMethodWithArgument.txt" />
     <None Remove="Template\Angular\ServiceMethods\GetMethodWithObjectArgument.txt" />
@@ -33,6 +35,8 @@
     <EmbeddedResource Include="Template\Angular\Service.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\DeleteMethod.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\DeleteMethodWithArgument.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\FormPostMethod.txt" />
+    <EmbeddedResource Include="Template\Angular\ServiceMethods\FormPutMethodWithObjectArgument.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\GetMethod.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\GetMethodWithObjectArgument.txt" />
     <EmbeddedResource Include="Template\Angular\ServiceMethods\GetMethodWithArgument.txt" />
