@@ -605,7 +605,44 @@ using {Settings.SolutionNamespace}.Common.Enums;
                                         SuitApplyVM.ManageService
                                             ? $"IManage{SuitApplyVM.ModelName}QueryService"
                                             : $"I{SuitApplyVM.ModelName}QueryService")
-                               .Replace("$DisplayName$", $"{SuitApplyVM.ModelName} Controller");
+                               .Replace("$DisplayName$", $"{SuitApplyVM.ModelName} Controller")
+                               .Replace("$BeforeAction$", GetControllerBeforeAction());
+
+
+            string GetControllerBeforeAction()
+            {
+                if (!SuitApplyVM.AuthorizeRoles.Any())
+                {
+                    return "";
+                }
+
+                return SuitApplyVM.ManageService ?
+                    $@"
+        #region Overrides of Controller
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void Controller_BeforeAction()
+        {{
+            base.Controller_BeforeAction();
+            ActionService.CustomerServiceId = this.GetCustomerServiceId();
+            QueryService.CustomerServiceId = this.GetCustomerServiceId();
+        }}
+        #endregion
+" : $@"
+        #region Overrides of Controller
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void Controller_BeforeAction()
+        {{
+            base.Controller_BeforeAction();
+            ActionService.CustomerId = this.GetCustomerId();
+            QueryService.CustomerId = this.GetCustomerId();
+        }}
+        #endregion
+";
+            }
 
             var methodList = new List<string>();
 

@@ -31,6 +31,8 @@ namespace $ControllerProjectName$
         private $IModelActionService$ ActionService { get; }
         private $IModelQueryService$ QueryService { get; }
 
+$BeforeAction$
+
 $ActionMethods$
 	}
 }
