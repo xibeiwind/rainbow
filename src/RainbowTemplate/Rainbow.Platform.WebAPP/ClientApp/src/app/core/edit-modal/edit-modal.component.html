@@ -9,17 +9,34 @@
     <div class="modal-body">
       <div class="form-group" *ngFor="let field of fields">
         <label [for]="field.Name">{{field.DisplayName}}</label>
-        <select *ngIf="field.IsEnum" [formControlName]="field.Name" class="form-control" [required]="!field.IsNullable">
-          <option *ngFor="let option of enumObj[field.Name]" [value]="option.Value">
-            {{option.DisplayName}} <small>{{option.Name}}</small>
-          </option>
-        </select>
-        <ckeditor *ngIf="getInputControlType(field) === 'html'" [formControlName]="field.Name"
-          [required]="!field.IsNullable"></ckeditor>
-        <ui-switch *ngIf="getInputControlType(field) === 'checkbox'" [formControlName]="field.Name" [checkedLabel]="'是'"
-          [uncheckedLabel]="'否'"></ui-switch>
-        <input *ngIf="getInputControlType(field)=== 'input'" [type]="getInputType(field)" class="form-control"
-          [placeholder]="field.DisplayName" [formControlName]="field.Name" [required]="!field.IsNullable">
+        <ng-container [ngSwitch]="field.ControlType">
+          <ng-container *ngSwitchCase="'Lookup'">
+            <app-lookup-select [lookup]="field.Lookup" [placeholder]="field.DisplayName" [formControlName]="field.Name"
+              [lookuprequired]="!field.IsNullable" ctrlclass="form-control">
+            </app-lookup-select>
+          </ng-container>
+          <ng-container *ngSwitchCase="'Select'">
+            <select [formControlName]="field.Name" class="form-control" [required]="!field.IsNullable">
+              <option *ngFor="let option of enumObj[field.Name]" [value]="option.Value">
+                {{option.DisplayName}} <small>{{option.Name}}</small>
+              </option>
+            </select>
+          </ng-container>
+          <ng-container *ngSwitchCase="'Checkbox'">
+            <ui-switch [formControlName]="field.Name" [checkedLabel]="'是'" [uncheckedLabel]="'否'"></ui-switch>
+          </ng-container>
+          <ng-container *ngSwitchCase="'FileSelect'">
+            <app-select-image-file [formControlName]="field.Name"></app-select-image-file>
+
+          </ng-container>
+          <ng-container *ngSwitchCase="'Input'">
+            <input [type]="getInputType(field)" class="form-control" [placeholder]="field.DisplayName"
+              [formControlName]="field.Name" [required]="!field.IsNullable">
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            {{field.ControlType}}
+          </ng-container>
+        </ng-container>
       </div>
     </div>
     <div class="modal-footer">

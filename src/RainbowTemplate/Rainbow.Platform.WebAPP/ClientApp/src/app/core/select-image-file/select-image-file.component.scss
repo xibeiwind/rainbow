@@ -1,5 +1,7 @@
-.select-image-file{
-    img{
-        max-height: 150px;
+.select-image-file {
+    .img-thumbnail {
+      max-width: 300px;
+      max-height: 150px;
     }
-}
+  }
+  

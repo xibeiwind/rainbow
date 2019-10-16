@@ -56,7 +56,7 @@
           </tr>
         </thead>
         <tbody *ngIf="pagingData">
-          <tr *ngFor="let item of pagingData.Data;let i = index" (click)="currentItem = item"
+          <tr *ngFor="let item of pagingData.Data;let i = index" (click)="setCurrentItem(item)"
             [ngClass]="{'current-item': item === currentItem}">
             <td>
               {{i+1}}
@@ -65,28 +65,33 @@
               <input type="checkbox" [(ngModel)]="selectIdObj[item.Id]" value="{{item.Id}}">
             </td>
             <td *ngFor="let field of _fields" class="data-cell">
-
-              <ng-container *ngIf="field.IsEnum; else elseTemplate">
-                <span>
-                  {{enumObj[field.Name] && enumObj[field.Name][item[field.Name]]?.DisplayName}}
-                </span>
-              </ng-container>
-              <ng-template #elseTemplate>
-                <ng-container *ngIf="getInputControlType(field) !== 'html'; else elseHtmlTemplate">
+              <ng-container [ngSwitch]="field.ControlType">
+                <ng-container *ngSwitchCase="'Lookup'">                  
+                  <app-lookup-display [lookup]="field.Lookup" [value]="item[field.Name]"></app-lookup-display>
+                </ng-container>
+                <ng-container *ngSwitchCase="'Select'">
+                  <h4>
+                    {{enumObj[field.Name] && enumObj[field.Name][item[field.Name]]?.DisplayName}}
+                    <small>
+                      {{item[field.Name]}}
+                    </small>
+                  </h4>
+                </ng-container>
+                <ng-container *ngSwitchCase="'FileSelect'">
+                  <img src="{{item[field.Name]}}" class="img-thumbnail">
+                </ng-container>
+                <ng-container *ngSwitchDefault>
                   <span>
                     {{item[field.Name]}}
-                  </span>
-                </ng-container>
-                <ng-template #elseHtmlTemplate>
-                  <span [innerHTML]="item[field.Name]"></span>
-                </ng-template>
-              </ng-template>
+                  </span></ng-container>
+              </ng-container>
             </td>
             <td>
               <div class="btn-group btn-group-xs pull-right">
 
-                <a class="btn btn-info" *ngIf="config.detailLink" [routerLink]="[config.detailLink, item.id]">
-                  <i class="fa fa-info" aria-hidden="true"></i>
+                <a class="btn btn-primary" *ngIf="config.showDetail"
+                  [routerLink]="[config.showDetail.routerLink, item.Id]" routerLinkActive="router-link-active">
+                  <i class="fa fa-envelope-open" aria-hidden="true"></i>
                 </a>
 
                 <button type="button" class="btn btn-warning" *ngIf="config.canEdit" (click)="openEditModal(item)">

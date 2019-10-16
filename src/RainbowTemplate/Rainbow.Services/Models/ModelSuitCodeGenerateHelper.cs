@@ -12,6 +12,7 @@ using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.ViewModels.ClientModules;
 using Rainbow.ViewModels.Models;
+using Yunyong.Core.Attributes;
 
 namespace Rainbow.Services.Models
 {
@@ -209,8 +210,6 @@ using {Settings.SolutionNamespace}.Common.Enums;
             var returnType = GetTypeName(prop.PropertyType); // prop.PropertyType.Name;
             if (prop.PropertyType.IsGenericType)
                 returnType = prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)
-                    //? $"{prop.PropertyType.GetGenericArguments()[0].Name}?"
-                    //: $"{Regex.Match(prop.PropertyType.Name, @"([0-9a-zA-Z]+)`").Groups[1].Value}<{string.Join(",", prop.PropertyType.GetGenericArguments().Select(b => b.Name))}>";
                     ? $"{GetTypeName(prop.PropertyType.GetGenericArguments()[0])}?"
                     : $"{Regex.Match(prop.PropertyType.Name, @"([0-9a-zA-Z]+)`").Groups[1].Value}<{string.Join(",", prop.PropertyType.GetGenericArguments().Select(GetTypeName))}>";
             if (isQueryVM)
@@ -224,20 +223,25 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 if (prop.PropertyType == typeof(string))
                     queryColumn = $@"
         [QueryColumn(""{prop.Name}"", CompareEnum.Like)]";
-                // [QueryColumn("Name", CompareEnum.Like)]
             }
 
+            string GetLookupString(LookupAttribute attr)
+            {
+                return attr != null ? $@"
+        [Lookup(""{attr.TypeName}"", ""{attr.DisplayField}"", ""{attr.ValueField}"")]" : "";
+            }
 
             var template = @"
         /// <summary>
         ///     $displayName$
         /// </summary>
-        [Display(Name = ""$displayName$"")$required$]$dataTypeStr$$QueryColumn$
+        [Display(Name = ""$displayName$"")$required$]$dataTypeStr$$QueryColumn$$LookupStr$
         public $ReturnType$ $PropertyName$ { get; set; }
 ";
             return template.Replace("$displayName$", displayName)
                            .Replace("$required$", required)
                            .Replace("$dataTypeStr$", dataTypeStr)
+                           .Replace("$LookupStr$", GetLookupString(prop.GetCustomAttribute<LookupAttribute>()))
                            .Replace("$ReturnType$", returnType)
                            .Replace("$PropertyName$", prop.Name)
                            .Replace("$QueryColumn$", queryColumn);

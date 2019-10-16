@@ -28,8 +28,8 @@ export class CreateModalComponent implements OnInit {
   @ViewChildren(SelectImageFileComponent)
   files!: QueryList<SelectImageFileComponent>;
 
-  private createModalRef: BsModalRef;
-  private enumObj = {};
+  protected createModalRef: BsModalRef;
+  protected enumObj = {};
 
   constructor(
     private enumService: EnumCacheService,
@@ -40,16 +40,19 @@ export class CreateModalComponent implements OnInit {
 
   ngOnInit() {
   }
-  openCreateModal() {
+  openCreateModal(data?: any) {
     const formFields = {};
     this.fields
       .forEach((field: Rainbow.ViewModels.FieldDisplayVM) => {
         if (field.IsEnum) {
           this.enumObj[field.Name] = this.enumService.GetEnumDisplay(field.FieldType).Fields;
         }
-        formFields[field.Name] = ['', Validators.required];
+        if (data != null && data.hasOwnProperty(field.Name)) {
+          formFields[field.Name] = [data[field.Name], Validators.required];
+        } else {
+          formFields[field.Name] = ['', Validators.required];
+        }
       });
-
     this.createForm = this.formBuilder.group(formFields);
 
     this.createModalRef = this.modalService.show(this.template, { ignoreBackdropClick: true, class: this.largeModal ? 'modal-lg' : '' });
@@ -58,7 +61,6 @@ export class CreateModalComponent implements OnInit {
   createSubmit() {
     var data = { ...this.createForm.value };
     Object.assign(data, this.getFiles());
-
     this.onsubmit.next(data);
   }
   public hide() {
@@ -71,7 +73,8 @@ export class CreateModalComponent implements OnInit {
   getInputType(field: Rainbow.ViewModels.FieldDisplayVM): string {
     return this.inputTypeService.getInputType(field);
   }
-  private getFiles() {
+
+  getFiles() {
     var result = {};
     this.files.forEach(file => {
       const data = file.getFileData();

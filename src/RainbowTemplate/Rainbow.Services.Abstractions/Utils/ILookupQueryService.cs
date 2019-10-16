@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Rainbow.Common;
-using Rainbow.ViewModels;
+using Rainbow.ViewModels.Utils;
 using Yunyong.Core;
 using Yunyong.Core.Attributes;
 
-namespace Rainbow.Services
+namespace Rainbow.Services.Utils
 {
     public interface ILookupQueryService
     {
         Task<AsyncTaskTResult<IEnumerable<LookupResultVM>>> Query(LookupAttribute attr, string filter);
-        AsyncTaskTResult<LookupResultVM> Query(LookupQueryVM vm);
+        Task<IEnumerable<LookupResultVM>> QueryAsync(LookupQueryVM vm);
+        Task<LookupResultVM> GetAsync(LookupQueryVM vm);
     }
 }

@@ -10,8 +10,10 @@ import { EnumCacheService } from 'src/app/services/EnumCacheService';
   styleUrls: ['./edit-modal.component.scss']
 })
 export class EditModalComponent implements OnInit {
-  editForm: FormGroup;
-  private editModalRef: BsModalRef;
+  protected editForm: FormGroup;
+  protected editModalRef: BsModalRef;
+  protected enumObj = {};
+
   @Input()
   title: string;
   @Input()
@@ -23,7 +25,7 @@ export class EditModalComponent implements OnInit {
   @ViewChild('editTemplate', { static: true })
   template: TemplateRef<any>;
   editItemId: string;
-  private enumObj = {};
+
 
   constructor(
     private enumService: EnumCacheService,

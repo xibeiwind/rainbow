@@ -97,9 +97,8 @@ export class RoleInfoComponent
     if (data.name === 'Create') {
       this.pagingDataList.createFields = data.fields;
     }
-    if (data.name === 'Display') {
+    if (data.name === 'List') {
       this.pagingDataList.listFields = data.fields;
-
     }
     if (data.name === 'Update') {
       this.pagingDataList.editFields = data.fields;

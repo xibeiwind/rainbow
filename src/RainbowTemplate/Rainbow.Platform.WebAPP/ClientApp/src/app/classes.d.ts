@@ -56,31 +56,9 @@ declare namespace Rainbow.ViewModels {
     // 是否可空
     IsNullable: boolean;
     // Lookup
-    Lookup?: Rainbow.ViewModels.LookupSettingVM;
+    Lookup?: Rainbow.ViewModels.Utils.LookupSettingVM;
     // 名称
     Name?: string;
-  }
-  interface LookupQueryVM {
-    // FieldName
-    FieldName?: string;
-    // Filter
-    Filter?: string;
-    // VMName
-    VMName?: string;
-  }
-  interface LookupResultVM extends Yunyong.Core.ViewModels.VMBase {
-    // 显示文本
-    Name?: any;
-    // 值
-    Value?: any;
-  }
-  interface LookupSettingVM {
-    // DisplayField
-    DisplayField?: string;
-    // ValueField
-    ValueField?: string;
-    // VMType
-    VMType?: string;
   }
   interface ModelDisplaySuitVM {
     // DisplayName
@@ -325,36 +303,6 @@ declare namespace Rainbow.ViewModels.Models {
     Name?: string;
   }
 }
-declare namespace Rainbow.ViewModels.ProductInfos {
-  interface CreateProductInfoVM extends Yunyong.Core.ViewModels.CreateVM {
-    // Description
-    Description?: string;
-    // Name
-    Name?: string;
-  }
-  interface DeleteProductInfoVM extends Yunyong.Core.ViewModels.DeleteVM {
-  }
-  interface DetailProductInfoVM extends Yunyong.Core.ViewModels.VMBase {
-    // Description
-    Description?: string;
-    // Name
-    Name?: string;
-  }
-  interface ListProductInfoVM extends Yunyong.Core.ViewModels.VMBase {
-    // Name
-    Name?: string;
-  }
-  interface QueryProductInfoVM extends Yunyong.Core.PagingQueryOption {
-    // Name
-    Name?: string;
-  }
-  interface UpdateProductInfoVM extends Yunyong.Core.ViewModels.UpdateVM {
-    // Description
-    Description?: string;
-    // Name
-    Name?: string;
-  }
-}
 declare namespace Rainbow.ViewModels.RoleInfos {
   interface CreateRoleInfoVM extends Yunyong.Core.ViewModels.CreateVM {
     // 角色描述
@@ -500,6 +448,30 @@ declare namespace Rainbow.ViewModels.Users {
   }
 }
 declare namespace Rainbow.ViewModels.Utils {
+  interface LookupQueryVM {
+    // 显示字段
+    DisplayField?: string;
+    // 查询条件
+    Filter?: string;
+    // TypeName
+    TypeName?: string;
+    // 标记字段
+    ValueField?: string;
+  }
+  interface LookupResultVM extends Yunyong.Core.ViewModels.VMBase {
+    // 显示文本
+    Name?: any;
+    // 值
+    Value?: any;
+  }
+  interface LookupSettingVM {
+    // DisplayField
+    DisplayField?: string;
+    // TypeName
+    TypeName?: string;
+    // ValueField
+    ValueField?: string;
+  }
   interface PhoneSmsVM {
     // Code
     Code?: string;

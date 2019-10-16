@@ -10,11 +10,20 @@ export class LookupQueryService {
 
 
   /**
-   * Query
+   * Lookup查询
    */
-  public Query(vm: Rainbow.ViewModels.LookupQueryVM)
-    : Observable<any> {
-    return this.http.post<any>
-      (`${this.baseUrl}api/LookupQuery/Query`, { ...vm }, { ...getHttpOptions() });
+  public QueryAsync(vm: Rainbow.ViewModels.Utils.LookupQueryVM)
+    : Observable<Rainbow.ViewModels.Utils.LookupResultVM[]> {
+    return this.http.get<Rainbow.ViewModels.Utils.LookupResultVM[]>
+      (`${this.baseUrl}api/LookupQuery/Query?${stringify(vm)}`, { ...getHttpOptions() });
+  }
+
+  /**
+   * Lookup获取
+   */
+  public GetAsync(vm: Rainbow.ViewModels.Utils.LookupQueryVM)
+    : Observable<Rainbow.ViewModels.Utils.LookupResultVM> {
+    return this.http.get<Rainbow.ViewModels.Utils.LookupResultVM>
+      (`${this.baseUrl}api/LookupQuery/?${stringify(vm)}`, { ...getHttpOptions() });
   }
 }

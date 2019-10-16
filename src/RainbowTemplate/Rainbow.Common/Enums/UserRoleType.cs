@@ -1,8 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Rainbow.Common.Enums
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     [Flags]
     public enum UserRoleType
     {

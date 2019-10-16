@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.ViewModels;
+using Rainbow.ViewModels.Utils;
 using Yunyong.Core;
 using Yunyong.Core.Attributes;
 
@@ -145,7 +146,7 @@ namespace Rainbow.Services
                             Lookup = lookup != null
                                 ? new LookupSettingVM
                                 {
-                                    VMType = lookup.TypeName,
+                                    TypeName = lookup.TypeName,
                                     DisplayField = lookup.DisplayField,
                                     ValueField = lookup.ValueField
                                 }

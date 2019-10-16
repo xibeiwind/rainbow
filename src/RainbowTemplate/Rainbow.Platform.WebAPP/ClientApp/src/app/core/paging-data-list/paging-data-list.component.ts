@@ -12,8 +12,9 @@ import { InputTypeService } from '../../services/InputTypeService';
   styleUrls: ['./paging-data-list.component.scss']
 })
 export class PagingDataListComponent implements OnInit {
-  private _fields: Rainbow.ViewModels.FieldDisplayVM[];
-  private _pagingData: Yunyong.Core.PagingList<any> = {
+  currentItem: any;
+  protected _fields: Rainbow.ViewModels.FieldDisplayVM[];
+  protected _pagingData: Yunyong.Core.PagingList<any> = {
     Data: [],
     PageIndex: 1,
     PageSize: 10,
@@ -35,12 +36,11 @@ export class PagingDataListComponent implements OnInit {
       if (field.IsEnum) {
         this.enumObj[field.Name] = {};
         this.enumService.GetEnumDisplay(field.FieldType).Fields.forEach(f => {
-          this.enumObj[field.Name][f.Value] = f;
+          this.enumObj[field.Name][f.Name] = f;
         });
       }
     });
   }
-
 
   @Input()
   get pagingData(): Yunyong.Core.PagingList<any> {
@@ -65,6 +65,8 @@ export class PagingDataListComponent implements OnInit {
   onupdate: EventEmitter<any> = new EventEmitter<any>();
   @Output()
   ondelete: EventEmitter<string> = new EventEmitter<string>();
+  @Output()
+  oncurrentchanged: EventEmitter<any> = new EventEmitter<any>();
 
   @Output()
   onquery: EventEmitter<Yunyong.Core.PagingQueryOption> = new EventEmitter<Yunyong.Core.PagingQueryOption>();
@@ -76,6 +78,10 @@ export class PagingDataListComponent implements OnInit {
   editFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
 
   queryFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
+  setCurrentItem(item: any) {
+    this.currentItem = item;
+    this.oncurrentchanged.next(item);
+  }
 
   config: PagingDataListConfig;
   // currentPage: number = 1;
@@ -124,6 +130,8 @@ export class PagingDataListComponent implements OnInit {
 
 
   createItem(vm: any) {
+    const files = this.createModal.getFiles();
+    Object.assign(vm, files);
     this.oncreate.next(vm);
   }
 
@@ -148,14 +156,8 @@ export class PagingDataListComponent implements OnInit {
     this.refreshList();
   }
 
-
-
   querySubmit(queryVM: Yunyong.Core.QueryOption) {
     this.queryVM = queryVM;
     this.refreshList();
   }
-
 }
-
-
-

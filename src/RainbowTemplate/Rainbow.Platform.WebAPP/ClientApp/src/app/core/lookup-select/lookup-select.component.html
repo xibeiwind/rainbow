@@ -1,0 +1,5 @@
+<div class="lookup">
+    <input [(ngModel)]="searchText" #searchInput [typeaheadAsync]="true" [typeahead]="items$" [required]="required"
+        [placeholder]="placeholder" (typeaheadOnSelect)="typeaheadOnSelect($event)" typeaheadOptionField="Name"
+        class="form-control">
+</div>
