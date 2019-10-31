@@ -12,7 +12,9 @@ using Rainbow.Platform.Authorize;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Buffers;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Rainbow.Platform.WebAPP
 {
@@ -39,6 +41,17 @@ namespace Rainbow.Platform.WebAPP
             {
                 c.SwaggerDoc("v1", new Info { Title = "Rainbow API", Version = "v1" });
                 c.IncludeXmlComments(Path.Combine(ApplicationEnvironment.ApplicationBasePath, "Rainbow.Platform.Controllers.xml"));
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "请输入带有Bearer的Token",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer", Enumerable.Empty<string>()}
+                });
             });
 #endif
 

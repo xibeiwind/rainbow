@@ -160,4 +160,17 @@ export class PagingDataListComponent implements OnInit {
     this.queryVM = queryVM;
     this.refreshList();
   }
+
+  getSelectedIds(): string[] {
+    const ids: string[] = [];
+    for (const key in this.selectIdObj) {
+      if (this.selectIdObj.hasOwnProperty(key)) {
+        const value = this.selectIdObj[key];
+        if (value === true) {
+          ids.push(key);
+        }
+      }
+    }
+    return ids;
+  }
 }

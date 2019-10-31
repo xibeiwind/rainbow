@@ -10,7 +10,9 @@ using Newtonsoft.Json.Serialization;
 using Rainbow.MP.Authorize;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Buffers;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Rainbow.MP.WebAPI
 {
@@ -32,6 +34,17 @@ namespace Rainbow.MP.WebAPI
             {
                 c.SwaggerDoc("v1", new Info { Title = " Rainbow MP WebAPI", Version = "v1" });
                 c.IncludeXmlComments(Path.Combine(ApplicationEnvironment.ApplicationBasePath, "Rainbow.MP.Controllers.xml"));
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "请输入带有Bearer的Token",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer", Enumerable.Empty<string>()}
+                });
             });
 
             services.AddMvc(options =>
