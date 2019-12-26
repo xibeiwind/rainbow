@@ -1,9 +1,20 @@
-<swal #deleteSwal title="删除?" type="question" [showCancelButton]="true" [focusCancel]="true" (confirm)="deleteItem()">
+<swal #deleteSwal
+  title="删除?"
+  type="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  (confirm)="deleteItem()">
 </swal>
-<app-create-modal #createModal [title]="createTitle" [fields]="createFields" (onsubmit)="createItem($event)"
+<app-create-modal #createModal
+  [title]="createTitle"
+  [fields]="createFields"
+  (onsubmit)="createItem($event)"
   [largeModal]="true">
 </app-create-modal>
-<app-edit-modal #editModal [title]="editTitle" [fields]="editFields" (onsubmit)="updateItem($event)"
+<app-edit-modal #editModal
+  [title]="editTitle"
+  [fields]="editFields"
+  (onsubmit)="updateItem($event)"
   [largeModal]="true">
 </app-edit-modal>
 
@@ -14,10 +25,14 @@
     </h3>
     <div class="box-tools pull-right">
       <div class="btn-group btn-group-sm">
-        <button type="button" class="btn btn-primary" *ngIf="config.canCreate"
+        <button type="button"
+          class="btn btn-primary"
+          *ngIf="config.canCreate"
           (click)="createModal.openCreateModal()">新建</button>
 
-        <button type="button" class="btn btn-info" (click)="refreshList()">
+        <button type="button"
+          class="btn btn-info"
+          (click)="refreshList()">
           <i class="fa fa-retweet"></i>
           <!-- 刷新 -->
         </button>
@@ -25,25 +40,37 @@
     </div>
   </div>
   <div class="box-header with-border">
-    <app-search [fields]="queryFields" (onsubmit)="querySubmit($event)"></app-search>
+    <app-search [fields]="queryFields"
+      (onsubmit)="querySubmit($event)"></app-search>
   </div>
   <!-- /.box-header -->
   <div class="box-body">
 
     <div>
-      <pagination [totalItems]="pagingData.TotalCount" [(ngModel)]="pagingData.PageIndex"
-        (pageChanged)="pageChanged($event)" [boundaryLinks]="true" [maxSize]="config.maxSize" previousText="&lsaquo;"
-        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      <pagination [totalItems]="pagingData.TotalCount"
+        [(ngModel)]="pagingData.PageIndex"
+        [(itemsPerPage)]="config.pageSize"
+        (pageChanged)="pageChanged($event)"
+        [boundaryLinks]="true"
+        [maxSize]="config.maxSize"
+        previousText="&lsaquo;"
+        nextText="&rsaquo;"
+        firstText="&laquo;"
+        lastText="&raquo;">
       </pagination>
     </div>
 
-    <div class="table-responsive">
-      <table *ngIf="pagingData" class="table no-margin table-hover table-striped table-bordered paging-data-list">
+    <div class="table-responsive overflowable">
+      <table *ngIf="pagingData"
+        class="table no-margin table-hover table-striped table-bordered paging-data-list">
         <thead>
           <tr>
             <th width="30">#</th>
-            <th *ngIf="config.canSelect" width="50">
-              <input type="checkbox" value="">
+            <th *ngIf="config.canSelect"
+              width="50">
+              <input type="checkbox"
+                value=""
+                (change)="selectAllChange($event)">
             </th>
             <th *ngFor="let field of _fields">
               {{field.DisplayName}}
@@ -56,18 +83,24 @@
           </tr>
         </thead>
         <tbody *ngIf="pagingData">
-          <tr *ngFor="let item of pagingData.Data;let i = index" (click)="setCurrentItem(item)"
+          <tr *ngFor="let item of pagingData.Data;let i = index"
+            (click)="setCurrentItem(item)"
             [ngClass]="{'current-item': item === currentItem}">
             <td>
               {{i+1}}
             </td>
             <td *ngIf="config.canSelect">
-              <input type="checkbox" [(ngModel)]="selectIdObj[item.Id]" value="{{item.Id}}">
+              <input type="checkbox"
+                [(ngModel)]="selectIdObj[item.Id]"
+                value="{{item.Id}}">
             </td>
-            <td *ngFor="let field of _fields" class="data-cell">
+            <td *ngFor="let field of _fields"
+              class="data-cell"
+              [ngClass]="{'overflowable': field.ControlType==='FileSelect'}">
               <ng-container [ngSwitch]="field.ControlType">
-                <ng-container *ngSwitchCase="'Lookup'">                  
-                  <app-lookup-display [lookup]="field.Lookup" [value]="item[field.Name]"></app-lookup-display>
+                <ng-container *ngSwitchCase="'Lookup'">
+                  <app-lookup-display [lookup]="field.Lookup"
+                    [value]="item[field.Name]"></app-lookup-display>
                 </ng-container>
                 <ng-container *ngSwitchCase="'Select'">
                   <h4>
@@ -77,33 +110,67 @@
                     </small>
                   </h4>
                 </ng-container>
+                <ng-container *ngSwitchCase="'Checkbox'">
+                  {{item[field.Name]?"是":"否"}}
+                </ng-container>
                 <ng-container *ngSwitchCase="'FileSelect'">
-                  <img src="{{item[field.Name]}}" class="img-thumbnail">
+                  <img src="{{item[field.Name]}}"
+                    class="img-thumbnail"
+                    *ngIf="item[field.Name]">
+                  <!-- <app-img-previewable [src]="item[field.Name]" *ngIf="item[field.Name]"></app-img-previewable> -->
                 </ng-container>
                 <ng-container *ngSwitchDefault>
-                  <span>
+                  <!-- <span>
                     {{item[field.Name]}}
-                  </span></ng-container>
+                  </span> -->
+                  <ng-container [ngSwitch]="field.DataType">
+                    <ng-container *ngSwitchCase="1">
+                      {{item[field.Name]| date:'medium'}}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="2">
+                      {{item[field.Name]|date}}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="6">
+                      {{item[field.Name]|currency: 'CNY':'symbol-narrow'}}
+                    </ng-container>
+                    <span *ngSwitchDefault>
+                      {{item[field.Name]}}
+                    </span>
+                  </ng-container>
+                </ng-container>
               </ng-container>
             </td>
             <td>
               <div class="btn-group btn-group-xs pull-right">
-
-                <a class="btn btn-primary" *ngIf="config.showDetail"
-                  [routerLink]="[config.showDetail.routerLink, item.Id]" routerLinkActive="router-link-active">
-                  <i class="fa fa-envelope-open" aria-hidden="true"></i>
+                <a class="btn btn-primary"
+                  *ngIf="config.showDetail"
+                  [routerLink]="[config.showDetail.routerLink, item.Id]"
+                  routerLinkActive="router-link-active">
+                  <i class="fa fa-eye"
+                    aria-hidden="true"></i>
                 </a>
-
-                <button type="button" class="btn btn-warning" *ngIf="config.canEdit" (click)="openEditModal(item)">
-                  <i class="fa fa-edit" aria-hidden="true"></i>
+                <button class="btn btn-info"
+                  *ngIf="config.extraAction"
+                  (click)="extraAction(item)"
+                  [title]="config.extraAction&& config.extraAction.text">
+                  <i [class]="config.extraAction&& config.extraAction.icon"
+                    aria-hidden="true"></i>
                 </button>
-
-                <button type="button" class="btn btn-danger" *ngIf="config.canDelete" (click)="showDeleteSwal(item)">
-                  <i class="fa fa-trash" aria-hidden="true"></i>
+                <button type="button"
+                  class="btn btn-warning"
+                  *ngIf="config.canEdit"
+                  (click)="openEditModal(item)">
+                  <i class="fa fa-edit"
+                    aria-hidden="true"></i>
                 </button>
-
+                <button type="button"
+                  class="btn btn-danger"
+                  *ngIf="config.canDelete"
+                  (click)="showDeleteSwal(item)">
+                  <i class="fa fa-trash"
+                    aria-hidden="true"></i>
+                </button>
               </div>
-
             </td>
           </tr>
         </tbody>
@@ -112,16 +179,21 @@
       </table>
     </div>
     <div>
-      <pagination [totalItems]="pagingData.TotalCount" [(ngModel)]="pagingData.PageIndex"
-        (pageChanged)="pageChanged($event)" [boundaryLinks]="true" [maxSize]="config.maxSize" previousText="&lsaquo;"
-        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      <pagination [totalItems]="pagingData.TotalCount"
+        [(ngModel)]="pagingData.PageIndex"
+        [(itemsPerPage)]="config.pageSize"
+        (pageChanged)="pageChanged($event)"
+        [boundaryLinks]="true"
+        [maxSize]="config.maxSize"
+        previousText="&lsaquo;"
+        nextText="&rsaquo;"
+        firstText="&laquo;"
+        lastText="&raquo;">
       </pagination>
     </div>
-
   </div>
   <!-- /.box-body -->
   <div class="box-footer">
-
   </div>
   <!-- /.box-footer-->
 </div>

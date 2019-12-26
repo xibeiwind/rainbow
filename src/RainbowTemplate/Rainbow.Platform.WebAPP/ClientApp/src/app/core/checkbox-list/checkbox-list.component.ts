@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-checkbox-list',
@@ -7,7 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CheckboxListComponent implements OnInit {
 
-  private items: { name: string, checked: boolean }[] = [];
+  protected items: { name: string, checked: boolean }[] = [];
 
   @Input()
   public get values(): string[] {

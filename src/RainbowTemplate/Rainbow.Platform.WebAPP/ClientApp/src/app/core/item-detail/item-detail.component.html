@@ -1,1 +1,58 @@
-<p>item-detail works!</p>
+<div class="item-detail">
+  <h2>
+    {{ modelDisplayName }}
+  </h2>
+  <div class="btn-group">
+    <button class="btn btn-primary"
+      (click)="goBack()">返回</button>
+    <button class="btn btn-info"
+      (click)="refresh()">刷新</button>
+  </div>
+
+  <div class="container"
+    *ngIf="item">
+    <div class="row">
+      <div class="col-lg-4"
+        *ngFor="let field of innerFields">
+        <div class="form-group field-group">
+          <label class="title">
+            {{ field.DisplayName }}
+          </label>
+          <div>
+            <ng-container [ngSwitch]="field.ControlType">
+              <ng-container *ngSwitchCase="'Location'">
+                <app-location-display [location]="item[field.Name]"
+                  [class]="'location-display'"></app-location-display>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Lookup'">
+                <app-lookup-display [lookup]="field.Lookup"
+                  [value]="item[field.Name]"></app-lookup-display>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Select'">
+                <h4>
+                  {{enumObj[field.Name] && enumObj[field.Name][item[field.Name]]?.DisplayName}}
+                  <small>
+                    {{item[field.Name]}}
+                  </small>
+                </h4>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Checkbox'">
+                {{item[field.Name]?"是":"否"}}
+              </ng-container>
+              <ng-container *ngSwitchCase="'FileSelect'">
+                <img src="{{item[field.Name]}}"
+                  class="img-thumbnail"
+                  *ngIf="item[field.Name]">
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <span>
+                  {{item && item[field.Name]}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

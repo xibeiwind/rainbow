@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LookupQueryService } from 'src/app/services/LookupQueryService';
 
 @Component({
@@ -10,8 +10,8 @@ export class LookupDisplayComponent implements OnInit {
 
   @Input()
   lookup: Rainbow.ViewModels.Utils.LookupSettingVM;
-
   data: Rainbow.ViewModels.Utils.LookupResultVM;
+  
   @Input()
   set value(val: string) {
     this.service.GetAsync({

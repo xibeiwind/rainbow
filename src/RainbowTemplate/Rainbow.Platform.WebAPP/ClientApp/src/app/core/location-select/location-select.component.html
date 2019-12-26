@@ -1,0 +1,4 @@
+<div class="form-group">
+  <aqm-map class="qq-map" #map [options]="options" (ready)="onReady($event)"></aqm-map>
+  <input *ngIf="value" type="text" class="form-control" [(ngModel)]="value.Address">
+</div>

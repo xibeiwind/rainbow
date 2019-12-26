@@ -16,3 +16,7 @@
 table {
   table-layout: fixed;
 }
+.overflowable {
+  overflow: visible;
+  position: relative;
+}

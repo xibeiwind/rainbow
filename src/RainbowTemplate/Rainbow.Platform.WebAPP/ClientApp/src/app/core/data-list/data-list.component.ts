@@ -1,35 +1,33 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { EnumCacheService } from 'src/app/services/EnumCacheService';
-import { InputTypeService } from '../../services/InputTypeService';
+import { InputTypeService } from 'src/app/services/InputTypeService';
 import { CreateModalComponent } from '../create-modal/create-modal.component';
 import { EditModalComponent } from '../edit-modal/edit-modal.component';
-import { PagingDataListConfig } from './PagingDataListConfig';
+import { DataListConfig } from './DataListConfig';
 
 @Component({
-  selector: 'app-paging-data-list',
-  templateUrl: './paging-data-list.component.html',
-  styleUrls: ['./paging-data-list.component.scss']
+  selector: 'app-data-list',
+  templateUrl: './data-list.component.html',
+  styleUrls: ['./data-list.component.scss']
 })
-export class PagingDataListComponent implements OnInit {
-  currentItem: any;
+export class DataListComponent implements OnInit {
+  config: DataListConfig;
+  selectIdObj = {};
+  
   protected _fields: Rainbow.ViewModels.FieldDisplayVM[];
-  protected _pagingData: Yunyong.Core.PagingList<any> = {
-    Data: [],
-    PageIndex: 1,
-    PageSize: 10,
-    TotalCount: 0,
-    TotalPage: 0
-  };
   enumObj = {};
-  queryVM: Yunyong.Core.QueryOption = { OrderBys: [] };
   deleteItemId: string;
+
+  @Input()
+  modelDisplayName: string;
+  
+  value: {};
 
   @Input()
   get listFields(): Rainbow.ViewModels.FieldDisplayVM[] {
     return this._fields;
   }
-
   set listFields(data: Rainbow.ViewModels.FieldDisplayVM[]) {
     this._fields = data;
     data.forEach(field => {
@@ -43,12 +41,7 @@ export class PagingDataListComponent implements OnInit {
   }
 
   @Input()
-  get pagingData(): Yunyong.Core.PagingList<any> {
-    return this._pagingData;
-  }
-  set pagingData(value: Yunyong.Core.PagingList<any>) {
-    this._pagingData = value || this._pagingData;
-  }
+  data: any[];
 
   @ViewChild(CreateModalComponent, { static: true })
   createModal: CreateModalComponent;
@@ -56,42 +49,24 @@ export class PagingDataListComponent implements OnInit {
   editModal: EditModalComponent;
   @ViewChild(SwalComponent, { static: true })
   deleteSwal: SwalComponent;
-  @Input()
-  modelDisplayName: string;
-
   @Output()
   oncreate: EventEmitter<any> = new EventEmitter<any>();
   @Output()
   onupdate: EventEmitter<any> = new EventEmitter<any>();
   @Output()
   ondelete: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  oncurrentchanged: EventEmitter<any> = new EventEmitter<any>();
 
   @Output()
-  onextraaction: EventEmitter<any> = new EventEmitter<any>();
-
-  @Output()
-  onquery: EventEmitter<Yunyong.Core.PagingQueryOption> = new EventEmitter<Yunyong.Core.PagingQueryOption>();
+  onrefresh: EventEmitter<any> = new EventEmitter<any>();
 
   get createTitle(): string { return `创建${this.modelDisplayName}`; }
   get editTitle(): string { return `更新${this.modelDisplayName}`; }
 
+  @Output()
+  onextraaction: EventEmitter<any> = new EventEmitter<any>();
+  
   createFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
   editFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
-
-  queryFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
-  setCurrentItem(item: any) {
-    this.currentItem = item;
-    this.oncurrentchanged.next(item);
-  }
-
-  config: PagingDataListConfig;
-  // currentPage: number = 1;
-  selectIdObj = {};
-
-
-  paging: Yunyong.Core.PagingQueryOption;
 
   constructor(
     private enumService: EnumCacheService,
@@ -102,17 +77,12 @@ export class PagingDataListComponent implements OnInit {
   }
 
   getInputControlType(field: Rainbow.ViewModels.FieldDisplayVM): string {
-    if (field.IsEnum) {
-      return 'select';
-    }
-    if (field.DataType === System.ComponentModel.DataAnnotations.DataType.Html ||
-      field.DataType === System.ComponentModel.DataAnnotations.DataType.MultilineText) {
-      return 'html';
-    } else {
-      return 'input';
-    }
+    return this.inputTypeService.getInputControlType(field);
   }
 
+  openCreateModal(){
+    this.createModal.openCreateModal(this.value);
+  }
 
   closeCreateModal() {
     this.createModal.hide();
@@ -130,9 +100,7 @@ export class PagingDataListComponent implements OnInit {
     this.deleteSwal.show();
   }
 
-  extraAction(data: any) {
-    this.onextraaction.next(data);
-  }
+
 
   createItem(vm: any) {
     const files = this.createModal.getFiles();
@@ -147,49 +115,23 @@ export class PagingDataListComponent implements OnInit {
     this.ondelete.next(this.deleteItemId);
     this.deleteItemId = null;
   }
+
   refreshList() {
-    const vm: Yunyong.Core.PagingQueryOption = {
-      ...this.queryVM,
-      PageSize: this.config.pageSize,
-      PageIndex: this.pagingData.PageIndex,
-    };
-    this.onquery.next(vm);
+    this.onrefresh.next();
   }
 
-  pageChanged(data) {
-    this.pagingData.PageIndex = data.page;
-    this.refreshList();
-  }
-
-
-
-  querySubmit(queryVM: Yunyong.Core.QueryOption) {
-    this.queryVM = queryVM;
-    this.refreshList();
-  }
-
-  getSelectedIds(): string[] {
-    const ids: string[] = [];
-    for (const key in this.selectIdObj) {
-      if (this.selectIdObj.hasOwnProperty(key)) {
-        const value = this.selectIdObj[key];
-        if (value === true) {
-          ids.push(key);
-        }
-      }
-    }
-    return ids;
+  extraAction(data: any) {
+    this.onextraaction.next(data);
   }
   selectAllChange(val: any) {
     let checked = val.target.checked;
     this.selectIdObj = {};
     if (checked) {
-      this.pagingData.Data.forEach(element => {
+      this.data.forEach(element => {
         this.selectIdObj[element.Id] = true;
       });
     }
   }
 }
-
 
 

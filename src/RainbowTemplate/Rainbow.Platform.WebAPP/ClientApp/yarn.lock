@@ -1239,6 +1239,13 @@ angular-loading-page@^0.6.0:
   dependencies:
     tslib "^1.9.0"
 
+angular-qq-maps@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.npm.taobao.org/angular-qq-maps/download/angular-qq-maps-7.0.0.tgz#957ab539679c47f5bd798ece36efed9b4f8cc1b7"
+  integrity sha1-lXq1OWecR/W9eY7ONu/tm0+Mwbc=
+  dependencies:
+    tslib "^1.9.0"
+
 ansi-colors@4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"

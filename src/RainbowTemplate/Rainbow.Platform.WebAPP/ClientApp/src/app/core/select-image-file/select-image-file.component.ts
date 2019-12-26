@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, forwardRef } from '@angular/core';
-
+import { Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const EXE_SELECT_IMAGE_FILE_ACCESSOR: any = {
@@ -15,7 +14,6 @@ export const EXE_SELECT_IMAGE_FILE_ACCESSOR: any = {
   providers:[EXE_SELECT_IMAGE_FILE_ACCESSOR]
 })
 export class SelectImageFileComponent implements ControlValueAccessor {
-
   isDisabled: boolean;
 
   onChange = (_: any) => { };

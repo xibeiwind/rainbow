@@ -23,6 +23,7 @@
     "@sweetalert2/ngx-sweetalert2": "^5.1.0",
     "angular-admin-lte": "^2.0.1",
     "angular-loading-page": "^0.6.0",
+    "angular-qq-maps": "^7.0.0",
     "bootstrap-css-only": "3.3.7",
     "ckeditor4-angular": "^1.0.0-beta.2",
     "font-awesome": "4.7.0",

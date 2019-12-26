@@ -1,21 +1,22 @@
-import { Component, OnInit, Input, forwardRef } from '@angular/core';
-import { LookupQueryService } from 'src/app/services/LookupQueryService';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subject, Observable } from 'rxjs';
-
-import { debounceTime, distinctUntilChanged, switchMap, mergeMap } from 'rxjs/operators';
 import { TypeaheadMatch } from 'ngx-bootstrap';
+import { Observable, Subject } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { LookupQueryService } from 'src/app/services/LookupQueryService';
 
-export const EXE_LOOKUP_SELECT_ACCESSOR:any={
+
+export const EXE_LOOKUP_SELECT_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => LookupSelectComponent),
   multi: true
 };
+
 @Component({
   selector: 'app-lookup-select',
   templateUrl: './lookup-select.component.html',
   styleUrls: ['./lookup-select.component.scss'],
-  providers:[EXE_LOOKUP_SELECT_ACCESSOR]
+  providers: [EXE_LOOKUP_SELECT_ACCESSOR]
 })
 export class LookupSelectComponent implements OnInit, ControlValueAccessor {
   @Input()
@@ -23,7 +24,7 @@ export class LookupSelectComponent implements OnInit, ControlValueAccessor {
   @Input()
   placeholder: string;
   @Input('lookuprequired')
-  required:boolean;
+  required: boolean;
 
   @Input()
   lookup: Rainbow.ViewModels.Utils.LookupSettingVM;
@@ -54,8 +55,7 @@ export class LookupSelectComponent implements OnInit, ControlValueAccessor {
     this.items$ = Observable.create(observer => {
       observer.next(this.searchText);
     }).pipe(mergeMap((keyword: string) => {
-      return        this.lookupSearch(keyword);
-
+      return this.lookupSearch(keyword);
     })
     );
   }
@@ -72,8 +72,17 @@ export class LookupSelectComponent implements OnInit, ControlValueAccessor {
   onTouched = () => { };
 
   writeValue(obj: any): void {
-    if (obj !== undefined) {
+    if (obj !== undefined && obj !== null) {
       this._value = obj;
+      this.service.GetAsync({
+        TypeName: this.lookup.TypeName,
+        DisplayField: this.lookup.DisplayField,
+        ValueField: this.lookup.ValueField,
+        Filter: obj
+      }).subscribe(res => {
+        this.currentItem = res;
+        this.searchText = res.Name;
+      });
     }
   }
   registerOnChange(fn: any): void {

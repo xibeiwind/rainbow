@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap';
-import { InputTypeService } from 'src/app/services/InputTypeService';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { EnumCacheService } from 'src/app/services/EnumCacheService';
+import { InputTypeService } from 'src/app/services/InputTypeService';
 
 @Component({
   selector: 'app-edit-modal',
@@ -10,10 +10,8 @@ import { EnumCacheService } from 'src/app/services/EnumCacheService';
   styleUrls: ['./edit-modal.component.scss']
 })
 export class EditModalComponent implements OnInit {
-  protected editForm: FormGroup;
+  editForm: FormGroup;
   protected editModalRef: BsModalRef;
-  protected enumObj = {};
-
   @Input()
   title: string;
   @Input()
@@ -25,7 +23,7 @@ export class EditModalComponent implements OnInit {
   @ViewChild('editTemplate', { static: true })
   template: TemplateRef<any>;
   editItemId: string;
-
+  protected enumObj = {};
 
   constructor(
     private enumService: EnumCacheService,

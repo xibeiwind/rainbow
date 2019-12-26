@@ -448,6 +448,14 @@ declare namespace Rainbow.ViewModels.Users {
   }
 }
 declare namespace Rainbow.ViewModels.Utils {
+  interface LocationVM {
+    // 详细地址
+    Address?: string;
+    // 纬度
+    Latitude: number;
+    // 经度
+    Longitude: number;
+  }
   interface LookupQueryVM {
     // 显示字段
     DisplayField?: string;

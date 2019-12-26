@@ -1,0 +1,12 @@
+.data-list {
+  &.visible {
+    visibility: visible;
+  }
+  &.hidden {
+    visibility: collapse;
+  }
+  .img-thumbnail {
+    max-width: 200px;
+    max-height: 100px;
+  }
+}

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { InputTypeService } from 'src/app/services/InputTypeService';
 import { EnumCacheService } from 'src/app/services/EnumCacheService';
+import { InputTypeService } from 'src/app/services/InputTypeService';
 
 @Component({
   selector: 'app-search',
@@ -32,7 +32,7 @@ export class SearchComponent implements OnInit {
 
   @Output()
   onsubmit: EventEmitter<Yunyong.Core.QueryOption> = new EventEmitter<Yunyong.Core.QueryOption>();
-  private enumObj = {};
+  protected enumObj = {};
 
 
 

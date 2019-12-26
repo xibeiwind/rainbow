@@ -1,0 +1,30 @@
+.img-previewable {
+  position: relative;
+  overflow: visible;
+
+  .img-thumbnail {
+    max-width: 200px;
+    max-height: 150px;
+    width: 100%;
+  }
+
+  img.preview {
+    position: absolute;
+    max-width: 500px;
+    max-height: 500px;
+    left: 50px;
+    top: 50px;
+    visibility: collapse;
+    z-index: 1000;
+    border: solid 3px lightgray;
+    box-shadow: lightgray;
+    border-radius: 5px;
+  }
+
+  img.preview-show {
+    visibility: visible;
+  }
+  img.preview-hidden {
+    visibility: collapse;
+  }
+}

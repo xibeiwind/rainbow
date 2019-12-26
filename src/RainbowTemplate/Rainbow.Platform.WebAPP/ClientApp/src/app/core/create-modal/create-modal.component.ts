@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap';
-import { InputTypeService } from 'src/app/services/InputTypeService';
+import { Component, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { EnumCacheService } from 'src/app/services/EnumCacheService';
+import { InputTypeService } from 'src/app/services/InputTypeService';
 import { SelectImageFileComponent } from '../select-image-file/select-image-file.component';
 
 @Component({
@@ -26,7 +26,7 @@ export class CreateModalComponent implements OnInit {
   template: TemplateRef<any>;
 
   @ViewChildren(SelectImageFileComponent)
-  files!: QueryList<SelectImageFileComponent>;
+  files?: QueryList<SelectImageFileComponent>;
 
   protected createModalRef: BsModalRef;
   protected enumObj = {};
@@ -50,7 +50,7 @@ export class CreateModalComponent implements OnInit {
         if (data != null && data.hasOwnProperty(field.Name)) {
           formFields[field.Name] = [data[field.Name], Validators.required];
         } else {
-          formFields[field.Name] = ['', Validators.required];
+          formFields[field.Name] = [null, Validators.required];
         }
       });
     this.createForm = this.formBuilder.group(formFields);
@@ -60,7 +60,7 @@ export class CreateModalComponent implements OnInit {
 
   createSubmit() {
     var data = { ...this.createForm.value };
-    Object.assign(data, this.getFiles());
+    // Object.assign(data, this.getFiles());
     this.onsubmit.next(data);
   }
   public hide() {

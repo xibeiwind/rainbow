@@ -1,0 +1,118 @@
+<div [ngClass]="{hidden: !config.visible}">
+
+  <swal #deleteSwal title="删除?" type="question" [showCancelButton]="true" [focusCancel]="true" (confirm)="deleteItem()">
+  </swal>
+  <app-create-modal #createModal [title]="createTitle" [fields]="createFields" (onsubmit)="createItem($event)"
+    [largeModal]="true">
+  </app-create-modal>
+  <app-edit-modal #editModal [title]="editTitle" [fields]="editFields" (onsubmit)="updateItem($event)"
+    [largeModal]="true">
+  </app-edit-modal>
+
+  <div class="box box-primary direct-chat direct-chat-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        {{modelDisplayName}}列表
+      </h3>
+      <div class="box-tools pull-right">
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-primary" *ngIf="config.canCreate" (click)="openCreateModal()">新建</button>
+
+          <button type="button" class="btn btn-info" (click)="refreshList()">
+            <i class="fa fa-retweet"></i>
+            <!-- 刷新 -->
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="table-responsive">
+        <table *ngIf="data" class="table no-margin table-hover table-striped table-bordered data-list">
+          <thead>
+            <tr>
+              <th width="30">#</th>
+              <th *ngIf="config.canSelect" width="50">
+                <input type="checkbox" value="" >
+              </th>
+              <th *ngFor="let field of _fields">
+                {{field.DisplayName}}
+              </th>
+              <th width="100">
+                <span class="pull-right">
+                  操作
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody *ngIf="data">
+            <tr *ngFor="let item of data;let i = index" (click)="currentItem = item"
+              [ngClass]="{'current-item': item === currentItem}">
+              <td>
+                {{i+1}}
+              </td>
+              <td *ngIf="config.canSelect">
+                <input type="checkbox" [(ngModel)]="selectIdObj[item.Id]" value="{{item.Id}}">
+              </td>
+              <td *ngFor="let field of _fields" class="data-cell">
+                <ng-container [ngSwitch]="field.ControlType">
+                  <ng-container *ngSwitchCase="'Lookup'">
+                    <app-lookup-display [lookup]="field.Lookup" [value]="item[field.Name]"></app-lookup-display>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'Select'">
+                    <h4>
+                      {{enumObj[field.Name] && enumObj[field.Name][item[field.Name]]?.DisplayName}}
+                      <small>
+                        {{item[field.Name]}}
+                      </small>
+                    </h4>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'FileSelect'">
+                    <img src="{{item[field.Name]}}" class="img-thumbnail" *ngIf="item[field.Name]">
+                    <!-- <app-img-previewable [src]="item[field.Name]" *ngIf="item[field.Name]"></app-img-previewable> -->
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'Checkbox'">
+                    {{item[field.Name]?"是":"否"}}
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    <ng-container [ngSwitch]="field.DataType">
+                      <ng-container *ngSwitchCase="6">
+                        {{item[field.Name]|currency: 'CNY':'symbol-narrow'}}
+                      </ng-container>
+                      <span *ngSwitchDefault>
+                        {{item[field.Name]}}
+                      </span>
+                    </ng-container>
+
+                  </ng-container>
+
+                </ng-container>
+
+              </td>
+              <td>
+                <div class="btn-group btn-group-xs pull-right">
+
+                  <a class="btn btn-primary" *ngIf="config.showDetail"
+                    [routerLink]="[config.showDetail.routerLink, item.Id]" routerLinkActive="router-link-active">
+                    <i class="fa fa-envelope-open" aria-hidden="true"></i>
+                  </a>
+                  <button class="btn btn-info" *ngIf="config.extraAction" (click)="extraAction(item)"
+                  [title]="config.extraAction&& config.extraAction.text">
+                  <i [class]="config.extraAction&& config.extraAction.icon" aria-hidden="true"></i>
+                </button>
+                  <button type="button" class="btn btn-warning" *ngIf="config.canEdit" (click)="openEditModal(item)">
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-danger" *ngIf="config.canDelete" (click)="showDeleteSwal(item)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+
+                </div>
+
+              </td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

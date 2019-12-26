@@ -14,7 +14,7 @@ namespace Rainbow.Common.Enums {
   }
   export const enum NotifyType {
     // Metting
-    Metting = 0
+    Metting = 'Metting'
   }
   export const enum TaskState {
   }
@@ -24,31 +24,31 @@ namespace Rainbow.Common.Enums {
   }
   export const enum UserRoleType {
     // 未知
-    Unknown = 0,
+    Unknown = 'Unknown',
     // 客户
-    Customer = 1,
+    Customer = 'Customer',
     // 客服
-    CustomerService = 16,
+    CustomerService = 'CustomerService',
     // 超级管理员
-    SysAdmin = 1024
+    SysAdmin = 'SysAdmin'
   }
   export const enum VMType {
     // 未设置
-    None = 0,
+    None = 'None',
     // 创建
-    Create = 1,
+    Create = 'Create',
     // 更新
-    Update = 2,
+    Update = 'Update',
     // 查询
-    Query = 4,
+    Query = 'Query',
     // 展示
-    ListDisplay = 8,
+    ListDisplay = 'ListDisplay',
     // 详情
-    DetailDisplay = 32,
+    DetailDisplay = 'DetailDisplay',
     // 删除
-    Delete = 64,
+    Delete = 'Delete',
     // 杂项
-    Misc = 128
+    Misc = 'Misc'
   }
 }
 namespace System.ComponentModel.DataAnnotations {
