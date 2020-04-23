@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { EditableListViewComponent } from '../../EditableListViewComponent';
-import { ViewModelDisplayService } from '../../services/ViewModelDisplayService';
-import { BsModalService } from 'ngx-bootstrap';
 import { FormBuilder } from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { RoleInfoService } from '../../services/RoleInfoService';
 import { PagingDataListComponent } from '../../core/paging-data-list/paging-data-list.component';
+import { EditableListViewComponent } from '../../EditableListViewComponent';
+import { RoleInfoService } from '../../services/RoleInfoService';
+import { ViewModelDisplayService } from '../../services/ViewModelDisplayService';
 
 @Component({
   selector: 'app-role-info',

@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TypeaheadMatch } from 'ngx-bootstrap';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { Observable, Subject } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { LookupQueryService } from 'src/app/services/LookupQueryService';

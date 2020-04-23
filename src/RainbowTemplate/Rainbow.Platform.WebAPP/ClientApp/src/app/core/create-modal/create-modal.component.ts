@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { EnumCacheService } from 'src/app/services/EnumCacheService';
 import { InputTypeService } from 'src/app/services/InputTypeService';
 import { SelectImageFileComponent } from '../select-image-file/select-image-file.component';

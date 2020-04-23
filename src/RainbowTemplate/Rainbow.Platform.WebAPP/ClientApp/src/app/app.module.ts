@@ -1,22 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LayoutModule, } from 'angular-admin-lte';
-import { ModalModule, BsDropdownModule, PaginationModule } from 'ngx-bootstrap';
-import { LoadingPageModule, MaterialBarModule } from 'angular-loading-page';
-import { ToastrModule } from 'ngx-toastr';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { LayoutModule } from 'angular-admin-lte';
+import { LoadingPageModule, MaterialBarModule } from 'angular-loading-page';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ToastrModule } from 'ngx-toastr';
 import { UiSwitchModule } from 'ngx-ui-switch';
-
+import { adminLteConf } from './admin-lte.conf';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
-import { adminLteConf } from './admin-lte.conf';
-import { ServiceModule } from './services/service.module';
-import { ModelModule } from './model/model.module';
 import { AuthGuard } from './auth.guard';
-import { toastrConfig } from './toastrConfig';
+import { CoreModule } from './core/core.module';
+import { ModelModule } from './model/model.module';
+import { ServiceModule } from './services/service.module';
 import { SysAdminAuthGuard } from './sys-admin-auth.guard';
+import { toastrConfig } from './toastrConfig';
+
 
 
 @NgModule({

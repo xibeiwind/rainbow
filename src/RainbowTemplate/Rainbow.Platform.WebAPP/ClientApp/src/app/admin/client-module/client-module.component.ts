@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EditableListViewComponent } from '../../EditableListViewComponent';
 import { ViewModelDisplayService } from '../../services/ViewModelDisplayService';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ClientModuleService } from '../../services/ClientModuleService';
