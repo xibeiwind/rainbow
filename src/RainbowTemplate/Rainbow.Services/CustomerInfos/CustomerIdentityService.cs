@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Rainbow.Common.Configs;
 using Rainbow.ViewModels.CustomerInfos;
+
 using Yunyong.Cache.Abstractions;
 using Yunyong.Core;
 
 namespace Rainbow.Services.CustomerInfos
 {
-    public class CustomerIdentityService: ICustomerIdentityService
+    public class CustomerIdentityService : ICustomerIdentityService
     {
         public CustomerIdentityService(
-            ICacheService<CustomerLoginTrackVM> service,
-            TokenSettings settings)
+                ICacheService<CustomerLoginTrackVM> service,
+                TokenSettings settings
+            )
         {
             Service = service;
             Settings = settings;
@@ -22,6 +21,7 @@ namespace Rainbow.Services.CustomerInfos
 
         private ICacheService<CustomerLoginTrackVM> Service { get; }
         private TokenSettings Settings { get; }
+
         #region Implementation of ICustomerIdentityService
 
         public bool IsLogin(Guid customerId, Guid signId)
@@ -31,6 +31,7 @@ namespace Rainbow.Services.CustomerInfos
                 return false;
             return true;
         }
+
         public CustomerLoginTrackVM LoginTrack(Guid customerId)
         {
             var signId = GuidUtil.NewSequentialId();

@@ -26,7 +26,7 @@ namespace Rainbow.TypeScriptTests
             };
 
             var helper = new TypeScriptServiceHelper();
-            helper.GenerateTypeScriptContracts(new ContractSetting()
+            helper.GenerateTypeScriptContracts(new ContractSetting
             {
                 Assembly = Assembly.Load("Rainbow.ViewModels"),
                 OutputPath = @"TestOutput",
@@ -52,7 +52,7 @@ namespace Rainbow.TypeScriptTests
             };
 
             var helper = new TypeScriptServiceHelper();
-            helper.GenerateTypeScriptContracts(new ContractSetting()
+            helper.GenerateTypeScriptContracts(new ContractSetting
             {
                 Assembly = Assembly.Load("Rainbow.ViewModels"),
                 OutputPath = @"Angular\TestOutput",

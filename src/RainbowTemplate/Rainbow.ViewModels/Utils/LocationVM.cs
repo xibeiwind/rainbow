@@ -13,6 +13,7 @@ namespace Rainbow.ViewModels.Utils
         /// </summary>
         [Display(Name = "详细地址")]
         public string Address { get; set; }
+
         /// <summary>
         ///     经度
         /// </summary>

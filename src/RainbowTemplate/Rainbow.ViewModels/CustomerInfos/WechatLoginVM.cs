@@ -15,6 +15,7 @@ namespace Rainbow.ViewModels.CustomerInfos
         /// </summary>
         [Display(Name = "昵称")]
         public string NickName { get; set; }
+
         /// <summary>
         ///     用户头像
         /// </summary>

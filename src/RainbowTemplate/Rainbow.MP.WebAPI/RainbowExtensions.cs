@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using Rainbow.Common;
 using Rainbow.Common.Configs;
 using Rainbow.EventHandlers;
 using Rainbow.Services.Users;
 using Rainbow.Services.Utils;
+
+using System.Threading.Tasks;
+
 using Yunyong.Cache;
 using Yunyong.Cache.Register;
 using Yunyong.Core;
@@ -23,8 +22,11 @@ namespace Rainbow.MP.WebAPI
 {
     public static class RainbowExtensions
     {
-        public static IServiceCollection RegisterServices(this IServiceCollection services,
-            IConfiguration configuration, IHostingEnvironment environment)
+        public static IServiceCollection RegisterServices(
+                this IServiceCollection services,
+                IConfiguration configuration,
+                IWebHostEnvironment environment
+            )
         {
             services.AddHttpContextAccessor();
             services.AddSingleton(new ConnectionSettings(configuration.GetConnectionString("RainbowDB")));
@@ -59,12 +61,11 @@ namespace Rainbow.MP.WebAPI
                 {
                     return scope.ServiceProvider.GetService<T>();
                 }
-                
+
                 scope.ServiceProvider.EventBusSubscribe();
             }
 
             return app;
         }
     }
-
 }

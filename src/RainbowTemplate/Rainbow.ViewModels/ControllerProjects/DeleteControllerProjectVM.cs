@@ -1,17 +1,17 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Yunyong.Core.ViewModels;
+﻿using System.ComponentModel.DataAnnotations;
+
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 
+using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.ControllerProjects
 {
-	/// <summary>
+    /// <summary>
     ///     删除ControllerProject
     /// </summary>
     [Display(Name = "删除ControllerProject")]
-	[BindModel("ControllerProject", VMType.Delete)]
+    [BindModel("ControllerProject", VMType.Delete)]
     public class DeleteControllerProjectVM : DeleteVM
     {
     }

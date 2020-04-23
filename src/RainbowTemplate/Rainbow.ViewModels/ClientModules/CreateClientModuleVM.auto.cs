@@ -1,31 +1,31 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Yunyong.Core.ViewModels;
+﻿using System.ComponentModel.DataAnnotations;
+
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 
-
+using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.ClientModules
 {
-	/// <summary>
+    /// <summary>
     ///     创建客户端模块
     /// </summary>
     [Display(Name = "创建客户端模块")]
-	[BindModel("ClientModule", VMType.Create)]
-    public partial class CreateClientModuleVM : CreateVM
+    [BindModel("ClientModule", VMType.Create)]
+    public class CreateClientModuleVM : CreateVM
     {
-		
         /// <summary>
         ///     模块名称
         /// </summary>
-        [Display(Name = "模块名称"),Required]
+        [Display(Name = "模块名称")]
+        [Required]
         public string Name { get; set; }
 
         /// <summary>
         ///     路由路径
         /// </summary>
-        [Display(Name = "路由路径"),Required]
+        [Display(Name = "路由路径")]
+        [Required]
         public string Path { get; set; }
 
         /// <summary>
@@ -39,6 +39,5 @@ namespace Rainbow.ViewModels.ClientModules
         /// </summary>
         [Display(Name = "是否扩展样式")]
         public bool IsCustomLayout { get; set; }
-
     }
 }

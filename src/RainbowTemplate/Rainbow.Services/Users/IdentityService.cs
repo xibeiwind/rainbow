@@ -1,6 +1,8 @@
 ﻿using System;
+
 using Rainbow.Common.Configs;
 using Rainbow.ViewModels.Users;
+
 using Yunyong.Cache.Abstractions;
 using Yunyong.Core;
 
@@ -29,7 +31,7 @@ namespace Rainbow.Services.Users
         {
             var signId = GuidUtil.NewSequentialId();
 
-            var vm = new UserLoginTrackVM { UserId = userId, SignId = signId, ExpiresTime = DateTime.Now.AddDays(1) };
+            var vm = new UserLoginTrackVM {UserId = userId, SignId = signId, ExpiresTime = DateTime.Now.AddDays(1)};
             Service.Set(LoginTrackId(userId), vm, Settings.TokenValidity);
             return vm;
         }

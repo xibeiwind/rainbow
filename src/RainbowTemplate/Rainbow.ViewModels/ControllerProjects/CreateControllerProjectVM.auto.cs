@@ -1,25 +1,24 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Yunyong.Core.ViewModels;
+﻿using System.ComponentModel.DataAnnotations;
+
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 
-
+using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.ControllerProjects
 {
-	/// <summary>
+    /// <summary>
     ///     创建Controller项目
     /// </summary>
     [Display(Name = "创建Controller项目")]
-	[BindModel("ControllerProject", VMType.Create)]
-    public partial class CreateControllerProjectVM : CreateVM
+    [BindModel("ControllerProject", VMType.Create)]
+    public class CreateControllerProjectVM : CreateVM
     {
-		
         /// <summary>
         ///     项目名称
         /// </summary>
-        [Display(Name = "项目名称"),Required]
+        [Display(Name = "项目名称")]
+        [Required]
         public string ProjectName { get; set; }
 
         /// <summary>
@@ -34,6 +33,5 @@ namespace Rainbow.ViewModels.ControllerProjects
         /// </summary>
         [Display(Name = "是否默认项目")]
         public bool IsDefault { get; set; }
-
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+
 using Rainbow.ViewModels.CustomerInfos;
+
 using Yunyong.Core;
 
 namespace Rainbow.Services.CustomerInfos

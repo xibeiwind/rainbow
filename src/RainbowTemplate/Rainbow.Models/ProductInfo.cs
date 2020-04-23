@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using Yunyong.Core;
 
 namespace Rainbow.Models
@@ -16,11 +17,13 @@ namespace Rainbow.Models
         /// </summary>
         [Display(Name = "商品名称")]
         public string Name { get; set; }
+
         /// <summary>
         ///     商品描述
         /// </summary>
         [Display(Name = "商品描述")]
         public string Description { get; set; }
+
         /// <summary>
         ///     商品价格
         /// </summary>

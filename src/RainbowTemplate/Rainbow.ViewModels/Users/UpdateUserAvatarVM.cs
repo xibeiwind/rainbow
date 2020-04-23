@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+
 using Microsoft.AspNetCore.Http;
+
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Users
 {
-    public class UpdateUserAvatarVM:UpdateVM
+    public class UpdateUserAvatarVM : UpdateVM
     {
         /// <summary>
         ///     头像图片

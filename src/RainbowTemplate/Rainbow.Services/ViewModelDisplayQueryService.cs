@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using System.Security.Principal;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Http;
+
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.ViewModels;
 using Rainbow.ViewModels.Utils;
+
 using Yunyong.Core;
 using Yunyong.Core.Attributes;
 
@@ -66,25 +68,16 @@ namespace Rainbow.Services
 
             InputControlType GetInputControlType(PropertyInfo property)
             {
-                if (property.PropertyType == typeof(IFormFile))
-                {
-                    return InputControlType.FileSelect;
-                }
-                if (property.GetCustomAttribute<Yunyong.Core.Attributes.LookupAttribute>() != null)
-                {
-                    return InputControlType.Select;
-                }
-                if (property.PropertyType.IsEnum)
-                {
-                    return InputControlType.Select;
-                }
+                if (property.PropertyType == typeof(IFormFile)) return InputControlType.FileSelect;
+                if (property.GetCustomAttribute<LookupAttribute>() != null) return InputControlType.Select;
+                if (property.PropertyType.IsEnum) return InputControlType.Select;
 
                 InputControlType GetControlType(Type type)
                 {
                     var dic = new Dictionary<InputControlType, List<Type>>
                     {
                         {
-                            InputControlType.Input, new List<Type>()
+                            InputControlType.Input, new List<Type>
                             {
                                 typeof(string), typeof(Guid),
                                 typeof(int),
@@ -97,15 +90,15 @@ namespace Rainbow.Services
                         {
                             InputControlType.Checkbox, new List<Type>
                             {
-                                typeof(bool),
+                                typeof(bool)
                             }
                         }
                     };
                     KeyValuePair<InputControlType, List<Type>>? tmp = dic.FirstOrDefault(a => a.Value.Contains(type));
 
                     return tmp?.Key ?? InputControlType.Input;
-
                 }
+
                 if (property.PropertyType.IsGenericType &&
                     property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
                     return GetControlType(property.PropertyType.GetGenericArguments().FirstOrDefault());
@@ -114,8 +107,8 @@ namespace Rainbow.Services
             }
 
             ModelTypeDic = Assembly.Load("Rainbow.Models").GetTypes()
-                .Where(a => a.IsSubclassOf(typeof(Entity)) && !a.IsAbstract)
-                .ToDictionary(b => b.Name);
+                                   .Where(a => a.IsSubclassOf(typeof(Entity)) && !a.IsAbstract)
+                                   .ToDictionary(b => b.Name);
 
             var items = typeof(ViewModelDisplayVM).Assembly.GetTypes().Where(a => !a.IsAbstract).Select(a =>
             {
@@ -185,8 +178,9 @@ namespace Rainbow.Services
                     ModelName = type.Name,
                     DisplayName = type.GetCustomAttribute<DisplayAttribute>()?.Name ?? type.Name,
                     ViewModels = ViewModelDisplayDic.Values
-                        .Where(a => string.Equals(a.ModelName, modelName, StringComparison.InvariantCultureIgnoreCase))
-                        .OrderBy(a => a.Type).ToList()
+                                                    .Where(a => string.Equals(a.ModelName, modelName,
+                                                         StringComparison.InvariantCultureIgnoreCase))
+                                                    .OrderBy(a => a.Type).ToList()
                 });
             }
 

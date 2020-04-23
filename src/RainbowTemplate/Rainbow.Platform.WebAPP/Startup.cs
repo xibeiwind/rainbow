@@ -6,28 +6,31 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+
 using Rainbow.Platform.Authorize;
-using Swashbuckle.AspNetCore.Swagger;
+
 using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Rainbow.Platform.WebAPP
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
             Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get; }
+        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -37,67 +40,70 @@ namespace Rainbow.Platform.WebAPP
             services.AddRainbowAuthorize();
 
 #if (EnableSwagger)
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Rainbow API", Version = "v1" });
-                c.IncludeXmlComments(Path.Combine(ApplicationEnvironment.ApplicationBasePath, "Rainbow.Platform.Controllers.xml"));
-                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Rainbow API", Version = "v1"});
+                options.IncludeXmlComments(Path.Combine(ApplicationEnvironment.ApplicationBasePath,
+                    "Rainbow.Platform.Controllers.xml"));
+
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "请输入带有Bearer的Token",
                     Name = "Authorization",
-                    In = "header",
-                    Type = "apiKey"
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
                 });
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    {"Bearer", Enumerable.Empty<string>()}
+                    { new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Id = "Bearer",
+                            Type = ReferenceType.SecurityScheme
+                        }
+                    }, Array.Empty<string>() }
                 });
             });
 #endif
+            var serializerSettings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                ContractResolver = new DefaultContractResolver(),
+                DateParseHandling = DateParseHandling.DateTimeOffset,
+                DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
+                DateTimeZoneHandling = DateTimeZoneHandling.Unspecified,
+                DateFormatString = "yyyy-MM-dd HH:mm:ss"
+            };
+            services.AddMvc(options =>
+            {
+                //var jsonOutputFormatter = new JsonOutputFormatter(jsonSerializerSettings, ArrayPool<char>.Shared);
+                //options.OutputFormatters.Insert(0, jsonOutputFormatter);
+
+                var formatter =
+                    new NewtonsoftJsonOutputFormatter(serializerSettings, ArrayPool<char>.Shared, options);
+                options.OutputFormatters.Insert(0, formatter);
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddMvc(options =>
             {
-                var jsonSerializerSettings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    ContractResolver = new DefaultContractResolver(),
-                    DateParseHandling = DateParseHandling.DateTimeOffset,
-                    DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
-                    DateTimeZoneHandling = DateTimeZoneHandling.Unspecified
-                };
-                var jsonOutputFormatter = new JsonOutputFormatter(jsonSerializerSettings, ArrayPool<char>.Shared);
-                options.OutputFormatters.Insert(0, jsonOutputFormatter);
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            services.AddMvc(options =>
-            {
-                var jsonSerializerSettings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    ContractResolver = new DefaultContractResolver(),
-                    DateParseHandling = DateParseHandling.DateTimeOffset,
-                    DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
-                    DateTimeZoneHandling = DateTimeZoneHandling.Unspecified,
-                    DateFormatString = "yyyy-MM-dd HH:mm:ss"
-                };
-                var jsonOutputFormatter = new JsonOutputFormatter(jsonSerializerSettings, ArrayPool<char>.Shared);
-                options.OutputFormatters.Insert(0, jsonOutputFormatter);
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                options.EnableEndpointRouting = false;
+                var formatter =
+                    new NewtonsoftJsonOutputFormatter(serializerSettings, ArrayPool<char>.Shared, options);
+                options.OutputFormatters.Insert(0, formatter);
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 
             //services.AddGraphQL();
 
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -110,7 +116,10 @@ namespace Rainbow.Platform.WebAPP
 
 #if (EnableSwagger)
             app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("v1/swagger.json", "Rainbow API V1"); });
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("v1/swagger.json", "Rainbow API V1");
+            });
 #endif
 
             app.RainbowInit().GetAwaiter().GetResult();

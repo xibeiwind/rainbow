@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Rainbow.ViewModels;
+
 using Yunyong.Core;
 
 namespace Rainbow.Services

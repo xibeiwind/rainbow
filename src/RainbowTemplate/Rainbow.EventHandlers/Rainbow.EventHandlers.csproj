@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Yunyong.Cache" Version="1.0.0" />
-    <PackageReference Include="Yunyong.Core" Version="1.0.9" />
+    <PackageReference Include="Yunyong.Cache" Version="1.0.3" />
+    <PackageReference Include="Yunyong.Core" Version="1.0.12" />
     <PackageReference Include="Yunyong.EventBus" Version="1.0.1" />
   </ItemGroup>
 

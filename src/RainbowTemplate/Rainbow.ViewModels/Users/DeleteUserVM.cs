@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 using Rainbow.Common;
 using Rainbow.Common.Enums;
+
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Users

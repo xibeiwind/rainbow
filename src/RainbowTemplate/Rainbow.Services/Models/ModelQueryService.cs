@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+
 using Rainbow.ViewModels.Models;
+
 using Yunyong.Core;
 
 namespace Rainbow.Services.Models
@@ -14,7 +16,7 @@ namespace Rainbow.Services.Models
         {
             var types
                 = Assembly.Load("Rainbow.Models").GetTypes()
-                    .Where(a => !a.IsAbstract && a.IsSubclassOf(typeof(Entity)));
+                          .Where(a => !a.IsAbstract && a.IsSubclassOf(typeof(Entity)));
 
             foreach (var type in types) yield return GetModelTypeVM(type);
         }

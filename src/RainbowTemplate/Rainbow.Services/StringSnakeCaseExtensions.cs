@@ -12,8 +12,10 @@ namespace Rainbow.Services
             {
                 var matches = Regex.Matches(target, pattern, RegexOptions.IgnorePatternWhitespace);
 
-                return string.Join(separator, matches.Cast<Match>().Where(a => !string.IsNullOrEmpty(a.Value)).Select(a => a.Groups[1].Value.ToLower()));
+                return string.Join(separator,
+                    matches.Where(a => !string.IsNullOrEmpty(a.Value)).Select(a => a.Groups[1].Value.ToLower()));
             }
+
             return target;
         }
     }

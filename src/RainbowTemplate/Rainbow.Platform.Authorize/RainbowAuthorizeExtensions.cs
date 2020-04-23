@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Rainbow.Platform.Authorize
 {
@@ -20,6 +21,13 @@ namespace Rainbow.Platform.Authorize
                 {
                     options.SecurityTokenValidators.Clear();
                     options.SecurityTokenValidators.Add(new RainbowSecurityTokenValidator());
+                    //options.TokenValidationParameters = new TokenValidationParameters
+                    //{
+                    //    ValidateIssuer = true,
+                    //    ValidateAudience = true,
+                    //    ValidateLifetime = true,
+                    //    ValidateIssuerSigningKey = true,
+                    //};
                 });
 
             return services;

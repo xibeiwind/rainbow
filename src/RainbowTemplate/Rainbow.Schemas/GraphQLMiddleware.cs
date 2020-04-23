@@ -1,13 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+
 using GraphQL;
 using GraphQL.DataLoader;
 using GraphQL.Http;
 using GraphQL.Types;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -40,25 +43,25 @@ namespace Rainbow.Schemas
         {
             if (httpContext.Request.Path.StartsWithSegments("/api/Rainbow")
                 && string.Equals(httpContext.Request.Method, "POST", StringComparison.OrdinalIgnoreCase))
-                using (var streamReader = new StreamReader(httpContext.Request.Body))
+            {
+                using var streamReader = new StreamReader(httpContext.Request.Body);
+                var body = await streamReader.ReadToEndAsync();
+
+                var request = JsonConvert.DeserializeObject<GraphQLRequest>(body);
+
+                var result = await Executor.ExecuteAsync(doc =>
                 {
-                    var body = await streamReader.ReadToEndAsync();
+                    doc.Schema = schema;
+                    doc.Query = request.Query;
+                    doc.Inputs = request.Variables.ToInputs();
 
-                    var request = JsonConvert.DeserializeObject<GraphQLRequest>(body);
+                    doc.Listeners.Add(serviceProvider
+                       .GetRequiredService<DataLoaderDocumentListener>());
+                }).ConfigureAwait(false);
 
-                    var result = await Executor.ExecuteAsync(doc =>
-                    {
-                        doc.Schema = schema;
-                        doc.Query = request.Query;
-                        doc.Inputs = request.Variables.ToInputs();
-
-                        doc.Listeners.Add(serviceProvider
-                            .GetRequiredService<DataLoaderDocumentListener>());
-                    }).ConfigureAwait(false);
-
-                    var json = await Writer.WriteToStringAsync(result);
-                    await httpContext.Response.WriteAsync(json);
-                }
+                var json = await Writer.WriteToStringAsync(result);
+                await httpContext.Response.WriteAsync(json);
+            }
             else
                 await Next(httpContext);
         }

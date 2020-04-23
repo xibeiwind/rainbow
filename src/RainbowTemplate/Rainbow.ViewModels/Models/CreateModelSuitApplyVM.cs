@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Rainbow.ViewModels.Models
 {
@@ -37,57 +36,67 @@ namespace Rainbow.ViewModels.Models
         /// </summary>
         [Display(Name = "生成服务")]
         public bool GenerateService { get; set; }
+
         /// <summary>
         ///     管理服务功能
         /// </summary>
         [Display(Name = "管理服务功能")]
         public bool ManageService { get; set; }
+
         /// <summary>
         ///     跟踪操作记录
         /// </summary>
         [Display(Name = "跟踪操作记录")]
         public bool TrackOperation { get; set; }
+
         /// <summary>
         ///     生成Controller
         /// </summary>
         [Display(Name = "生成Controller")]
         public bool GenerateController { get; set; }
+
         /// <summary>
         ///     Controller项目名称
         /// </summary>
         [Display(Name = "Controller项目名称")]
         public string ControllerProjectName { get; set; }
+
         /// <summary>
         ///     Controller是否要权限控制
         /// </summary>
         [Display(Name = "Controller是否要权限控制")]
         public bool ControllerWithAuthorize { get; set; }
+
         /// <summary>
         ///     权限允许角色
         /// </summary>
         [Display(Name = "权限允许角色")]
         public List<string> AuthorizeRoles { get; set; }
+
         /// <summary>
         ///     生成Angular组件页面
         /// </summary>
         [Display(Name = "生成Angular组件页面")]
         public bool GenerateNgModuleComponent { get; set; }
+
         /// <summary>
         ///     所采用NgModule的名称
         /// </summary>
         [Display(Name = "所采用NgModule的名称")]
         public string NgModuleName { get; set; }
+
         /// <summary>
         ///     Angular组件为List组件
         /// </summary>
         [Display(Name = "Angular组件为List组件")]
         public bool GenerateNgListComponent { get; set; }
-        
+
         /// <summary>
         ///     生成Angular详情组件
         /// </summary>
         [Display(Name = "生成Angular详情组件")]
         public bool GenerateNgDetailComponent { get; set; }
+
         /// <summary>
         ///     是否更新呢生成TsService
         /// </summary>

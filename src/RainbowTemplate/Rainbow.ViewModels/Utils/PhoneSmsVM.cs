@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Rainbow.Common.Enums;
 
 namespace Rainbow.ViewModels.Utils

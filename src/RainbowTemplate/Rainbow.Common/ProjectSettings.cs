@@ -12,8 +12,10 @@ namespace Rainbow.Common
             ServiceInterfaceRoot = Path.Combine(solutionRoot, $"{solutionNamespace}.Services.Abstractions");
             ServiceRoot = Path.Combine(solutionRoot, $"{solutionNamespace}.Services");
             ControllerRoot = Path.Combine(solutionRoot, $"{solutionNamespace}.Platform.Controllers");
-            ManageHostingStartupsRoot = Path.Combine(solutionRoot, $"{solutionNamespace}.Platform.WebAPP", "HostingStartups");
-            CustomerHostingStartupsRoot = Path.Combine(solutionRoot, $"{solutionNamespace}.MP.WebAPI", "HostingStartups");
+            ManageHostingStartupsRoot =
+                Path.Combine(solutionRoot, $"{solutionNamespace}.Platform.WebAPP", "HostingStartups");
+            CustomerHostingStartupsRoot =
+                Path.Combine(solutionRoot, $"{solutionNamespace}.MP.WebAPI", "HostingStartups");
             PlatformWebRoot = Path.Combine(solutionRoot, $"{solutionNamespace}.Platform.WebAPP");
         }
 

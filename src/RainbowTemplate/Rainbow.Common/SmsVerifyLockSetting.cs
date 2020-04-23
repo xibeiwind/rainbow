@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Rainbow.Common
 {
@@ -14,6 +9,7 @@ namespace Rainbow.Common
         /// </summary>
         [Display(Name = "锁定时长分钟")]
         public int LockMinutes { get; set; }
+
         /// <summary>
         ///     连续错误次数触发锁定
         /// </summary>

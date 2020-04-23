@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 using Microsoft.AspNetCore.Http;
+
 using Rainbow.Common;
 using Rainbow.Common.Enums;
+
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Users
@@ -24,6 +27,7 @@ namespace Rainbow.ViewModels.Users
         /// </summary>
         [Display(Name = "IsActive")]
         public bool IsActive { get; set; }
+
         /// <summary>
         ///     头像图片
         /// </summary>

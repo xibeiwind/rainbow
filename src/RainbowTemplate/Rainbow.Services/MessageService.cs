@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Rainbow.ViewModels.Messages;
+
 using Yunyong.Core;
 
 namespace Rainbow.Services

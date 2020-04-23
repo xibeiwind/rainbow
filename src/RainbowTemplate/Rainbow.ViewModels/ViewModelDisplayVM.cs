@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 using Rainbow.Common.Enums;
 
 namespace Rainbow.ViewModels

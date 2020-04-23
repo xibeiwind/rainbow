@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
+
 using Microsoft.Extensions.Logging;
+
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.Events;
 using Rainbow.Models;
 using Rainbow.ViewModels.Utils;
+
 using Yunyong.Cache.Abstractions;
 using Yunyong.Core;
 using Yunyong.DataExchange;
@@ -15,14 +18,16 @@ namespace Rainbow.Services.Utils
 {
     public class SmsActionService : ServiceBase, ISmsActionService
     {
-        public SmsActionService(ConnectionSettings connectionSettings,
-            IConnectionFactory connectionFactory,
-            ILoggerFactory loggerFactory,
-            IEventBus eventBus,
-            SmsVerifyLockSetting lockSetting,
-            ICacheService<PhoneSmsVM> phoneSmsCacheService,
-            ICacheService<VerifySmsSuccessVM> verifySmsCacheService,
-            ICacheService<VerfyCodeNumLimitVM> verifyCodeNumLimitService)
+        public SmsActionService(
+                ConnectionSettings connectionSettings,
+                IConnectionFactory connectionFactory,
+                ILoggerFactory loggerFactory,
+                IEventBus eventBus,
+                SmsVerifyLockSetting lockSetting,
+                ICacheService<PhoneSmsVM> phoneSmsCacheService,
+                ICacheService<VerifySmsSuccessVM> verifySmsCacheService,
+                ICacheService<VerfyCodeNumLimitVM> verifyCodeNumLimitService
+            )
             : base(connectionSettings,
                 connectionFactory,
                 loggerFactory,
@@ -42,7 +47,7 @@ namespace Rainbow.Services.Utils
 
         public async Task<SendSmsResultVM> SendSms(string phone, TplType tplType)
         {
-            using (var conn = GetConnection())
+            await using (var conn = GetConnection())
             {
                 var user = await conn.FirstOrDefaultAsync<UserInfo>(a => a.Phone == phone);
                 if (user?.IsActive != true)

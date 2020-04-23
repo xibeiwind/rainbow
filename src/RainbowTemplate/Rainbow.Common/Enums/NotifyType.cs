@@ -6,6 +6,6 @@ namespace Rainbow.Common.Enums
     [JsonConverter(typeof(StringEnumConverter))]
     public enum NotifyType
     {
-        Metting,
+        Metting
     }
 }

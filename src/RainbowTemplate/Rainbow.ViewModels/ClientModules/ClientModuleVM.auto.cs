@@ -1,24 +1,24 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Yunyong.Core.ViewModels;
+﻿using System.ComponentModel.DataAnnotations;
+
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 
+using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.ClientModules
 {
-	/// <summary>
+    /// <summary>
     ///     客户端模块
     /// </summary>
     [Display(Name = "客户端模块")]
-	[BindModel("ClientModule", VMType.ListDisplay)]
-    public partial class ClientModuleVM : VMBase
+    [BindModel("ClientModule", VMType.ListDisplay)]
+    public class ClientModuleVM : VMBase
     {
-		
         /// <summary>
         ///     模块名称
         /// </summary>
-        [Display(Name = "模块名称"),Required]
+        [Display(Name = "模块名称")]
+        [Required]
         public string Name { get; set; }
 
         /// <summary>
@@ -36,8 +36,8 @@ namespace Rainbow.ViewModels.ClientModules
         /// <summary>
         ///     路由路径
         /// </summary>
-        [Display(Name = "路由路径"),Required]
+        [Display(Name = "路由路径")]
+        [Required]
         public string Path { get; set; }
-
     }
 }

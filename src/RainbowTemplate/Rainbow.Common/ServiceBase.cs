@@ -1,5 +1,7 @@
 ﻿using System.Data.Common;
+
 using Microsoft.Extensions.Logging;
+
 using Yunyong.Core;
 using Yunyong.EventBus;
 
@@ -15,8 +17,12 @@ namespace Rainbow.Common
         /// <param name="connectionFactory"></param>
         /// <param name="loggerFactory"></param>
         /// <param name="eventBus"></param>
-        protected ServiceBase(ConnectionSettings connectionSettings, IConnectionFactory connectionFactory,
-            ILoggerFactory loggerFactory, IEventBus eventBus)
+        protected ServiceBase(
+                ConnectionSettings connectionSettings,
+                IConnectionFactory connectionFactory,
+                ILoggerFactory loggerFactory,
+                IEventBus eventBus
+            )
         {
             ConnectionSettings = connectionSettings;
             ConnectionFactory = connectionFactory;

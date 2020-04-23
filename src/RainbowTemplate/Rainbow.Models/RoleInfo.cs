@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using Rainbow.Common.Enums;
+
 using Yunyong.Core;
 
 namespace Rainbow.Models

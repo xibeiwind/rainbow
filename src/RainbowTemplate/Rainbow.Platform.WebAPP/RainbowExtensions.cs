@@ -1,11 +1,13 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using Rainbow.Common;
 using Rainbow.Common.Configs;
 using Rainbow.Data;
@@ -17,6 +19,7 @@ using Rainbow.Services.Users;
 using Rainbow.Services.Utils;
 using Rainbow.ViewModels.ClientModules;
 using Rainbow.ViewModels.ControllerProjects;
+
 using Yunyong.Cache;
 using Yunyong.Cache.Register;
 using Yunyong.Core;
@@ -28,14 +31,18 @@ namespace Rainbow.Platform.WebAPP
 {
     public static class RainbowExtensions
     {
-        public static IServiceCollection RegisterServices(this IServiceCollection services,
-            IConfiguration configuration, IHostingEnvironment environment)
+        public static IServiceCollection RegisterServices(
+                this IServiceCollection services,
+                IConfiguration configuration,
+                IWebHostEnvironment environment
+            )
         {
             var cfg = configuration.Get<CacheServiceConfig>("CacheServiceConfig");
             services.AddSingleton(cfg);
             services.RegisterRedisCache(cfg);
 
             services.AddSingleton<SecurityUtil>();
+            services.AddSingleton(new WebPathConfig {WebRootPath = environment.WebRootPath});
 
             services.AddDbContext<RainbowDbContext>(opts =>
             {
@@ -65,6 +72,7 @@ namespace Rainbow.Platform.WebAPP
 
             services.AddSingleton(configuration.Get<JwtSettings>("JwtSettings"));
             services.AddSingleton(configuration.Get<TokenSettings>("TokenSettings"));
+            services.AddSingleton(configuration.Get<PictureSettings>("PictureSettings"));
 
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<ICustomerServiceManageService, CustomerServiceManageService>();
@@ -146,7 +154,6 @@ namespace Rainbow.Platform.WebAPP
                             Path = "auth",
                             IsCustomLayout = true,
                         });
- 
                     }
                 }
 

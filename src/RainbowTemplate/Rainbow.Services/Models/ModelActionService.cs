@@ -5,15 +5,17 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+
 using Microsoft.Extensions.Logging;
+
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.Models;
 using Rainbow.ViewModels.ClientModules;
 using Rainbow.ViewModels.Models;
+
 using Yunyong.Core;
 using Yunyong.DataExchange;
 using Yunyong.EventBus;
@@ -22,8 +24,13 @@ namespace Rainbow.Services.Models
 {
     public class ModelActionService : ServiceBase, IModelActionService
     {
-        public ModelActionService(ProjectSettings settings, ConnectionSettings connectionSettings,
-            IConnectionFactory connectionFactory, ILoggerFactory loggerFactory, IEventBus eventBus)
+        public ModelActionService(
+                ProjectSettings settings,
+                ConnectionSettings connectionSettings,
+                IConnectionFactory connectionFactory,
+                ILoggerFactory loggerFactory,
+                IEventBus eventBus
+            )
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
         {
             Settings = settings;
@@ -35,11 +42,7 @@ namespace Rainbow.Services.Models
         {
             var helper = new ModelSuitCodeGenerateHelper(vm, Settings);
 
-            if (vm.GenerateVM)
-            {
-                helper.CreateViewModels();
-
-            }
+            if (vm.GenerateVM) helper.CreateViewModels();
             //CreateViewModels();
             if (vm.GenerateService)
             {
@@ -48,20 +51,11 @@ namespace Rainbow.Services.Models
                 helper.CreateHostingStartup();
             }
 
-            if (vm.GenerateController)
-            {
-                helper.CreateControllers();
-            }
+            if (vm.GenerateController) helper.CreateControllers();
 
-            if (vm.GenerateNgModuleComponent)
-            {
-                helper.CreateNgModuleComponent();
-            }
+            if (vm.GenerateNgModuleComponent) helper.CreateNgModuleComponent();
 
-            if (vm.UpdateTsServices)
-            {
-                await RegenerateTsCode();
-            }
+            if (vm.UpdateTsServices) await RegenerateTsCode();
 
 
             return AsyncTaskResult.Success(true);
@@ -69,15 +63,13 @@ namespace Rainbow.Services.Models
 
         public async Task<AsyncTaskTResult<bool>> UpdateAppRoutingModule()
         {
-            using (var conn = GetConnection())
-            {
-                var items = await conn.AllAsync<ClientModule, ClientModuleVM>();
+            await using var conn = GetConnection();
+            var items = await conn.AllAsync<ClientModule, ClientModuleVM>();
 
-                var helper = new ModelSuitCodeGenerateHelper(null, Settings);
+            var helper = new ModelSuitCodeGenerateHelper(null, Settings);
 
-                await helper.UpdateAppRoutingModule(items);
-                return AsyncTaskResult.Success(true);
-            }
+            await helper.UpdateAppRoutingModule(items);
+            return AsyncTaskResult.Success(true);
         }
 
         public async Task<AsyncTaskTResult<bool>> RegenerateTsCode()

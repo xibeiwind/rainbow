@@ -13,10 +13,8 @@ namespace Rainbow.EventHandlers
 
         public static void EventBusSubscribe(this IServiceProvider provider)
         {
-            using (var scope = provider.CreateScope())
-            {
-                var eventBus = scope.ServiceProvider.GetService<IEventBus>();
-            }
+            using var scope = provider.CreateScope();
+            var eventBus = scope.ServiceProvider.GetService<IEventBus>();
         }
     }
 }

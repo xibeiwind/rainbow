@@ -1,10 +1,11 @@
 ﻿using System;
+
 using Rainbow.Common.Enums;
 
 namespace Rainbow.Common
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class BindModelAttribute:Attribute
+    public class BindModelAttribute : Attribute
     {
         public BindModelAttribute(string modelName, VMType type)
         {
@@ -12,7 +13,7 @@ namespace Rainbow.Common
             Type = type;
         }
 
-        public string ModelName { get;  }
+        public string ModelName { get; }
         public VMType Type { get; }
     }
 }

@@ -26,53 +26,51 @@ namespace Rainbow.Platform.WebAPP.Services
 
         public async Task InitBuildCustomerService()
         {
-            using (var conn = GetConnection())
+            await using var conn = GetConnection();
+            foreach (var index in Enumerable.Range(1, 10))
             {
-                foreach (var index in Enumerable.Range(1, 10))
+                var tmp = EntityFactory.Create<UserInfo>();
+                tmp.Phone = $"1890000{index:0000}";
+                tmp.PasswordHash = Util.Encoding($"RainbowUser@{index:0000}");
+                tmp.IsActive = true;
+                tmp.Name = $"RainbowUser:{index:0000}";
+
+                if (!await conn.ExistAsync<UserInfo>(a => a.Phone == tmp.Phone))
                 {
-                    var tmp = EntityFactory.Create<UserInfo>();
-                    tmp.Phone = $"1890000{index:0000}";
-                    tmp.PasswordHash = Util.Encoding($"RainbowUser@{index:0000}");
-                    tmp.IsActive = true;
-                    tmp.Name = $"RainbowUser:{index:0000}";
+                    await conn.CreateAsync(tmp);
 
-                    if (!await conn.ExistAsync<UserInfo>(a => a.Phone == tmp.Phone))
+                    var roles = (await conn.AllAsync<RoleInfo>()).ToDictionary(a => a.RoleType);
+
+                    var userRole = new UserRole
                     {
-                        await conn.CreateAsync(tmp);
+                        UserId = tmp.Id,
+                        RoleId = roles[UserRoleType.CustomerService].Id
+                    };
 
-                        var roles = (await conn.AllAsync<RoleInfo>()).ToDictionary(a => a.RoleType);
-
-                        var userRole = new UserRole
-                        {
-                            UserId = tmp.Id,
-                            RoleId = roles[UserRoleType.CustomerService].Id
-                        };
-
-                        await conn.CreateAsync(userRole);
-                    }
+                    await conn.CreateAsync(userRole);
                 }
+            }
 
+            {
+                var tmp = EntityFactory.Create<UserInfo>();
+                tmp.Phone = $"18900009999";
+                tmp.PasswordHash = Util.Encoding($"RainbowUser@9999");
+                tmp.IsActive = true;
+                tmp.Name = $"SysAdmin";
+
+                if (!await conn.ExistAsync<UserInfo>(a => a.Phone == tmp.Phone))
                 {
-                    var tmp = EntityFactory.Create<UserInfo>();
-                    tmp.Phone = $"18900009999";
-                    tmp.PasswordHash = Util.Encoding($"RainbowUser@9999");
-                    tmp.IsActive = true;
-                    tmp.Name = $"SysAdmin";
+                    await conn.CreateAsync(tmp);
 
-                    if (!await conn.ExistAsync<UserInfo>(a => a.Phone == tmp.Phone))
+                    var roles = (await conn.AllAsync<RoleInfo>()).ToDictionary(a => a.RoleType);
+
+                    var userRole = new UserRole
                     {
-                        await conn.CreateAsync(tmp);
+                        UserId = tmp.Id,
+                        RoleId = roles[UserRoleType.SysAdmin].Id
+                    };
 
-                        var roles = (await conn.AllAsync<RoleInfo>()).ToDictionary(a => a.RoleType);
-
-                        var userRole = new UserRole
-                        {
-                            UserId = tmp.Id,
-                            RoleId = roles[UserRoleType.SysAdmin].Id
-                        };
-
-                        await conn.CreateAsync(userRole);
-                    }
+                    await conn.CreateAsync(userRole);
                 }
             }
         }

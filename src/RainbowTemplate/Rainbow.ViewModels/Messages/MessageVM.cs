@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Messages

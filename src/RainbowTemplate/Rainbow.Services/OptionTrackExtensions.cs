@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+
 using Rainbow.Common;
 using Rainbow.Models;
+
 using Yunyong.Core;
 using Yunyong.Core.ViewModels;
 
@@ -10,8 +12,11 @@ namespace Rainbow.Services
 {
     internal static class OptionTrackExtensions
     {
-        public static CustomerOperationTrackRecord CustomerOperationTrack<TEntity>(this CreateVM vm,
-            Guid customerId, Guid recordId)
+        public static CustomerOperationTrackRecord CustomerOperationTrack<TEntity>(
+                this CreateVM vm,
+                Guid customerId,
+                Guid recordId
+            )
             where TEntity : Entity
         {
             var entityType = typeof(TEntity);
@@ -48,7 +53,11 @@ namespace Rainbow.Services
             return optionTrack;
         }
 
-        public static CustomerServiceOperationTrackRecord CustomerServiceOperationTrack<TEntity>(this CreateVM vm, Guid customerServiceId, Guid recordId)
+        public static CustomerServiceOperationTrackRecord CustomerServiceOperationTrack<TEntity>(
+                this CreateVM vm,
+                Guid customerServiceId,
+                Guid recordId
+            )
             where TEntity : Entity
         {
             var entityType = typeof(TEntity);
@@ -65,7 +74,10 @@ namespace Rainbow.Services
             return optionTrack;
         }
 
-        public static CustomerServiceOperationTrackRecord CustomerServiceOperationTrack<TEntity>(this UpdateVM vm, Guid customerServiceId)
+        public static CustomerServiceOperationTrackRecord CustomerServiceOperationTrack<TEntity>(
+                this UpdateVM vm,
+                Guid customerServiceId
+            )
             where TEntity : Entity
         {
             var optionTrack = EntityFactory.Create<CustomerServiceOperationTrackRecord>();
@@ -75,7 +87,10 @@ namespace Rainbow.Services
             return optionTrack;
         }
 
-        public static CustomerServiceOperationTrackRecord CustomerServiceOperationTrack<TEntity>(this DeleteVM vm, Guid customerServiceId)
+        public static CustomerServiceOperationTrackRecord CustomerServiceOperationTrack<TEntity>(
+                this DeleteVM vm,
+                Guid customerServiceId
+            )
             where TEntity : Entity
         {
             var optionTrack = EntityFactory.Create<CustomerServiceOperationTrackRecord>();
@@ -85,7 +100,8 @@ namespace Rainbow.Services
             return optionTrack;
         }
 
-        private static void UpdateTrack<TEntity, TVM>(this IOperationTrackRecord target, TVM vm) where TEntity : Entity where TVM : VMBase
+        private static void UpdateTrack<TEntity, TVM>(this IOperationTrackRecord target, TVM vm)
+            where TEntity : Entity where TVM : VMBase
         {
             var entityType = typeof(TEntity);
             target.TargetEntity = entityType.Name;
@@ -104,7 +120,6 @@ namespace Rainbow.Services
                 target.Option = "Delete";
                 target.OptionComments = $"删除{entityDisplayName}";
             }
-
         }
     }
 }

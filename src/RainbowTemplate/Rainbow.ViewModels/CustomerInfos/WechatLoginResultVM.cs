@@ -19,6 +19,7 @@ namespace Rainbow.ViewModels.CustomerInfos
         /// </summary>
         [Display(Name = "如果成功返回token")]
         public string Token { get; set; }
+
         /// <summary>
         ///     出错信息
         /// </summary>

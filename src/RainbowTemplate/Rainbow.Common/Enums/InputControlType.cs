@@ -3,7 +3,6 @@ using Newtonsoft.Json.Converters;
 
 namespace Rainbow.Common.Enums
 {
-
     [JsonConverter(typeof(StringEnumConverter))]
     public enum InputControlType
     {
@@ -11,6 +10,6 @@ namespace Rainbow.Common.Enums
         Checkbox = 1,
         Select = 2,
         FileSelect = 3,
-        Html = 4,
+        Html = 4
     }
 }

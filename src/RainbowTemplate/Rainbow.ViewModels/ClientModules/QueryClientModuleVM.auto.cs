@@ -1,21 +1,20 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Yunyong.Core;
-using Yunyong.Core.Attributes;
+﻿using System.ComponentModel.DataAnnotations;
+
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 
+using Yunyong.Core;
+using Yunyong.Core.Attributes;
 
 namespace Rainbow.ViewModels.ClientModules
 {
-	/// <summary>
+    /// <summary>
     ///     查询客户端模块
     /// </summary>
     [Display(Name = "查询客户端模块")]
-	[BindModel("ClientModule", VMType.Query)]
-    public partial class QueryClientModuleVM : PagingQueryOption
+    [BindModel("ClientModule", VMType.Query)]
+    public class QueryClientModuleVM : PagingQueryOption
     {
-		
         /// <summary>
         ///     模块名称
         /// </summary>
@@ -42,6 +41,5 @@ namespace Rainbow.ViewModels.ClientModules
         [Display(Name = "路由路径")]
         [QueryColumn("Path", CompareEnum.Like)]
         public string Path { get; set; }
-
     }
 }

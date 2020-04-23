@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 using Yunyong.Core.ViewModels;
 
 namespace Rainbow.ViewModels.Utils

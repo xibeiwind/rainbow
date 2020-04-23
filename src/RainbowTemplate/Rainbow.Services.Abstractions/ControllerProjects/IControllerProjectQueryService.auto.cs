@@ -1,26 +1,28 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+
 using Rainbow.ViewModels.ControllerProjects;
+
 using Yunyong.Core;
 
 namespace Rainbow.Services.ControllerProjects
 {
-    public partial interface IControllerProjectQueryService
+    public interface IControllerProjectQueryService
     {
-
         /// <summary>
         ///     获取Controller项目
         /// </summary>
         [Display(Name = "获取Controller项目")]
-        Task < ControllerProjectVM > GetAsync(Guid id);
+        Task<ControllerProjectVM> GetAsync(Guid id);
 
         /// <summary>
         ///     获取Controller项目列表
         /// </summary>
         [Display(Name = "获取Controller项目列表")]
-        Task < List<ControllerProjectVM> > GetListAsync();
+        Task<List<ControllerProjectVM>> GetListAsync();
+
         /// <summary>
         ///     查询Controller项目列表（分页）
         /// </summary>

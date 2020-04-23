@@ -24,7 +24,7 @@ namespace Rainbow.TypeLiteConsoleApp
                 typeof(PagingList<>)
             };
 
-            helper.GenerateTypeScriptContracts(new ContractSetting()
+            helper.GenerateTypeScriptContracts(new ContractSetting
             {
                 Assembly = Assembly.Load("Rainbow.ViewModels"),
                 OutputPath = $@"{Path.Combine(args[0], @"Rainbow.Platform.WebAPP\ClientApp\src\app")}",

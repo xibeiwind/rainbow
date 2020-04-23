@@ -8,10 +8,12 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.ViewModels.ClientModules;
 using Rainbow.ViewModels.Models;
+
 using Yunyong.Core.Attributes;
 
 namespace Rainbow.Services.Models
@@ -137,8 +139,8 @@ namespace Rainbow.Services.Models
                     var propList = item.Fields.Select(a => ModelType.GetProperty(a)).ToList();
 
                     template = template.Replace("$PropertyList$",
-                                                string.Join(
-                                                    "", GetVMFieldStrings(propList, item.Type == VMType.Query)));
+                        string.Join(
+                            "", GetVMFieldStrings(propList, item.Type == VMType.Query)));
                 }
                 else
                 {
@@ -177,16 +179,16 @@ using {Settings.SolutionNamespace}.Common.Enums;
         private string GetTypeName(Type type)
         {
             var typeDic = new Dictionary<Type, string>
-                          {
-                              {typeof(string), "string"},
-                              {typeof(int), "int"},
-                              {typeof(Guid), "Guid"},
-                              {typeof(long), "long"},
-                              {typeof(double), "double"},
-                              {typeof(decimal), "decimal"},
-                              {typeof(float), "float"},
-                              {typeof(bool), "bool"}
-                          };
+            {
+                {typeof(string), "string"},
+                {typeof(int), "int"},
+                {typeof(Guid), "Guid"},
+                {typeof(long), "long"},
+                {typeof(double), "double"},
+                {typeof(decimal), "decimal"},
+                {typeof(float), "float"},
+                {typeof(bool), "bool"}
+            };
 
             if (typeDic.TryGetValue(type, out var name))
                 return name;
@@ -227,8 +229,10 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
             string GetLookupString(LookupAttribute attr)
             {
-                return attr != null ? $@"
-        [Lookup(""{attr.TypeName}"", ""{attr.DisplayField}"", ""{attr.ValueField}"")]" : "";
+                return attr != null
+                    ? $@"
+        [Lookup(""{attr.TypeName}"", ""{attr.DisplayField}"", ""{attr.ValueField}"")]"
+                    : "";
             }
 
             var template = @"
@@ -338,7 +342,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     : $"I{SuitApplyVM.ModelName}ActionService.auto.cs";
 
                 File.WriteAllText(Path.Combine(path, fileName), template,
-                                  Encoding.UTF8);
+                    Encoding.UTF8);
             }
 
             items = SuitApplyVM.Items.Where(a => a.Type == VMType.ListDisplay
@@ -378,7 +382,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     : $"I{SuitApplyVM.ModelName}QueryService.auto.cs";
 
                 File.WriteAllText(Path.Combine(path, fileName), template,
-                                  Encoding.UTF8);
+                    Encoding.UTF8);
             }
         }
 
@@ -437,7 +441,8 @@ using {Settings.SolutionNamespace}.Common.Enums;
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            var items = SuitApplyVM.Items.Where(a => a.CreateAction && (a.Type == VMType.Create || a.Type == VMType.Update));
+            var items = SuitApplyVM.Items.Where(a =>
+                a.CreateAction && (a.Type == VMType.Create || a.Type == VMType.Update));
             if (items.Any())
             {
                 var templateName = SuitApplyVM.TrackOperation
@@ -466,7 +471,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     : $"{SuitApplyVM.ModelName}ActionService.auto.cs";
 
                 File.WriteAllText(Path.Combine(path, fileName), template,
-                                  Encoding.UTF8);
+                    Encoding.UTF8);
             }
 
             items = SuitApplyVM.Items.Where(a => a.CreateAction && (a.Type == VMType.ListDisplay
@@ -497,7 +502,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     : $"{SuitApplyVM.ModelName}QueryService.auto.cs";
 
                 File.WriteAllText(Path.Combine(path, fileName), template,
-                                  Encoding.UTF8);
+                    Encoding.UTF8);
             }
         }
 
@@ -528,9 +533,9 @@ using {Settings.SolutionNamespace}.Common.Enums;
                                .Replace("$FolderName$", SuitApplyVM.FolderName)
                                .Replace("$Model$", $"{SuitApplyVM.ModelName}")
                                .Replace("$ControllerProject$",
-                                        SuitApplyVM.ManageService
-                                            ? "Rainbow.Platform.WebAPP"
-                                            : "Rainbow.MP.WebAPI")
+                                    SuitApplyVM.ManageService
+                                        ? "Rainbow.Platform.WebAPP"
+                                        : "Rainbow.MP.WebAPI")
                                .Replace("$DisplayName$", $"{SuitApplyVM.ModelName} Hosting Startup");
 
 
@@ -600,50 +605,48 @@ using {Settings.SolutionNamespace}.Common.Enums;
                                .Replace("$Model$", $"{SuitApplyVM.ModelName}")
                                .Replace("$ControllerProjectName$", SuitApplyVM.ControllerProjectName)
                                .Replace("$ControllerAuthorize$",
-                                        GetControllerWithAuthorize())
+                                    GetControllerWithAuthorize())
                                .Replace("$IModelActionService$",
-                                        SuitApplyVM.ManageService
-                                            ? $"IManage{SuitApplyVM.ModelName}ActionService"
-                                            : $"I{SuitApplyVM.ModelName}ActionService")
+                                    SuitApplyVM.ManageService
+                                        ? $"IManage{SuitApplyVM.ModelName}ActionService"
+                                        : $"I{SuitApplyVM.ModelName}ActionService")
                                .Replace("$IModelQueryService$",
-                                        SuitApplyVM.ManageService
-                                            ? $"IManage{SuitApplyVM.ModelName}QueryService"
-                                            : $"I{SuitApplyVM.ModelName}QueryService")
+                                    SuitApplyVM.ManageService
+                                        ? $"IManage{SuitApplyVM.ModelName}QueryService"
+                                        : $"I{SuitApplyVM.ModelName}QueryService")
                                .Replace("$DisplayName$", $"{SuitApplyVM.ModelName} Controller")
                                .Replace("$BeforeAction$", GetControllerBeforeAction());
 
 
             string GetControllerBeforeAction()
             {
-                if (!SuitApplyVM.AuthorizeRoles.Any())
-                {
-                    return "";
-                }
+                if (!SuitApplyVM.AuthorizeRoles.Any()) return "";
 
-                return SuitApplyVM.ManageService ?
-                    $@"
+                return SuitApplyVM.ManageService
+                    ? @"
         #region Overrides of Controller
         /// <summary>
         /// 
         /// </summary>
         protected override void Controller_BeforeAction()
-        {{
+        {
             base.Controller_BeforeAction();
             ActionService.CustomerServiceId = this.GetCustomerServiceId();
             QueryService.CustomerServiceId = this.GetCustomerServiceId();
-        }}
+        }
         #endregion
-" : $@"
+"
+                    : @"
         #region Overrides of Controller
         /// <summary>
         /// 
         /// </summary>
         protected override void Controller_BeforeAction()
-        {{
+        {
             base.Controller_BeforeAction();
             ActionService.CustomerId = this.GetCustomerId();
             QueryService.CustomerId = this.GetCustomerId();
-        }}
+        }
         #endregion
 ";
             }
@@ -671,7 +674,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
             File.WriteAllText(
                 Path.Combine(Settings.SolutionRoot, SuitApplyVM.ControllerProjectName,
-                             $"{SuitApplyVM.ModelName}Controller.auto.cs"), template,
+                    $"{SuitApplyVM.ModelName}Controller.auto.cs"), template,
                 Encoding.UTF8);
         }
 
@@ -740,8 +743,8 @@ using {Settings.SolutionNamespace}.Common.Enums;
                             {
                                 FileName = "cmd.exe",
                                 WorkingDirectory =
-                                                              Path.Combine(
-                                                                  pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-")),
+                                    Path.Combine(
+                                        pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-")),
                                 RedirectStandardInput = true,
                                 RedirectStandardOutput = true,
                                 RedirectStandardError = true,
@@ -754,7 +757,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                         {
                             var template = GetTemplate("NgComponent.ModuleComponentHtml");
                             var filePath = Path.Combine(pathRoot, moduleSnackName, moduleSnackName,
-                                                        $@"{moduleSnackName}.component.html");
+                                $@"{moduleSnackName}.component.html");
                             File.WriteAllText(filePath, template);
                         }
                         {
@@ -764,7 +767,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                                           .Replace("$ModelSnackName$", moduleSnackName)
                                 ;
                             var filePath = Path.Combine(pathRoot, moduleSnackName,
-                                                        $@"{moduleSnackName}-routing.module.ts");
+                                $@"{moduleSnackName}-routing.module.ts");
                             File.WriteAllText(filePath, template);
                         }
                     }
@@ -772,7 +775,6 @@ using {Settings.SolutionNamespace}.Common.Enums;
             }
             {
                 {
-
                     var cmd = $"ng g c {SuitApplyVM.ModelName}List --force";
                     Console.WriteLine(pathRoot);
                     Console.WriteLine(cmd);
@@ -783,7 +785,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
                         {
                             FileName = "cmd.exe",
                             WorkingDirectory =
-                                                          Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-")),
+                                Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-")),
                             RedirectStandardInput = true,
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,
@@ -798,14 +800,16 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     var modelSnakeName = SuitApplyVM.ModelName.SnakeCase("-");
                     {
                         var template = GetTemplate("NgComponent.ListComponentHtml");
-                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), $"{modelSnakeName}-list",
-                                                    $@"{modelSnakeName}-list.component.html");
+                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"),
+                            $"{modelSnakeName}-list",
+                            $@"{modelSnakeName}-list.component.html");
                         File.WriteAllText(filePath, template);
                     }
                     {
                         var template = GetTemplate("NgComponent.ListComponentScript");
-                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), $"{modelSnakeName}-list",
-                                                    $@"{modelSnakeName}-list.component.ts");
+                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"),
+                            $"{modelSnakeName}-list",
+                            $@"{modelSnakeName}-list.component.ts");
 
                         template = template.Replace("$ModelName$", SuitApplyVM.ModelName)
                                            .Replace("$ModelSnackName$", modelSnakeName)
@@ -818,45 +822,42 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
                 if (SuitApplyVM.GenerateNgDetailComponent)
                 {
+                    var cmd = $"ng g c {SuitApplyVM.ModelName}Detail --force";
+                    Console.WriteLine(pathRoot);
+                    Console.WriteLine(cmd);
+
+                    var process = new Process
                     {
-
-                        var cmd = $"ng g c {SuitApplyVM.ModelName}Detail --force";
-                        Console.WriteLine(pathRoot);
-                        Console.WriteLine(cmd);
-
-                        var process = new Process
+                        StartInfo = new ProcessStartInfo
                         {
-                            StartInfo = new ProcessStartInfo
-                            {
-                                FileName = "cmd.exe",
-                                WorkingDirectory =
-                                    Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-")),
-                                RedirectStandardInput = true,
-                                RedirectStandardOutput = true,
-                                RedirectStandardError = true,
-                                CreateNoWindow = true
-                            }
-                        };
-                        ExecuteProcess(process, cmd);
-                        var modelSnakeName = SuitApplyVM.ModelName.SnakeCase("-");
-                        {
-                            var template = GetTemplate("NgComponent.DetailComponentHtml");
-                            var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName,
-                                $@"{modelSnakeName}-detail.component.html");
-                            File.WriteAllText(filePath, template);
+                            FileName = "cmd.exe",
+                            WorkingDirectory =
+                                Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-")),
+                            RedirectStandardInput = true,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            CreateNoWindow = true
                         }
-                        {
-                            var template = GetTemplate("NgComponent.DetailComponentScript");
-                            var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName,
-                                $@"{modelSnakeName}-detail.component.ts");
+                    };
+                    ExecuteProcess(process, cmd);
+                    var modelSnakeName = SuitApplyVM.ModelName.SnakeCase("-");
+                    {
+                        var template = GetTemplate("NgComponent.DetailComponentHtml");
+                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName,
+                            $@"{modelSnakeName}-detail.component.html");
+                        File.WriteAllText(filePath, template);
+                    }
+                    {
+                        var template = GetTemplate("NgComponent.DetailComponentScript");
+                        var filePath = Path.Combine(pathRoot, SuitApplyVM.NgModuleName.SnakeCase("-"), modelSnakeName,
+                            $@"{modelSnakeName}-detail.component.ts");
 
-                            template = template.Replace("$ModelName$", SuitApplyVM.ModelName)
-                                .Replace("$ModelSnackName$", modelSnakeName)
-                                .Replace("$SolutionNamespace$", Settings.SolutionNamespace);
+                        template = template.Replace("$ModelName$", SuitApplyVM.ModelName)
+                                           .Replace("$ModelSnackName$", modelSnakeName)
+                                           .Replace("$SolutionNamespace$", Settings.SolutionNamespace);
 
 
-                            File.WriteAllText(filePath, template);
-                        }
+                        File.WriteAllText(filePath, template);
                     }
                 }
             }
