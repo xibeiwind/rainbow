@@ -42,7 +42,7 @@ namespace Rainbow.Platform.WebAPP
 #if (EnableSwagger)
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Rainbow API", Version = "v1"});
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Rainbow API", Version = "v1" });
                 options.IncludeXmlComments(Path.Combine(ApplicationEnvironment.ApplicationBasePath,
                     "Rainbow.Platform.Controllers.xml"));
 
@@ -67,33 +67,22 @@ namespace Rainbow.Platform.WebAPP
                 });
             });
 #endif
-            var serializerSettings = new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                ContractResolver = new DefaultContractResolver(),
-                DateParseHandling = DateParseHandling.DateTimeOffset,
-                DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
-                DateTimeZoneHandling = DateTimeZoneHandling.Unspecified,
-                DateFormatString = "yyyy-MM-dd HH:mm:ss"
-            };
-            services.AddMvc(options =>
-            {
-                //var jsonOutputFormatter = new JsonOutputFormatter(jsonSerializerSettings, ArrayPool<char>.Shared);
-                //options.OutputFormatters.Insert(0, jsonOutputFormatter);
-
-                var formatter =
-                    new NewtonsoftJsonOutputFormatter(serializerSettings, ArrayPool<char>.Shared, options);
-                options.OutputFormatters.Insert(0, formatter);
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddMvc(options =>
-            {
-                options.EnableEndpointRouting = false;
-                var formatter =
-                    new NewtonsoftJsonOutputFormatter(serializerSettings, ArrayPool<char>.Shared, options);
-                options.OutputFormatters.Insert(0, formatter);
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                     {
+                         options.EnableEndpointRouting = false;
+                     })
+                    .AddNewtonsoftJson(options =>
+                     {
+                         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                         options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                         options.SerializerSettings.DateParseHandling = DateParseHandling.DateTimeOffset;
+                         options.SerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+                         options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified;
+                         options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                     })
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 
             //services.AddGraphQL();
