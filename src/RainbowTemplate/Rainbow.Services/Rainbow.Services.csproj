@@ -9,11 +9,13 @@
     <None Remove="Templates\ActionService.txt" />
     <None Remove="Templates\Controller.txt" />
     <None Remove="Templates\ControllerActions\CreateAction.txt" />
+    <None Remove="Templates\ControllerActions\CreateFormAction.txt" />
     <None Remove="Templates\ControllerActions\DeleteAction.txt" />
     <None Remove="Templates\ControllerActions\DetailAction.txt" />
     <None Remove="Templates\ControllerActions\ListAction.txt" />
     <None Remove="Templates\ControllerActions\QueryAction.txt" />
     <None Remove="Templates\ControllerActions\UpdateAction.txt" />
+    <None Remove="Templates\ControllerActions\UpdateFormAction.txt" />
     <None Remove="Templates\HostingStartup.txt" />
     <None Remove="Templates\IActionService.txt" />
     <None Remove="Templates\IManageActionService.txt" />
@@ -59,11 +61,13 @@
   <ItemGroup>
     <EmbeddedResource Include="Templates\ActionService.txt" />
     <EmbeddedResource Include="Templates\Controller.txt" />
+    <EmbeddedResource Include="Templates\ControllerActions\CreateFormAction.txt" />
     <EmbeddedResource Include="Templates\ControllerActions\CreateAction.txt" />
     <EmbeddedResource Include="Templates\ControllerActions\DeleteAction.txt" />
     <EmbeddedResource Include="Templates\ControllerActions\DetailAction.txt" />
     <EmbeddedResource Include="Templates\ControllerActions\ListAction.txt" />
     <EmbeddedResource Include="Templates\ControllerActions\QueryAction.txt" />
+    <EmbeddedResource Include="Templates\ControllerActions\UpdateFormAction.txt" />
     <EmbeddedResource Include="Templates\ControllerActions\UpdateAction.txt" />
     <EmbeddedResource Include="Templates\HostingStartup.txt" />
     <EmbeddedResource Include="Templates\IActionService.txt" />

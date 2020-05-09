@@ -138,9 +138,11 @@ namespace Rainbow.Services.Models
                 {
                     var propList = item.Fields.Select(a => ModelType.GetProperty(a)).ToList();
 
+
                     template = template.Replace("$PropertyList$",
                         string.Join(
-                            "", GetVMFieldStrings(propList, item.Type == VMType.Query)));
+                            "", GetVMFieldStrings(propList, item.Type == VMType.Query, 
+                                item.Type == VMType.Create||item.Type == VMType.Update)));
                 }
                 else
                 {
@@ -170,11 +172,16 @@ using {Settings.SolutionNamespace}.Common.Enums;
             }
         }
 
-        private IEnumerable<string> GetVMFieldStrings(List<PropertyInfo> propList, bool isQueryVM = false)
+        private IEnumerable<string> GetVMFieldStrings(
+                List<PropertyInfo> propList,
+                bool isQueryVM = false,
+                bool isCreateUpdate = false
+            )
         {
             foreach (var prop in propList)
-                yield return GetVMFieldString(prop, isQueryVM);
+                yield return GetVMFieldString(prop, isQueryVM, isCreateUpdate);
         }
+
 
         private string GetTypeName(Type type)
         {
@@ -196,7 +203,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
             return type.Name;
         }
 
-        private string GetVMFieldString(PropertyInfo prop, bool isQueryVM = false)
+        private string GetVMFieldString(PropertyInfo prop, bool isQueryVM = false, bool isCreateUpdate=false)
         {
             var displayName = prop.GetCustomAttribute<DisplayAttribute>()?.Name ?? prop.Name;
             var required = isQueryVM ? "" : prop.GetCustomAttribute<RequiredAttribute>() != null ? ",Required" : "";
@@ -210,6 +217,11 @@ using {Settings.SolutionNamespace}.Common.Enums;
                 : "";
 
             var returnType = GetTypeName(prop.PropertyType); // prop.PropertyType.Name;
+            if (isCreateUpdate && dataTypeAttribute?.DataType == DataType.ImageUrl)
+            {
+                returnType = "IFormFile";
+            }
+
             if (prop.PropertyType.IsGenericType)
                 returnType = prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)
                     ? $"{GetTypeName(prop.PropertyType.GetGenericArguments()[0])}?"
@@ -555,14 +567,16 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
         private string GetControllerMethod(CreateViewModelApplyVM item)
         {
+            var needPostForm = item.Fields.Select(ModelType.GetProperty).Any(a=>a.GetCustomAttribute<DataTypeAttribute>()?.DataType == DataType.ImageUrl);
+
             var template = "";
             switch (item.Type)
             {
                 case VMType.Create:
-                    template = GetTemplate("ControllerActions.CreateAction");
+                    template = needPostForm? GetTemplate("ControllerActions.CreateFormAction") : GetTemplate("ControllerActions.CreateAction");
                     break;
                 case VMType.Update:
-                    template = GetTemplate("ControllerActions.UpdateAction");
+                    template = needPostForm? GetTemplate("ControllerActions.UpdateFormAction") : GetTemplate("ControllerActions.UpdateAction");
                     break;
                 case VMType.Query:
                     template = GetTemplate("ControllerActions.QueryAction");
@@ -585,6 +599,8 @@ using {Settings.SolutionNamespace}.Common.Enums;
                     ? $"\r\n        [Authorize(Roles=\"{string.Join(",", item.AuthorizeRoles)}\")]"
                     : "\r\n        [Authorize]"
                 : "";
+
+            
 
             return template
                   .Replace("$item.DisplayName$", item.DisplayName)
@@ -653,7 +669,7 @@ using {Settings.SolutionNamespace}.Common.Enums;
 
             var methodList = new List<string>();
 
-            methodList.AddRange(SuitApplyVM.Items.Where(a => a.CreateAction).Select(GetControllerMethod));
+            methodList.AddRange(SuitApplyVM.Items.Where(a => a.CreateAction).Select(vm => GetControllerMethod(vm)));
 
             if (SuitApplyVM.EnableDelete)
                 methodList.Add($@"

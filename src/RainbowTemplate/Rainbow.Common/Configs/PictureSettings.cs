@@ -12,5 +12,10 @@ namespace Rainbow.Common.Configs
         /// </summary>
         [Display(Name = "图片类型路径设置")]
         public Dictionary<PictureType, string> PictureTypePathDir { get; set; }
+        /// <summary>
+        ///     附件图片路径
+        /// </summary>
+        [Display(Name = "附件图片路径")]
+        public string AttachmentPictureDir { get; set; }
     }
 }
