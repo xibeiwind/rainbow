@@ -5,7 +5,7 @@
         [Route("$item.ActionName$")]$ActionAuthorize$
         [ProducesDefaultResponseType(typeof(AsyncTaskTResult<Guid>))]
         [Display(Name="$item.DisplayName$")]
-        public async Task<IActionResult> $item.ActionName$Async([FromBody]$item.Name$ vm)
+        public async Task<IActionResult> $item.ActionName$Async([FromForm]$item.Name$ vm)
         {
             return Ok(await ActionService.$item.ActionName$Async(vm));
         }
