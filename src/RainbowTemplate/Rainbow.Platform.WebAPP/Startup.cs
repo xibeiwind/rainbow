@@ -68,22 +68,34 @@ namespace Rainbow.Platform.WebAPP
             });
 #endif
 
-            services.AddMvc(options =>
-                     {
-                         options.EnableEndpointRouting = false;
-                     })
-                    .AddNewtonsoftJson(options =>
-                     {
-                         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                         options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                         options.SerializerSettings.DateParseHandling = DateParseHandling.DateTimeOffset;
-                         options.SerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-                         options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified;
-                         options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                     })
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            //services.AddMvc(options =>
+            //         {
+            //             options.EnableEndpointRouting = false;
+            //         })
+            //        .AddNewtonsoftJson(options =>
+            //         {
+            //             options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            //             options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            //             options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            //             options.SerializerSettings.DateParseHandling = DateParseHandling.DateTimeOffset;
+            //             options.SerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+            //             options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified;
+            //             options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            //         })
+            //        .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
+
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                    options.SerializerSettings.DateParseHandling = DateParseHandling.DateTimeOffset;
+                    options.SerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified;
+                    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                });
 
             //services.AddGraphQL();
 
@@ -116,27 +128,25 @@ namespace Rainbow.Platform.WebAPP
             app.UseRainbowAuthorize();
 
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
 
             //app.UseSignalR(builder =>
             //{
             //    // todo: set SignalR here
             //});
 
-            //app.UseGraphQL();
-
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
                 spa.Options.StartupTimeout = TimeSpan.FromMinutes(2);
                 if (env.IsDevelopment())
