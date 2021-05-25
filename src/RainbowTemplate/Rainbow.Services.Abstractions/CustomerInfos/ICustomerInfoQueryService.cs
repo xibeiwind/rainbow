@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Rainbow.ViewModels.CustomerInfos;
+using System;
 using System.Threading.Tasks;
-
-using Rainbow.ViewModels.CustomerInfos;
 
 namespace Rainbow.Services.CustomerInfos
 {

@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Rainbow.ViewModels.Messages;
+using System;
 using System.Threading.Tasks;
-
-using Rainbow.ViewModels.Messages;
-
 using Yunyong.Core;
 
 namespace Rainbow.Services

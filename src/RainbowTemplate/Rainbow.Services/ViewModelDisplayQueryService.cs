@@ -1,17 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Rainbow.Common;
+using Rainbow.Common.Enums;
+using Rainbow.ViewModels;
+using Rainbow.ViewModels.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Http;
-
-using Rainbow.Common;
-using Rainbow.Common.Enums;
-using Rainbow.ViewModels;
-using Rainbow.ViewModels.Utils;
-
 using Yunyong.Core;
 using Yunyong.Core.Attributes;
 

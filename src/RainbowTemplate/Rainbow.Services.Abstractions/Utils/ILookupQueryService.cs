@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Rainbow.ViewModels.Utils;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using Rainbow.ViewModels.Utils;
-
 using Yunyong.Core;
 using Yunyong.Core.Attributes;
 

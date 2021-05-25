@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Rainbow.ViewModels.ClientModules;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
-using Rainbow.ViewModels.ClientModules;
-
 using Yunyong.Core;
 
 namespace Rainbow.Services.ClientModules

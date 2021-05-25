@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-
-using Rainbow.Common.Enums;
+﻿using Rainbow.Common.Enums;
 using Rainbow.ViewModels.Utils;
+using System.Threading.Tasks;
 
 namespace Rainbow.Services.Utils
 {

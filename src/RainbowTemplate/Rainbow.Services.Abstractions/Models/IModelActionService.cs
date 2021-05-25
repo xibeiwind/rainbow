@@ -1,7 +1,5 @@
-﻿using System.Threading.Tasks;
-
-using Rainbow.ViewModels.Models;
-
+﻿using Rainbow.ViewModels.Models;
+using System.Threading.Tasks;
 using Yunyong.Core;
 
 namespace Rainbow.Services.Models

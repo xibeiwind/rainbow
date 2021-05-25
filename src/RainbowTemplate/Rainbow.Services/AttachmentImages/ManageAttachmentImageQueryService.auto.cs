@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.Logging;
-
+﻿using Microsoft.Extensions.Logging;
 using Rainbow.Common;
 using Rainbow.Models;
 using Rainbow.ViewModels.AttachmentImages;
-
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Yunyong.Core;
 using Yunyong.DataExchange;
 using Yunyong.EventBus;

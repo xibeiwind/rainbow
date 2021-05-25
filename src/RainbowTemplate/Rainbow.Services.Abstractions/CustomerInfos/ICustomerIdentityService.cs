@@ -1,6 +1,5 @@
-﻿using System;
-
-using Rainbow.ViewModels.CustomerInfos;
+﻿using Rainbow.ViewModels.CustomerInfos;
+using System;
 
 namespace Rainbow.Services.CustomerInfos
 {

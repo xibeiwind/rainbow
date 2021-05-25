@@ -5,9 +5,10 @@ using Rainbow.Platform.WebAPP.HostingStartups;
 using Rainbow.Services.ControllerProjects;
 
 [assembly: HostingStartup(typeof(ControllerProjectStartup))]
+
 namespace Rainbow.Platform.WebAPP.HostingStartups
 {
-	/// <summary>
+    /// <summary>
     ///     ControllerProject Hosting Startup
     /// </summary>
     [Display(Name = "ControllerProject Hosting Startup")]
@@ -15,7 +16,7 @@ namespace Rainbow.Platform.WebAPP.HostingStartups
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((services) =>
+            builder.ConfigureServices(services =>
             {
                 services.AddScoped<IControllerProjectActionService, ControllerProjectActionService>();
                 services.AddScoped<IControllerProjectQueryService, ControllerProjectQueryService>();

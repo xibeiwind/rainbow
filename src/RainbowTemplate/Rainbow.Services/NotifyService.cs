@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Rainbow.Common.Enums;
+using Rainbow.ViewModels.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Rainbow.Common.Enums;
-using Rainbow.ViewModels.Tasks;
-
 using Yunyong.Core;
 
 namespace Rainbow.Services

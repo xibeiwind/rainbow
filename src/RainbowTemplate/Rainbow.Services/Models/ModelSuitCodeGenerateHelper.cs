@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Rainbow.Common;
+using Rainbow.Common.Enums;
+using Rainbow.ViewModels.ClientModules;
+using Rainbow.ViewModels.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
@@ -8,12 +12,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
-using Rainbow.Common;
-using Rainbow.Common.Enums;
-using Rainbow.ViewModels.ClientModules;
-using Rainbow.ViewModels.Models;
-
 using Yunyong.Core.Attributes;
 
 namespace Rainbow.Services.Models

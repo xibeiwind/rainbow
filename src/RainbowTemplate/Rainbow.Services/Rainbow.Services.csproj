@@ -118,7 +118,7 @@
     <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.10.401" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.1" />
     <PackageReference Include="Yunyong.Cache" Version="1.0.4" />
-    <PackageReference Include="Yunyong.DataExchange" Version="1.3.6" />
+    <PackageReference Include="Yunyong.DataExchange" Version="1.3.7" />
     <PackageReference Include="Yunyong.SqlUtils" Version="1.0.1" />
   </ItemGroup>
 

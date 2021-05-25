@@ -5,9 +5,10 @@ using Rainbow.Platform.WebAPP;
 using Rainbow.Services.Users;
 
 [assembly: HostingStartup(typeof(UserStartup))]
+
 namespace Rainbow.Platform.WebAPP
 {
-	/// <summary>
+    /// <summary>
     ///     User Hosting Startup
     /// </summary>
     [Display(Name = "User Hosting Startup")]
@@ -15,7 +16,7 @@ namespace Rainbow.Platform.WebAPP
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((services) =>
+            builder.ConfigureServices(services =>
             {
                 services.AddScoped<IUserActionService, UserActionService>();
                 services.AddScoped<IUserQueryService, UserQueryService>();

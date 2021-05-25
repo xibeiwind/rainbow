@@ -1,14 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.Logging;
-
+﻿using Microsoft.Extensions.Logging;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.Events;
 using Rainbow.Models;
 using Rainbow.ViewModels.Utils;
-
+using System;
+using System.Threading.Tasks;
 using Yunyong.Cache.Abstractions;
 using Yunyong.Core;
 using Yunyong.DataExchange;

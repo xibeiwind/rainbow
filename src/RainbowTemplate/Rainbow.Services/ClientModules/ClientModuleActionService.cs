@@ -1,13 +1,10 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.Logging;
-
+﻿using Microsoft.Extensions.Logging;
 using Rainbow.Common;
 using Rainbow.Models;
 using Rainbow.ViewModels.ClientModules;
-
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Yunyong.Core;
 using Yunyong.DataExchange;
 using Yunyong.EventBus;
@@ -17,11 +14,11 @@ namespace Rainbow.Services.ClientModules
     public class ClientModuleActionService : ServiceBase, IClientModuleActionService
     {
         public ClientModuleActionService(
-                ConnectionSettings connectionSettings,
-                IConnectionFactory connectionFactory,
-                ILoggerFactory loggerFactory,
-                IEventBus eventBus
-            )
+            ConnectionSettings connectionSettings,
+            IConnectionFactory connectionFactory,
+            ILoggerFactory loggerFactory,
+            IEventBus eventBus
+        )
             : base(connectionSettings, connectionFactory, loggerFactory, eventBus)
         {
         }

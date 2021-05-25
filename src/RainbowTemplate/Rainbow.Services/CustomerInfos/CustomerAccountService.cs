@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-
 using Rainbow.Common;
 using Rainbow.Common.Configs;
 using Rainbow.Common.Enums;
 using Rainbow.Common.Utils;
 using Rainbow.Models;
 using Rainbow.ViewModels.CustomerInfos;
-
 using Senparc.Weixin;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
-
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 using Yunyong.Core;
 using Yunyong.DataExchange;
 using Yunyong.EventBus;

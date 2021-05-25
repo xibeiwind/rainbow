@@ -1,4 +1,10 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Rainbow.Common;
+using Rainbow.Common.Enums;
+using Rainbow.Models;
+using Rainbow.ViewModels.ClientModules;
+using Rainbow.ViewModels.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
@@ -7,15 +13,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
-using Microsoft.Extensions.Logging;
-
-using Rainbow.Common;
-using Rainbow.Common.Enums;
-using Rainbow.Models;
-using Rainbow.ViewModels.ClientModules;
-using Rainbow.ViewModels.Models;
-
 using Yunyong.Core;
 using Yunyong.DataExchange;
 using Yunyong.EventBus;

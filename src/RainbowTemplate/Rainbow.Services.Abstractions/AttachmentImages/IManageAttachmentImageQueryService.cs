@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Rainbow.ViewModels.AttachmentImages;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
-using Rainbow.ViewModels.AttachmentImages;
-
 using Yunyong.Core;
 
 namespace Rainbow.Services.AttachmentImages

@@ -1,14 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.Logging;
-
+﻿using Microsoft.Extensions.Logging;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.Models;
-
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using Yunyong.Core;
 using Yunyong.DataExchange;
 using Yunyong.EventBus;

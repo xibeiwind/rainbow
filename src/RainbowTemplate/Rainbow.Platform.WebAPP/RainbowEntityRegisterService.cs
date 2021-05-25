@@ -1,10 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Rainbow.Models;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Rainbow.Models;
 using Yunyong.Core;
 
 namespace Rainbow.Platform.WebAPP

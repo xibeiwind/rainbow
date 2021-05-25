@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Rainbow.ViewModels.AttachmentImages;
+using System;
 using System.Threading.Tasks;
-
-using Rainbow.ViewModels.AttachmentImages;
 
 namespace Rainbow.Services.AttachmentImages
 {

@@ -5,9 +5,10 @@ using Rainbow.Platform.WebAPP.HostingStartups;
 using Rainbow.Services.ClientModules;
 
 [assembly: HostingStartup(typeof(ClientModuleStartup))]
+
 namespace Rainbow.Platform.WebAPP.HostingStartups
 {
-	/// <summary>
+    /// <summary>
     ///     ClientModule Hosting Startup
     /// </summary>
     [Display(Name = "ClientModule Hosting Startup")]
@@ -15,7 +16,7 @@ namespace Rainbow.Platform.WebAPP.HostingStartups
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((services) =>
+            builder.ConfigureServices(services =>
             {
                 services.AddScoped<IClientModuleActionService, ClientModuleActionService>();
                 services.AddScoped<IClientModuleQueryService, ClientModuleQueryService>();

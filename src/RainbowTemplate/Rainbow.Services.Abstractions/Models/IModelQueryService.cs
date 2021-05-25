@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-
-using Rainbow.ViewModels.Models;
+﻿using Rainbow.ViewModels.Models;
+using System.Collections.Generic;
 
 namespace Rainbow.Services.Models
 {

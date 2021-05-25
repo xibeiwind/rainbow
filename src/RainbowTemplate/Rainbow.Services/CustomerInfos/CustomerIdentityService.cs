@@ -1,8 +1,6 @@
-﻿using System;
-
-using Rainbow.Common.Configs;
+﻿using Rainbow.Common.Configs;
 using Rainbow.ViewModels.CustomerInfos;
-
+using System;
 using Yunyong.Cache.Abstractions;
 using Yunyong.Core;
 

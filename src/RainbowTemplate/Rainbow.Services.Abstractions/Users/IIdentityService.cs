@@ -1,6 +1,5 @@
-﻿using System;
-
-using Rainbow.ViewModels.Users;
+﻿using Rainbow.ViewModels.Users;
+using System;
 
 namespace Rainbow.Services.Users
 {

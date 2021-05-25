@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-
 using Rainbow.ViewModels;
-
 using Yunyong.Core;
 
 namespace Rainbow.Services
@@ -68,14 +66,14 @@ namespace Rainbow.Services
                 FullName = type.FullName,
                 DisplayName = type.Name,
                 Fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-                             .Where(a => !Equals((int) a.GetValue(null), 0))
-                             .Select(
-                                  a => new EnumFieldDisplayVM
-                                  {
-                                      Name = a.Name,
-                                      DisplayName = a.GetCustomAttribute<DisplayAttribute>()?.Name ?? a.Name,
-                                      Value = (int) a.GetValue(null)
-                                  })
+                    .Where(a => !Equals((int) a.GetValue(null), 0))
+                    .Select(
+                        a => new EnumFieldDisplayVM
+                        {
+                            Name = a.Name,
+                            DisplayName = a.GetCustomAttribute<DisplayAttribute>()?.Name ?? a.Name,
+                            Value = (int) a.GetValue(null)
+                        })
             };
 
             _enumDisplayDic[type.Name] = vm;

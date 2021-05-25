@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Rainbow.ViewModels.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-
-using Rainbow.ViewModels.Models;
-
 using Yunyong.Core;
 
 namespace Rainbow.Services.Models

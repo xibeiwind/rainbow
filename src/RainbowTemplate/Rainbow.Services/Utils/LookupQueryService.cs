@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using Dapper;
-
+﻿using Dapper;
 using Microsoft.Extensions.Logging;
-
 using Rainbow.Common;
 using Rainbow.ViewModels.Utils;
-
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Yunyong.Core;
 using Yunyong.Core.Attributes;
 using Yunyong.EventBus;

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Rainbow.Common;
+using Rainbow.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-
-using Rainbow.Common;
-using Rainbow.Models;
-
 using Yunyong.Core;
 using Yunyong.Core.ViewModels;
 

@@ -5,9 +5,10 @@ using Rainbow.Platform.WebAPP.HostingStartups;
 using Rainbow.Services.RoleInfos;
 
 [assembly: HostingStartup(typeof(RoleInfoStartup))]
+
 namespace Rainbow.Platform.WebAPP.HostingStartups
 {
-	/// <summary>
+    /// <summary>
     ///     RoleInfo Hosting Startup
     /// </summary>
     [Display(Name = "RoleInfo Hosting Startup")]
@@ -15,7 +16,7 @@ namespace Rainbow.Platform.WebAPP.HostingStartups
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((services) =>
+            builder.ConfigureServices(services =>
             {
                 services.AddScoped<IRoleInfoActionService, RoleInfoActionService>();
                 services.AddScoped<IRoleInfoQueryService, RoleInfoQueryService>();

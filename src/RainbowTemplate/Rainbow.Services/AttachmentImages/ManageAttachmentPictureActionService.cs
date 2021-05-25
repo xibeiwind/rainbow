@@ -1,16 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
-
 using Rainbow.Common;
 using Rainbow.Common.Configs;
 using Rainbow.Events.Utils;
 using Rainbow.Models;
 using Rainbow.ViewModels.AttachmentImages;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-
 using Yunyong.Core;
 using Yunyong.DataExchange;
 using Yunyong.EventBus;
@@ -19,28 +16,6 @@ namespace Rainbow.Services.AttachmentImages
 {
     public class ManageAttachmentImageActionService : ServiceBase, IManageAttachmentImageActionService
     {
-        //private IHostingEnvironment Env { get; }
-        private WebPathConfig Config { get; }
-        public PictureSettings Settings { get; }
-
-        /// <summary>
-        /// </summary>
-        public ManageAttachmentImageActionService(
-                ConnectionSettings connectionSettings,
-                IConnectionFactory connectionFactory,
-                ILoggerFactory loggerFactory,
-                //IHostingEnvironment env,
-                WebPathConfig config,
-                IEventBus eventBus,
-                PictureSettings settings
-            ) : base(connectionSettings, connectionFactory, loggerFactory,
-            eventBus)
-        {
-            //Env = env;
-            Config = config;
-            Settings = settings;
-        }
-
         private readonly Dictionary<string, string> _imageTypeDic =
             new Dictionary<string, string>
             {
@@ -51,15 +26,34 @@ namespace Rainbow.Services.AttachmentImages
                 {"image/png", "png"}
             };
 
+        /// <summary>
+        /// </summary>
+        public ManageAttachmentImageActionService(
+            ConnectionSettings connectionSettings,
+            IConnectionFactory connectionFactory,
+            ILoggerFactory loggerFactory,
+            //IHostingEnvironment env,
+            WebPathConfig config,
+            IEventBus eventBus,
+            PictureSettings settings
+        ) : base(connectionSettings, connectionFactory, loggerFactory,
+            eventBus)
+        {
+            //Env = env;
+            Config = config;
+            Settings = settings;
+        }
+
+        //private IHostingEnvironment Env { get; }
+        private WebPathConfig Config { get; }
+        public PictureSettings Settings { get; }
+
         #region Implementation of IManageAttachmentPictureActionService
 
         public async Task<AsyncTaskTResult<string>> UploadPictureAsync(UploadPictureRequestVM vm)
         {
             var item = EntityFactory.Create<AttachmentImage>();
-            if (vm.TargetId == Guid.Empty)
-            {
-                vm.TargetId = Guid.NewGuid();
-            }
+            if (vm.TargetId == Guid.Empty) vm.TargetId = Guid.NewGuid();
 
             item.TargetId = vm.TargetId;
             var fileName = $"{item.Id}.{_imageTypeDic[vm.File.ContentType]}";
@@ -84,7 +78,7 @@ namespace Rainbow.Services.AttachmentImages
                 {
                     ImageId = item.Id,
                     FileName = item.FileName,
-                    FilePath = filePath,
+                    FilePath = filePath
                 });
 
                 return AsyncTaskResult.Success<string>(item.FileName);
@@ -96,8 +90,8 @@ namespace Rainbow.Services.AttachmentImages
         }
 
         public async Task<AsyncTaskTResult<UploadPictureAdvResultVM>> UploadPictureAdvAsync(
-                UploadPictureAdvRequestVM vm
-            )
+            UploadPictureAdvRequestVM vm
+        )
         {
             var item = EntityFactory.Create<AttachmentImage>();
             item.TargetId = Guid.Empty;
@@ -117,14 +111,14 @@ namespace Rainbow.Services.AttachmentImages
                 {
                     ImageId = item.Id,
                     FileName = item.FileName,
-                    FilePath = filePath,
+                    FilePath = filePath
                 });
 
                 return AsyncTaskResult.Success(new UploadPictureAdvResultVM
                 {
                     Id = item.Id,
                     FileName = fileName,
-                    ImageUrl = item.FileName,
+                    ImageUrl = item.FileName
                 });
             }
             catch (Exception ex)
@@ -149,7 +143,7 @@ namespace Rainbow.Services.AttachmentImages
                     ImageId = pictureId,
                     FileName = fileName,
                     FilePath = filePath,
-                    ForceUpload = true,
+                    ForceUpload = true
                 });
             }
 
