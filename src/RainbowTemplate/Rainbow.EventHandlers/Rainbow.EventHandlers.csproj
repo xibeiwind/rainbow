@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Yunyong.Cache" Version="1.0.3" />
-    <PackageReference Include="Yunyong.Core" Version="1.0.12" />
-    <PackageReference Include="Yunyong.EventBus" Version="1.0.1" />
+    <PackageReference Include="Yunyong.Cache" Version="1.0.4" />
+    <PackageReference Include="Yunyong.Core" Version="1.0.13" />
+    <PackageReference Include="Yunyong.EventBus" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
