@@ -9,8 +9,8 @@ import { InputTypeService } from 'src/app/services/InputTypeService';
   styleUrls: ['./edit-form.component.scss']
 })
 export class EditFormComponent implements OnInit, AfterContentInit {
-  protected editForm: FormGroup;
-  protected enumObj = {};
+  editForm: FormGroup;
+  enumObj = {};
 
 
   @Input()
@@ -62,7 +62,7 @@ export class EditFormComponent implements OnInit, AfterContentInit {
     this.onsubmit.next({ Id: this.editItemId, ...this.editForm.value });
   }
   cancleEdit() {
-    this.oncancel.next();
+    this.oncancel.next(null);
   }
   getInputControlType(field: Rainbow.ViewModels.FieldDisplayVM): string {
     return this.inputTypeService.getInputControlType(field);

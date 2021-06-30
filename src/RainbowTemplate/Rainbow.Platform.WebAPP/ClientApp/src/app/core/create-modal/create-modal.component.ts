@@ -28,8 +28,8 @@ export class CreateModalComponent implements OnInit {
   @ViewChildren(SelectImageFileComponent)
   files?: QueryList<SelectImageFileComponent>;
 
-  protected createModalRef: BsModalRef;
-  protected enumObj = {};
+  createModalRef: BsModalRef;
+  enumObj = {};
 
   constructor(
     private enumService: EnumCacheService,

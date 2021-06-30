@@ -11,7 +11,7 @@ import { InputTypeService } from 'src/app/services/InputTypeService';
 })
 export class EditModalComponent implements OnInit {
   editForm: FormGroup;
-  protected editModalRef: BsModalRef;
+  editModalRef: BsModalRef;
   @Input()
   title: string;
   @Input()
@@ -23,7 +23,7 @@ export class EditModalComponent implements OnInit {
   @ViewChild('editTemplate', { static: true })
   template: TemplateRef<any>;
   editItemId: string;
-  protected enumObj = {};
+  enumObj = {};
 
   constructor(
     private enumService: EnumCacheService,

@@ -13,8 +13,8 @@ import { PagingDataListConfig } from './PagingDataListConfig';
 })
 export class PagingDataListComponent implements OnInit {
   currentItem: any;
-  protected _fields: Rainbow.ViewModels.FieldDisplayVM[];
-  protected _pagingData: Yunyong.Core.PagingList<any> = {
+  _fields: Rainbow.ViewModels.FieldDisplayVM[];
+  _pagingData: Yunyong.Core.PagingList<any> = {
     Data: [],
     PageIndex: 1,
     PageSize: 10,

@@ -31,23 +31,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeLite.Standard", "TypeLi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.TypeLiteConsoleApp", "Rainbow.TypeLiteConsoleApp\Rainbow.TypeLiteConsoleApp.csproj", "{2CC90343-9124-449D-AF48-096F1B4B21EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Schemas", "Rainbow.Schemas\Rainbow.Schemas.csproj", "{C9433434-2021-4108-970C-4E62AC85DB91}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{819CD9D1-E6C2-462D-BE57-2B461EB876DF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.TypeScript", "Rainbow.TypeScript\Rainbow.TypeScript.csproj", "{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.TypeScriptTests", "Rainbow.TypeScriptTests\Rainbow.TypeScriptTests.csproj", "{B6B29476-B1CB-4A60-B416-CBBAFCF01306}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.MP.WebAPI", "Rainbow.MP.WebAPI\Rainbow.MP.WebAPI.csproj", "{D232E074-C1B7-42BF-AE9E-CEDCA4C13C54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.MP.WebAPI", "Rainbow.MP.WebAPI\Rainbow.MP.WebAPI.csproj", "{D232E074-C1B7-42BF-AE9E-CEDCA4C13C54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.MP.Controllers", "Rainbow.MP.Controllers\Rainbow.MP.Controllers.csproj", "{C0ACF602-9BC2-4DA1-BF2E-C57024FA240A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.MP.Controllers", "Rainbow.MP.Controllers\Rainbow.MP.Controllers.csproj", "{C0ACF602-9BC2-4DA1-BF2E-C57024FA240A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorize", "Authorize", "{4AEEFEFC-BFCF-4E3A-A106-9F42482C2631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.MP.Authorize", "Rainbow.MP.Authorize\Rainbow.MP.Authorize.csproj", "{68B04FAF-321C-430E-A38A-756EBD45B025}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.MP.Authorize", "Rainbow.MP.Authorize\Rainbow.MP.Authorize.csproj", "{68B04FAF-321C-430E-A38A-756EBD45B025}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.Platform.Authorize", "Rainbow.Platform.Authorize\Rainbow.Platform.Authorize.csproj", "{6F8EB3A1-8A12-4553-B925-CFE37A44D8FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Platform.Authorize", "Rainbow.Platform.Authorize\Rainbow.Platform.Authorize.csproj", "{6F8EB3A1-8A12-4553-B925-CFE37A44D8FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -203,18 +201,6 @@ Global
 		{2CC90343-9124-449D-AF48-096F1B4B21EF}.Release|x64.Build.0 = Release|Any CPU
 		{2CC90343-9124-449D-AF48-096F1B4B21EF}.Release|x86.ActiveCfg = Release|Any CPU
 		{2CC90343-9124-449D-AF48-096F1B4B21EF}.Release|x86.Build.0 = Release|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Debug|x64.Build.0 = Debug|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Debug|x86.Build.0 = Debug|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Release|x64.ActiveCfg = Release|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Release|x64.Build.0 = Release|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Release|x86.ActiveCfg = Release|Any CPU
-		{C9433434-2021-4108-970C-4E62AC85DB91}.Release|x86.Build.0 = Release|Any CPU
 		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DAD94F4-A7F4-4B1B-8D89-6C88B1414CDD}.Debug|x64.ActiveCfg = Debug|Any CPU

@@ -6,12 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="TimedJob" Version="2.0.0" />
-    <PackageReference Include="Yunyong.Cache.Register" Version="1.0.3" />
-    <PackageReference Include="Yunyong.Configuration" Version="1.0.4" />
-    <PackageReference Include="Yunyong.EventBus.EasyNetQ" Version="1.0.1" />
+    <PackageReference Include="Yunyong.Cache.Register" Version="1.0.4" />
+    <PackageReference Include="Yunyong.Configuration" Version="1.0.5" />
+    <PackageReference Include="Yunyong.EventBus.EasyNetQ" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>

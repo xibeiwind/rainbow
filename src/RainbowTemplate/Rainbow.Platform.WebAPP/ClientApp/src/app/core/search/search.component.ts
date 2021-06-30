@@ -32,7 +32,7 @@ export class SearchComponent implements OnInit {
 
   @Output()
   onsubmit: EventEmitter<Yunyong.Core.QueryOption> = new EventEmitter<Yunyong.Core.QueryOption>();
-  protected enumObj = {};
+  enumObj = {};
 
 
 

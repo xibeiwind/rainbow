@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -47,7 +48,8 @@ namespace Rainbow.Platform.WebAPP
 
             services.AddDbContext<RainbowDbContext>(opts =>
             {
-                opts.UseMySql(configuration.GetConnectionString("RainbowDB"));
+                var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
+                opts.UseMySql(configuration.GetConnectionString("RainbowDB"), serverVersion);
             });
 
             services.AddSingleton<IEntityRegisterService, RainbowEntityRegisterService>();

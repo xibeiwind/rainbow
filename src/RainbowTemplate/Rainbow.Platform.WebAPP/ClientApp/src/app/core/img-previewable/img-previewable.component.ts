@@ -10,13 +10,13 @@ export class ImgPreviewableComponent implements OnInit {
   @Input()
   src: string;
 
-  protected showPreview: boolean = false;
+  showPreview: boolean = false;
 
   @ViewChild('thumbnail', { static: true })
-  protected thumbnail: ElementRef;
+  thumbnail: ElementRef;
 
   @ViewChild('previewImg', { static: true })
-  protected preview: ElementRef;
+  preview: ElementRef;
 
   constructor() { }
 

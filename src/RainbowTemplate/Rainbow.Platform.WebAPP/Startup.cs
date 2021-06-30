@@ -125,7 +125,10 @@ namespace Rainbow.Platform.WebAPP
 
             app.RainbowInit().GetAwaiter().GetResult();
 
-            app.UseRainbowAuthorize();
+            app.UseRouting();
+
+            app.UseRainbowAuthentication();
+            app.UseAuthorization();
 
             app.UseStaticFiles();
             if (!env.IsDevelopment())

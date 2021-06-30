@@ -33,7 +33,7 @@ namespace Rainbow.Platform.Authorize
             return services;
         }
 
-        public static void UseRainbowAuthorize(this IApplicationBuilder app)
+        public static void UseRainbowAuthentication(this IApplicationBuilder app)
         {
             app.UseAuthentication();
         }

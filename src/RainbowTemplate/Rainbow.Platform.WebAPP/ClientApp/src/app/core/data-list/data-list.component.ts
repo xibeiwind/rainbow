@@ -14,8 +14,8 @@ import { DataListConfig } from './DataListConfig';
 export class DataListComponent implements OnInit {
   config: DataListConfig;
   selectIdObj = {};
-  
-  protected _fields: Rainbow.ViewModels.FieldDisplayVM[];
+  currentItem:any;
+  _fields: Rainbow.ViewModels.FieldDisplayVM[];
   enumObj = {};
   deleteItemId: string;
 
@@ -117,7 +117,7 @@ export class DataListComponent implements OnInit {
   }
 
   refreshList() {
-    this.onrefresh.next();
+    this.onrefresh.next(null);
   }
 
   extraAction(data: any) {
