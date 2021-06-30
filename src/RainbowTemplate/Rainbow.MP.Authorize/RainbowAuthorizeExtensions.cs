@@ -25,7 +25,7 @@ namespace Rainbow.MP.Authorize
             return services;
         }
 
-        public static void UseRainbowAuthorize(this IApplicationBuilder app)
+        public static void UseRainbowAuthentication(this IApplicationBuilder app)
         {
             app.UseAuthentication();
         }

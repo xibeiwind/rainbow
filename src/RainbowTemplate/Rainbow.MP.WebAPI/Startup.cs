@@ -92,7 +92,7 @@ namespace Rainbow.MP.WebAPI
 
             app.CosyPresentInit().Wait();
 
-            app.UseRainbowAuthorize();
+            app.UseRainbowAuthentication();
 
             app.UseSwagger();
 

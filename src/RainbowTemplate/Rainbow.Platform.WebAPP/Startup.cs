@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.Extensions.Configuration;
@@ -15,8 +13,6 @@ using Newtonsoft.Json.Serialization;
 using Rainbow.Platform.Authorize;
 
 using System;
-using System.Buffers;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Rainbow.Platform.WebAPP
@@ -67,23 +63,6 @@ namespace Rainbow.Platform.WebAPP
                 });
             });
 #endif
-
-            //services.AddMvc(options =>
-            //         {
-            //             options.EnableEndpointRouting = false;
-            //         })
-            //        .AddNewtonsoftJson(options =>
-            //         {
-            //             options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            //             options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            //             options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            //             options.SerializerSettings.DateParseHandling = DateParseHandling.DateTimeOffset;
-            //             options.SerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-            //             options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified;
-            //             options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            //         })
-            //        .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>

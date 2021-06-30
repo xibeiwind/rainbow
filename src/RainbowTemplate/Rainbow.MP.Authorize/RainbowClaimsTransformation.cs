@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authentication;
+using Rainbow.Services.CustomerInfos;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Rainbow.Services.CustomerInfos;
 
 namespace Rainbow.MP.Authorize
 {

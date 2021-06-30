@@ -1,15 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 using Rainbow.Common;
 using Rainbow.Common.Configs;
 using Rainbow.Data;
@@ -21,7 +14,10 @@ using Rainbow.Services.Users;
 using Rainbow.Services.Utils;
 using Rainbow.ViewModels.ClientModules;
 using Rainbow.ViewModels.ControllerProjects;
-
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using Yunyong.Cache;
 using Yunyong.Cache.Register;
 using Yunyong.Core;

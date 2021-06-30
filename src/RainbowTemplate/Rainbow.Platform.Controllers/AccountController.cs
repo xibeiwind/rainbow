@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Rainbow.Services.Users;
+using Rainbow.ViewModels.Users;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Rainbow.Common.Enums;
-using Rainbow.Services.Users;
-using Rainbow.ViewModels.Users;
 using Yunyong.Core;
 using Controller = Yunyong.Mvc.Controller;
 

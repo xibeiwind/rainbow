@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Rainbow.Services;
 using Rainbow.ViewModels;
+using System.Collections.Generic;
 using Yunyong.Core;
-using Yunyong.Mvc;
 using Controller = Yunyong.Mvc.Controller;
 
 namespace Rainbow.Platform.Controllers

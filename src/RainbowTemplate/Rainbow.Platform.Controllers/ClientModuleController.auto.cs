@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Rainbow.Services.ClientModules;
+using Rainbow.ViewModels.ClientModules;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Rainbow.Services.ClientModules;
-using Controller = Yunyong.Mvc.Controller;
-using Rainbow.ViewModels.ClientModules;
 using Yunyong.Core;
+using Controller = Yunyong.Mvc.Controller;
 
 namespace Rainbow.Platform.Controllers
 {
-	/// <summary>
+    /// <summary>
     ///     ClientModule Controller
     /// </summary>
     [Display(Name = "ClientModule Controller")]

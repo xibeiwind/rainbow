@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Rainbow.Services.Users;
+using Rainbow.ViewModels.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Rainbow.Services.Users;
-using Controller = Yunyong.Mvc.Controller;
-using Rainbow.ViewModels.Users;
 using Yunyong.Core;
+using Controller = Yunyong.Mvc.Controller;
 
 namespace Rainbow.Platform.Controllers
 {
-	/// <summary>
+    /// <summary>
     ///     User Controller
     /// </summary>
     [Display(Name = "User Controller")]

@@ -1,13 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Platform.WebAPP.HostingStartups;
 using Rainbow.Services.RoleInfos;
+using System.ComponentModel.DataAnnotations;
 
 [assembly: HostingStartup(typeof(RoleInfoStartup))]
 namespace Rainbow.Platform.WebAPP.HostingStartups
 {
-	/// <summary>
+    /// <summary>
     ///     RoleInfo Hosting Startup
     /// </summary>
     [Display(Name = "RoleInfo Hosting Startup")]

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Rainbow.Services;
 using Rainbow.ViewModels.Messages;
+using System;
+using System.Threading.Tasks;
 using Yunyong.Core;
 using Controller = Yunyong.Mvc.Controller;
 

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Platform.WebAPP.HostingStartups;
 using Rainbow.Services;
-using Rainbow.ViewModels;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 [assembly: HostingStartup(typeof(EnumDisplayStartup))]
 

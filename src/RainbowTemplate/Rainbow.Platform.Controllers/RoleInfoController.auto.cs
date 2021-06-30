@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Rainbow.Services.RoleInfos;
+using Rainbow.ViewModels.RoleInfos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Rainbow.Services.RoleInfos;
-using Controller = Yunyong.Mvc.Controller;
-using Rainbow.ViewModels.RoleInfos;
 using Yunyong.Core;
+using Controller = Yunyong.Mvc.Controller;
 
 namespace Rainbow.Platform.Controllers
 {
-	/// <summary>
+    /// <summary>
     ///     RoleInfo Controller
     /// </summary>
     [Display(Name = "RoleInfo Controller")]

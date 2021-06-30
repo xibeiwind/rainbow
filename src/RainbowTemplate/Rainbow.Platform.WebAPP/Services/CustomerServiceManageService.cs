@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Rainbow.Common;
 using Rainbow.Common.Enums;
 using Rainbow.Models;
-using Rainbow.Services.Users;
 using Rainbow.Services.Utils;
+using System.Linq;
+using System.Threading.Tasks;
 using Yunyong.Core;
 using Yunyong.DataExchange;
 using Yunyong.EventBus;

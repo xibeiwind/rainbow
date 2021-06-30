@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Rainbow.Services;
 using Rainbow.ViewModels;
+using System.Threading.Tasks;
 using Yunyong.Core;
 
 namespace Rainbow.Platform.Controllers
 {
+    /// <summary>
+    /// ViewModelDisplay
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class ViewModelDisplayController : Controller
@@ -36,7 +35,7 @@ namespace Rainbow.Platform.Controllers
         [HttpGet]
         [Route("ModelVMDisplays")]
         [ProducesDefaultResponseType(typeof(AsyncTaskTResult<ModelDisplaySuitVM>))]
-        public async Task<AsyncTaskTResult<ModelDisplaySuitVM>> GetModelVMDisplays([FromQuery]DisplayQueryVM vm)
+        public async Task<AsyncTaskTResult<ModelDisplaySuitVM>> GetModelVMDisplays([FromQuery] DisplayQueryVM vm)
         {
             return await QueryService.GetModelVMDisplays(vm.Name);
         }
