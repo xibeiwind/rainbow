@@ -1,0 +1,58 @@
+version: '3.4'
+
+services:
+
+
+  mysql:
+    image: mysql:5.7
+    # restart: always
+    env_file:
+      - ./.env/mysql.env
+    volumes:
+      - ./mysqlDB:/var/lib/mysql
+
+  dbadmin:
+    image: phpmyadmin/phpmyadmin
+    # restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - "13306:80"
+    depends_on:
+      - mysql      
+
+  redis:
+    image: redis
+    # container_name: redis
+    # restart: always
+    command: redis-server --requirepass RainbowCache123456
+    volumes:
+      - ./redis/data:/data
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - 8001:8001
+    depends_on:
+      - redis
+  rabbitmq:
+    image: rabbitmq:management
+    # container_name: rabbitmq
+    # restart: always
+    env_file:
+      - .env/rabbitmq.env
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+      - ./rabbitmq/:/var/lib/rabbitmq        # 防止log日志报failed to open log file
+      - ./rabbitmq/:/var/log/rabbitmq
+
+  rainbow.platform.webapp:
+    image: ${DOCKER_REGISTRY-}rainbowplatformwebapp
+    build:
+      context: .
+      dockerfile: Rainbow.Platform.WebAPP/Dockerfile
+    env_file:
+      - .env/webplatform.env

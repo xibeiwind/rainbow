@@ -14,6 +14,7 @@ using Rainbow.Services.Users;
 using Rainbow.Services.Utils;
 using Rainbow.ViewModels.ClientModules;
 using Rainbow.ViewModels.ControllerProjects;
+using StackExchange.Redis;
 using System;
 using System.IO;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace Rainbow.Platform.WebAPP
             services.RegisterRedisCache(cfg);
 
             services.AddSingleton<SecurityUtil>();
-            services.AddSingleton(new WebPathConfig {WebRootPath = environment.WebRootPath});
+            services.AddSingleton(new WebPathConfig { WebRootPath = environment.WebRootPath });
 
             services.AddDbContext<RainbowDbContext>(opts =>
             {
@@ -95,7 +96,39 @@ namespace Rainbow.Platform.WebAPP
                     var service = GetService<IRoleService>();
                     await service.Init();
                 }
+                {
+                    //public RedisCacheDatabaseProvider(RedisCacheDatabaseProviderConfig redisCacheDatabaseProviderConfig)
+                    //{
+                    //    _redisCacheDatabaseProviderConfig = redisCacheDatabaseProviderConfig;
+                    //    _connectionMultiplexer = ConnectionMultiplexer.Connect(_redisCacheDatabaseProviderConfig.ConnectionString);
+                    //}
+                    //var cacheServiceConfig = GetService<CacheServiceConfig>(); //configuration.Get<CacheServiceConfig>("CacheServiceConfig");
+                    //var redisCacheDatabaseProviderConfig = new RedisCacheDatabaseProviderConfig
+                    //{
+                    //    ConnectionString = $"{cacheServiceConfig.ConnectionString.Trim('"')}:{cacheServiceConfig.Port}"
+                    //    //ConnectionString = "192.168.0.20:6379"
+                    //};
 
+                    var cfg = GetService<CacheServiceConfig>();
+                    if (cfg != null)
+                    {
+                        try
+                        {
+                            var options = new ConfigurationOptions();
+                            options.EndPoints.Add(cfg.ConnectionString);
+                            options.SetDefaultPorts();
+                            options.Password = cfg.Password;
+
+                            var multiplexer = ConnectionMultiplexer.Connect(options);
+                        }
+                        catch (Exception)
+                        {
+
+                            throw;
+                        }
+
+                    }
+                }
                 {
                     var actionService = GetService<IControllerProjectActionService>();
                     var queryService = GetService<IControllerProjectQueryService>();

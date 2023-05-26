@@ -136,10 +136,10 @@ namespace Rainbow.Platform.WebAPP
 
                 spa.Options.SourcePath = "ClientApp";
                 spa.Options.StartupTimeout = TimeSpan.FromMinutes(2);
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
+                //if (env.IsDevelopment())
+                //{
+                //    spa.UseAngularCliServer(npmScript: "start");
+                //}
             });
         }
     }
