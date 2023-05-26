@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { stringify } from 'querystring';
+import { stringify } from 'qs';
 import { getHttpOptions } from './httpOptions';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class MessageService {
   public QueryAsync(option: Rainbow.ViewModels.Messages.MessageQueryOption)
     : Observable<Yunyong.Core.PagingList<Rainbow.ViewModels.Messages.MessageVM>> {
     return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.Messages.MessageVM>>
-      (`${this.baseUrl}api/Message/Query?${stringify(option)}`, { ...getHttpOptions() });
+      (`${this.baseUrl}api/Message/Query?${stringify(option, { allowDots: true })}`, { ...getHttpOptions() });
   }
 
   /**

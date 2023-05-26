@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { stringify } from 'querystring';
+import { stringify } from 'qs';
 import { getHttpOptions } from './httpOptions';
 
 @Injectable()
@@ -33,7 +33,7 @@ export class RoleInfoService {
   public QueryAsync(option: Rainbow.ViewModels.RoleInfos.QueryRoleInfoVM)
     : Observable<Yunyong.Core.PagingList<Rainbow.ViewModels.RoleInfos.RoleInfoVM>> {
     return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.RoleInfos.RoleInfoVM>>
-      (`${this.baseUrl}api/RoleInfo/Query?${stringify(option)}`, { ...getHttpOptions() });
+      (`${this.baseUrl}api/RoleInfo/Query?${stringify(option, { allowDots: true })}`, { ...getHttpOptions() });
   }
 
   /**

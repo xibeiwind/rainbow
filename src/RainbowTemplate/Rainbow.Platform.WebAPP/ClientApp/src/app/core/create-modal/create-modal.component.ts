@@ -20,7 +20,7 @@ export class CreateModalComponent implements OnInit {
   largeModal: boolean;
 
   @Output()
-  onsubmit: EventEmitter<any> = new EventEmitter<any>();
+  onsubmit: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('createTemplate', { static: true })
   template: TemplateRef<any>;

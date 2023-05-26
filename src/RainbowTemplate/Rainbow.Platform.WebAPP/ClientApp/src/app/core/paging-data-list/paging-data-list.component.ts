@@ -60,16 +60,16 @@ export class PagingDataListComponent implements OnInit {
   modelDisplayName: string;
 
   @Output()
-  oncreate: EventEmitter<any> = new EventEmitter<any>();
+  oncreate: EventEmitter<any> = new EventEmitter();
   @Output()
-  onupdate: EventEmitter<any> = new EventEmitter<any>();
+  onupdate: EventEmitter<any> = new EventEmitter();
   @Output()
   ondelete: EventEmitter<string> = new EventEmitter<string>();
   @Output()
-  oncurrentchanged: EventEmitter<any> = new EventEmitter<any>();
+  oncurrentchanged: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  onextraaction: EventEmitter<any> = new EventEmitter<any>();
+  onextraaction: EventEmitter<any> = new EventEmitter();
 
   @Output()
   onquery: EventEmitter<Yunyong.Core.PagingQueryOption> = new EventEmitter<Yunyong.Core.PagingQueryOption>();
@@ -127,7 +127,7 @@ export class PagingDataListComponent implements OnInit {
 
   showDeleteSwal(data: any) {
     this.deleteItemId = data.Id;
-    this.deleteSwal.show();
+    this.deleteSwal.fire();
   }
 
   extraAction(data: any) {

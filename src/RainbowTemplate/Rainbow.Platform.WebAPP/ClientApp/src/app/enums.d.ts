@@ -1,5 +1,5 @@
 // tslint:disable:no-namespace
-namespace Rainbow.Common.Enums {
+declare namespace Rainbow.Common.Enums {
   export const enum InputControlType {
     // Input
     Input = 'Input',
@@ -51,7 +51,7 @@ namespace Rainbow.Common.Enums {
     Misc = 'Misc'
   }
 }
-namespace System.ComponentModel.DataAnnotations {
+declare namespace System.ComponentModel.DataAnnotations {
   export const enum DataType {
     // Custom
     Custom = 0,
@@ -89,7 +89,7 @@ namespace System.ComponentModel.DataAnnotations {
     Upload = 16
   }
 }
-namespace Yunyong.Core {
+declare namespace Yunyong.Core {
   export const enum AsyncTaskStatus {
     // Success
     Success = 0,

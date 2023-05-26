@@ -14,14 +14,14 @@ import { DataListConfig } from './DataListConfig';
 export class DataListComponent implements OnInit {
   config: DataListConfig;
   selectIdObj = {};
-  
+
   protected _fields: Rainbow.ViewModels.FieldDisplayVM[];
   enumObj = {};
   deleteItemId: string;
 
   @Input()
   modelDisplayName: string;
-  
+
   value: {};
 
   @Input()
@@ -43,6 +43,8 @@ export class DataListComponent implements OnInit {
   @Input()
   data: any[];
 
+  currentItem: any;
+
   @ViewChild(CreateModalComponent, { static: true })
   createModal: CreateModalComponent;
   @ViewChild(EditModalComponent, { static: true })
@@ -50,21 +52,21 @@ export class DataListComponent implements OnInit {
   @ViewChild(SwalComponent, { static: true })
   deleteSwal: SwalComponent;
   @Output()
-  oncreate: EventEmitter<any> = new EventEmitter<any>();
+  oncreate: EventEmitter<any> = new EventEmitter();
   @Output()
-  onupdate: EventEmitter<any> = new EventEmitter<any>();
+  onupdate: EventEmitter<any> = new EventEmitter();
   @Output()
   ondelete: EventEmitter<string> = new EventEmitter<string>();
 
   @Output()
-  onrefresh: EventEmitter<any> = new EventEmitter<any>();
+  onrefresh: EventEmitter<void> = new EventEmitter();
 
   get createTitle(): string { return `创建${this.modelDisplayName}`; }
   get editTitle(): string { return `更新${this.modelDisplayName}`; }
 
   @Output()
-  onextraaction: EventEmitter<any> = new EventEmitter<any>();
-  
+  onextraaction: EventEmitter<any> = new EventEmitter();
+
   createFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
   editFields: Rainbow.ViewModels.FieldDisplayVM[] = [];
 
@@ -80,7 +82,7 @@ export class DataListComponent implements OnInit {
     return this.inputTypeService.getInputControlType(field);
   }
 
-  openCreateModal(){
+  openCreateModal() {
     this.createModal.openCreateModal(this.value);
   }
 
@@ -97,7 +99,7 @@ export class DataListComponent implements OnInit {
 
   showDeleteSwal(data: any) {
     this.deleteItemId = data.Id;
-    this.deleteSwal.show();
+    this.deleteSwal.fire();
   }
 
 

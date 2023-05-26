@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { stringify } from 'querystring';
+import { stringify } from 'qs';
 import { getHttpOptions } from './httpOptions';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ViewModelDisplayService {
   public GetVMDisplay(vm: Rainbow.ViewModels.DisplayQueryVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ViewModelDisplayVM>> {
     return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ViewModelDisplayVM>>
-      (`${this.baseUrl}api/ViewModelDisplay/VMDisplay?${stringify(vm)}`, { ...getHttpOptions() });
+      (`${this.baseUrl}api/ViewModelDisplay/VMDisplay?${stringify(vm, { allowDots: true })}`, { ...getHttpOptions() });
   }
 
   /**
@@ -24,6 +24,6 @@ export class ViewModelDisplayService {
   public GetModelVMDisplays(vm: Rainbow.ViewModels.DisplayQueryVM)
     : Observable<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ModelDisplaySuitVM>> {
     return this.http.get<Yunyong.Core.AsyncTaskTResult<Rainbow.ViewModels.ModelDisplaySuitVM>>
-      (`${this.baseUrl}api/ViewModelDisplay/ModelVMDisplays?${stringify(vm)}`, { ...getHttpOptions() });
+      (`${this.baseUrl}api/ViewModelDisplay/ModelVMDisplays?${stringify(vm, { allowDots: true })}`, { ...getHttpOptions() });
   }
 }

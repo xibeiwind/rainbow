@@ -20,13 +20,13 @@ export class EditFormComponent implements OnInit, AfterContentInit {
   @Input()
   largeModal: boolean;
   @Output()
-  onsubmit: EventEmitter<any> = new EventEmitter<any>();
+  onsubmit: EventEmitter<any> = new EventEmitter();
   editItemId: string;
   @Input()
   data: Yunyong.Core.ViewModels.VMBase | any = {};
 
   @Output()
-  oncancel: EventEmitter<any> = new EventEmitter();
+  oncancel: EventEmitter<void> = new EventEmitter();
   @Input()
   showCancelButton: boolean = true;
 

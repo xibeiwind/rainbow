@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { stringify } from 'querystring';
+import { stringify } from 'qs';
 import { getHttpOptions } from './httpOptions';
 
 @Injectable()
@@ -33,7 +33,7 @@ export class ClientModuleService {
   public QueryAsync(option: Rainbow.ViewModels.ClientModules.QueryClientModuleVM)
     : Observable<Yunyong.Core.PagingList<Rainbow.ViewModels.ClientModules.ClientModuleVM>> {
     return this.http.get<Yunyong.Core.PagingList<Rainbow.ViewModels.ClientModules.ClientModuleVM>>
-      (`${this.baseUrl}api/ClientModule/Query?${stringify(option)}`, { ...getHttpOptions() });
+      (`${this.baseUrl}api/ClientModule/Query?${stringify(option, { allowDots: true })}`, { ...getHttpOptions() });
   }
 
   /**
@@ -57,7 +57,7 @@ export class ClientModuleService {
   /**
    * 删除客户端模块
    */
-  public  DeleteAsync(vm: Rainbow.ViewModels.ClientModules.DeleteClientModuleVM)
+  public DeleteAsync(vm: Rainbow.ViewModels.ClientModules.DeleteClientModuleVM)
     : Observable<Yunyong.Core.AsyncTaskResult> {
     return this.http.delete<Yunyong.Core.AsyncTaskResult>
       (`${this.baseUrl}api/ClientModule/Delete`, { params: { ...vm }, ...getHttpOptions() });

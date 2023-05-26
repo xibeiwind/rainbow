@@ -69,7 +69,7 @@ export class ClientModuleComponent
 
   }
   createSubmit(data: any) {
-    this.service.CreateAsync(data).subscribe(res => {
+    this.service.CreateAsync(data).subscribe( res => {
       if (res.Status === Yunyong.Core.AsyncTaskStatus.Success) {
         this.toastr.info(`${this.modelDisplayName}创建成功`);
         this.pagingDataList.closeCreateModal();

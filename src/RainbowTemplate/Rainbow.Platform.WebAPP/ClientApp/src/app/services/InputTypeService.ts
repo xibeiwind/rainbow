@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class InputTypeService {
-  inputType = {};
+  inputType :any= {};
 
   constructor() {
     this.inputType[System.ComponentModel.DataAnnotations.DataType.DateTime] = 'date';

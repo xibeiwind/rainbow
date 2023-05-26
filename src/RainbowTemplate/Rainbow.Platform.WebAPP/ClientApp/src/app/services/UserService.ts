@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { stringify } from 'querystring';
+import { stringify } from 'qs';
 import { getHttpOptions } from './httpOptions';
 
 @Injectable()
@@ -33,7 +33,7 @@ export class UserService {
   public QueryAsync(option: Rainbow.ViewModels.Users.QueryUserVM)
     : Observable<any> {
     return this.http.get<any>
-      (`${this.baseUrl}api/User/Query?${stringify(option)}`, { ...getHttpOptions() });
+      (`${this.baseUrl}api/User/Query?${stringify(option, { allowDots: true })}`, { ...getHttpOptions() });
   }
 
   /**

@@ -19,7 +19,7 @@ export class EditModalComponent implements OnInit {
   @Input()
   largeModal: boolean;
   @Output()
-  onsubmit: EventEmitter<any> = new EventEmitter<any>();
+  onsubmit: EventEmitter<any> = new EventEmitter();
   @ViewChild('editTemplate', { static: true })
   template: TemplateRef<any>;
   editItemId: string;

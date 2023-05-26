@@ -49,7 +49,7 @@
     <div>
       <pagination [totalItems]="pagingData.TotalCount"
         [(ngModel)]="pagingData.PageIndex"
-        [(itemsPerPage)]="config.pageSize"
+        [itemsPerPage]="config.pageSize"
         (pageChanged)="pageChanged($event)"
         [boundaryLinks]="true"
         [maxSize]="config.maxSize"
@@ -181,7 +181,7 @@
     <div>
       <pagination [totalItems]="pagingData.TotalCount"
         [(ngModel)]="pagingData.PageIndex"
-        [(itemsPerPage)]="config.pageSize"
+        [itemsPerPage]="config.pageSize"
         (pageChanged)="pageChanged($event)"
         [boundaryLinks]="true"
         [maxSize]="config.maxSize"

@@ -18,7 +18,7 @@ export class ItemDetailComponent implements OnInit {
   item: any = {};
 
   @Output()
-  onrefresh: EventEmitter<any> = new EventEmitter<any>();
+  onrefresh: EventEmitter<void> = new EventEmitter();
 
   @Input()
   get fields(): Rainbow.ViewModels.FieldDisplayVM[] {

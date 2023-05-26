@@ -48,6 +48,7 @@ export abstract class EditableListViewComponent<ModelVM> {
 
   private getFieldsAsync(type: Rainbow.Common.Enums.VMType, fieldName: string, typeName: string) {
     this.displayService.GetVMDisplay({ Name: typeName }).subscribe(res => {
+      // Yunyong.Core.AsyncTaskStatus.Success
       if (res.Status === Yunyong.Core.AsyncTaskStatus.Success) {
         this.fieldGroup[fieldName] = {
           type: type,

@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { stringify } from 'querystring';
+import { stringify } from 'qs';
 import { getHttpOptions } from './httpOptions';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class LookupQueryService {
   public QueryAsync(vm: Rainbow.ViewModels.Utils.LookupQueryVM)
     : Observable<Rainbow.ViewModels.Utils.LookupResultVM[]> {
     return this.http.get<Rainbow.ViewModels.Utils.LookupResultVM[]>
-      (`${this.baseUrl}api/LookupQuery/Query?${stringify(vm)}`, { ...getHttpOptions() });
+      (`${this.baseUrl}api/LookupQuery/Query?${stringify(vm, { allowDots: true })}`, { ...getHttpOptions() });
   }
 
   /**
@@ -24,6 +24,6 @@ export class LookupQueryService {
   public GetAsync(vm: Rainbow.ViewModels.Utils.LookupQueryVM)
     : Observable<Rainbow.ViewModels.Utils.LookupResultVM> {
     return this.http.get<Rainbow.ViewModels.Utils.LookupResultVM>
-      (`${this.baseUrl}api/LookupQuery/?${stringify(vm)}`, { ...getHttpOptions() });
+      (`${this.baseUrl}api/LookupQuery/?${stringify(vm, { allowDots: true })}`, { ...getHttpOptions() });
   }
 }

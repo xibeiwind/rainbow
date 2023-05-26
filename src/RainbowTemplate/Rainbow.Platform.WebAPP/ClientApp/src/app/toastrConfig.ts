@@ -17,6 +17,7 @@ export const toastrConfig: GlobalConfig = {
   timeOut: 1000,
   closeButton: false,
   extendedTimeOut: 1000,
+  includeTitleDuplicates: false,
   progressBar: false,
   progressAnimation: 'decreasing',
   enableHtml: false,
