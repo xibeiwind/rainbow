@@ -1,15 +1,12 @@
 version: '3.4'
-
 services:
-
-
   mysql:
     image: mysql:5.7
     # restart: always
     env_file:
       - ./.env/mysql.env
     volumes:
-      - ./mysqlDB:/var/lib/mysql
+      - ./volumes/mysqlDB:/var/lib/mysql
 
   dbadmin:
     image: phpmyadmin/phpmyadmin
@@ -28,7 +25,7 @@ services:
     # restart: always
     command: redis-server --requirepass RainbowCache123456
     volumes:
-      - ./redis/data:/data
+      - ./volumes/redis/data:/data
 
   redisinsight:
     image: redislabs/redisinsight:latest
@@ -44,10 +41,9 @@ services:
       - .env/rabbitmq.env
     ports:
       - 15672:15672
-      - 5672:5672
     volumes:
-      - ./rabbitmq/:/var/lib/rabbitmq        # 防止log日志报failed to open log file
-      - ./rabbitmq/:/var/log/rabbitmq
+      - ./volumes/rabbitmq/:/var/lib/rabbitmq        # 防止log日志报failed to open log file
+      - ./volumes/rabbitmq/:/var/log/rabbitmq
 
   rainbow.platform.webapp:
     image: ${DOCKER_REGISTRY-}rainbowplatformwebapp
@@ -55,4 +51,15 @@ services:
       context: .
       dockerfile: Rainbow.Platform.WebAPP/Dockerfile
     env_file:
-      - .env/webplatform.env
+      - ./.env/webplatform.env
+  nginx:
+    image: nginx:latest
+    container_name: Nginx
+    # restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./volumes/nginx/conf/:/etc/nginx/conf.d/
+      - ./volumes/nginx/log:/var/log/nginx
+    depends_on:
+      - rainbow.platform.webapp

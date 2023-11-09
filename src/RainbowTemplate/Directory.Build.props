@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>default</LangVersion>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+</Project>
